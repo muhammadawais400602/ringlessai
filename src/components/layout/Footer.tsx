@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { Share2, Network, Code, MonitorPlay, Activity } from "lucide-react";
 
 const productLinks = [
-  { label: "AI Cold Calling", href: "/features" },
+  { label: "AI Cold Calling", href: "/features/ai-calling" },
   { label: "Power Dialer", href: "/features" },
-  { label: "Live Rebuttals", href: "/features" },
-  { label: "Omnichannel Follow-up", href: "/features" },
+  { label: "Live Rebuttals", href: "/features/objection-rebuttals" },
+  { label: "Omnichannel Follow-up", href: "/features/omnichannel" },
   { label: "Telephony & SIP", href: "/features" },
   { label: "Changelog", href: "#" },
 ];
@@ -25,39 +26,52 @@ const legalLinks = [
   { label: "Status", href: "#" },
 ];
 
+const socialIcons = [
+  { icon: Share2, label: "Share" },
+  { icon: Network, label: "Network" },
+  { icon: Code, label: "Code" },
+  { icon: MonitorPlay, label: "Media" },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-[#0D0A1C] text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          <div className="lg:col-span-2">
+    <footer className="w-full bg-[#213145] text-[#eaf1ff] relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#7c3aed] shadow-[0_0_12px_rgba(124,58,237,0.8)]" />
+
+      <div className="max-w-[75rem] mx-auto px-4 lg:px-8 pt-24 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+          <div className="lg:col-span-4 flex flex-col">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M4 6L8 2L12 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M4 10L8 14L12 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="w-9 h-9 rounded-xl bg-[#630ed4] flex items-center justify-center">
+                <Activity className="w-5 h-5 text-white" />
               </div>
-              <span className="text-white font-bold text-lg">Vocalis<span className="text-purple-300">AI</span></span>
+              <span className="text-[20px] font-bold tracking-tight text-white">
+                Vocalis<span className="text-[#d2bbff] font-bold ml-0.5">AI</span>
+              </span>
             </Link>
-            <p className="text-sm text-gray-400 max-w-xs mb-6">
+            <p className="text-base text-[#cbdbf5] mb-6 max-w-sm leading-relaxed">
               The autonomous cold-calling engine that books qualified meetings while you sleep.
             </p>
             <div className="flex items-center gap-3">
-              {["share", "sun", "code", "monitor"].map((icon) => (
-                <div key={icon} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                  <div className="w-4 h-4 bg-gray-400 rounded-sm" />
-                </div>
+              {socialIcons.map(({ icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-full bg-[#676577]/40 flex items-center justify-center hover:bg-[#630ed4] text-[#cbdbf5] hover:text-white transition-all"
+                >
+                  <Icon className="w-[18px] h-[18px]" />
+                </a>
               ))}
             </div>
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Product</h4>
-            <ul className="space-y-3">
+          <div className="lg:col-span-3 flex flex-col">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Product</span>
+            <ul className="flex flex-col gap-2">
               {productLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-[#cbdbf5] hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -65,16 +79,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Company</h4>
-            <ul className="space-y-3">
+          <div className="lg:col-span-3 flex flex-col">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Company</span>
+            <ul className="flex flex-col gap-2">
               {companyLinks.map((link) => (
                 <li key={link.label} className="flex items-center gap-2">
-                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-[#cbdbf5] hover:text-white transition-colors">
                     {link.label}
                   </Link>
                   {link.badge && (
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full font-medium">
+                    <span className="text-[11px] bg-[#630ed4]/30 text-[#eaddff] px-2 py-0.5 rounded-full font-semibold">
                       {link.badge}
                     </span>
                   )}
@@ -83,12 +97,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Legal & Trust</h4>
-            <ul className="space-y-3">
+          <div className="lg:col-span-2 flex flex-col">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Legal & Trust</span>
+            <ul className="flex flex-col gap-2">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-[#cbdbf5] hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -96,14 +110,12 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-500">© 2025 Vocalis AI, Inc. Built for closers.</p>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-xs text-gray-500">All systems operational</span>
+        <div className="pt-6 border-t border-[#676577]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[#cbdbf5]">© 2025 Vocalis AI, Inc. Built for closers.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#676577]/30">
+            <span className="w-2 h-2 rounded-full bg-[#d2bbff] animate-pulse" />
+            <span className="text-xs font-semibold text-[#eaddff]">All systems operational</span>
           </div>
         </div>
       </div>

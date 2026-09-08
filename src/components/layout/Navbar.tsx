@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, ArrowRight, Activity } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -18,84 +18,83 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0D0A1C]/95 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 2L12 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M4 10L8 14L12 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <span className="text-white font-bold text-lg">Vocalis<span className="text-primary-light">AI</span></span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.href
-                    ? "text-white bg-white/10"
-                    : "text-gray-300 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-all duration-300">
+      <div className="h-20 max-w-[75rem] mx-auto px-4 lg:px-8 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 rounded-xl bg-[#630ed4] flex items-center justify-center shadow-[0_4px_16px_rgba(99,14,212,0.25)] group-hover:scale-105 transition-transform">
+            <Activity className="w-[22px] h-[22px] text-white" />
           </div>
+          <span className="text-[20px] font-bold tracking-tight text-[#0b1c30]">
+            Vocalis<span className="text-[#630ed4] font-bold ml-0.5">AI</span>
+          </span>
+        </Link>
 
-          <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm text-gray-300 hover:text-white transition-colors">
-              Login
-            </Link>
+        <nav className="hidden lg:flex items-center gap-1 px-2 py-1 bg-[#eff4ff]/70 rounded-full">
+          {navLinks.map((link) => (
             <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+              key={link.href}
+              href={link.href}
+              className={`px-4 py-2 text-sm font-semibold rounded-full transition-all ${
+                pathname === link.href
+                  ? "bg-[#e3e0f1] text-[#1b1a26] font-bold"
+                  : "text-[#4a4455] hover:bg-[#e3e0f1] hover:text-[#1b1a26]"
+              }`}
             >
-              Start Free Trial
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              {link.label}
             </Link>
-            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-              <User className="w-4 h-4 text-primary" />
-            </div>
-          </div>
+          ))}
+        </nav>
 
-          <button
-            className="md:hidden text-gray-300 hover:text-white"
-            onClick={() => setMobileOpen(!mobileOpen)}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link
+            href="/login"
+            className="text-sm font-semibold text-[#4a4455] hover:text-[#0b1c30] px-3 py-2 transition-colors"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            Login
+          </Link>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-1 bg-[#630ed4] hover:bg-[#7c3aed] text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-[0_4px_20px_rgba(99,14,212,0.3)] hover:shadow-[0_6px_24px_rgba(124,58,237,0.45)] active:scale-95 transition-all"
+          >
+            Start Free Trial
+            <ArrowRight className="w-[18px] h-[18px]" />
+          </Link>
+          <div className="w-8 h-8 rounded-full bg-[#630ed4] flex items-center justify-center shrink-0">
+            <User className="w-[18px] h-[18px] text-white" />
+          </div>
         </div>
+
+        <button
+          className="lg:hidden text-[#4a4455] hover:text-[#0b1c30] p-2"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle Navigation Menu"
+        >
+          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0D0A1C] border-t border-white/10">
+        <div className="lg:hidden bg-white border-t border-[#ccc3d8]/30">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-2.5 rounded-lg text-sm font-medium ${
+                className={`block px-4 py-2.5 rounded-full text-sm font-semibold ${
                   pathname === link.href
-                    ? "text-white bg-white/10"
-                    : "text-gray-300 hover:text-white"
+                    ? "bg-[#e3e0f1] text-[#1b1a26] font-bold"
+                    : "text-[#4a4455] hover:bg-[#eff4ff]"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-              <Link href="/login" className="px-4 py-2.5 text-sm text-gray-300">Login</Link>
+            <div className="pt-3 border-t border-[#ccc3d8]/30 flex flex-col gap-2">
+              <Link href="/login" className="px-4 py-2.5 text-sm text-[#4a4455]">Login</Link>
               <Link
                 href="/pricing"
-                className="mx-4 text-center bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
+                className="mx-4 text-center bg-[#630ed4] text-white text-sm font-semibold px-5 py-2.5 rounded-full"
               >
                 Start Free Trial →
               </Link>
@@ -103,6 +102,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

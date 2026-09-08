@@ -1,18 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
+  --background: #f8f9ff;
+  --foreground: #0b1c30;
   --primary: #7C3AED;
-  --primary-dark: #6D28D9;
-  --primary-light: #EDE9FE;
-  --hero-bg: #0D0A1C;
-  --hero-gradient-start: #1a1040;
-  --hero-gradient-end: #0D0A1C;
-  --text-muted: #6B7280;
-  --border: #E5E7EB;
+  --primary-dark: #630ed4;
+  --primary-light: #eaddff;
+  --primary-light-dim: #d2bbff;
+  --hero-bg: #213145;
+  --hero-gradient-start: #213145;
+  --hero-gradient-end: #213145;
+  --text-muted: #5e5d6b;
+  --text-variant: #4a4455;
+  --border: #ccc3d8;
   --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
   --section-label: #7C3AED;
+  --surface: #f8f9ff;
+  --surface-low: #eff4ff;
+  --surface-container: #e5eeff;
+  --surface-high: #dce9ff;
+  --surface-highest: #d3e4fe;
+  --surface-dim: #cbdbf5;
+  --secondary-container: #e3e0f1;
+  --inverse-surface: #213145;
+  --inverse-on-surface: #eaf1ff;
 }
 
 @theme inline {
@@ -23,7 +34,16 @@
   --color-primary-light: var(--primary-light);
   --color-hero-bg: var(--hero-bg);
   --color-muted: var(--text-muted);
+  --color-variant: var(--text-variant);
   --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-high: var(--surface-high);
+  --color-surface-dim: var(--surface-dim);
+  --color-secondary-container: var(--secondary-container);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -36,8 +56,8 @@ body {
 
 .section-label {
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--primary);
 }
@@ -50,7 +70,7 @@ body {
 }
 
 .hero-gradient {
-  background: linear-gradient(180deg, #1a1040 0%, #0D0A1C 100%);
+  background: linear-gradient(180deg, #213145 0%, #213145 100%);
 }
 
 .purple-glow {
@@ -58,5 +78,10 @@ body {
 }
 
 .cta-gradient {
-  background: linear-gradient(135deg, #1a1040 0%, #2d1b69 50%, #1a1040 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary) 100%);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#7c3aed 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
 }

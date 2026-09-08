@@ -78,26 +78,26 @@ export default function ContactPage() {
   }
 
   const inputBase =
-    "w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors";
-  const inputNormal = "border-gray-200 focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/10";
+    "w-full rounded-lg border bg-white px-4 py-3 text-sm text-[#0b1c30] placeholder-[#4a4455] outline-none transition-colors";
+  const inputNormal = "border-[#ccc3d8] focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/10";
   const inputError = "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-500/10";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8f9ff]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#f5f3ff] via-[#faf9ff] to-white pt-32 pb-16">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#eaddff] via-[#f8f9ff] to-white pt-32 pb-16">
         <div className="mx-auto max-w-6xl px-6 text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
             <span className="inline-block h-2 w-2 rounded-full bg-orange-400" />
             Get in Touch
           </div>
 
-          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-5xl">
             Let&apos;s Talk About Accelerating{" "}
             <span className="gradient-text">Your Outbound Sales</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-500">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5e5d6b]">
             Custom telephony infrastructure, high-volume minutes, and autonomous
             AI cold-calling tailored to your pipeline goals.
           </p>
@@ -112,7 +112,7 @@ export default function ContactPage() {
             {/* Direct Routing Header */}
             <div className="flex items-center justify-between">
               <span className="section-label">Direct Routing</span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500">
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5e5d6b]">
                 <Clock className="h-3.5 w-3.5" />
                 Avg Response &lt; 8m
               </span>
@@ -155,20 +155,20 @@ export default function ContactPage() {
             </div>
 
             {/* Demo Call Section */}
-            <div className="rounded-xl border border-gray-100 bg-gray-50 p-5">
+            <div className="rounded-xl border border-[#ccc3d8] bg-[#eff4ff] p-5">
               <div className="mb-2 flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-[#7C3AED]" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
                   Direct Engineering Walkthrough
                 </span>
               </div>
-              <p className="mb-3 text-sm text-gray-600">
+              <p className="mb-3 text-sm text-[#5e5d6b]">
                 Want a live walkthrough of the AI rebuttal engine and Telnyx
                 setup?
               </p>
               <a
                 href="#"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7C3AED] transition-colors hover:text-[#6D28D9]"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7C3AED] transition-colors hover:text-[#630ed4]"
               >
                 Book a Live Demo Call
                 <ArrowRight className="h-4 w-4" />
@@ -178,10 +178,10 @@ export default function ContactPage() {
 
           {/* Right Column - Form */}
           <div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div className="rounded-2xl border border-[#ccc3d8] bg-white p-8 shadow-sm">
               <div className="mb-6">
                 <div className="mb-1 flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-[#0b1c30]">
                     Initiate Discussion
                   </h2>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
@@ -189,7 +189,7 @@ export default function ContactPage() {
                     Rep Available
                   </span>
                 </div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#5e5d6b]">
                   Direct route to solutions architects and telephony engineers.
                 </p>
               </div>
@@ -199,10 +199,10 @@ export default function ContactPage() {
                   <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
                     <Zap className="h-6 w-6 text-emerald-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-[#0b1c30]">
                     Message Received
                   </h3>
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-[#5e5d6b]">
                     A solutions architect will be in touch within 8 minutes.
                   </p>
                 </div>
@@ -260,7 +260,7 @@ export default function ContactPage() {
                         Phone Number
                       </label>
                       <div className="flex">
-                        <span className="inline-flex items-center rounded-l-lg border border-r-0 border-gray-200 bg-gray-50 px-3 text-sm text-gray-500">
+                        <span className="inline-flex items-center rounded-l-lg border border-r-0 border-[#ccc3d8] bg-[#eff4ff] px-3 text-sm text-[#5e5d6b]">
                           +1
                         </span>
                         <input
@@ -286,7 +286,7 @@ export default function ContactPage() {
                         value={form.inquiryFocus}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`${inputBase} appearance-none pr-10 ${isError("inquiryFocus") ? inputError : inputNormal} ${!form.inquiryFocus ? "text-gray-400" : "text-gray-900"}`}
+                        className={`${inputBase} appearance-none pr-10 ${isError("inquiryFocus") ? inputError : inputNormal} ${!form.inquiryFocus ? "text-[#4a4455]" : "text-[#0b1c30]"}`}
                       >
                         <option value="">Select inquiry type</option>
                         {inquiryOptions.slice(1).map((opt) => (
@@ -295,7 +295,7 @@ export default function ContactPage() {
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4a4455]" />
                     </div>
                   </div>
 
@@ -319,14 +319,14 @@ export default function ContactPage() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7C3AED] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7C3AED] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#630ed4]"
                   >
                     Send Message
                     <ArrowRight className="h-4 w-4" />
                   </button>
 
                   {/* Privacy Note */}
-                  <p className="text-center text-xs leading-relaxed text-gray-400">
+                  <p className="text-center text-xs leading-relaxed text-[#4a4455]">
                     We respect your privacy. No spam ever. SOC-2 Type II
                     Certified & GDPR Compliant.
                   </p>
@@ -351,7 +351,7 @@ export default function ContactPage() {
       </section>
 
       {/* Office Locations */}
-      <section className="border-t border-gray-100 bg-gray-50 py-16">
+      <section className="border-t border-[#ccc3d8] bg-[#eff4ff] py-16">
         <div className="mx-auto max-w-6xl px-6">
           <span className="section-label mb-8 block">Office Hubs</span>
 
@@ -385,16 +385,16 @@ function ContactCard({
   return (
     <a
       href={`mailto:${email}`}
-      className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4 transition-all hover:border-gray-200 hover:shadow-sm"
+      className="flex items-center gap-4 rounded-xl border border-[#ccc3d8] bg-white p-4 transition-all hover:border-[#ccc3d8] hover:shadow-sm"
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#f5f3ff]">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#eaddff]">
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-semibold text-gray-900">{title}</div>
-        <div className="text-sm text-gray-500">{email}</div>
+        <div className="text-sm font-semibold text-[#0b1c30]">{title}</div>
+        <div className="text-sm text-[#5e5d6b]">{email}</div>
       </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-gray-300" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-[#cbdbf5]" />
     </a>
   );
 }
@@ -407,11 +407,11 @@ function TrustBadge({
   sublabel: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-center">
-      <div className="text-xs font-bold tracking-wider text-gray-900">
+    <div className="rounded-xl border border-[#ccc3d8] bg-[#eff4ff] px-4 py-3 text-center">
+      <div className="text-xs font-bold tracking-wider text-[#0b1c30]">
         {label}
       </div>
-      <div className="mt-0.5 text-[11px] text-gray-400">{sublabel}</div>
+      <div className="mt-0.5 text-[11px] text-[#4a4455]">{sublabel}</div>
     </div>
   );
 }
@@ -426,12 +426,12 @@ function OfficeCard({
   location: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-6">
+    <div className="rounded-xl border border-[#ccc3d8] bg-white p-6">
       <div className="mb-3 flex items-center gap-2">
         <MapPin className="h-4 w-4 text-[#7C3AED]" />
-        <span className="text-sm font-bold text-gray-900">{city}</span>
+        <span className="text-sm font-bold text-[#0b1c30]">{city}</span>
       </div>
-      <p className="text-sm leading-relaxed text-gray-500">
+      <p className="text-sm leading-relaxed text-[#5e5d6b]">
         {address}
         <br />
         {location}

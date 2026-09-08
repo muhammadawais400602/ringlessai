@@ -20,7 +20,7 @@ const plans = [
   {
     name: "Starter",
     badge: "Solo / Trial",
-    badgeColor: "bg-gray-100 text-gray-700",
+    badgeColor: "bg-[#e5eeff] text-[#0b1c30]",
     monthlyPrice: 29,
     annualPrice: 20,
     subtitle: "For solo founders and early SDRs testing cold outreach cadence.",
@@ -41,7 +41,7 @@ const plans = [
   {
     name: "Pro Cadence",
     badge: "High Velocity",
-    badgeColor: "bg-purple-100 text-purple-700",
+    badgeColor: "bg-[#eaddff] text-purple-700",
     monthlyPrice: 49,
     annualPrice: 34,
     subtitle:
@@ -205,26 +205,26 @@ const transcriptLines = [
 function CellValue({ value }: { value: string | boolean }) {
   if (value === true)
     return (
-      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-100">
-        <Check className="w-4 h-4 text-purple-600" />
+      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#eaddff]">
+        <Check className="w-4 h-4 text-[#630ed4]" />
       </span>
     );
   if (value === false)
-    return <Minus className="w-4 h-4 text-gray-300 mx-auto" />;
-  return <span className="text-sm text-gray-700">{value}</span>;
+    return <Minus className="w-4 h-4 text-[#cbdbf5] mx-auto" />;
+  return <span className="text-sm text-[#0b1c30]">{value}</span>;
 }
 
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-200">
+    <div className="border-b border-[#ccc3d8]">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left cursor-pointer"
       >
-        <span className="text-base font-medium text-gray-900 pr-4">{q}</span>
+        <span className="text-base font-medium text-[#0b1c30] pr-4">{q}</span>
         <ChevronDown
-          className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-200 ${
+          className={`w-5 h-5 text-[#4a4455] shrink-0 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -234,7 +234,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
           open ? "max-h-60 pb-5" : "max-h-0"
         }`}
       >
-        <p className="text-sm leading-relaxed text-gray-600">{a}</p>
+        <p className="text-sm leading-relaxed text-[#5e5d6b]">{a}</p>
       </div>
     </div>
   );
@@ -248,12 +248,12 @@ export default function PricingPage() {
   const [annual, setAnnual] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8f9ff]">
       {/* ── Hero ─────────────────────────────────────────────────── */}
       <section
         className="relative overflow-hidden"
         style={{
-          background: "linear-gradient(180deg, #1a1040 0%, #0D0A1C 100%)",
+          background: "linear-gradient(180deg, #213145 0%, #213145 100%)",
         }}
       >
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-20 text-center relative z-10">
@@ -266,7 +266,7 @@ export default function PricingPage() {
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 gradient-text">
             Pricing
           </h1>
-          <p className="text-gray-400 max-w-xl mx-auto mb-10 text-base leading-relaxed">
+          <p className="text-[#cbdbf5] max-w-xl mx-auto mb-10 text-base leading-relaxed">
             Choose the dialer cadence that fits your outbound motion. Scale up
             or down anytime — no contracts, no hidden fees.
           </p>
@@ -277,8 +277,8 @@ export default function PricingPage() {
               onClick={() => setAnnual(false)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 !annual
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-white text-[#0b1c30] shadow-sm"
+                  : "text-[#cbdbf5] hover:text-white"
               }`}
             >
               Monthly Billing
@@ -287,12 +287,12 @@ export default function PricingPage() {
               onClick={() => setAnnual(true)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer flex items-center gap-2 ${
                 annual
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-white text-[#0b1c30] shadow-sm"
+                  : "text-[#cbdbf5] hover:text-white"
               }`}
             >
               Annual Billing
-              <span className="text-[10px] font-bold uppercase tracking-wide bg-purple-600 text-white px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold uppercase tracking-wide bg-[#630ed4] text-white px-2 py-0.5 rounded-full">
                 Save 30% + 3 Mo Free
               </span>
             </button>
@@ -311,7 +311,7 @@ export default function PricingPage() {
             <div key={plan.name} className="relative">
               {plan.highlighted && (
                 <div className="text-center mb-3">
-                  <span className="inline-block text-xs font-bold tracking-[0.1em] uppercase text-purple-600 bg-purple-50 border border-purple-200 px-4 py-1.5 rounded-full">
+                  <span className="inline-block text-xs font-bold tracking-[0.1em] uppercase text-[#630ed4] bg-[#eaddff] border border-purple-200 px-4 py-1.5 rounded-full">
                     Most Popular / Best Value
                   </span>
                 </div>
@@ -319,13 +319,13 @@ export default function PricingPage() {
               <div
                 className={`rounded-2xl border p-8 transition-all ${
                   plan.highlighted
-                    ? "border-purple-500 border-t-4 border-t-purple-600 shadow-xl shadow-purple-500/10 bg-white scale-[1.02]"
-                    : "border-gray-200 bg-white hover:shadow-lg"
+                    ? "border-purple-500 border-t-4 border-t-[#630ed4] shadow-xl shadow-purple-500/10 bg-white scale-[1.02]"
+                    : "border-[#ccc3d8] bg-white hover:shadow-lg"
                 }`}
               >
                 {/* Plan name & badge */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-bold text-[#0b1c30]">
                     {plan.name}
                   </h3>
                   {plan.badge && (
@@ -341,31 +341,31 @@ export default function PricingPage() {
                 <div className="mb-1">
                   {plan.monthlyPrice !== null ? (
                     <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-extrabold text-gray-900">
+                      <span className="text-4xl font-extrabold text-[#0b1c30]">
                         ${annual ? plan.annualPrice : plan.monthlyPrice}
                       </span>
-                      <span className="text-gray-500 text-base">/month</span>
+                      <span className="text-[#5e5d6b] text-base">/month</span>
                     </div>
                   ) : (
-                    <span className="text-4xl font-extrabold text-gray-900">
+                    <span className="text-4xl font-extrabold text-[#0b1c30]">
                       Custom
                     </span>
                   )}
                 </div>
 
                 {plan.billingNote && !annual && (
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#4a4455] mb-3">
                     {plan.billingNote}
                   </p>
                 )}
                 {annual && plan.monthlyPrice !== null && (
-                  <p className="text-xs text-purple-600 font-medium mb-3">
+                  <p className="text-xs text-[#630ed4] font-medium mb-3">
                     billed annually + 3 months free
                   </p>
                 )}
 
                 {/* Subtitle */}
-                <p className="text-sm text-gray-500 leading-relaxed mb-6 min-h-[40px]">
+                <p className="text-sm text-[#5e5d6b] leading-relaxed mb-6 min-h-[40px]">
                   {plan.subtitle}
                 </p>
 
@@ -373,20 +373,20 @@ export default function PricingPage() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-purple-600 mt-0.5 shrink-0" />
-                      <span className="text-sm text-gray-700">{f}</span>
+                      <Check className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+                      <span className="text-sm text-[#0b1c30]">{f}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* CTA */}
                 {plan.ctaStyle === "filled" ? (
-                  <button className="w-full py-3 px-6 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                  <button className="w-full py-3 px-6 rounded-xl bg-[#630ed4] hover:bg-purple-700 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer">
                     {plan.cta}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 ) : (
-                  <button className="w-full py-3 px-6 rounded-xl border-2 border-gray-200 hover:border-purple-600 text-gray-900 hover:text-purple-600 font-semibold text-sm transition-colors cursor-pointer">
+                  <button className="w-full py-3 px-6 rounded-xl border-2 border-[#ccc3d8] hover:border-[#630ed4] text-[#0b1c30] hover:text-[#630ed4] font-semibold text-sm transition-colors cursor-pointer">
                     {plan.cta}
                   </button>
                 )}
@@ -401,7 +401,7 @@ export default function PricingPage() {
         <div
           className="rounded-3xl overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #1a1040, #0D0A1C)",
+            background: "linear-gradient(135deg, #213145, #213145)",
           }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -418,7 +418,7 @@ export default function PricingPage() {
                 <br />
                 Voice Engine
               </h2>
-              <p className="text-gray-400 text-sm leading-relaxed mb-8">
+              <p className="text-[#cbdbf5] text-sm leading-relaxed mb-8">
                 Sub-25ms latency powered by dedicated SIP trunks and edge
                 compute. Every call is crystal-clear with STIR/SHAKEN
                 attestation, adaptive jitter buffering, and AI-powered noise
@@ -434,7 +434,7 @@ export default function PricingPage() {
                       &lt;25ms
                     </span>
                   </div>
-                  <span className="text-[11px] text-gray-500 uppercase tracking-wide">
+                  <span className="text-[11px] text-[#cbdbf5] uppercase tracking-wide">
                     Response
                   </span>
                 </div>
@@ -443,7 +443,7 @@ export default function PricingPage() {
                     <Phone className="w-4 h-4 text-purple-400" />
                     <span className="text-xl font-bold text-white">99.4%</span>
                   </div>
-                  <span className="text-[11px] text-gray-500 uppercase tracking-wide">
+                  <span className="text-[11px] text-[#cbdbf5] uppercase tracking-wide">
                     VM Detection
                   </span>
                 </div>
@@ -454,7 +454,7 @@ export default function PricingPage() {
                       STIR/SHAKEN
                     </span>
                   </div>
-                  <span className="text-[11px] text-gray-500 uppercase tracking-wide">
+                  <span className="text-[11px] text-[#cbdbf5] uppercase tracking-wide">
                     A-Attestation
                   </span>
                 </div>
@@ -466,7 +466,7 @@ export default function PricingPage() {
               <div className="w-full space-y-4">
                 <div className="flex items-center gap-2 mb-6">
                   <Bot className="w-4 h-4 text-purple-400" />
-                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  <span className="text-xs font-medium text-[#cbdbf5] uppercase tracking-wide">
                     Live Call Transcript
                   </span>
                   <span className="ml-auto flex items-center gap-1.5">
@@ -485,7 +485,7 @@ export default function PricingPage() {
                       className={`text-[11px] font-semibold uppercase tracking-wide mt-1 shrink-0 w-16 ${
                         line.speaker === "Vocalis"
                           ? "text-purple-400"
-                          : "text-gray-500"
+                          : "text-[#cbdbf5]"
                       }`}
                     >
                       {line.speaker}
@@ -494,7 +494,7 @@ export default function PricingPage() {
                       className={`text-sm leading-relaxed ${
                         line.speaker === "Vocalis"
                           ? "text-white bg-purple-900/30 border border-purple-800/30 rounded-xl px-4 py-2.5"
-                          : "text-gray-400"
+                          : "text-[#cbdbf5]"
                       }`}
                     >
                       {line.text}
@@ -513,25 +513,25 @@ export default function PricingPage() {
           <span className="section-label mb-3 inline-block">
             Deep Feature Matrix
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0b1c30]">
             Compare Platform Capabilities
           </h2>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-gray-200">
+        <div className="overflow-x-auto rounded-2xl border border-[#ccc3d8]">
           <table className="w-full min-w-[700px]">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50">
-                <th className="text-left py-4 px-6 text-sm font-semibold text-gray-900">
+              <tr className="border-b border-[#ccc3d8] bg-[#eff4ff]">
+                <th className="text-left py-4 px-6 text-sm font-semibold text-[#0b1c30]">
                   Core Capabilities
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-semibold text-gray-900">
+                <th className="text-center py-4 px-6 text-sm font-semibold text-[#0b1c30]">
                   Starter
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-semibold text-purple-600 bg-purple-50/50">
+                <th className="text-center py-4 px-6 text-sm font-semibold text-[#630ed4] bg-[#eaddff]/50">
                   Pro
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-semibold text-gray-900">
+                <th className="text-center py-4 px-6 text-sm font-semibold text-[#0b1c30]">
                   Enterprise
                 </th>
               </tr>
@@ -540,17 +540,17 @@ export default function PricingPage() {
               {comparisonRows.map((row, i) => (
                 <tr
                   key={row.label}
-                  className={`border-b border-gray-100 ${
-                    i % 2 === 1 ? "bg-gray-50/50" : ""
+                  className={`border-b border-[#ccc3d8] ${
+                    i % 2 === 1 ? "bg-[#eff4ff]/50" : ""
                   }`}
                 >
-                  <td className="py-4 px-6 text-sm font-medium text-gray-900">
+                  <td className="py-4 px-6 text-sm font-medium text-[#0b1c30]">
                     {row.label}
                   </td>
                   <td className="py-4 px-6 text-center">
                     <CellValue value={row.starter} />
                   </td>
-                  <td className="py-4 px-6 text-center bg-purple-50/20">
+                  <td className="py-4 px-6 text-center bg-[#eaddff]/20">
                     <CellValue value={row.pro} />
                   </td>
                   <td className="py-4 px-6 text-center">
@@ -564,18 +564,18 @@ export default function PricingPage() {
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-[#eff4ff] py-24">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="section-label mb-3 inline-block">
               Any Questions?
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0b1c30]">
               Frequently Asked Questions
             </h2>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-200 px-8">
+          <div className="bg-white rounded-2xl border border-[#ccc3d8] px-8">
             {faqs.map((faq) => (
               <FAQItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
@@ -587,19 +587,19 @@ export default function PricingPage() {
       <section
         className="py-16"
         style={{
-          background: "linear-gradient(135deg, #1a1040, #0D0A1C)",
+          background: "linear-gradient(135deg, #213145, #213145)",
         }}
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
             Risk-free. Cancel with 1-click at any time.
           </h2>
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+          <p className="text-[#cbdbf5] mb-8 max-w-xl mx-auto text-sm leading-relaxed">
             Start your 14-day free trial today. No credit card required, no
             setup fees, no long-term contracts. Scale your outbound the moment
             you sign up.
           </p>
-          <button className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors text-sm cursor-pointer">
+          <button className="inline-flex items-center gap-2 bg-[#630ed4] hover:bg-purple-700 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors text-sm cursor-pointer">
             Start Free Trial
             <ArrowRight className="w-4 h-4" />
           </button>

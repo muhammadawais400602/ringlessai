@@ -595,9 +595,9 @@ const features: Feature[] = [
 
 export default function FeaturesPage() {
   return (
-    <div className="bg-white text-zinc-900">
+    <div className="bg-[#f8f9ff] text-[#0b1c30]">
       {/* ---- Hero ---- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0D0A1C] via-[#140F2E] to-[#0D0A1C] py-24 sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#213145] via-[#213145] to-[#213145] py-24 sm:py-32">
         {/* Decorative glow */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-[#7C3AED]/10 blur-[120px]" />
@@ -644,7 +644,7 @@ export default function FeaturesPage() {
             key={feature.id}
             id={feature.id}
             className={`py-20 sm:py-28 ${
-              index % 2 === 0 ? "bg-white" : "bg-zinc-50"
+              index % 2 === 0 ? "bg-white" : "bg-[#eff4ff]"
             }`}
           >
             <div
@@ -657,10 +657,10 @@ export default function FeaturesPage() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-[#7C3AED]">
                   {feature.label}
                 </p>
-                <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-zinc-900 sm:text-4xl">
+                <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-4xl">
                   {feature.headline}
                 </h2>
-                <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+                <p className="mt-4 text-lg leading-relaxed text-[#5e5d6b]">
                   {feature.description}
                 </p>
                 <ul className="mt-6 space-y-3">
@@ -669,7 +669,7 @@ export default function FeaturesPage() {
                       <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#7C3AED]/10">
                         <Check className="h-3 w-3 text-[#7C3AED]" />
                       </span>
-                      <span className="text-zinc-600">{b}</span>
+                      <span className="text-[#5e5d6b]">{b}</span>
                     </li>
                   ))}
                 </ul>
@@ -691,7 +691,7 @@ export default function FeaturesPage() {
       })}
 
       {/* ---- CTA ---- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0D0A1C] via-[#1A1035] to-[#0D0A1C] py-24 sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#213145] via-[#213145] to-[#213145] py-24 sm:py-32">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-[#7C3AED]/8 blur-[100px]" />
         </div>
@@ -711,7 +711,7 @@ export default function FeaturesPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="#"
-              className="inline-flex h-12 items-center justify-center rounded-lg bg-[#7C3AED] px-8 text-sm font-semibold text-white shadow-lg shadow-[#7C3AED]/25 transition hover:bg-[#6D28D9]"
+              className="inline-flex h-12 items-center justify-center rounded-lg bg-[#7C3AED] px-8 text-sm font-semibold text-white shadow-lg shadow-[#7C3AED]/25 transition hover:bg-[#630ed4]"
             >
               Start Your 14 Day Free Trial
             </Link>
