@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Phone,
   Upload,
@@ -22,36 +23,42 @@ const features = [
   {
     icon: Phone,
     title: "Autonomous AI Calling & Voicemail Drops",
+    href: "/features/ai-calling",
     description:
       "Deploy AI-powered voice agents that dial, qualify, and leave personalized voicemails at scale -- without lifting a finger.",
   },
   {
     icon: Users,
     title: "High-Capacity Lead Management",
+    href: "/features/lead-management",
     description:
       "Import thousands of leads, segment by ICP, and let the dialer prioritize the hottest prospects automatically.",
   },
   {
     icon: Shield,
     title: "Live Objection Rebuttals",
+    href: "/features/objection-rebuttals",
     description:
       "Real-time AI coaching surfaces battle-tested rebuttals the moment a prospect pushes back on your reps.",
   },
   {
     icon: BarChart3,
     title: "Granular Outcome Tracking",
+    href: "/features/outcome-tracking",
     description:
       "Track every call disposition, conversion event, and pipeline impact with dashboards built for revenue teams.",
   },
   {
     icon: MessageSquare,
     title: "Omnichannel Follow-up",
+    href: "/features/omnichannel",
     description:
       "Trigger SMS, email, and ringless voicemail sequences based on call outcomes to keep deals moving forward.",
   },
   {
     icon: Inbox,
     title: "Unified Operator Inbox",
+    href: "/features/unified-inbox",
     description:
       "Centralize every conversation -- calls, texts, voicemails -- into a single inbox your team actually uses.",
   },
@@ -386,13 +393,13 @@ export default function Home() {
                   <p className="mt-2 text-sm leading-6 text-[#6B7280]">
                     {f.description}
                   </p>
-                  <a
-                    href="#"
+                  <Link
+                    href={f.href}
                     className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#7C3AED] transition group-hover:gap-2"
                   >
                     Learn More
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </div>
               );
             })}
