@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, User, ArrowRight, Activity } from "lucide-react";
+import { Menu, X, User, ArrowRight, Activity, Sun, Moon } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/components/ThemeProvider";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,6 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { theme, toggle } = useTheme();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-all duration-300">
@@ -46,6 +48,17 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-4">
+          <button
+            onClick={toggle}
+            aria-label="Toggle theme"
+            className="w-9 h-9 rounded-full bg-[#eff4ff] flex items-center justify-center hover:bg-[#e3e0f1] transition-colors cursor-pointer"
+          >
+            {theme === "light" ? (
+              <Moon className="w-[18px] h-[18px] text-[#4a4455]" />
+            ) : (
+              <Sun className="w-[18px] h-[18px] text-[#f59e0b]" />
+            )}
+          </button>
           <Link
             href="/login"
             className="text-sm font-semibold text-[#4a4455] hover:text-[#0b1c30] px-3 py-2 transition-colors"
@@ -91,6 +104,16 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="pt-3 border-t border-[#ccc3d8]/30 flex flex-col gap-2">
+              <button
+                onClick={toggle}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#4a4455] cursor-pointer"
+              >
+                {theme === "light" ? (
+                  <><Moon className="w-4 h-4" /> Dark Mode</>
+                ) : (
+                  <><Sun className="w-4 h-4 text-[#f59e0b]" /> Light Mode</>
+                )}
+              </button>
               <Link href="/login" className="px-4 py-2.5 text-sm text-[#4a4455]">Login</Link>
               <Link
                 href="/pricing"
