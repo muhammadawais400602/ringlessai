@@ -85,9 +85,13 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#f8f9ff]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#eaddff] via-[#f8f9ff] to-white pt-32 pb-16">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
+      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern pt-32 pb-16">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
+          <div className="absolute right-1/3 bottom-0 h-[300px] w-[500px] rounded-full bg-[#630ed4]/6 blur-[100px]" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-6 text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#630ed4]">
             <span className="inline-block h-2 w-2 rounded-full bg-orange-400" />
             Get in Touch
           </div>
