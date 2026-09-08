@@ -597,25 +597,26 @@ export default function FeaturesPage() {
   return (
     <div className="bg-[#f8f9ff] text-[#0b1c30]">
       {/* ---- Hero ---- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#213145] via-[#213145] to-[#213145] py-24 sm:py-32">
-        {/* Decorative glow */}
+      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern pt-28 pb-24 sm:pb-32">
+        {/* Decorative glows */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-[#7C3AED]/10 blur-[120px]" />
+          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
+          <div className="absolute right-1/4 bottom-0 h-[300px] w-[500px] rounded-full bg-[#630ed4]/6 blur-[100px]" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 text-center">
-          <p className="inline-block rounded-full border border-[#7C3AED]/30 bg-[#7C3AED]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#7C3AED]">
+          <p className="inline-block rounded-full bg-[#eaddff] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#630ed4]">
             Built for Top Producers
           </p>
 
-          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-5xl lg:text-6xl">
             Every Feature.{" "}
-            <span className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#630ed4] to-[#7c3aed] bg-clip-text text-transparent">
               Built for Closers.
             </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5e5d6b]">
             The end-to-end cold calling system that combines autonomous AI voice
             agents, a multi-line power dialer, intelligent lead management, and
             omnichannel follow-up into one relentless revenue engine.
@@ -627,7 +628,7 @@ export default function FeaturesPage() {
               <a
                 key={tab.label}
                 href={tab.href}
-                className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium text-zinc-300 transition hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/10 hover:text-white"
+                className="rounded-full border border-[#ccc3d8] bg-white px-5 py-2 text-sm font-medium text-[#4a4455] shadow-sm transition hover:border-[#7c3aed]/50 hover:bg-[#eaddff] hover:text-[#630ed4]"
               >
                 {tab.label}
               </a>
@@ -691,36 +692,39 @@ export default function FeaturesPage() {
       })}
 
       {/* ---- CTA ---- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#213145] via-[#213145] to-[#213145] py-24 sm:py-32">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-[#7C3AED]/8 blur-[100px]" />
-        </div>
+      <section className="bg-[#f8f9ff] py-24 sm:py-32">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#7c3aed] p-12 text-center shadow-[0_20px_50px_rgba(99,14,212,0.35)] lg:p-16">
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/10 blur-2xl" />
+              <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
+            </div>
 
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Experience All 9 Capabilities{" "}
-            <span className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] bg-clip-text text-transparent">
-              Free for 14 Days
-            </span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
-            No credit card required. Get full access to the autonomous calling
-            engine, power dialer, AI coaching, and every integration -- then
-            decide if Vocalis is right for your team.
-          </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="#"
-              className="inline-flex h-12 items-center justify-center rounded-lg bg-[#7C3AED] px-8 text-sm font-semibold text-white shadow-lg shadow-[#7C3AED]/25 transition hover:bg-[#630ed4]"
-            >
-              Start Your 14 Day Free Trial
-            </Link>
-            <Link
-              href="#"
-              className="inline-flex h-12 items-center justify-center rounded-lg border border-white/20 px-8 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
-            >
-              Book a Custom Demo
-            </Link>
+            <div className="relative">
+              <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Experience All 9 Capabilities{" "}
+                <span className="text-[#d2bbff]">Free for 14 Days</span>
+              </h2>
+              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#d2bbff]">
+                No credit card required. Get full access to the autonomous calling
+                engine, power dialer, AI coaching, and every integration -- then
+                decide if Vocalis is right for your team.
+              </p>
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Link
+                  href="#"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-[#630ed4] shadow-lg transition hover:bg-[#eaddff]"
+                >
+                  Start Your 14 Day Free Trial
+                </Link>
+                <Link
+                  href="#"
+                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 px-8 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10"
+                >
+                  Book a Custom Demo
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -250,35 +250,34 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-[#f8f9ff]">
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background: "linear-gradient(180deg, #213145 0%, #213145 100%)",
-        }}
-      >
+      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
+          <div className="absolute right-1/4 bottom-0 h-[300px] w-[500px] rounded-full bg-[#630ed4]/6 blur-[100px]" />
+        </div>
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-20 text-center relative z-10">
-          <span className="inline-block text-xs font-semibold tracking-[0.15em] uppercase text-purple-400 mb-4">
+          <span className="inline-block rounded-full bg-[#eaddff] px-4 py-1.5 text-xs font-semibold tracking-[0.15em] uppercase text-[#630ed4] mb-4">
             Transparent Plans
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#0b1c30] leading-tight mb-2">
             Simple, Transparent
           </h1>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 gradient-text">
             Pricing
           </h1>
-          <p className="text-[#cbdbf5] max-w-xl mx-auto mb-10 text-base leading-relaxed">
+          <p className="text-[#5e5d6b] max-w-xl mx-auto mb-10 text-base leading-relaxed">
             Choose the dialer cadence that fits your outbound motion. Scale up
             or down anytime — no contracts, no hidden fees.
           </p>
 
           {/* Toggle */}
-          <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-2 py-1.5">
+          <div className="inline-flex items-center gap-3 bg-white border border-[#ccc3d8] rounded-full px-2 py-1.5 shadow-sm">
             <button
               onClick={() => setAnnual(false)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 !annual
-                  ? "bg-white text-[#0b1c30] shadow-sm"
-                  : "text-[#cbdbf5] hover:text-white"
+                  ? "bg-[#630ed4] text-white shadow-sm"
+                  : "text-[#4a4455] hover:text-[#0b1c30]"
               }`}
             >
               Monthly Billing
@@ -287,8 +286,8 @@ export default function PricingPage() {
               onClick={() => setAnnual(true)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer flex items-center gap-2 ${
                 annual
-                  ? "bg-white text-[#0b1c30] shadow-sm"
-                  : "text-[#cbdbf5] hover:text-white"
+                  ? "bg-[#630ed4] text-white shadow-sm"
+                  : "text-[#4a4455] hover:text-[#0b1c30]"
               }`}
             >
               Annual Billing
@@ -298,9 +297,6 @@ export default function PricingPage() {
             </button>
           </div>
         </div>
-
-        {/* Decorative blur */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
       </section>
 
       {/* ── Pricing Cards ────────────────────────────────────────── */}
@@ -401,15 +397,15 @@ export default function PricingPage() {
         <div
           className="rounded-3xl overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #213145, #213145)",
+            background: "linear-gradient(135deg, #630ed4, #7c3aed)",
           }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Left */}
             <div className="p-10 lg:p-14 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-4">
-                <Zap className="w-5 h-5 text-purple-400" />
-                <span className="text-xs font-semibold tracking-[0.15em] uppercase text-purple-400">
+                <Zap className="w-5 h-5 text-[#d2bbff]" />
+                <span className="text-xs font-semibold tracking-[0.15em] uppercase text-[#d2bbff]">
                   Opus HD Voice Engine
                 </span>
               </div>
@@ -429,7 +425,7 @@ export default function PricingPage() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Zap className="w-4 h-4 text-purple-400" />
+                    <Zap className="w-4 h-4 text-[#d2bbff]" />
                     <span className="text-xl font-bold text-white">
                       &lt;25ms
                     </span>
@@ -440,7 +436,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Phone className="w-4 h-4 text-purple-400" />
+                    <Phone className="w-4 h-4 text-[#d2bbff]" />
                     <span className="text-xl font-bold text-white">99.4%</span>
                   </div>
                   <span className="text-[11px] text-[#cbdbf5] uppercase tracking-wide">
@@ -449,7 +445,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Shield className="w-4 h-4 text-purple-400" />
+                    <Shield className="w-4 h-4 text-[#d2bbff]" />
                     <span className="text-xl font-bold text-white">
                       STIR/SHAKEN
                     </span>
@@ -465,7 +461,7 @@ export default function PricingPage() {
             <div className="bg-black/30 p-10 lg:p-14 flex items-center">
               <div className="w-full space-y-4">
                 <div className="flex items-center gap-2 mb-6">
-                  <Bot className="w-4 h-4 text-purple-400" />
+                  <Bot className="w-4 h-4 text-[#d2bbff]" />
                   <span className="text-xs font-medium text-[#cbdbf5] uppercase tracking-wide">
                     Live Call Transcript
                   </span>
@@ -484,7 +480,7 @@ export default function PricingPage() {
                     <span
                       className={`text-[11px] font-semibold uppercase tracking-wide mt-1 shrink-0 w-16 ${
                         line.speaker === "Vocalis"
-                          ? "text-purple-400"
+                          ? "text-[#d2bbff]"
                           : "text-[#cbdbf5]"
                       }`}
                     >
@@ -584,25 +580,28 @@ export default function PricingPage() {
       </section>
 
       {/* ── Bottom CTA ───────────────────────────────────────────── */}
-      <section
-        className="py-16"
-        style={{
-          background: "linear-gradient(135deg, #213145, #213145)",
-        }}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            Risk-free. Cancel with 1-click at any time.
-          </h2>
-          <p className="text-[#cbdbf5] mb-8 max-w-xl mx-auto text-sm leading-relaxed">
-            Start your 14-day free trial today. No credit card required, no
-            setup fees, no long-term contracts. Scale your outbound the moment
-            you sign up.
-          </p>
-          <button className="inline-flex items-center gap-2 bg-[#630ed4] hover:bg-purple-700 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors text-sm cursor-pointer">
-            Start Free Trial
-            <ArrowRight className="w-4 h-4" />
-          </button>
+      <section className="bg-[#f8f9ff] py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#7c3aed] p-12 text-center shadow-[0_20px_50px_rgba(99,14,212,0.35)] lg:p-16">
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/10 blur-2xl" />
+              <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
+            </div>
+            <div className="relative">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Risk-free. Cancel with 1-click at any time.
+              </h2>
+              <p className="text-[#d2bbff] mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+                Start your 14-day free trial today. No credit card required, no
+                setup fees, no long-term contracts. Scale your outbound the moment
+                you sign up.
+              </p>
+              <button className="inline-flex items-center gap-2 bg-white hover:bg-[#eaddff] text-[#630ed4] font-semibold px-8 py-3.5 rounded-full transition-colors text-sm cursor-pointer shadow-lg">
+                Start Free Trial
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
