@@ -1,22 +1,22 @@
 import Link from "next/link";
 import {
   Phone,
-  Upload,
-  Zap,
+  Users,
+  Shield,
   BarChart3,
   MessageSquare,
   Inbox,
   ArrowRight,
   Play,
   Star,
-  Shield,
-  Users,
-  TrendingUp,
   CheckCircle2,
   PhoneCall,
-  Clock,
-  Target,
-  ChevronRight,
+  Headphones,
+  Zap,
+  MoreVertical,
+  BadgeCheck,
+  Headset,
+  Check,
 } from "lucide-react";
 
 const features = [
@@ -26,6 +26,7 @@ const features = [
     href: "/features/ai-calling",
     description:
       "Dial thousands of prospects hands-free. Dialeads detects live pickups vs voicemail and drops pre-recorded messages instantly -- so your reps only talk to humans who answer.",
+    linkText: "Explore Voice & Drop Models",
   },
   {
     icon: Users,
@@ -33,6 +34,7 @@ const features = [
     href: "/features/lead-management",
     description:
       "Import, segment, and prioritize leads at scale. Assign campaigns by industry, region, or deal size. Dialeads keeps your pipeline organized and your reps focused on the hottest contacts.",
+    linkText: "View Queue Engine",
   },
   {
     icon: Shield,
@@ -40,6 +42,7 @@ const features = [
     href: "/features/objection-rebuttals",
     description:
       "Never lose a call to \"I'm not interested\" again. Dialeads listens in real time and surfaces the right rebuttal script on screen -- trained on your top closers' playbooks.",
+    linkText: "See Live Prompts",
   },
   {
     icon: BarChart3,
@@ -47,6 +50,7 @@ const features = [
     href: "/features/outcome-tracking",
     description:
       "Log every call disposition -- Connected, VM Left, No Answer, Callback, Closed. Build reports by rep, campaign, or time range. Know exactly what's working and cut what's not.",
+    linkText: "Review Dispositions",
   },
   {
     icon: MessageSquare,
@@ -54,6 +58,7 @@ const features = [
     href: "/features/omnichannel",
     description:
       "One call rarely closes the deal. Dialeads auto-triggers SMS, email, and ring-back sequences after every call -- keeping your brand top-of-mind until the prospect is ready to buy.",
+    linkText: "Learn Automations",
   },
   {
     icon: Inbox,
@@ -61,6 +66,7 @@ const features = [
     href: "/features/unified-inbox",
     description:
       "One inbox. Every channel. Reps see the full call history, notes, and next steps without switching tools. Managers get a bird's-eye view of every active conversation in real time.",
+    linkText: "Inspect Workspace",
   },
 ];
 
@@ -69,51 +75,64 @@ const steps = [
     number: "01",
     title: "Upload Leads",
     description:
-      "Import your prospect list via CSV, CRM sync, or Zapier. Map custom fields, set campaign tags, and segment by priority. Ready in under 2 minutes.",
+      "CSV bulk import with automated phone hygiene, carrier lookup, DNC checks, and local presence area-code alignment. Ready in under 2 minutes.",
   },
   {
     number: "02",
     title: "Start Dialing",
     description:
-      "Activate your campaign and let Dialeads work. AI handles call pacing, voicemail detection, and live rebuttals while your reps focus purely on converting.",
+      "Connect live with AI voice agents or drop pre-recorded, hyper-personalized voicemails with 1 click. Dials queues at multi-line cadence and negotiates gatekeepers.",
   },
   {
     number: "03",
     title: "Close & Follow Up",
     description:
-      "Booked a meeting? Dialeads auto-logs it to your CRM and fires the follow-up sequence. Every deal tracked, every callback scheduled -- zero slippage.",
+      "Immediate 1-click staging of personalized links, calendar invite dispatches, and bi-directional CRM deal stage updates. Zero slippage.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "We hit 3x qualified pipeline in the first 30 days. The live objection rebuttals alone are worth the price. Our SDR team went from dreading cold calls to actually competing on the leaderboard.",
+      "We 3x'd our qualified pipeline in the first 45 days. The live objection prompts turned our junior SDRs into cold-calling monsters who never get flustered by gatekeepers.",
     name: "Kieran Patel",
-    title: "Head of Sales",
-    company: "SaaS Company",
+    title: "VP of Sales @ Hypergrowth Cloud",
   },
   {
     quote:
       "Dialeads cut our connect-to-meeting time in half. The AI voicemail drops get callbacks we never would have gotten manually. It's become the backbone of our entire outbound motion.",
     name: "Sarah Jenkins",
-    title: "VP Revenue",
-    company: "Insurance Firm",
+    title: "SDR Manager @ ScaleOps AI",
   },
   {
     quote:
-      "We onboarded 42 reps in one week. The unified inbox and real-time coaching mean new hires ramp in days, not months. ROI was visible before the trial even ended.",
+      "As a solo founder wearing 10 hats, the autonomous voice agent handled our first 5,000 cold leads while I focused on shipping product. Dialeads booked 68 enterprise pilots automatically.",
     name: "Mateo Alvarez",
-    title: "Director of Demand Gen",
-    company: "Tech Agency",
+    title: "Founder & CEO @ Omniflow",
   },
 ];
 
 const stats = [
-  { value: "5.2M+", label: "Calls Dialed", sublabel: "Across all active campaigns" },
-  { value: "4x", label: "Pipeline Velocity", sublabel: "Faster than manual SDR teams" },
-  { value: "87%", label: "Local Answer Rate", sublabel: "Via local presence dialing" },
-  { value: "4.8/5", label: "Operator CSAT", sublabel: "Rated by teams of 5 to 500" },
+  {
+    value: "5.2M+",
+    label: "Calls Dialed",
+    description: "Autonomous & agent-assisted outbound calls this quarter alone.",
+  },
+  {
+    value: "4x",
+    label: "Pipeline Velocity",
+    description: "Faster lead qualification compared to manual SDR dialing.",
+  },
+  {
+    value: "87%",
+    label: "Local Answer Rate",
+    description: "Dynamic local caller ID presence with zero SPAM likelihood flags.",
+  },
+  {
+    value: "4.8/5",
+    label: "Operator CSAT",
+    description: "Verified feedback from over 1,200 commercial sales reps.",
+  },
 ];
 
 const logos = ["Stripe", "Twilio", "HubSpot", "Salesforce", "Zapier", "Slack"];
@@ -122,223 +141,361 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden bg-dot-pattern pt-12 pb-20">
-        {/* Ambient Radial Glows */}
+      <section className="relative w-full overflow-hidden bg-dot-pattern pt-12 pb-24">
         <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[480px] w-[780px] rounded-full bg-[#7c3aed]/10 blur-[120px]" />
         <div className="pointer-events-none absolute top-1/3 -left-48 h-[420px] w-[420px] rounded-full bg-[#630ed4]/10 blur-[90px]" />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 lg:px-8 lg:pt-32">
-          <div className="mx-auto max-w-3xl text-center">
-            {/* Eyebrow Pill */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 shadow-sm">
-              <span className="text-sm">&#10024;</span>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                AI-Powered Calling &amp; Outbound Drops
-              </span>
-              <span className="h-1.5 w-1.5 animate-ping rounded-full bg-[#630ed4]" />
-            </div>
+        <div className="relative z-10 mx-auto max-w-[75rem] px-4 lg:px-8 flex flex-col items-center text-center pt-24 lg:pt-32">
+          {/* Eyebrow Pill */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 shadow-sm hover:scale-105 transition-transform cursor-pointer">
+            <span className="text-sm">&#10024;</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              AI-Powered Cold Calling &amp; Voicemail Drops
+            </span>
+            <span className="h-1.5 w-1.5 animate-ping rounded-full bg-[#630ed4]" />
+          </div>
 
-            <h1 className="text-4xl font-extrabold tracking-tight text-[#0b1c30] sm:text-5xl lg:text-6xl">
-              Book More Meetings With{" "}
-              <span className="text-[#630ed4]">Every Call</span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#5e5d6b]">
-              Supercharge your outbound with autonomous AI dialing, smart
-              voicemail drops, real-time objection coaching, and intelligent
-              follow-up -- all engineered for 10x pipeline growth.
-            </p>
-
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="#"
-                className="inline-flex items-center justify-center rounded-xl bg-[#630ed4] px-8 py-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(99,14,212,0.32)] transition hover:bg-[#7c3aed]"
+          {/* Massive H1 */}
+          <h1 className="text-4xl font-extrabold tracking-tighter text-[#0b1c30] sm:text-5xl lg:text-[72px] lg:leading-[76px] max-w-4xl mx-auto mb-6">
+            Book More Meetings With{" "}
+            <span className="relative inline-block text-[#630ed4]">
+              Every Call
+              <svg
+                className="absolute -bottom-3 left-0 w-full overflow-visible"
+                fill="none"
+                viewBox="0 0 300 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Start Free Trial
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-[#0b1c30] shadow-sm transition hover:bg-[#e3e0f1]"
-              >
-                <Play className="h-4 w-4 text-[#630ed4]" />
-                Watch 3-Min Demo
-              </a>
-            </div>
+                <path
+                  className="text-[#630ed4]"
+                  d="M4 14C75 4 165 4 296 14"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="4.5"
+                />
+              </svg>
+            </span>
+          </h1>
 
-            {/* Rating + Avatars */}
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <div className="flex -space-x-2">
-                {[
-                  "bg-purple-500",
-                  "bg-indigo-500",
-                  "bg-violet-400",
-                  "bg-fuchsia-500",
-                  "bg-purple-600",
-                ].map((bg, i) => (
-                  <div
-                    key={i}
-                    className={`h-8 w-8 rounded-full ring-2 ring-white ${bg} flex items-center justify-center text-[10px] font-bold text-white`}
-                  >
-                    {String.fromCharCode(65 + i)}
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
+          {/* Subtitle */}
+          <p className="text-lg text-[#5e5d6b] max-w-[620px] mx-auto mb-12 leading-relaxed">
+            Empower your SDRs with autonomous AI dialing, 1-click smart voicemail
+            drops, instant objection rebuttals, and automated multi-channel
+            follow-ups engineered for 10x pipeline growth.
+          </p>
+
+          {/* CTA Row */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mb-12">
+            <Link
+              href="/pricing"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#630ed4] text-white text-sm font-semibold shadow-[0_12px_28px_rgba(99,14,212,0.32)] hover:bg-[#7c3aed] hover:shadow-[0_16px_36px_rgba(124,58,237,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all"
+            >
+              Start Free Trial
+              <ArrowRight className="h-[18px] w-[18px]" />
+            </Link>
+            <a
+              href="#demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white text-[#0b1c30] text-sm font-semibold shadow-sm hover:bg-[#e3e0f1] transition-all"
+            >
+              <Play className="h-5 w-5 text-[#630ed4] fill-[#630ed4]" />
+              Watch 2-Min Demo
+            </a>
+          </div>
+
+          {/* Social Proof Badge Row */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[#5e5d6b] text-left mb-24">
+            <div className="flex -space-x-2 items-center">
+              {[
+                "bg-purple-500",
+                "bg-indigo-500",
+                "bg-violet-400",
+                "bg-fuchsia-500",
+              ].map((bg, i) => (
+                <div
+                  key={i}
+                  className={`h-8 w-8 rounded-full ring-2 ring-white ${bg} flex items-center justify-center text-[10px] font-bold text-white`}
+                >
+                  {String.fromCharCode(65 + i)}
                 </div>
-                <span className="text-sm font-medium text-[#0b1c30]">
+              ))}
+              <div className="w-8 h-8 rounded-full bg-[#eaddff] flex items-center justify-center text-[10px] font-bold text-[#25005a] ring-2 ring-white">
+                +500
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-[18px] w-[18px] fill-amber-500 text-amber-500"
+                  />
+                ))}
+                <span className="text-xl font-semibold text-[#0b1c30] ml-1">
                   4.9/5
                 </span>
-                <span className="text-sm text-[#5e5d6b]">
-                  Trusted by 500+ revenue teams across 3 continents
-                </span>
               </div>
+              <span className="text-sm text-[#5e5d6b]">
+                Trusted by 500+ teams on G2 &amp; Capterra
+              </span>
             </div>
           </div>
 
-          {/* Dashboard Mockup */}
-          <div className="mx-auto mt-16 max-w-5xl">
-            <div className="relative rounded-2xl bg-white p-1 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.25)]">
-              {/* Simulated Window Chrome */}
-              <div className="flex items-center justify-between rounded-t-xl bg-[#eff4ff] px-4 py-2">
-                <div className="flex items-center gap-3">
-                  <div className="flex gap-1.5">
-                    <div className="h-3 w-3 rounded-full bg-red-400" />
-                    <div className="h-3 w-3 rounded-full bg-yellow-400" />
-                    <div className="h-3 w-3 rounded-full bg-green-400" />
-                  </div>
-                  <span className="text-xs font-medium text-[#5e5d6b]">
-                    Dialeads Dashboard
+          {/* ===== HERO VISUAL: Operator Cockpit ===== */}
+          <div className="relative w-full max-w-5xl mx-auto pt-4">
+            {/* Glow Aura */}
+            <div className="absolute inset-x-8 top-12 bottom-0 bg-[#630ed4]/20 blur-[80px] rounded-3xl -z-10 scale-95" />
+
+            {/* Tilted Cockpit Container */}
+            <div className="relative rounded-2xl bg-white shadow-[0_25px_60px_-15px_rgba(124,58,237,0.25)] lg:-rotate-1 hover:rotate-0 transition-transform duration-700 ease-out overflow-hidden">
+              {/* Window Chrome */}
+              <div className="flex items-center justify-between px-4 py-2 bg-[#eff4ff]">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-red-400 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400 inline-block" />
+                  <span className="ml-3 text-xs text-[#5e5d6b] font-mono">
+                    dialeads-operator-cockpit // session-live-9481
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="rounded bg-[#eaddff] px-3 py-1 text-xs font-medium text-[#630ed4]">
-                    Live Session
-                  </div>
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    SIP Connected
+                  </span>
+                  <MoreVertical className="h-4 w-4 text-[#5e5d6b]" />
                 </div>
               </div>
 
-              {/* Dashboard content */}
-              <div className="grid gap-6 rounded-b-xl bg-[#f8f9ff] p-6 lg:grid-cols-3">
-                {/* Contact card */}
-                <div className="rounded-lg border border-[#ccc3d8] bg-white p-5">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#630ed4] text-sm font-bold text-white">
-                      MV
+              {/* Inside App Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 bg-[#f8f9ff]">
+                {/* Left Panel: Dialing Operator Stream */}
+                <div className="lg:col-span-7 p-6 flex flex-col bg-white">
+                  <div className="flex items-center justify-between pb-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-[#630ed4]/10 flex items-center justify-center text-[#630ed4]">
+                        <Headset className="h-6 w-6" />
+                      </div>
+                      <div className="text-left">
+                        <span className="text-xl font-semibold text-[#0b1c30] block">
+                          Marcus Vance
+                        </span>
+                        <span className="text-sm text-[#5e5d6b]">
+                          VP of Operations @ Northwind Logistics
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-[#0b1c30]">
-                        Marcus Vance
-                      </p>
-                      <p className="text-xs text-[#5e5d6b]">
-                        VP Sales -- Acme Corp
-                      </p>
+                    <div className="px-3 py-1 rounded-lg bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase">
+                      LIVE CALL 02:47
                     </div>
                   </div>
-                  <div className="mt-4 space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-[#5e5d6b]">Status</span>
-                      <span className="text-green-600">Connected</span>
+
+                  {/* Audio Waveform */}
+                  <div className="rounded-xl bg-[#0f0f1a] p-4 text-white mb-4 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#7c3aed]" />
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs uppercase tracking-wider text-[#d2bbff] font-bold">
+                        Neural Audio Stream
+                      </span>
+                      <span className="text-[11px] font-mono text-[#cbdbf5]">
+                        Latency: 14ms
+                      </span>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-[#5e5d6b]">Duration</span>
-                      <span className="text-[#0b1c30]">02:34</span>
+                    {/* Animated Waveform Bars */}
+                    <div className="h-10 flex items-center gap-1 px-1 my-2">
+                      {[3, 6, 8, 4, 9, 7, 5, 8, 4, 9, 6, 3].map((h, i) => (
+                        <span
+                          key={i}
+                          className={`w-1 rounded-full animate-pulse ${i % 3 === 0 ? "bg-[#d2bbff]" : "bg-[#7c3aed]"}`}
+                          style={{
+                            height: `${h * 4}px`,
+                            animationDelay: `${i * 70}ms`,
+                          }}
+                        />
+                      ))}
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-[#5e5d6b]">Sentiment</span>
-                      <span className="text-[#7c3aed]">Positive</span>
+                    <div className="text-left text-sm text-[#f8f9ff]/90 italic pt-1">
+                      <span className="text-[#d2bbff] font-bold not-italic">
+                        Prospect:
+                      </span>{" "}
+                      &quot;We already have an in-house dispatch team for this,
+                      what makes your SLA different?&quot;
+                    </div>
+                  </div>
+
+                  {/* AI Copilot Rebuttal */}
+                  <div className="rounded-xl bg-[#eff4ff] p-4 text-left">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-1.5">
+                        <Zap className="h-[18px] w-[18px] text-[#630ed4]" />
+                        <span className="text-xs uppercase font-bold text-[#630ed4]">
+                          Auto-Generated Rebuttal
+                        </span>
+                      </div>
+                      <span className="text-xs text-[#5e5d6b]">
+                        94% Confidence
+                      </span>
+                    </div>
+                    <p className="text-sm text-[#0b1c30] leading-snug">
+                      &quot;Totally understand Marcus. Most dispatch teams use
+                      Dialeads as a high-density triage filter — we absorb 70% of
+                      repetitive status inquiries so your dispatchers focus
+                      strictly on driver routing. Worth a 7-minute look?&quot;
+                    </p>
+                    <div className="flex items-center gap-2 mt-3">
+                      <button className="px-3 py-1 rounded-full bg-[#630ed4] text-white text-xs font-medium hover:bg-[#7c3aed]">
+                        Speak Verbatim (AI)
+                      </button>
+                      <button className="px-3 py-1 rounded-full bg-[#d3e4fe] text-[#4a4455] text-xs font-medium hover:bg-[#e3e0f1]">
+                        Modify
+                      </button>
+                      <button className="px-3 py-1 rounded-full bg-[#d3e4fe] text-[#4a4455] text-xs font-medium">
+                        Send SMS Link
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                {/* Queue panel */}
-                <div className="rounded-lg border border-[#ccc3d8] bg-white p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#630ed4]">
-                    Queue: High Priority ICP
-                  </p>
-                  <div className="mt-4 space-y-3">
+                {/* Right Panel: Leads Queue & Dispositions */}
+                <div className="lg:col-span-5 p-6 bg-[#eff4ff]/50 flex flex-col text-left">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xl font-semibold text-[#0b1c30]">
+                      Queue: High Priority ICP
+                    </span>
+                    <span className="text-xs font-bold text-[#630ed4]">
+                      3,670 Leads
+                    </span>
+                  </div>
+                  {/* Lead Rows */}
+                  <div className="space-y-2">
                     {[
-                      { name: "J. Rivera", co: "Apex Inc", status: "Next" },
-                      { name: "L. Park", co: "Bolt.io", status: "Queued" },
-                      { name: "R. Kim", co: "Sora Labs", status: "Queued" },
-                    ].map((lead, i) => (
+                      {
+                        name: "Elena Rostova",
+                        co: "Apex Freight • Dallas, TX",
+                        status: "Calling Now",
+                        statusClass:
+                          "bg-emerald-100 text-emerald-800",
+                      },
+                      {
+                        name: "David Sterling",
+                        co: "Horizon Logistics • Chicago, IL",
+                        status: "Next up",
+                        statusClass:
+                          "bg-[#dce9ff] text-[#5e5d6b]",
+                      },
+                      {
+                        name: "Sophia Chen",
+                        co: "Pacific Cargo • Seattle, WA",
+                        status: "Queued",
+                        statusClass:
+                          "bg-[#dce9ff] text-[#5e5d6b]",
+                      },
+                    ].map((lead) => (
                       <div
-                        key={i}
-                        className="flex items-center justify-between"
+                        key={lead.name}
+                        className="p-3 rounded-lg bg-white shadow-sm flex items-center justify-between"
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#e5eeff] text-[9px] font-medium text-[#4a4455]">
-                            {lead.name[0]}
-                          </div>
-                          <div>
-                            <p className="text-xs font-medium text-[#0b1c30]">
-                              {lead.name}
-                            </p>
-                            <p className="text-[10px] text-[#5e5d6b]">
-                              {lead.co}
-                            </p>
-                          </div>
+                        <div>
+                          <span className="text-sm font-semibold text-[#0b1c30] block">
+                            {lead.name}
+                          </span>
+                          <span className="text-xs text-[#5e5d6b]">
+                            {lead.co}
+                          </span>
                         </div>
                         <span
-                          className={`text-[10px] font-medium ${i === 0 ? "text-green-600" : "text-[#5e5d6b]"}`}
+                          className={`px-2 py-0.5 rounded text-[11px] font-bold ${lead.statusClass}`}
                         >
                           {lead.status}
                         </span>
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Metrics panel */}
-                <div className="rounded-lg border border-[#ccc3d8] bg-white p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#630ed4]">
-                    Today&apos;s Metrics
-                  </p>
-                  <div className="mt-4 space-y-3">
-                    {[
-                      { label: "Calls Made", val: "247" },
-                      { label: "Connections", val: "68" },
-                      { label: "Meetings Set", val: "12" },
-                      { label: "Avg Duration", val: "1:48" },
-                    ].map((m, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between"
-                      >
-                        <span className="text-xs text-[#5e5d6b]">
-                          {m.label}
-                        </span>
-                        <span className="text-sm font-semibold text-[#0b1c30]">
-                          {m.val}
-                        </span>
-                      </div>
-                    ))}
+                  {/* Disposition Grid */}
+                  <div className="mt-4 pt-3">
+                    <span className="text-xs font-bold uppercase text-[#5e5d6b] block mb-2">
+                      One-Click Dispositions
+                    </span>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        "✅ Demo Scheduled",
+                        "✉️ Sent Mockup",
+                        "🎙️ Left Voicemail",
+                        "🛑 Gatekeeper Block",
+                      ].map((d) => (
+                        <div
+                          key={d}
+                          className="p-2 rounded-lg bg-white text-center text-xs font-medium text-[#0b1c30] hover:bg-[#eaddff] hover:text-[#630ed4] cursor-pointer transition-colors"
+                        >
+                          {d}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Floating Glassmorphism Stat Chips */}
+            {/* Chip 1: Top-Left */}
+            <div className="absolute -top-6 -left-4 lg:-left-10 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/95 backdrop-blur-md shadow-xl text-left z-20">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+              <div>
+                <span className="text-xs font-bold text-[#0b1c30] block">
+                  HD Dialing Active
+                </span>
+                <span className="text-[11px] text-[#5e5d6b] font-mono">
+                  18ms Latency • 0.00% Packet Loss
+                </span>
+              </div>
+            </div>
+
+            {/* Chip 2: Bottom-Left */}
+            <div className="absolute -bottom-8 -left-4 lg:-left-6 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/95 backdrop-blur-md shadow-xl text-left z-20 max-w-sm">
+              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="h-[18px] w-[18px]" />
+              </div>
+              <div>
+                <span className="text-xs font-bold text-[#0b1c30] block">
+                  Autonomous Objection Handled
+                </span>
+                <span className="text-[11px] text-[#5e5d6b] leading-tight block">
+                  &quot;Send an email&quot; → 30-sec custom demo dispatched
+                </span>
+              </div>
+            </div>
+
+            {/* Chip 3: Top-Right */}
+            <div className="absolute -top-8 -right-4 lg:-right-8 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/95 backdrop-blur-md shadow-xl text-left z-20">
+              <div className="w-7 h-7 rounded-lg bg-[#630ed4]/10 text-[#630ed4] flex items-center justify-center shrink-0">
+                <PhoneCall className="h-[18px] w-[18px]" />
+              </div>
+              <div>
+                <span className="text-xs font-bold text-[#0b1c30] block">
+                  Connected: Apex Corp
+                </span>
+                <span className="text-[11px] text-[#5e5d6b] font-mono">
+                  Duration: 04:12 min • 4.6 ★ High Intent
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== LOGO STRIP ===== */}
-      <section className="border-b border-[#ccc3d8] bg-white py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.15em] text-[#5e5d6b]">
+      {/* ===== LOGO MARQUEE BAR ===== */}
+      <section className="w-full bg-white py-8 overflow-hidden">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 mb-4 text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#5e5d6b]">
             Integrates with your existing stack
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          </span>
+        </div>
+        <div className="w-full overflow-hidden flex items-center">
+          <div className="flex items-center justify-around gap-16 w-full py-3 opacity-60 hover:opacity-100 transition-opacity">
             {logos.map((name) => (
               <span
                 key={name}
-                className="text-lg font-bold tracking-wide text-[#0b1c30]/40 transition hover:text-[#0b1c30]/70"
+                className="text-[32px] leading-[36px] font-bold tracking-tight text-[#0b1c30] hover:text-[#630ed4] transition-colors cursor-pointer"
               >
                 {name}
               </span>
@@ -347,66 +504,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== STATS BAR ===== */}
-      <section className="bg-[#eff4ff] py-14">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 lg:grid-cols-4 lg:px-8">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="flex flex-col items-center rounded-2xl bg-white px-6 py-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <span className="text-3xl font-extrabold text-[#630ed4] lg:text-4xl">
-                {s.value}
-              </span>
-              <span className="mt-2 text-sm font-semibold text-[#0b1c30]">
-                {s.label}
-              </span>
-              <span className="mt-1 text-xs text-[#5e5d6b]">
-                {s.sublabel}
-              </span>
-            </div>
-          ))}
+      {/* ===== KEY STATS SECTION ===== */}
+      <section className="w-full bg-[#eff4ff] py-16">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="p-8 rounded-2xl bg-white shadow-sm flex flex-col hover:-translate-y-1 transition-transform"
+              >
+                <span className="text-[56px] leading-[60px] font-bold text-[#630ed4] tracking-tight mb-2">
+                  {s.value}
+                </span>
+                <span className="text-xl font-semibold text-[#0b1c30] mb-1">
+                  {s.label}
+                </span>
+                <span className="text-sm text-[#5e5d6b]">
+                  {s.description}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ===== FEATURES GRID ===== */}
-      <section className="bg-[#f8f9ff] py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#e3e0f1] px-4 py-1">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#4a4455]">
-                Enterprise Capabilities
-              </span>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              Every Tool Your Team Needs to Dominate Outbound
-            </h2>
+      {/* ===== FEATURES GRID (3x2) ===== */}
+      <section className="w-full bg-[#f8f9ff] py-24 relative">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#1b1a26] mb-4">
+            <span className="text-xs font-bold uppercase">
+              Unrivaled Capabilities
+            </span>
           </div>
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] max-w-2xl mx-auto mb-16">
+            Everything Your Team Needs to Dominate the Phones
+          </h2>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
             {features.map((f) => {
               const Icon = f.icon;
               return (
                 <div
                   key={f.title}
-                  className="group flex flex-col rounded-2xl bg-white p-7 shadow-sm transition hover:-translate-y-1.5 hover:shadow-xl"
+                  className="p-8 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all group flex flex-col justify-between"
                 >
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#7c3aed]/10 transition group-hover:bg-[#7c3aed] group-hover:text-white">
-                    <Icon className="h-6 w-6 text-[#7c3aed] group-hover:text-white" />
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-[#630ed4]/10 text-[#630ed4] flex items-center justify-center mb-6 group-hover:bg-[#630ed4] group-hover:text-white transition-colors">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-[#0b1c30] mb-2">
+                      {f.title}
+                    </h3>
+                    <p className="text-base text-[#5e5d6b] leading-relaxed">
+                      {f.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-[#0b1c30]">
-                    {f.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#5e5d6b]">
-                    {f.description}
-                  </p>
-                  <Link
-                    href={f.href}
-                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#630ed4] transition group-hover:gap-2"
-                  >
-                    Learn More
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <div className="mt-6 pt-3 flex items-center gap-2 text-[#630ed4] text-sm font-semibold">
+                    <Link href={f.href}>
+                      {f.linkText}
+                    </Link>
+                    <ArrowRight className="h-[18px] w-[18px]" />
+                  </div>
                 </div>
               );
             })}
@@ -415,30 +573,30 @@ export default function Home() {
       </section>
 
       {/* ===== THREE STEPS ===== */}
-      <section className="bg-[#eff4ff] py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="section-label">
-              Getting Started
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
+      <section className="w-full bg-[#eff4ff] py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] block mb-2">
+              AI-Powered Cold Calling &amp; Voicemail Drops
+            </span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px]">
               Three Steps to 10x Cold Outbound
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {steps.map((s) => (
               <div
                 key={s.number}
-                className="relative rounded-2xl bg-white p-8 shadow-sm"
+                className="p-8 rounded-2xl bg-white shadow-sm relative z-10 flex flex-col"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#eaddff] text-lg font-bold text-[#630ed4]">
+                <div className="w-12 h-12 rounded-full bg-[#eaddff] text-[#630ed4] text-xl font-bold flex items-center justify-center mb-4">
                   {s.number}
                 </div>
-                <h3 className="mt-4 text-xl font-bold text-[#0b1c30]">
+                <h3 className="text-2xl font-semibold text-[#0b1c30] mb-2">
                   {s.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#5e5d6b]">
+                <p className="text-base text-[#5e5d6b] leading-relaxed">
                   {s.description}
                 </p>
               </div>
@@ -447,271 +605,277 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== OBJECTION HANDLING ===== */}
-      <section className="bg-[#f8f9ff] py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
-          {/* Left text */}
-          <div>
-            <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#eaddff] px-4 py-1">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                Real-Time Coaching
-              </span>
+      {/* ===== OBJECTION HANDLING (Deep Dive Row 1) ===== */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Visual Mockup — Left on desktop */}
+            <div className="lg:col-span-6 order-2 lg:order-1">
+              <div className="rounded-2xl bg-white shadow-xl p-6">
+                <div className="flex items-center justify-between pb-3 mb-4">
+                  <span className="text-xs font-bold uppercase text-[#630ed4]">
+                    Objection Playbook Detected
+                  </span>
+                  <span className="text-xs text-[#5e5d6b] font-mono">
+                    Confidence: 99.2%
+                  </span>
+                </div>
+                <div className="p-4 rounded-xl bg-[#eff4ff] mb-4">
+                  <span className="text-xs font-bold text-[#5e5d6b] uppercase block mb-1">
+                    PROSPECT PHRASE
+                  </span>
+                  <p className="text-base text-[#0b1c30] font-medium italic">
+                    &quot;Look, we just signed an annual agreement with another
+                    dialer vendor last month.&quot;
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl bg-[#eaddff] text-[#25005a] mb-4">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <BadgeCheck className="h-[18px] w-[18px]" />
+                    <span className="text-xs font-bold">
+                      Recommended Pivot Script
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed">
+                    &quot;Totally respect that commitment! Most teams who switch
+                    to Dialeads keep their existing carrier seats for inbound, but
+                    use our AI engine exclusively for high-volume cold outreach to
+                    cut cost per connection by 60%. Can I shoot over the
+                    comparative SLA analysis?&quot;
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-2 text-[#5e5d6b] text-xs">
+                  <span>
+                    Average Conversion on this pivot:{" "}
+                    <strong className="text-[#0b1c30]">41.8%</strong>
+                  </span>
+                  <button className="px-4 py-1.5 rounded-full bg-[#630ed4] text-white text-xs font-medium">
+                    Dispatch via SMS
+                  </button>
+                </div>
+              </div>
             </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              Handle Every Objection Like Your Top Closer
-            </h2>
-            <p className="mt-6 text-base leading-7 text-[#5e5d6b]">
-              Stop losing deals to hesitation. Dialeads AI listens live and
-              surfaces battle-tested rebuttals the moment an objection is
-              detected -- so every rep performs like your best rep on their
-              best day.
-            </p>
-            <ul className="mt-8 space-y-4">
-              {[
-                "Detects price, timing, and \"already have a vendor\" objections in real time",
-                "Surfaces proven rebuttal scripts trained on your own win data",
-                "Configurable playbooks per campaign, vertical, and deal size",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#630ed4]" />
-                  <span className="text-sm text-[#0b1c30]">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
 
-          {/* Right mockup */}
-          <div className="rounded-2xl bg-white p-6 shadow-xl">
-            <div className="rounded-xl bg-white p-5">
-              {/* Call header */}
-              <div className="flex items-center justify-between border-b border-[#eff4ff] pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#7c3aed]/10">
-                    <PhoneCall className="h-4 w-4 text-[#7c3aed]" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#0b1c30]">
-                      Live Call -- Alex Rivera
-                    </p>
-                    <p className="text-xs text-[#5e5d6b]">
-                      VP Engineering, Bolt.io
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-red-400" />
-                  <span className="text-xs font-medium text-red-400">
-                    Recording
-                  </span>
-                </div>
+            {/* Editorial Copy — Right on desktop */}
+            <div className="lg:col-span-6 order-1 lg:order-2 text-left">
+              <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase mb-4">
+                Real-Time Intelligence
               </div>
-
-              {/* Chat bubbles */}
-              <div className="mt-5 space-y-4">
-                <div className="flex gap-3">
-                  <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#e5eeff] text-[9px] font-bold text-[#4a4455]">
-                    AR
-                  </div>
-                  <div className="rounded-lg bg-[#eff4ff] px-4 py-2.5">
-                    <p className="text-xs text-[#0b1c30]">
-                      &quot;We&apos;re already locked into a contract with your
-                      competitor through Q2.&quot;
-                    </p>
-                  </div>
-                </div>
-
-                <div className="ml-9 rounded-lg border border-[#d2bbff] bg-[#eaddff] px-4 py-2.5">
-                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-[#630ed4]">
-                    AI Suggested Rebuttal
-                  </p>
-                  <p className="text-xs text-[#0b1c30]">
-                    &quot;Totally understand, Alex. A lot of our best customers
-                    ran parallel pilots before their renewal came up -- we can
-                    have you live in 48 hours with zero disruption. Would a
-                    side-by-side comparison before Q2 be useful?&quot;
-                  </p>
-                </div>
-
-                <div className="ml-9 flex items-center gap-2">
-                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700">
-                    Sentiment: Warming
-                  </span>
-                  <span className="rounded-full bg-[#eaddff] px-2 py-0.5 text-[10px] font-semibold text-[#630ed4]">
-                    Objection: Competitor Lock-in
-                  </span>
-                </div>
-              </div>
+              <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] mb-4">
+                Handle Every Objection Like Your Top Closer
+              </h2>
+              <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+                Eliminate hesitation from newer reps. As soon as a lead pushes
+                back on price, timing, or existing tech solutions, Dialeads
+                transcribes the hesitation in real-time and flashes actionable,
+                context-aware rebuttals directly inside their viewport.
+              </p>
+              <ul className="space-y-2 text-[#0b1c30] text-base mb-8">
+                {[
+                  "Sub-200ms real-time audio transcription and intent detection",
+                  "Proprietary objection repositories trained on 10,000+ booked calls",
+                  "Configurable playbooks by vertical, competitor, and deal size",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-[#630ed4] flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/features/objection-rebuttals"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#630ed4] hover:text-[#7c3aed]"
+              >
+                Explore Live Coaching Capabilities
+                <ArrowRight className="h-[18px] w-[18px]" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== LEADS SECTION ===== */}
-      <section className="bg-[#eff4ff] py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
-          {/* Left text */}
-          <div>
-            <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#eaddff] px-4 py-1">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                High-Velocity Results
-              </span>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              10,000 Leads. Zero Workflow Chaos.
-            </h2>
-            <p className="mt-6 text-base leading-7 text-[#5e5d6b]">
-              Keep your entire outbound operation running at maximum tempo.
-              Dialeads handles parallel dialing, automatic dispositions, and
-              smart callbacks -- so your team reaches 400% more prospects and
-              converts a higher share of every list.
-            </p>
-            <div className="mt-8 flex gap-8">
-              <div>
-                <p className="text-3xl font-extrabold text-[#0b1c30]">98.3%</p>
-                <p className="mt-1 text-sm text-[#5e5d6b]">
-                  Uptime SLA Guaranteed
-                </p>
+      {/* ===== LEADS SECTION (Deep Dive Row 2) ===== */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Editorial Copy — Left */}
+            <div className="lg:col-span-6 text-left">
+              <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase mb-4">
+                High-Density Velocity
               </div>
-              <div>
-                <p className="text-3xl font-extrabold text-[#630ed4]">
-                  +420%
-                </p>
-                <p className="mt-1 text-sm text-[#5e5d6b]">
-                  Avg. Dials Per Rep Per Day
-                </p>
+              <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] mb-4">
+                10,000 Leads.
+                <br />
+                Zero Workflow Chaos.
+              </h2>
+              <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+                Keep your sales engines revving at maximum torque. Dialeads
+                orchestrates dialing queues automatically based on response
+                probability, historical pickup times, and time-zone rules so reps
+                spend zero minutes organizing spreadsheets and 100% of their day
+                having revenue conversations.
+              </p>
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="p-4 rounded-xl bg-[#eff4ff]">
+                  <span className="text-xl font-bold text-[#630ed4] block mb-1">
+                    98.3%
+                  </span>
+                  <span className="text-sm text-[#5e5d6b]">
+                    Uptime SLA Guaranteed
+                  </span>
+                </div>
+                <div className="p-4 rounded-xl bg-[#eff4ff]">
+                  <span className="text-xl font-bold text-[#630ed4] block mb-1">
+                    +420%
+                  </span>
+                  <span className="text-sm text-[#5e5d6b]">
+                    Avg. Dials Per Rep Per Day
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Right table mockup */}
-          <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
-            {/* Table header */}
-            <div className="border-b border-[#eff4ff] bg-[#eff4ff] px-6 py-3">
-              <div className="grid grid-cols-4 text-[10px] font-semibold uppercase tracking-wider text-[#5e5d6b]">
-                <span>Lead</span>
-                <span>Company</span>
-                <span>Score</span>
-                <span>Status</span>
-              </div>
-            </div>
-            {/* Table rows */}
-            {[
-              {
-                name: "Olivia Park",
-                co: "Zenith Labs",
-                score: 94,
-                status: "Hot",
-                color: "text-red-500",
-              },
-              {
-                name: "James Chen",
-                co: "DataMesh",
-                score: 88,
-                status: "Warm",
-                color: "text-orange-500",
-              },
-              {
-                name: "Priya Sharma",
-                co: "FlowStack",
-                score: 82,
-                status: "Warm",
-                color: "text-orange-500",
-              },
-              {
-                name: "David Kim",
-                co: "NovaTech",
-                score: 79,
-                status: "Nurture",
-                color: "text-blue-500",
-              },
-              {
-                name: "Ana Costa",
-                co: "Vertex AI",
-                score: 91,
-                status: "Hot",
-                color: "text-red-500",
-              },
-              {
-                name: "Raj Patel",
-                co: "Syncro",
-                score: 73,
-                status: "Nurture",
-                color: "text-blue-500",
-              },
-            ].map((row, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-4 items-center border-b border-[#eff4ff] px-6 py-3.5 text-sm transition hover:bg-[#f8f9ff]"
+              <Link
+                href="/features/lead-management"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#630ed4] hover:text-[#7c3aed]"
               >
-                <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7c3aed]/10 text-[10px] font-bold text-[#7c3aed]">
-                    {row.name
-                      .split(" ")
-                      .map((w) => w[0])
-                      .join("")}
-                  </div>
-                  <span className="text-xs font-medium text-[#0b1c30]">
-                    {row.name}
+                View Lead Engine Benchmarks
+                <ArrowRight className="h-[18px] w-[18px]" />
+              </Link>
+            </div>
+
+            {/* Visual Mockup — Right */}
+            <div className="lg:col-span-6">
+              <div className="rounded-2xl bg-white shadow-xl p-6">
+                <div className="flex items-center justify-between pb-3 mb-4">
+                  <span className="text-xs font-bold uppercase text-[#0b1c30]">
+                    Active Campaign: Enterprise SaaS Tier 1
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                    RUNNING
                   </span>
                 </div>
-                <span className="text-xs text-[#5e5d6b]">{row.co}</span>
-                <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-16 overflow-hidden rounded-full bg-[#eff4ff]">
-                    <div
-                      className="h-full rounded-full bg-[#7c3aed]"
-                      style={{ width: `${row.score}%` }}
-                    />
-                  </div>
-                  <span className="text-xs font-medium text-[#0b1c30]">
-                    {row.score}
-                  </span>
+                {/* Mini Table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-[13px]">
+                    <thead>
+                      <tr className="text-[#5e5d6b] text-[11px] font-bold uppercase">
+                        <th className="pb-2 font-semibold">Contact / Company</th>
+                        <th className="pb-2 font-semibold">Status</th>
+                        <th className="pb-2 font-semibold">Local Time</th>
+                        <th className="pb-2 font-semibold text-right">
+                          Cadence Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#eff4ff]">
+                      {[
+                        {
+                          name: "Alex Mercer",
+                          co: "Apex Dynamics",
+                          status: "Meeting Booked",
+                          statusClass: "bg-emerald-100 text-emerald-800",
+                          time: "02:14 PM CST",
+                          action: "Calendar Sent",
+                          actionClass: "text-[#630ed4]",
+                        },
+                        {
+                          name: "Jessica Taylor",
+                          co: "Vertex Cloud",
+                          status: "Re-dial @ 3:30",
+                          statusClass: "bg-[#eaddff] text-[#630ed4]",
+                          time: "12:14 PM PST",
+                          action: "Queued",
+                          actionClass: "text-[#5e5d6b]",
+                        },
+                        {
+                          name: "Brian O'Connor",
+                          co: "FastTrack Global",
+                          status: "Voicemail Left",
+                          statusClass: "bg-[#e3e0f1] text-[#1b1a26]",
+                          time: "03:14 PM EST",
+                          action: "SMS Delivered",
+                          actionClass: "text-[#5e5d6b]",
+                        },
+                      ].map((row) => (
+                        <tr key={row.name}>
+                          <td className="py-2.5">
+                            <div className="font-semibold text-[#0b1c30]">
+                              {row.name}
+                            </div>
+                            <div className="text-[#5e5d6b] text-[11px]">
+                              {row.co}
+                            </div>
+                          </td>
+                          <td className="py-2.5">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${row.statusClass}`}
+                            >
+                              {row.status}
+                            </span>
+                          </td>
+                          <td className="py-2.5 text-[#5e5d6b]">{row.time}</td>
+                          <td
+                            className={`py-2.5 text-right font-medium ${row.actionClass}`}
+                          >
+                            {row.action}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <span className={`text-xs font-semibold ${row.color}`}>
-                  {row.status}
-                </span>
+                {/* Queue Progress */}
+                <div className="mt-4 pt-3 bg-[#eff4ff] rounded-xl p-3">
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="font-semibold text-[#0b1c30]">
+                      Queue Progress (8,010 of 10,000 processed)
+                    </span>
+                    <span className="font-bold text-[#630ed4]">80.1%</span>
+                  </div>
+                  <div className="w-full bg-[#d3e4fe] h-2 rounded-full overflow-hidden">
+                    <div className="bg-[#630ed4] h-2 rounded-full w-[80.1%]" />
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ===== TESTIMONIALS ===== */}
-      <section className="bg-[#eff4ff] py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="section-label">
-              AI-Powered Calling &amp; Outbound Drops
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              Trusted by High-Velocity Revenue Teams
-            </h2>
-          </div>
+      <section className="w-full bg-[#eff4ff] py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] block mb-2">
+            AI-Powered Cold Calling &amp; Voicemail Drops
+          </span>
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] mb-16">
+            Trusted by High-Velocity Revenue Leaders
+          </h2>
 
-          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {testimonials.map((t) => (
               <div
                 key={t.name}
-                className="relative flex flex-col rounded-2xl bg-white p-8 pl-8 shadow-sm"
+                className="p-8 rounded-2xl bg-white shadow-sm flex flex-col justify-between relative pl-8"
               >
-                <div className="absolute bottom-6 left-0 top-6 w-1.5 rounded-r bg-[#630ed4]" />
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
+                <div className="absolute left-0 top-6 bottom-6 w-1.5 bg-[#630ed4] rounded-r" />
+                <div>
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-[18px] w-[18px] fill-amber-500 text-amber-500"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-base text-[#0b1c30] italic mb-6 leading-relaxed">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
                 </div>
-                <p className="mt-5 flex-1 text-sm italic leading-6 text-[#0b1c30]">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-6 border-t border-[#eff4ff] pt-6">
-                  <p className="text-sm font-semibold text-[#0b1c30]">
+                <div>
+                  <span className="text-xl font-semibold text-[#0b1c30] block">
                     {t.name}
-                  </p>
-                  <p className="text-xs text-[#5e5d6b]">
-                    {t.title}, {t.company}
-                  </p>
+                  </span>
+                  <span className="text-sm text-[#5e5d6b]">{t.title}</span>
                 </div>
               </div>
             ))}
@@ -719,39 +883,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CTA SECTION ===== */}
-      <section className="bg-[#f8f9ff] py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#7c3aed] p-12 text-center shadow-[0_20px_50px_rgba(99,14,212,0.35)] lg:p-16">
-            {/* Background Ambient Circles */}
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-white/10 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-black/10 blur-2xl" />
-
-            <div className="relative z-10 mx-auto max-w-2xl">
-              <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#eaddff]">
-                AI-Powered Calling &amp; Outbound Drops
+      {/* ===== CTA BANNER ===== */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="rounded-3xl bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#7c3aed] p-12 lg:p-24 text-center text-white relative overflow-hidden shadow-[0_20px_50px_rgba(99,14,212,0.35)]">
+            <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/10 blur-2xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/10 blur-2xl" />
+            <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#eaddff] mb-3">
+                AI-Powered Cold Calling &amp; Voicemail Drops
               </span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-[56px] sm:leading-[60px] mb-4">
                 Ready to Dial Smarter and 4x Your Pipeline?
               </h2>
-              <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-[#d2bbff]">
-                Set up in 15 minutes. Connect your CRM and start closing
-                qualified meetings today.
+              <p className="text-lg text-[#d2bbff] mb-12 leading-relaxed">
+                Scale your pipeline with autonomous voice agents and smart
+                voicemail drops in under 15 minutes. Connect your CRM and start
+                closing qualified meetings today.
               </p>
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a
-                  href="#"
-                  className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-[#630ed4] shadow-xl transition hover:scale-105"
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+                <Link
+                  href="/pricing"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white text-[#630ed4] text-sm font-bold shadow-xl hover:bg-[#f8f9ff] hover:scale-105 active:scale-95 transition-all"
                 >
-                  Start Free Trial -- No Card Required
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center justify-center rounded-xl bg-[#7c3aed] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#7c3aed]/80"
+                  Start Free 14-Day Trial
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#7c3aed] text-white text-sm font-semibold shadow-sm hover:bg-[#7c3aed]/80 transition-all"
                 >
-                  Book a Walkthrough
-                </a>
+                  <Headphones className="h-[18px] w-[18px]" />
+                  Book a Custom Demo
+                </Link>
+              </div>
+              <div className="flex items-center gap-6 mt-12 text-xs text-[#d2bbff]">
+                <span className="flex items-center gap-1">
+                  <Check className="h-4 w-4" />
+                  Instant Setup
+                </span>
+                <span className="flex items-center gap-1">
+                  <Check className="h-4 w-4" />
+                  Cancel Anytime
+                </span>
+                <span className="flex items-center gap-1">
+                  <Check className="h-4 w-4" />
+                  SOC2 Type II Certified
+                </span>
               </div>
             </div>
           </div>
