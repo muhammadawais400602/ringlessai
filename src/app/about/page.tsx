@@ -187,11 +187,13 @@ export default function AboutPage() {
 
           {/* Visual Collage */}
           <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-4 max-w-5xl mx-auto mt-4">
-            {/* Large image placeholder */}
+            {/* Large image */}
             <div className="md:col-span-8 rounded-xl overflow-hidden shadow-md relative h-72 md:h-96 bg-[#213145] group">
-              <div className="w-full h-full bg-gradient-to-br from-[#213145] to-[#0b1c30] flex items-center justify-center">
-                <span className="text-[#5e5d6b] text-sm">Office Photo</span>
-              </div>
+              <img
+                src="https://res.cloudinary.com/fgjqafs0/image/upload/v1789031026/Overlay_Shadow.png"
+                alt="Mission Control: SF Outbound Floor"
+                className="w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b1c30]/80 via-transparent to-transparent flex items-end p-6">
                 <div className="flex items-center gap-3 text-white">
                   <PhoneCall className="h-6 w-6 text-[#d2bbff]" />
@@ -203,11 +205,13 @@ export default function AboutPage() {
             </div>
 
             <div className="md:col-span-4 flex flex-col gap-4">
-              {/* Small image placeholder */}
+              {/* Small image */}
               <div className="rounded-xl overflow-hidden shadow-md flex-1 relative min-h-[10rem] bg-[#213145]">
-                <div className="w-full h-full bg-gradient-to-br from-[#213145] to-[#0b1c30] flex items-center justify-center">
-                  <span className="text-[#5e5d6b] text-sm">Lab Photo</span>
-                </div>
+                <img
+                  src="https://res.cloudinary.com/fgjqafs0/image/upload/v1789031159/about_us_image.png"
+                  alt="Voice Latency Lab"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b1c30]/80 via-transparent to-transparent flex items-end p-4">
                   <span className="text-xs text-white font-medium">
                     &lt;25ms Voice Latency Lab
