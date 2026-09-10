@@ -27,7 +27,7 @@ export default function Navbar() {
             <Activity className="w-[22px] h-[22px] text-white" />
           </div>
           <span className="text-[20px] font-bold tracking-tight text-[#0b1c30]">
-            Vocalis<span className="text-[#630ed4] font-bold ml-0.5">AI</span>
+            Dialeads
           </span>
         </Link>
 

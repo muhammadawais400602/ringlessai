@@ -22,45 +22,45 @@ import {
 const features = [
   {
     icon: Phone,
-    title: "Autonomous AI Calling & Voicemail Drops",
+    title: "Autonomous AI Calling & Voicemail Drop",
     href: "/features/ai-calling",
     description:
-      "Deploy AI-powered voice agents that dial, qualify, and leave personalized voicemails at scale -- without lifting a finger.",
+      "Dial thousands of prospects hands-free. Dialeads detects live pickups vs voicemail and drops pre-recorded messages instantly -- so your reps only talk to humans who answer.",
   },
   {
     icon: Users,
     title: "High-Capacity Lead Management",
     href: "/features/lead-management",
     description:
-      "Import thousands of leads, segment by ICP, and let the dialer prioritize the hottest prospects automatically.",
+      "Import, segment, and prioritize leads at scale. Assign campaigns by industry, region, or deal size. Dialeads keeps your pipeline organized and your reps focused on the hottest contacts.",
   },
   {
     icon: Shield,
     title: "Live Objection Rebuttals",
     href: "/features/objection-rebuttals",
     description:
-      "Real-time AI coaching surfaces battle-tested rebuttals the moment a prospect pushes back on your reps.",
+      "Never lose a call to \"I'm not interested\" again. Dialeads listens in real time and surfaces the right rebuttal script on screen -- trained on your top closers' playbooks.",
   },
   {
     icon: BarChart3,
     title: "Granular Outcome Tracking",
     href: "/features/outcome-tracking",
     description:
-      "Track every call disposition, conversion event, and pipeline impact with dashboards built for revenue teams.",
+      "Log every call disposition -- Connected, VM Left, No Answer, Callback, Closed. Build reports by rep, campaign, or time range. Know exactly what's working and cut what's not.",
   },
   {
     icon: MessageSquare,
-    title: "Omnichannel Follow-up",
+    title: "Omnichannel Follow-Up",
     href: "/features/omnichannel",
     description:
-      "Trigger SMS, email, and ringless voicemail sequences based on call outcomes to keep deals moving forward.",
+      "One call rarely closes the deal. Dialeads auto-triggers SMS, email, and ring-back sequences after every call -- keeping your brand top-of-mind until the prospect is ready to buy.",
   },
   {
     icon: Inbox,
     title: "Unified Operator Inbox",
     href: "/features/unified-inbox",
     description:
-      "Centralize every conversation -- calls, texts, voicemails -- into a single inbox your team actually uses.",
+      "One inbox. Every channel. Reps see the full call history, notes, and next steps without switching tools. Managers get a bird's-eye view of every active conversation in real time.",
   },
 ];
 
@@ -69,54 +69,54 @@ const steps = [
     number: "01",
     title: "Upload Leads",
     description:
-      "Import your prospect list via CSV, CRM sync, or API. Our engine enriches each record with intent signals and prioritizes by close probability.",
+      "Import your prospect list via CSV, CRM sync, or Zapier. Map custom fields, set campaign tags, and segment by priority. Ready in under 2 minutes.",
   },
   {
     number: "02",
     title: "Start Dialing",
     description:
-      "Launch autonomous calling campaigns with local presence, AI voicemail drops, and live transfer to your reps when a prospect picks up.",
+      "Activate your campaign and let Dialeads work. AI handles call pacing, voicemail detection, and live rebuttals while your reps focus purely on converting.",
   },
   {
     number: "03",
     title: "Close & Follow Up",
     description:
-      "Every outcome triggers the right next step -- SMS follow-up, calendar booking, or nurture sequence -- so no lead slips through the cracks.",
+      "Booked a meeting? Dialeads auto-logs it to your CRM and fires the follow-up sequence. Every deal tracked, every callback scheduled -- zero slippage.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "Vocalis replaced our entire SDR tech stack. We went from 80 dials a day to 800 -- and our pipeline tripled in the first month.",
-    name: "Sarah Chen",
-    title: "VP of Sales",
-    company: "ScaleOps",
+      "We hit 3x qualified pipeline in the first 30 days. The live objection rebuttals alone are worth the price. Our SDR team went from dreading cold calls to actually competing on the leaderboard.",
+    name: "Kieran Patel",
+    title: "Head of Sales",
+    company: "SaaS Company",
   },
   {
     quote:
-      "The AI voicemail drops alone are worth the subscription. Our callback rate jumped 4x and reps spend zero time leaving messages.",
-    name: "Marcus Thompson",
-    title: "Revenue Operations Lead",
-    company: "DataForge",
+      "Dialeads cut our connect-to-meeting time in half. The AI voicemail drops get callbacks we never would have gotten manually. It's become the backbone of our entire outbound motion.",
+    name: "Sarah Jenkins",
+    title: "VP Revenue",
+    company: "Insurance Firm",
   },
   {
     quote:
-      "We onboarded in 20 minutes and booked 14 meetings in the first week. This is the future of outbound.",
-    name: "Emily Rodriguez",
-    title: "Head of Growth",
-    company: "NexGen SaaS",
+      "We onboarded 42 reps in one week. The unified inbox and real-time coaching mean new hires ramp in days, not months. ROI was visible before the trial even ended.",
+    name: "Mateo Alvarez",
+    title: "Director of Demand Gen",
+    company: "Tech Agency",
   },
 ];
 
 const stats = [
-  { value: "2.4M+", label: "Calls Dialed" },
-  { value: "3x", label: "Pipeline Velocity" },
-  { value: "85%", label: "Local Answer Rate" },
-  { value: "4.9/5", label: "Operator CSAT" },
+  { value: "5.2M+", label: "Calls Dialed", sublabel: "Across all active campaigns" },
+  { value: "4x", label: "Pipeline Velocity", sublabel: "Faster than manual SDR teams" },
+  { value: "87%", label: "Local Answer Rate", sublabel: "Via local presence dialing" },
+  { value: "4.8/5", label: "Operator CSAT", sublabel: "Rated by teams of 5 to 500" },
 ];
 
-const logos = ["stripe", "twilio", "retool", "ramp", "brex", "vercel", "supabase"];
+const logos = ["Stripe", "Twilio", "HubSpot", "Salesforce", "Zapier", "Slack"];
 
 export default function Home() {
   return (
@@ -133,19 +133,19 @@ export default function Home() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 shadow-sm">
               <span className="text-sm">&#10024;</span>
               <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                AI-Powered Cold Calling &amp; Voicemail Drops
+                AI-Powered Calling &amp; Outbound Drops
               </span>
               <span className="h-1.5 w-1.5 animate-ping rounded-full bg-[#630ed4]" />
             </div>
 
             <h1 className="text-4xl font-extrabold tracking-tight text-[#0b1c30] sm:text-5xl lg:text-6xl">
-              Close More Deals With{" "}
+              Book More Meetings With{" "}
               <span className="text-[#630ed4]">Every Call</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#5e5d6b]">
-              The autonomous cold-calling engine that dials, qualifies, and
-              drops personalized voicemails at scale -- so your reps focus on
-              closing, not dialing.
+              Supercharge your outbound with autonomous AI dialing, smart
+              voicemail drops, real-time objection coaching, and intelligent
+              follow-up -- all engineered for 10x pipeline growth.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -161,7 +161,7 @@ export default function Home() {
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-[#0b1c30] shadow-sm transition hover:bg-[#e3e0f1]"
               >
                 <Play className="h-4 w-4 text-[#630ed4]" />
-                Watch 2 Min Demo
+                Watch 3-Min Demo
               </a>
             </div>
 
@@ -196,7 +196,7 @@ export default function Home() {
                   4.9/5
                 </span>
                 <span className="text-sm text-[#5e5d6b]">
-                  from 1,200+ teams
+                  Trusted by 500+ revenue teams across 3 continents
                 </span>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function Home() {
                     <div className="h-3 w-3 rounded-full bg-green-400" />
                   </div>
                   <span className="text-xs font-medium text-[#5e5d6b]">
-                    Vocalis AI Dashboard
+                    Dialeads Dashboard
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -332,7 +332,7 @@ export default function Home() {
       <section className="border-b border-[#ccc3d8] bg-white py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.15em] text-[#5e5d6b]">
-            AI Powered Cold Calling &amp; Enterprise Grade
+            Integrates with your existing stack
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {logos.map((name) => (
@@ -361,6 +361,9 @@ export default function Home() {
               <span className="mt-2 text-sm font-semibold text-[#0b1c30]">
                 {s.label}
               </span>
+              <span className="mt-1 text-xs text-[#5e5d6b]">
+                {s.sublabel}
+              </span>
             </div>
           ))}
         </div>
@@ -372,11 +375,11 @@ export default function Home() {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#e3e0f1] px-4 py-1">
               <span className="text-xs font-bold uppercase tracking-widest text-[#4a4455]">
-                Unrivaled Capabilities
+                Enterprise Capabilities
               </span>
             </div>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              Everything Your Team Needs to Dominate the Phones
+              Every Tool Your Team Needs to Dominate Outbound
             </h2>
           </div>
 
@@ -416,7 +419,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <p className="section-label">
-              Three Steps to Cold Outbound Success
+              Getting Started
             </p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
               Three Steps to 10x Cold Outbound
@@ -451,23 +454,23 @@ export default function Home() {
           <div>
             <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#eaddff] px-4 py-1">
               <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                Real-Time Intelligence
+                Real-Time Coaching
               </span>
             </div>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
               Handle Every Objection Like Your Top Closer
             </h2>
             <p className="mt-6 text-base leading-7 text-[#5e5d6b]">
-              Vocalis listens in real time and surfaces proven rebuttals the
-              instant a prospect raises a concern -- pricing, timing,
-              competition, or &quot;just send me an email.&quot;
+              Stop losing deals to hesitation. Dialeads AI listens live and
+              surfaces battle-tested rebuttals the moment an objection is
+              detected -- so every rep performs like your best rep on their
+              best day.
             </p>
             <ul className="mt-8 space-y-4">
               {[
-                "Real-time sentiment analysis on every call",
-                "Battle-tested rebuttal library trained on 2M+ calls",
-                "Automatic coaching tips for junior reps",
-                "Post-call scoring with win/loss breakdown",
+                "Detects price, timing, and \"already have a vendor\" objections in real time",
+                "Surfaces proven rebuttal scripts trained on your own win data",
+                "Configurable playbooks per campaign, vertical, and deal size",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#630ed4]" />
@@ -550,30 +553,31 @@ export default function Home() {
           <div>
             <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-[#eaddff] px-4 py-1">
               <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-                High-Density Velocity
+                High-Velocity Results
               </span>
             </div>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              3,670 Leads. Zero Workflow Chaos.
+              10,000 Leads. Zero Workflow Chaos.
             </h2>
             <p className="mt-6 text-base leading-7 text-[#5e5d6b]">
-              Import, enrich, prioritize, and dial -- all from one screen. No
-              more juggling spreadsheets, CRMs, and dialers. Vocalis keeps
-              every lead organized so your reps always know who to call next.
+              Keep your entire outbound operation running at maximum tempo.
+              Dialeads handles parallel dialing, automatic dispositions, and
+              smart callbacks -- so your team reaches 400% more prospects and
+              converts a higher share of every list.
             </p>
             <div className="mt-8 flex gap-8">
               <div>
-                <p className="text-3xl font-extrabold text-[#0b1c30]">89.6%</p>
+                <p className="text-3xl font-extrabold text-[#0b1c30]">98.3%</p>
                 <p className="mt-1 text-sm text-[#5e5d6b]">
-                  Lead Qualification Rate
+                  Uptime SLA Guaranteed
                 </p>
               </div>
               <div>
                 <p className="text-3xl font-extrabold text-[#630ed4]">
-                  +5.3%
+                  +420%
                 </p>
                 <p className="mt-1 text-sm text-[#5e5d6b]">
-                  Week-over-Week Growth
+                  Avg. Dials Per Rep Per Day
                 </p>
               </div>
             </div>
@@ -676,10 +680,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <p className="section-label">
-              Trusted by High-Velocity Revenue Leaders
+              AI-Powered Calling &amp; Outbound Drops
             </p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-4xl">
-              What Our Customers Say
+              Trusted by High-Velocity Revenue Teams
             </h2>
           </div>
 
@@ -725,28 +729,28 @@ export default function Home() {
 
             <div className="relative z-10 mx-auto max-w-2xl">
               <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#eaddff]">
-                AI-Powered Cold Calling &amp; Voicemail Drops
+                AI-Powered Calling &amp; Outbound Drops
               </span>
               <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                Ready to Dial Smarter and 3x Your Pipeline?
+                Ready to Dial Smarter and 4x Your Pipeline?
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-[#d2bbff]">
-                Join 1,200+ revenue teams already using Vocalis to book more
-                qualified meetings on autopilot.
+                Set up in 15 minutes. Connect your CRM and start closing
+                qualified meetings today.
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
                   href="#"
                   className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-[#630ed4] shadow-xl transition hover:scale-105"
                 >
-                  Start Free 14-Day Trial
+                  Start Free Trial -- No Card Required
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
                 <a
                   href="#"
                   className="inline-flex items-center justify-center rounded-xl bg-[#7c3aed] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#7c3aed]/80"
                 >
-                  Book a Custom Demo
+                  Book a Walkthrough
                 </a>
               </div>
             </div>

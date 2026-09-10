@@ -2,28 +2,30 @@ import Link from "next/link";
 import { Share2, Network, Code, MonitorPlay, Activity } from "lucide-react";
 
 const productLinks = [
-  { label: "AI Cold Calling", href: "/features/ai-calling" },
-  { label: "Power Dialer", href: "/features" },
-  { label: "Live Rebuttals", href: "/features/objection-rebuttals" },
-  { label: "Omnichannel Follow-up", href: "/features/omnichannel" },
-  { label: "Telephony & SIP", href: "/features" },
+  { label: "Features", href: "/features" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Integrations", href: "#" },
   { label: "Changelog", href: "#" },
 ];
 
 const companyLinks = [
-  { label: "About Us", href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Careers", href: "#", badge: "Hiring" },
-  { label: "Press Kit", href: "#" },
+  { label: "Contact", href: "/contact" },
   { label: "Partners", href: "#" },
+];
+
+const resourceLinks = [
   { label: "Blog", href: "#" },
+  { label: "Help Center", href: "#" },
+  { label: "API Docs", href: "#" },
+  { label: "Case Studies", href: "#" },
 ];
 
 const legalLinks = [
   { label: "Privacy Policy", href: "#" },
   { label: "Terms of Service", href: "#" },
-  { label: "10DLC & TCPA Compliance", href: "#" },
-  { label: "Security (SOC2 Type II)", href: "#" },
-  { label: "Status", href: "#" },
+  { label: "Cookie Policy", href: "#" },
 ];
 
 const socialIcons = [
@@ -46,11 +48,11 @@ export default function Footer() {
                 <Activity className="w-5 h-5 text-white" />
               </div>
               <span className="text-[20px] font-bold tracking-tight text-white">
-                Vocalis<span className="text-[#d2bbff] font-bold ml-0.5">AI</span>
+                Dialeads
               </span>
             </Link>
             <p className="text-base text-[#cbdbf5] mb-6 max-w-sm leading-relaxed">
-              The autonomous cold-calling engine that books qualified meetings while you sleep.
+              Dialeads -- AI-powered outbound calling for revenue teams that refuse to lose.
             </p>
             <div className="flex items-center gap-3">
               {socialIcons.map(({ icon: Icon, label }) => (
@@ -98,7 +100,20 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2 flex flex-col">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Legal & Trust</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Resources</span>
+            <ul className="flex flex-col gap-2">
+              {resourceLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-sm text-[#cbdbf5] hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-1 flex flex-col">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Legal</span>
             <ul className="flex flex-col gap-2">
               {legalLinks.map((link) => (
                 <li key={link.label}>
@@ -112,7 +127,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t border-[#676577]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#cbdbf5]">© 2025 Vocalis AI, Inc. Built for closers.</p>
+          <p className="text-sm text-[#cbdbf5]">© 2025 Dialeads.io. All rights reserved. Built for closers. Powered by AI.</p>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#676577]/30">
             <span className="w-2 h-2 rounded-full bg-[#d2bbff] animate-pulse" />
             <span className="text-xs font-semibold text-[#eaddff]">All systems operational</span>

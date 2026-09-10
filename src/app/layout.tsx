@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vocalis AI - Autonomous Cold-Calling Engine",
-  description: "The autonomous cold-calling engine that books qualified meetings while you sleep. AI voice agents, smart voicemail drops, and omnichannel follow-up.",
+  title: "Dialeads - AI-Powered Outbound Calling for Revenue Teams",
+  description: "Supercharge your outbound with autonomous AI dialing, smart voicemail drops, real-time objection coaching, and intelligent follow-up. Trusted by 500+ revenue teams.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
