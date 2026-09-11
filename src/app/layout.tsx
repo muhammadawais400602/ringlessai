@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dialeads - AI-Powered Outbound Calling for Revenue Teams",
-  description: "Supercharge your outbound with autonomous AI dialing, smart voicemail drops, real-time objection coaching, and intelligent follow-up. Trusted by 500+ revenue teams.",
+  title: "Dialeads – AI Calling & Voicemail Drop Software for Sales Teams",
+  description: "Dialeads lets sales teams and agencies run AI-powered outbound calls and ringless voicemail drops at scale. Book more meetings, fewer manual dials. Start free.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

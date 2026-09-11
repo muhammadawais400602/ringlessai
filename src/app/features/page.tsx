@@ -1,634 +1,162 @@
 import {
   Check,
-  Phone,
-  Zap,
-  Users,
-  MessageSquare,
-  BarChart3,
-  Shield,
-  Clock,
-  Send,
   ArrowRight,
-  Activity,
-  Headphones,
-  Bot,
-  Timer,
+  Settings2,
+  MicOff,
+  Pause,
+  Voicemail,
   Filter,
-  Brain,
-  MousePointerClick,
-  Mail,
-  Inbox,
-  Server,
-  Monitor,
+  Upload,
+  Copy,
+  Play,
+  Headphones,
+  ShieldCheck,
+  Radio,
+  CheckCircle2,
+  Smile,
+  Send,
+  PhoneOff,
+  PhoneMissed,
+  Clock,
+  Terminal,
+  Mic,
+  Zap,
+  Link,
 } from "lucide-react";
-import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Features - Vocalis AI",
+  title: "Dialeads Features – AI Calling, Voicemail Drop, Power Dialer & More",
   description:
-    "Every feature built for closers. Autonomous AI voice agents, power dialer, lead engine, caller records, integrations, and omnichannel follow-up.",
+    "Explore every Dialeads feature: AI voice agents, ringless voicemail drops, power dialer, live objection rebuttals, 10DLC SMS, and team analytics. Built for outbound.",
 };
 
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
+function FeatureCheck({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-center gap-3 text-base text-[#0b1c30]">
+      <span className="w-6 h-6 rounded-full bg-[#e3e0f1] flex items-center justify-center text-[#630ed4] font-bold text-xs shrink-0">
+        <Check className="h-3.5 w-3.5" />
+      </span>
+      {children}
+    </li>
+  );
+}
+
+function LeadRow({
+  name,
+  role,
+  angle,
+  status,
+  statusColor,
+}: {
+  name: string;
+  role: string;
+  angle: string;
+  status: string;
+  statusColor: string;
+}) {
+  return (
+    <div className="p-3 rounded-xl bg-white shadow-sm flex items-center justify-between">
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-[#0b1c30]">{name}</span>
+        <span className="text-xs text-[#5e5d6b]">{role}</span>
+      </div>
+      <div className="hidden sm:flex flex-col">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+          Pitch Angle
+        </span>
+        <span className="text-xs text-[#0b1c30]">{angle}</span>
+      </div>
+      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColor}`}>
+        {status}
+      </span>
+    </div>
+  );
+}
+
+function RepRow({
+  initials,
+  name,
+  detail,
+  badge,
+  badgeColor,
+  dotColor,
+  bgColor,
+  action,
+}: {
+  initials: string;
+  name: string;
+  detail: string;
+  badge: string;
+  badgeColor: string;
+  dotColor: string;
+  bgColor: string;
+  action?: React.ReactNode;
+}) {
+  return (
+    <div className="p-3 rounded-xl bg-white shadow-sm flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className="relative">
+          <div
+            className={`w-9 h-9 rounded-full ${bgColor} text-white flex items-center justify-center font-bold text-xs`}
+          >
+            {initials}
+          </div>
+          <span
+            className={`w-3 h-3 rounded-full ${dotColor} absolute bottom-0 right-0 border-2 border-white`}
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold text-[#0b1c30]">{name}</span>
+          <span className="text-xs text-[#5e5d6b]">{detail}</span>
+        </div>
+      </div>
+      {action || (
+        <span className={`px-2 py-1 rounded text-xs font-semibold ${badgeColor}`}>
+          {badge}
+        </span>
+      )}
+    </div>
+  );
+}
 
 const pillTabs = [
-  { label: "Autonomous Agent", href: "#autonomous-agent" },
-  { label: "Power Dialer", href: "#power-dialer" },
-  { label: "Lead Engine", href: "#lead-engine" },
-  { label: "Caller Records", href: "#caller-records" },
-  { label: "Integrations", href: "#integrations" },
-  { label: "SMS & IM", href: "#sms-im" },
+  { label: "Autonomous Agent", href: "#feature-ai-agent" },
+  { label: "Power Dialer", href: "#feature-power-dialer" },
+  { label: "Lead Engine", href: "#feature-leads" },
+  { label: "Copilot Rebuttals", href: "#feature-rebuttals" },
+  { label: "Dispositions", href: "#feature-dispositions" },
+  { label: "10DLC & SIP", href: "#feature-compliance" },
 ];
-
-interface Feature {
-  id: string;
-  label: string;
-  headline: string;
-  description: string;
-  bullets: string[];
-  learnMoreHref: string;
-  mockup: React.ReactNode;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Mockup components                                                  */
-/* ------------------------------------------------------------------ */
-
-function DialerMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-full bg-[#7C3AED]/20 flex items-center justify-center">
-          <Bot className="h-5 w-5 text-[#7C3AED]" />
-        </div>
-        <div>
-          <div className="text-sm font-semibold text-white">AI Agent - Active</div>
-          <div className="text-xs text-zinc-400">Live call in progress</div>
-        </div>
-        <div className="ml-auto flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-xs text-green-400">Connected</span>
-        </div>
-      </div>
-      <div className="rounded-lg bg-white/5 p-4 space-y-3">
-        <div className="flex justify-between text-xs text-zinc-400">
-          <span>Sarah Mitchell</span>
-          <span className="text-[#7C3AED]">00:42</span>
-        </div>
-        <div className="h-8 rounded bg-[#7C3AED]/10 flex items-center px-3">
-          <div className="flex gap-0.5">
-            {[3, 5, 8, 4, 7, 6, 3, 5, 8, 4, 7, 2, 6, 4, 8, 5].map((h, i) => (
-              <div
-                key={i}
-                className="w-1 rounded-full bg-[#7C3AED]"
-                style={{ height: `${h * 3}px` }}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="text-xs text-zinc-500">Voicemail drop queued if no answer...</div>
-      </div>
-      <div className="grid grid-cols-3 gap-2 text-center text-xs">
-        <div className="rounded-lg bg-white/5 py-2">
-          <div className="text-white font-semibold">127</div>
-          <div className="text-zinc-500">Calls</div>
-        </div>
-        <div className="rounded-lg bg-white/5 py-2">
-          <div className="text-white font-semibold">34</div>
-          <div className="text-zinc-500">Connected</div>
-        </div>
-        <div className="rounded-lg bg-white/5 py-2">
-          <div className="text-white font-semibold">8</div>
-          <div className="text-zinc-500">Meetings</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CallStatsMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold text-white">Power Dialer</div>
-        <div className="flex items-center gap-1.5 rounded-full bg-green-400/10 px-2.5 py-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-          <span className="text-xs text-green-400">3 lines active</span>
-        </div>
-      </div>
-      <div className="flex items-center justify-center py-6">
-        <div className="text-center">
-          <div className="text-5xl font-bold text-white tracking-tight">06:43</div>
-          <div className="text-sm text-zinc-400 mt-1">avg. talk time per lead</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-lg bg-white/5 p-3">
-          <div className="text-xs text-zinc-400">Dial Rate</div>
-          <div className="text-lg font-bold text-white">142/hr</div>
-        </div>
-        <div className="rounded-lg bg-white/5 p-3">
-          <div className="text-xs text-zinc-400">Connect Rate</div>
-          <div className="text-lg font-bold text-[#7C3AED]">28.4%</div>
-        </div>
-        <div className="rounded-lg bg-white/5 p-3">
-          <div className="text-xs text-zinc-400">Conversations</div>
-          <div className="text-lg font-bold text-white">47</div>
-        </div>
-        <div className="rounded-lg bg-white/5 p-3">
-          <div className="text-xs text-zinc-400">Meetings Set</div>
-          <div className="text-lg font-bold text-green-400">12</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LeadListMockup() {
-  const leads = [
-    { name: "Jason Park", company: "Meridian Corp", score: 92, status: "Hot" },
-    { name: "Lisa Chen", company: "Apex Solutions", score: 87, status: "Warm" },
-    { name: "David Kim", company: "NovaTech Inc", score: 84, status: "Hot" },
-    { name: "Rachel Torres", company: "Summit Group", score: 79, status: "Warm" },
-  ];
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold text-white">Lead Pipeline</div>
-        <div className="text-xs text-[#7C3AED] font-medium">3,670 leads</div>
-      </div>
-      <div className="flex gap-2">
-        {["All", "Hot", "Warm", "New"].map((f) => (
-          <span
-            key={f}
-            className={`rounded-full px-3 py-1 text-xs font-medium ${
-              f === "All"
-                ? "bg-[#7C3AED] text-white"
-                : "bg-white/5 text-zinc-400"
-            }`}
-          >
-            {f}
-          </span>
-        ))}
-      </div>
-      <div className="space-y-2">
-        {leads.map((l) => (
-          <div
-            key={l.name}
-            className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2.5"
-          >
-            <div>
-              <div className="text-sm text-white font-medium">{l.name}</div>
-              <div className="text-xs text-zinc-500">{l.company}</div>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-zinc-400">{l.score}</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                  l.status === "Hot"
-                    ? "bg-red-500/10 text-red-400"
-                    : "bg-yellow-500/10 text-yellow-400"
-                }`}
-              >
-                {l.status}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ObjectionMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center gap-2">
-        <Brain className="h-4 w-4 text-[#7C3AED]" />
-        <div className="text-sm font-semibold text-white">AI Objection Coach</div>
-      </div>
-      <div className="space-y-3">
-        <div className="flex gap-3">
-          <div className="shrink-0 h-7 w-7 rounded-full bg-zinc-700 flex items-center justify-center text-xs text-zinc-300">
-            L
-          </div>
-          <div className="rounded-lg rounded-tl-none bg-white/5 px-3 py-2 text-sm text-zinc-300">
-            &ldquo;We already have a provider and we&apos;re locked into a contract.&rdquo;
-          </div>
-        </div>
-        <div className="flex gap-3 justify-end">
-          <div className="rounded-lg rounded-tr-none bg-[#7C3AED]/20 px-3 py-2 text-sm text-zinc-200 max-w-[80%]">
-            <div className="text-[10px] uppercase text-[#7C3AED] font-semibold mb-1">
-              Suggested Response
-            </div>
-            &ldquo;That makes sense &mdash; most of our best clients felt the same way. Mind if I show you what they found when they compared side-by-side?&rdquo;
-          </div>
-        </div>
-        <div className="rounded-lg border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-3">
-          <div className="text-[10px] uppercase text-[#7C3AED] font-semibold mb-1">
-            Strategy
-          </div>
-          <div className="text-xs text-zinc-400">
-            Acknowledge &rarr; Relate &rarr; Pivot to comparison. Success rate: 64%
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DispositionMockup() {
-  const dispositions = [
-    { label: "Meeting Set", color: "bg-green-400", active: true },
-    { label: "Call Back", color: "bg-yellow-400", active: false },
-    { label: "Not Interested", color: "bg-red-400", active: false },
-    { label: "Wrong Number", color: "bg-zinc-400", active: false },
-    { label: "Voicemail", color: "bg-blue-400", active: false },
-  ];
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="text-sm font-semibold text-white">Quick Disposition</div>
-      <div className="rounded-lg bg-white/5 p-4">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <div className="text-sm text-white font-medium">Marcus Johnson</div>
-            <div className="text-xs text-zinc-500">BluePeak Ventures &middot; 2:34 call</div>
-          </div>
-          <div className="text-xs text-green-400">Completed</div>
-        </div>
-        <div className="space-y-2">
-          {dispositions.map((d) => (
-            <button
-              key={d.label}
-              className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-left transition ${
-                d.active
-                  ? "bg-[#7C3AED]/20 text-white border border-[#7C3AED]/50"
-                  : "bg-white/5 text-zinc-400 border border-transparent hover:bg-white/10"
-              }`}
-            >
-              <span className={`h-2.5 w-2.5 rounded-full ${d.color}`} />
-              {d.label}
-              {d.active && <Check className="h-4 w-4 ml-auto text-[#7C3AED]" />}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="text-xs text-zinc-500 text-center">
-        Press <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-zinc-300">1-5</kbd> for keyboard shortcut
-      </div>
-    </div>
-  );
-}
-
-function MessagingMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="text-sm font-semibold text-white">Quick Follow-Up</div>
-      <div className="flex gap-2">
-        {[
-          { icon: MessageSquare, label: "WhatsApp", active: true },
-          { icon: Mail, label: "Email", active: false },
-          { icon: Send, label: "SMS", active: false },
-        ].map((ch) => (
-          <button
-            key={ch.label}
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition ${
-              ch.active
-                ? "bg-[#7C3AED] text-white"
-                : "bg-white/5 text-zinc-400"
-            }`}
-          >
-            <ch.icon className="h-3.5 w-3.5" />
-            {ch.label}
-          </button>
-        ))}
-      </div>
-      <div className="rounded-lg bg-white/5 p-4 space-y-3">
-        <div className="text-xs text-zinc-400">To: Sarah Mitchell</div>
-        <div className="rounded-lg bg-white/5 p-3 text-sm text-zinc-300">
-          Hi Sarah! Great speaking with you. As discussed, here&apos;s the link to book your demo:
-          <span className="text-[#7C3AED]"> calendly.com/vocalis/demo</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2">
-            <span className="rounded bg-white/5 px-2 py-1 text-[10px] text-zinc-400">
-              AI Generated
-            </span>
-            <span className="rounded bg-white/5 px-2 py-1 text-[10px] text-zinc-400">
-              Personalized
-            </span>
-          </div>
-          <button className="rounded-lg bg-[#7C3AED] px-3 py-1.5 text-xs text-white font-medium">
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function UnifiedInboxMockup() {
-  const records = [
-    { type: "call", icon: Phone, label: "Inbound Call", time: "2m ago", detail: "3:42 duration" },
-    { type: "sms", icon: MessageSquare, label: "SMS Received", time: "5m ago", detail: '"Yes, I\'m interested"' },
-    { type: "note", icon: Brain, label: "AI Summary", time: "5m ago", detail: "Lead qualified - budget confirmed" },
-    { type: "recording", icon: Headphones, label: "Call Recording", time: "8m ago", detail: "Recording available" },
-  ];
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold text-white">Unified Timeline</div>
-        <div className="text-xs text-zinc-500">Jason Park</div>
-      </div>
-      <div className="space-y-1">
-        {records.map((r, i) => (
-          <div key={i} className="flex items-start gap-3 rounded-lg bg-white/5 px-3 py-2.5">
-            <div className="mt-0.5 h-7 w-7 rounded-full bg-[#7C3AED]/10 flex items-center justify-center shrink-0">
-              <r.icon className="h-3.5 w-3.5 text-[#7C3AED]" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-white font-medium">{r.label}</span>
-                <span className="text-[10px] text-zinc-500">{r.time}</span>
-              </div>
-              <div className="text-xs text-zinc-400 truncate">{r.detail}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function InfrastructureMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center gap-2">
-        <Shield className="h-4 w-4 text-[#7C3AED]" />
-        <div className="text-sm font-semibold text-white">Infrastructure Status</div>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        {[
-          { label: "Uptime", value: "99.97%", sub: "Last 90 days" },
-          { label: "10DLC Trust Score", value: "A+", sub: "Verified" },
-          { label: "Latency", value: "38ms", sub: "Avg. response" },
-          { label: "Caller ID", value: "100%", sub: "STIR/SHAKEN" },
-        ].map((s) => (
-          <div key={s.label} className="rounded-lg bg-white/5 p-3">
-            <div className="text-xs text-zinc-400">{s.label}</div>
-            <div className="text-lg font-bold text-white">{s.value}</div>
-            <div className="text-[10px] text-zinc-500">{s.sub}</div>
-          </div>
-        ))}
-      </div>
-      <div className="rounded-lg border border-green-400/20 bg-green-400/5 p-3 flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-green-400" />
-        <span className="text-xs text-green-400">All systems operational</span>
-        <span className="ml-auto text-[10px] text-zinc-500">Powered by Telnyx</span>
-      </div>
-    </div>
-  );
-}
-
-function MonitoringMockup() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#131025] p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold text-white">Live Dashboard</div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-xs text-green-400">Live</span>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { label: "Queue", value: "342", color: "text-white" },
-          { label: "Active", value: "8", color: "text-green-400" },
-          { label: "Idle", value: "2", color: "text-yellow-400" },
-        ].map((m) => (
-          <div key={m.label} className="rounded-lg bg-white/5 p-3 text-center">
-            <div className={`text-xl font-bold ${m.color}`}>{m.value}</div>
-            <div className="text-[10px] text-zinc-500">{m.label}</div>
-          </div>
-        ))}
-      </div>
-      <div className="space-y-2">
-        {[
-          { name: "Alex R.", status: "On Call", time: "4:12", color: "bg-green-400" },
-          { name: "Jordan M.", status: "Wrapping", time: "0:38", color: "bg-yellow-400" },
-          { name: "Taylor S.", status: "Available", time: "--", color: "bg-blue-400" },
-        ].map((agent) => (
-          <div
-            key={agent.name}
-            className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2"
-          >
-            <div className="flex items-center gap-2">
-              <span className={`h-2 w-2 rounded-full ${agent.color}`} />
-              <span className="text-sm text-white">{agent.name}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-zinc-400">{agent.status}</span>
-              <span className="text-xs text-zinc-500 tabular-nums w-8 text-right">
-                {agent.time}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="h-16 flex items-end gap-1 px-1">
-        {[40, 55, 35, 65, 80, 60, 75, 90, 70, 85, 50, 72].map((h, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-t bg-[#7C3AED]/40"
-            style={{ height: `${h}%` }}
-          />
-        ))}
-      </div>
-      <div className="flex justify-between text-[10px] text-zinc-500">
-        <span>8am</span>
-        <span>Queue velocity (calls/hr)</span>
-        <span>Now</span>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Feature data                                                       */
-/* ------------------------------------------------------------------ */
-
-const features: Feature[] = [
-  {
-    id: "autonomous-agent",
-    label: "Autonomous Agent",
-    headline: "Live AI Voice Agents & Instant Smart Voicemail Drops",
-    description:
-      "Deploy AI agents that handle live conversations with natural, human-like speech. When a lead doesn't pick up, the system drops a personalized voicemail in under a second -- no awkward pauses, no wasted reps.",
-    bullets: [
-      "Natural-sounding AI voice handles objections and qualifies leads in real time",
-      "Instant voicemail drops with dynamic personalization per contact",
-      "Seamless handoff to a live rep the moment a prospect is ready",
-    ],
-    learnMoreHref: "#",
-    mockup: <DialerMockup />,
-  },
-  {
-    id: "power-dialer",
-    label: "Power Dialer",
-    headline: "3x More Conversations with Zero Wasted Downtime",
-    description:
-      "Multi-line parallel dialing burns through your list while intelligent call routing connects you only to live answers. No more listening to rings, busy signals, or disconnected numbers.",
-    bullets: [
-      "Up to 3 simultaneous lines dialing so you never wait between calls",
-      "Smart detection skips voicemails, fax machines, and dead numbers automatically",
-      "Real-time connect-rate analytics so you can optimize as you go",
-    ],
-    learnMoreHref: "#",
-    mockup: <CallStatsMockup />,
-  },
-  {
-    id: "lead-engine",
-    label: "Lead Engine",
-    headline: "3,670 Leads. Filtered, Segmented, and Ready to Dial",
-    description:
-      "Import, score, and segment thousands of leads with AI-driven filtering. Every contact in your queue is pre-qualified and prioritized so your team is always working the highest-value opportunities first.",
-    bullets: [
-      "AI lead scoring ranks contacts by likelihood to convert",
-      "Dynamic segmentation filters by industry, geography, behavior, and intent signals",
-      "One-click import from CSV, CRM, or API with automatic deduplication",
-    ],
-    learnMoreHref: "#",
-    mockup: <LeadListMockup />,
-  },
-  {
-    id: "objection-handling",
-    label: "AI Coaching",
-    headline: "Never Freeze on an Objection Again",
-    description:
-      "Real-time AI coaching whispers the perfect rebuttal into your ear the moment a prospect pushes back. Trained on thousands of winning call patterns, it turns every rep into your top closer.",
-    bullets: [
-      "Live objection detection identifies resistance patterns as they happen",
-      "Context-aware rebuttals generated from your winning playbook data",
-      "Post-call coaching scorecards highlight what worked and what to improve",
-    ],
-    learnMoreHref: "#",
-    mockup: <ObjectionMockup />,
-  },
-  {
-    id: "dispositions",
-    label: "Caller Records",
-    headline: "One-Click Dispositions That Advance the Queue Instantly",
-    description:
-      "Tag outcomes in a single click or keystroke. Disposition data flows straight into your CRM, triggers the right follow-up sequence, and moves the dialer to the next contact without missing a beat.",
-    bullets: [
-      "Keyboard shortcuts for lightning-fast call tagging between conversations",
-      "Auto-triggered follow-up sequences based on disposition type",
-      "Full disposition analytics to track conversion funnel performance",
-    ],
-    learnMoreHref: "#",
-    mockup: <DispositionMockup />,
-  },
-  {
-    id: "sms-im",
-    label: "Omnichannel",
-    headline: "Follow Up in 10 Seconds via WhatsApp, Email, or SMS",
-    description:
-      "Strike while the iron is hot. Send AI-personalized follow-ups through any channel the moment a call ends. Templates auto-populate with call context so every message feels handwritten.",
-    bullets: [
-      "One-click multi-channel follow-up from WhatsApp, email, and SMS in one view",
-      "AI-generated message drafts personalized with call context and lead data",
-      "Scheduled sequences that drip across channels on autopilot",
-    ],
-    learnMoreHref: "#",
-    mockup: <MessagingMockup />,
-  },
-  {
-    id: "caller-records",
-    label: "Unified Records",
-    headline: "SMS, Call Recordings, and AI Notes in One Clean Stream",
-    description:
-      "Every interaction with a contact lives on a single timeline. Recordings, transcripts, AI-generated summaries, texts, and emails -- all searchable, all in one place so nothing slips through the cracks.",
-    bullets: [
-      "Chronological timeline merges calls, messages, and notes per contact",
-      "AI-generated call summaries with key moments and action items highlighted",
-      "Full-text search across recordings, transcripts, and message history",
-    ],
-    learnMoreHref: "#",
-    mockup: <UnifiedInboxMockup />,
-  },
-  {
-    id: "integrations",
-    label: "Infrastructure",
-    headline: "Carrier-Grade Telnyx Infrastructure & 10DLC Trust",
-    description:
-      "Built on Telnyx carrier-grade SIP trunking with full STIR/SHAKEN attestation and 10DLC compliance. Your calls reach real people with verified caller ID, and your messages land in the primary inbox.",
-    bullets: [
-      "99.97% uptime SLA with geo-redundant failover across Telnyx data centers",
-      "Full 10DLC registration and STIR/SHAKEN A-level attestation out of the box",
-      "Real-time call quality monitoring with automatic route optimization",
-    ],
-    learnMoreHref: "#",
-    mockup: <InfrastructureMockup />,
-  },
-  {
-    id: "monitoring",
-    label: "Live Monitoring",
-    headline: "Monitor Live Queue Velocity and SDR Availability",
-    description:
-      "See every rep, every call, and every metric in real time from a single dashboard. Managers can whisper-coach, barge into calls, or reassign leads on the fly to maximize team throughput.",
-    bullets: [
-      "Real-time queue velocity, connect rates, and agent status at a glance",
-      "Whisper, barge, and listen modes for live coaching without disrupting calls",
-      "Automatic workload balancing redistributes leads when reps go idle",
-    ],
-    learnMoreHref: "#",
-    mockup: <MonitoringMockup />,
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
 
 export default function FeaturesPage() {
   return (
     <div className="bg-[#f8f9ff] text-[#0b1c30]">
       {/* ---- Hero ---- */}
-      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern pt-28 pb-24 sm:pb-32">
-        {/* Decorative glows */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
-          <div className="absolute right-1/4 bottom-0 h-[300px] w-[500px] rounded-full bg-[#630ed4]/6 blur-[100px]" />
-        </div>
+      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern pt-28 pb-20 lg:pb-24">
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[340px] bg-gradient-to-tr from-[#630ed4]/10 via-[#7c3aed]/15 to-transparent blur-[80px] rounded-full" />
+        <div className="relative mx-auto max-w-[75rem] px-4 lg:px-8 flex flex-col items-center text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e3e0f1]/80 text-[#630ed4] text-[12px] font-bold uppercase tracking-[0.08em] shadow-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#7c3aed] animate-pulse" />
+            Built for Outbound Sales Teams
+          </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 text-center">
-          <p className="inline-block rounded-full bg-[#eaddff] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#630ed4]">
-            Built for Top Producers
-          </p>
-
-          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-5xl lg:text-6xl">
-            Every Feature.{" "}
-            <span className="bg-gradient-to-r from-[#630ed4] to-[#7c3aed] bg-clip-text text-transparent">
-              Built for Closers.
-            </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-[68px] lg:leading-[72px] font-black tracking-tight text-[#0b1c30] max-w-4xl mb-4">
+            Every Feature Built to Get Your Prospect{" "}
+            <span className="text-[#630ed4]">on the Phone</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5e5d6b]">
-            The end-to-end cold calling system that combines autonomous AI voice
-            agents, a multi-line power dialer, intelligent lead management, and
-            omnichannel follow-up into one relentless revenue engine.
+          <p className="text-lg text-[#5e5d6b] max-w-2xl mb-8 leading-relaxed">
+            From solo founders to 50-seat call centers — Dialeads gives every
+            team the tools to dial more, connect more, and close more.
           </p>
 
-          {/* Pill tabs */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1 bg-[#eff4ff] rounded-full shadow-sm max-w-3xl">
             {pillTabs.map((tab) => (
               <a
                 key={tab.label}
                 href={tab.href}
-                className="rounded-full border border-[#ccc3d8] bg-white px-5 py-2 text-sm font-medium text-[#4a4455] shadow-sm transition hover:border-[#7c3aed]/50 hover:bg-[#eaddff] hover:text-[#630ed4]"
+                className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#4a4455] hover:text-[#630ed4] hover:bg-white transition-all"
               >
                 {tab.label}
               </a>
@@ -637,94 +165,819 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ---- Feature Sections ---- */}
-      {features.map((feature, index) => {
-        const isEven = index % 2 === 1;
-        return (
-          <section
-            key={feature.id}
-            id={feature.id}
-            className={`py-20 sm:py-28 ${
-              index % 2 === 0 ? "bg-white" : "bg-[#eff4ff]"
-            }`}
-          >
-            <div
-              className={`mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20 ${
-                isEven ? "lg:[direction:rtl]" : ""
-              }`}
-            >
-              {/* Text */}
-              <div className={isEven ? "lg:[direction:ltr]" : ""}>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C3AED]">
-                  {feature.label}
-                </p>
-                <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-4xl">
-                  {feature.headline}
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-[#5e5d6b]">
-                  {feature.description}
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {feature.bullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#7C3AED]/10">
-                        <Check className="h-3 w-3 text-[#7C3AED]" />
+      {/* ---- 01: AI Cold Calling [Text L / Visual R] ---- */}
+      <section className="py-20 lg:py-24 bg-white" id="feature-ai-agent">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              01 &bull; AUTONOMOUS PROSPECTING
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              Live AI Calls and Ringless Voicemail Drop — In One Platform
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Configure realistic AI voice agents that handle first-touch cold
+              calls. When no one answers, Dialeads drops a pre-recorded ringless
+              voicemail instantly — no dial tone, no hang-up, no wasted time.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>
+                Auto answering machine detection (AMD)
+              </FeatureCheck>
+              <FeatureCheck>
+                1-click pre-recorded voicemail drop
+              </FeatureCheck>
+              <FeatureCheck>
+                AI voice agent for full autonomous first-touch calls
+              </FeatureCheck>
+            </ul>
+            <div>
+              <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#630ed4] text-white text-sm font-semibold shadow-md hover:bg-[#7c3aed] transition-all">
+                Configure AI Persona
+                <Settings2 className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Visual: AI Voice Engine */}
+          <div className="lg:col-span-6">
+            <div className="relative rounded-2xl bg-[#213145] text-[#eaf1ff] shadow-xl p-6 overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-[#630ed4]" />
+              {/* Window header */}
+              <div className="flex items-center justify-between pb-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#ba1a1a]" />
+                  <span className="w-3 h-3 rounded-full bg-[#c7c5d5]" />
+                  <span className="w-3 h-3 rounded-full bg-[#eaddff]" />
+                  <span className="text-[12px] font-semibold text-[#cbdbf5] ml-2">
+                    dialeads-texml-stream.v1
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#630ed4]/20 text-[#d2bbff] text-[11px] font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d2bbff] animate-ping" />
+                  412ms LATENCY
+                </div>
+              </div>
+
+              {/* Persona card */}
+              <div className="rounded-xl bg-white/10 p-4 mb-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#630ed4] flex items-center justify-center">
+                      <Mic className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-[#f8f9ff]">
+                        Elena Vance (Executive SDR)
+                      </h4>
+                      <span className="text-[12px] text-[#cbdbf5]">
+                        ElevenLabs Turbo v2.5 &bull; Multilingual Cold Dial
                       </span>
-                      <span className="text-[#5e5d6b]">{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={feature.learnMoreHref}
-                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#7C3AED] transition hover:gap-3"
-                >
-                  Learn More <ArrowRight className="h-4 w-4" />
-                </a>
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded bg-[#7c3aed]/40 text-[#eaddff] text-xs font-semibold">
+                    Ready
+                  </span>
+                </div>
+
+                {/* Waveform */}
+                <div className="flex items-end gap-1 h-12 py-1 px-2 bg-[#213145]/80 rounded-lg">
+                  {[3, 8, 11, 6, 9, 4, 10, 7, 2, 6, 10, 5, 8, 3].map(
+                    (h, i) => (
+                      <span
+                        key={i}
+                        className={`w-1.5 rounded-full animate-pulse ${
+                          i % 3 === 0
+                            ? "bg-[#630ed4]"
+                            : i % 3 === 1
+                              ? "bg-[#7c3aed]"
+                              : "bg-[#eaddff]"
+                        }`}
+                        style={{ height: `${h * 4}px` }}
+                      />
+                    )
+                  )}
+                </div>
               </div>
 
-              {/* Mockup */}
-              <div className={isEven ? "lg:[direction:ltr]" : ""}>
-                {feature.mockup}
+              {/* TeXML console */}
+              <div className="rounded-xl bg-white/5 p-4 font-mono text-xs text-[#cbdbf5] space-y-1">
+                <div className="text-[#eaddff] flex items-center gap-2">
+                  <Terminal className="h-3.5 w-3.5" />
+                  <span>
+                    &lt;Response
+                    stream=&quot;wss://telephony.dialeads.io/v1/stream&quot;&gt;
+                  </span>
+                </div>
+                <div className="pl-4 text-[#f8f9ff]">
+                  &lt;Say voice=&quot;eleven_turbo_elena&quot;
+                  interruption_sensitivity=&quot;0.82&quot;&gt;
+                </div>
+                <div className="pl-8 text-[#d2bbff]">
+                  &quot;Hi Marcus, saw you lead Ops at TechCorp. Quick
+                  question...&quot;
+                </div>
+                <div className="pl-4 text-[#f8f9ff]">&lt;/Say&gt;</div>
+                <div className="text-[#eaddff]">&lt;/Response&gt;</div>
               </div>
             </div>
-          </section>
-        );
-      })}
+          </div>
+        </div>
+      </section>
 
-      {/* ---- CTA ---- */}
-      <section className="bg-[#f8f9ff] py-24 sm:py-32">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#7c3aed] p-12 text-center shadow-[0_20px_50px_rgba(99,14,212,0.35)] lg:p-16">
-            <div className="pointer-events-none absolute inset-0">
-              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/10 blur-2xl" />
-              <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-            </div>
+      {/* ---- 02: Power Dialer [Visual L / Text R] ---- */}
+      <section className="py-20 lg:py-24 bg-[#f8f9ff]" id="feature-power-dialer">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Visual: WebRTC Softphone */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="rounded-2xl bg-white shadow-xl p-8">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#630ed4] animate-ping" />
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-[#630ed4]">
+                    LIVE WEBRTC SIP CALL
+                  </span>
+                </div>
+                <span className="text-xl font-semibold text-[#0b1c30] font-mono">
+                  00:43
+                </span>
+              </div>
 
-            <div className="relative">
-              <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Experience All 9 Capabilities{" "}
-                <span className="text-[#d2bbff]">Free for 14 Days</span>
-              </h2>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#d2bbff]">
-                No credit card required. Get full access to the autonomous calling
-                engine, power dialer, AI coaching, and every integration -- then
-                decide if Vocalis is right for your team.
-              </p>
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link
-                  href="#"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-[#630ed4] shadow-lg transition hover:bg-[#eaddff]"
-                >
-                  Start Your 14 Day Free Trial
-                </Link>
-                <Link
-                  href="#"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 px-8 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10"
-                >
-                  Book a Custom Demo
-                </Link>
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-[#eff4ff] mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#e3e0f1] flex items-center justify-center text-[#5e5d6b] font-bold text-sm">
+                  JD
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-[#0b1c30]">
+                    Jordan Davis
+                  </span>
+                  <span className="text-sm text-[#5e5d6b]">
+                    VP Revenue &bull; CloudSprint (+1 415-890-2134)
+                  </span>
+                </div>
+                <div className="ml-auto">
+                  <span className="px-2 py-0.5 rounded bg-[#630ed4] text-white text-[10px] uppercase font-bold">
+                    Local CID
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 mb-4 text-center">
+                {[
+                  { icon: MicOff, label: "Mute" },
+                  { icon: Pause, label: "Hold" },
+                  { icon: Voicemail, label: "Drop VM" },
+                ].map((c) => (
+                  <div
+                    key={c.label}
+                    className="p-3 rounded-xl bg-[#e5eeff] flex flex-col items-center hover:bg-[#e3e0f1] transition cursor-pointer"
+                  >
+                    <c.icon className="h-5 w-5 text-[#630ed4] mb-1" />
+                    <span className="text-xs font-semibold text-[#0b1c30]">
+                      {c.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between p-3 rounded-xl bg-[#dce9ff] text-[#0b1c30]">
+                <span className="text-sm">Next Prospect Dial</span>
+                <span className="px-3 py-0.5 rounded bg-white shadow-sm font-mono text-xs font-bold text-[#630ed4]">
+                  SPACEBAR
+                </span>
               </div>
             </div>
+          </div>
+
+          {/* Text */}
+          <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              02 &bull; DIALING VELOCITY
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              3x More Calls Per Day Without the Manual Work
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Stop dialing numbers by hand. Dialeads cycles through your lead
+              queue automatically with local caller ID matching for higher pickup
+              rates. Your reps focus on conversations, not keypads.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>WebRTC in-browser softphone — no hardware needed</FeatureCheck>
+              <FeatureCheck>
+                Local presence caller ID for 85%+ answer rates
+              </FeatureCheck>
+              <FeatureCheck>
+                Keyboard shortcuts to move between leads instantly
+              </FeatureCheck>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 03: Lead Management [Text L / Visual R] ---- */}
+      <section className="py-20 lg:py-24 bg-white" id="feature-leads">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              03 &bull; ORGANIZED PIPELINE
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              10,000 Leads Organized and Ready to Dial
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Import leads via CSV, auto-validate phone numbers, and segment by
+              campaign, territory, or deal size. Filter uncalled contacts
+              instantly. Search across thousands of records in milliseconds.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>Bulk CSV import up to 250,000 rows</FeatureCheck>
+              <FeatureCheck>
+                Automatic DNC scrub and phone number formatting
+              </FeatureCheck>
+              <FeatureCheck>Custom lead tags and status badges</FeatureCheck>
+            </ul>
+          </div>
+
+          {/* Visual: Lead dispatch table */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#e5eeff] shadow-xl overflow-hidden p-4">
+              <div className="flex items-center justify-between pb-3 mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-semibold text-[#0b1c30]">
+                    Queue (3,670)
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-[#eaddff] text-[#25005a] text-xs font-semibold">
+                    Uncalled Only
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="p-1 rounded bg-white text-[#0b1c30] shadow-sm">
+                    <Filter className="h-4 w-4" />
+                  </button>
+                  <button className="p-1 rounded bg-[#630ed4] text-white shadow-sm">
+                    <Upload className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <LeadRow
+                  name="Sarah Lin"
+                  role="Director @ Apex Growth"
+                  angle="SDR Ramp Velocity"
+                  status="New"
+                  statusColor="bg-[#e3e0f1] text-[#464552]"
+                />
+                <LeadRow
+                  name="Michael Vance"
+                  role="VP Ops @ NorthScale"
+                  angle="Voicemail Elimination"
+                  status="Follow Up"
+                  statusColor="bg-[#e3e0f1] text-[#464552]"
+                />
+                <LeadRow
+                  name="Kareem Al-Sayed"
+                  role="CRO @ FinEdge Group"
+                  angle="10DLC Delivery Protection"
+                  status="Hot Lead"
+                  statusColor="bg-[#eaddff] text-[#25005a]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 04: Objection Rebuttals [Visual L / Text R] ---- */}
+      <section className="py-20 lg:py-24 bg-[#f8f9ff]" id="feature-rebuttals">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Visual: Copilot UI */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="rounded-2xl bg-white shadow-xl p-8">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[12px] font-bold uppercase tracking-wider text-[#630ed4]">
+                  Live Objection Copilot
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs text-[#5e5d6b]">
+                  <span className="w-2 h-2 rounded-full bg-[#630ed4]" />
+                  Instant AI Generation
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {[
+                  { label: '"We have an internal guy"', active: true },
+                  { label: '"Too expensive"', active: false },
+                  { label: '"Overseas team handles"', active: false },
+                  { label: '"Just email me info"', active: false },
+                ].map((pill) => (
+                  <button
+                    key={pill.label}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
+                      pill.active
+                        ? "bg-[#630ed4] text-white shadow-sm"
+                        : "bg-[#e5eeff] text-[#0b1c30] hover:bg-[#e3e0f1]"
+                    }`}
+                  >
+                    {pill.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="rounded-xl bg-[#eff4ff] p-4 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4a4455]">
+                    Recommended Pivot Script
+                  </span>
+                  <button className="inline-flex items-center gap-1 text-xs font-semibold text-[#630ed4] hover:underline">
+                    <Copy className="h-3 w-3" /> Copy Script
+                  </button>
+                </div>
+                <p className="text-sm text-[#0b1c30] leading-relaxed italic">
+                  &ldquo;Totally get that, and most VPs we onboard already have
+                  2-3 SDRs. The difference is Dialeads handles the first 2,000
+                  cold touches so your internal rep only speaks with warmed
+                  accounts ready to see a demo. What if we just ran 500 leads
+                  alongside him?&rdquo;
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 bg-[#e5eeff] rounded-xl p-2">
+                <input
+                  className="bg-transparent flex-1 px-3 text-sm outline-none text-[#0b1c30] placeholder:text-[#7b7487]"
+                  placeholder="Type prospect objection or custom pushback..."
+                  type="text"
+                  readOnly
+                />
+                <button className="px-4 py-2 rounded-lg bg-[#630ed4] text-white text-xs font-semibold shadow">
+                  Pivot
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              04 &bull; REAL-TIME COPILOT
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              The Right Rebuttal — Before Your Rep Even Thinks
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Dialeads transcribes prospect speech in real time. The moment an
+              objection lands — price, timing, competition — the right rebuttal
+              appears on screen. No scripts to memorize. No freezing up.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>
+                Pre-built objection playbooks for common pushbacks
+              </FeatureCheck>
+              <FeatureCheck>Custom rebuttal decks by vertical or competitor</FeatureCheck>
+              <FeatureCheck>1-click copy to paste verbatim or modify</FeatureCheck>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 05: Dispositions [Text L / Visual R] ---- */}
+      <section className="py-20 lg:py-24 bg-white" id="feature-dispositions">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              05 &bull; DISPOSITION INTELLIGENCE
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              Log Every Call Result in One Second
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              After each call, reps tap one button — Interested, Voicemail, No
+              Answer, Callback, Bad Number. Queue advances automatically. CRM
+              updates in real time. Zero manual entry.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>
+                1-click disposition system
+              </FeatureCheck>
+              <FeatureCheck>
+                Automatic next-step triggers per disposition
+              </FeatureCheck>
+              <FeatureCheck>
+                Call recording + AI transcript for every call
+              </FeatureCheck>
+            </ul>
+          </div>
+
+          {/* Visual: Disposition buttons */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#e5eeff] shadow-xl p-8">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#4a4455] mb-3 block">
+                1-Click Fast Disposition
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                {[
+                  {
+                    icon: Smile,
+                    label: "Interested",
+                    active: true,
+                  },
+                  { icon: Send, label: "Sent Mockup", active: false },
+                  { icon: Voicemail, label: "Voicemail", active: false },
+                  {
+                    icon: PhoneMissed,
+                    label: "No Answer",
+                    active: false,
+                  },
+                  { icon: PhoneOff, label: "Bad Number", active: false },
+                  { icon: Clock, label: "Callback", active: false },
+                ].map((d) => (
+                  <button
+                    key={d.label}
+                    className={`p-3 rounded-xl text-xs font-semibold shadow-sm flex items-center justify-center gap-1 ${
+                      d.active
+                        ? "bg-[#630ed4] text-white shadow-md"
+                        : "bg-white text-[#0b1c30] hover:bg-[#e3e0f1]"
+                    }`}
+                  >
+                    <d.icon className="h-3.5 w-3.5" /> {d.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="p-4 rounded-xl bg-white shadow-sm flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Voicemail className="h-5 w-5 text-[#630ed4]" />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-[#0b1c30]">
+                      Voicemail Dropped &bull; Queue Auto-Advanced
+                    </span>
+                    <span className="text-xs text-[#5e5d6b]">
+                      1-click drop custom voicemail and auto-advance queue
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-bold text-[#630ed4]">
+                  AUTO-ADVANCE
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 06: Omnichannel [Visual L / Text R] ---- */}
+      <section className="py-20 lg:py-24 bg-[#f8f9ff]" id="feature-omnichannel">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Visual: SMS template */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="rounded-2xl bg-white shadow-xl p-8">
+              <div className="flex items-center justify-between pb-3 mb-4">
+                <span className="text-[12px] font-bold uppercase tracking-wider text-[#630ed4]">
+                  Fast Follow-Up Dispatcher
+                </span>
+                <div className="flex items-center gap-2 text-xs font-semibold">
+                  <span className="px-2 py-0.5 rounded bg-[#e3e0f1] text-[#464552]">
+                    SMS
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[#e5eeff] text-[#0b1c30]">
+                    WhatsApp
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[#e5eeff] text-[#0b1c30]">
+                    Email
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-[#eff4ff] p-4 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-[#0b1c30]">
+                    Template: Executive Demo Recap
+                  </span>
+                  <span className="text-xs text-[#630ed4] font-semibold">
+                    Telnyx SMS Delivery
+                  </span>
+                </div>
+                <p className="text-sm text-[#0b1c30] mb-3">
+                  Hey{" "}
+                  <span className="bg-[#eaddff] px-1 rounded text-[#25005a]">
+                    {"{prospect_first_name}"}
+                  </span>
+                  ! Great catching you just now. Here is that customized ROI
+                  model we touched on:{" "}
+                  <span className="text-[#630ed4] underline">
+                    https://dialeads.io/m/davis-49
+                  </span>
+                  . Talk Thursday at 2pm!
+                </p>
+                <div className="flex items-center gap-2 text-xs text-[#5e5d6b] font-mono">
+                  <span>Tokens: 142 / 160</span>
+                  <span>&bull;</span>
+                  <span>1 Segment</span>
+                </div>
+              </div>
+
+              <button className="w-full py-3 rounded-xl bg-[#630ed4] text-white text-sm font-semibold shadow-md hover:bg-[#7c3aed] flex items-center justify-center gap-2 transition">
+                <Zap className="h-4 w-4" /> Send In 10 Seconds
+              </button>
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              06 &bull; MULTI-CHANNEL VELOCITY
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              Follow Up via SMS, Email, or WhatsApp — Right After the Call
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Timing is everything. Dialeads triggers pre-written follow-up
+              messages the moment a call ends — personalized with the
+              prospect&apos;s name, company, and next step. No copy-paste.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>Personalized SMS with dynamic placeholders</FeatureCheck>
+              <FeatureCheck>Email and WhatsApp dispatch in 10 seconds</FeatureCheck>
+              <FeatureCheck>
+                Pre-built executive proposal and calendar link templates
+              </FeatureCheck>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 07: Unified Inbox [Text L / Visual R] ---- */}
+      <section className="py-20 lg:py-24 bg-white" id="feature-inbox">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              07 &bull; CENTRALIZED COMMS
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              Every Call, SMS, and Note in One View
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              No more switching between 5 tools. Dialeads combines call
+              recordings, AI transcripts, inbound/outbound SMS, and notes into
+              one clean per-contact timeline.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>Audio player with waveform scrubber</FeatureCheck>
+              <FeatureCheck>Inbound/outbound SMS chat view</FeatureCheck>
+              <FeatureCheck>Live conversation tags for context</FeatureCheck>
+            </ul>
+          </div>
+
+          {/* Visual: Conversation cockpit */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#e5eeff] shadow-xl p-6">
+              {/* Audio player */}
+              <div className="p-4 rounded-xl bg-white shadow-sm mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+                    Call Recording &bull; 03:14
+                  </span>
+                  <span className="font-mono text-xs text-[#5e5d6b]">
+                    Today, 11:24 AM
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button className="w-8 h-8 rounded-full bg-[#630ed4] text-white flex items-center justify-center shadow">
+                    <Play className="h-4 w-4" />
+                  </button>
+                  <div className="flex-1 h-2 bg-[#e5eeff] rounded-full overflow-hidden">
+                    <div className="w-2/5 h-full bg-[#630ed4] rounded-full" />
+                  </div>
+                  <span className="font-mono text-xs text-[#0b1c30]">
+                    01:18
+                  </span>
+                </div>
+              </div>
+
+              {/* Chat bubbles */}
+              <div className="space-y-2 mb-4">
+                <div className="flex flex-col items-end">
+                  <div className="max-w-xs p-3 rounded-2xl rounded-br-none bg-[#630ed4] text-white text-sm shadow-sm">
+                    Sent proposal link for tomorrow&apos;s demo review. Let me
+                    know if that works!
+                  </div>
+                  <span className="text-[11px] font-mono text-[#c7c5d5] mt-0.5 flex items-center gap-1">
+                    Delivered{" "}
+                    <CheckCircle2 className="h-3 w-3 text-[#630ed4]" />
+                  </span>
+                </div>
+                <div className="flex flex-col items-start">
+                  <div className="max-w-xs p-3 rounded-2xl rounded-bl-none bg-white text-[#0b1c30] text-sm shadow-sm">
+                    Looks solid. Added our VP of Sales to the invite. See you at
+                    2pm.
+                  </div>
+                  <span className="text-[11px] font-mono text-[#5e5d6b] mt-0.5">
+                    Prospect &bull; 11:29 AM
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 08: 10DLC & SIP [Visual L / Text R] ---- */}
+      <section className="py-20 lg:py-24 bg-[#f8f9ff]" id="feature-compliance">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Visual: Compliance panel */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="rounded-2xl bg-white shadow-xl p-8">
+              <div className="flex items-center justify-between pb-3 mb-4">
+                <span className="text-[12px] font-bold uppercase tracking-wider text-[#630ed4]">
+                  Telephony &amp; Regulatory Compliance
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-[#e3e0f1] text-[#630ed4] font-bold text-xs">
+                  SOC-2 TYPE II
+                </span>
+              </div>
+
+              <div className="space-y-3 mb-4">
+                <div className="p-4 rounded-xl bg-[#eff4ff] flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="h-5 w-5 text-[#630ed4]" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold text-[#0b1c30]">
+                        10DLC Campaign Registry
+                      </span>
+                      <span className="text-xs text-[#5e5d6b]">
+                        A2P Verified &bull; TCR-ID: CMP-899201
+                      </span>
+                    </div>
+                  </div>
+                  <span className="px-2 py-1 rounded bg-[#630ed4] text-white text-xs font-semibold">
+                    Approved
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#eff4ff] flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Radio className="h-5 w-5 text-[#630ed4]" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold text-[#0b1c30]">
+                        Direct SIP Trunk Balance
+                      </span>
+                      <span className="text-xs text-[#5e5d6b]">
+                        Telnyx Global Ingress &bull; DID 48 Numbers
+                      </span>
+                    </div>
+                  </div>
+                  <span className="font-mono text-sm font-bold text-[#0b1c30]">
+                    $1,438.20
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-3 bg-[#e5eeff] rounded-xl text-xs text-[#0b1c30]">
+                <span>Audio Device Routing</span>
+                <span className="font-semibold text-[#630ed4]">
+                  Jabra Engage 75 Stereo (Split)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              08 &bull; ENTERPRISE TELEPHONY
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              Carrier-Grade Compliance Built In
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Dialeads handles A2P 10DLC brand registration, STIR/SHAKEN caller
+              ID verification, and time-zone calling window enforcement
+              automatically — so you stay compliant without a legal team.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>
+                10DLC campaign registration wizard
+              </FeatureCheck>
+              <FeatureCheck>
+                Automatic time-zone call window enforcement (8am–9pm local)
+              </FeatureCheck>
+              <FeatureCheck>STIR/SHAKEN A-attestation for all outbound caller IDs</FeatureCheck>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- 09: Team Management [Text L / Visual R] ---- */}
+      <section className="py-20 lg:py-24 bg-white" id="feature-team">
+        <div className="mx-auto max-w-[75rem] px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col">
+            <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4] mb-2">
+              09 &bull; OPERATOR VISIBILITY
+            </span>
+            <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
+              See Every Rep&apos;s Performance in Real Time
+            </h2>
+            <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
+              Live presence dashboard shows who&apos;s on a call, who&apos;s
+              idle, and who&apos;s closing. Managers can listen in, whisper
+              coaching, and pull rep-level performance reports.
+            </p>
+            <ul className="flex flex-col gap-3 mb-8">
+              <FeatureCheck>Real-time rep availability and call status</FeatureCheck>
+              <FeatureCheck>Call monitoring and live whisper mode</FeatureCheck>
+              <FeatureCheck>Leaderboards and daily dial targets</FeatureCheck>
+            </ul>
+          </div>
+
+          {/* Visual: Floor telemetry */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#e5eeff] shadow-xl p-6">
+              <div className="flex items-center justify-between pb-3 mb-3">
+                <span className="text-base font-semibold text-[#0b1c30]">
+                  Floor Telemetry (8 Reps)
+                </span>
+                <span className="font-mono text-xs font-semibold text-[#630ed4]">
+                  284 CALLS / HR
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <RepRow
+                  initials="DR"
+                  name="Danielle Rivera"
+                  detail="On Call (04:12) • CloudCorp"
+                  badge="Listen"
+                  badgeColor=""
+                  dotColor="bg-[#630ed4]"
+                  bgColor="bg-[#630ed4]"
+                  action={
+                    <button className="px-2 py-1 rounded bg-[#e3e0f1] text-[#464552] text-xs font-semibold hover:bg-[#630ed4] hover:text-white transition flex items-center gap-1">
+                      <Headphones className="h-3 w-3" /> Listen
+                    </button>
+                  }
+                />
+                <RepRow
+                  initials="TK"
+                  name="Tomás Keller"
+                  detail="Queue Dialing (48 completed)"
+                  badge="Dialing"
+                  badgeColor="bg-[#e5eeff] text-[#0b1c30]"
+                  dotColor="bg-[#eaddff]"
+                  bgColor="bg-[#5e5d6b]"
+                />
+                <RepRow
+                  initials="AJ"
+                  name="Amina Jackson"
+                  detail="Booked Meeting #4 Today"
+                  badge="Top Closer"
+                  badgeColor="bg-[#eaddff] text-[#25005a]"
+                  dotColor="bg-[#630ed4]"
+                  bgColor="bg-[#4f4d5e]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- Bottom CTA ---- */}
+      <section className="relative py-24 bg-[#630ed4] text-white overflow-hidden">
+        <div className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-[#7c3aed]/40 blur-[80px] pointer-events-none" />
+        <div className="relative mx-auto max-w-[75rem] px-4 lg:px-8 text-center flex flex-col items-center">
+          <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#eaddff] mb-3">
+            ZERO FRICTION ONBOARDING
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-[56px] lg:leading-[60px] font-black tracking-tight text-white mb-4 max-w-3xl">
+            Try All Features Free for 14 Days
+          </h2>
+          <p className="text-lg text-[#eaddff] max-w-2xl mb-8 leading-relaxed">
+            Load your lead list, pick a campaign, and launch your first AI dial
+            session in under 15 minutes. No credit card required.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <a
+              href="#"
+              className="px-10 py-4 rounded-full bg-white text-[#630ed4] font-semibold text-base shadow-xl hover:bg-[#f8f9ff] transition-transform hover:scale-105"
+            >
+              Start Your 14-Day Free Trial
+            </a>
+            <a
+              href="#"
+              className="px-6 py-4 rounded-full text-white text-sm font-semibold hover:underline flex items-center gap-1"
+            >
+              Book a Custom Live Demo
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="mt-6 flex items-center gap-6 text-[#eaddff] text-xs">
+            <span className="flex items-center gap-1">
+              <CheckCircle2 className="h-3.5 w-3.5" /> Instant setup
+            </span>
+            <span className="flex items-center gap-1">
+              <CheckCircle2 className="h-3.5 w-3.5" /> Pre-configured numbers
+            </span>
+            <span className="flex items-center gap-1">
+              <CheckCircle2 className="h-3.5 w-3.5" /> Cancel anytime
+            </span>
           </div>
         </div>
       </section>

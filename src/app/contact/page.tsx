@@ -3,443 +3,428 @@
 import { useState } from "react";
 import {
   Zap,
-  Shield,
-  Star,
+  Phone,
+  Megaphone,
   ArrowRight,
-  Calendar,
+  CalendarDays,
   MapPin,
+  Building2,
   ChevronDown,
-  Clock,
-  Activity,
+  Lock,
+  Gauge,
+  ShieldCheck,
+  Network,
+  CheckCircle2,
 } from "lucide-react";
 
 const inquiryOptions = [
-  "Select inquiry type",
-  "Enterprise Sales & Volume Pricing",
-  "10DLC Registration & Compliance",
-  "API Integration & Custom Development",
-  "Strategic Partnership",
-  "Press & Media Inquiry",
-  "Other",
+  { value: "enterprise-demo", label: "Book an Enterprise Demo (Multi-Seat)" },
+  { value: "wholesale-sip", label: "High-Volume Minutes & Custom SIP Setup" },
+  { value: "10dlc-support", label: "A2P 10DLC Registration Help" },
+  { value: "voice-clone", label: "AI Voice Agent Configuration" },
+  { value: "general", label: "General Integration & API Questions" },
+];
+
+const countryOptions = [
+  { value: "+1", label: "\u{1F1FA}\u{1F1F8} +1" },
+  { value: "+44", label: "\u{1F1EC}\u{1F1E7} +44" },
+  { value: "+61", label: "\u{1F1E6}\u{1F1FA} +61" },
+  { value: "+49", label: "\u{1F1E9}\u{1F1EA} +49" },
 ];
 
 export default function ContactPage() {
   const [form, setForm] = useState({
     fullName: "",
     workEmail: "",
-    company: "",
-    phone: "",
-    inquiryFocus: "",
-    projectDetails: "",
+    companySize: "",
+    phoneNumber: "",
+    countryCode: "+1",
+    subject: "",
+    message: "",
   });
-
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   function handleChange(
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleBlur(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    setTouched((prev) => ({ ...prev, [e.target.name]: true }));
-  }
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setTouched({
-      fullName: true,
-      workEmail: true,
-      inquiryFocus: true,
-      projectDetails: true,
-    });
-
-    const valid =
-      form.fullName.trim() &&
-      form.workEmail.trim() &&
-      form.workEmail.includes("@") &&
-      form.inquiryFocus &&
-      form.projectDetails.trim();
-
-    if (valid) {
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
       setSubmitted(true);
-    }
+    }, 700);
   }
 
-  function isError(field: string) {
-    if (!touched[field]) return false;
-    if (field === "workEmail")
-      return !form.workEmail.trim() || !form.workEmail.includes("@");
-    if (field === "inquiryFocus") return !form.inquiryFocus;
-    return !form[field as keyof typeof form]?.toString().trim();
+  function resetForm() {
+    setSubmitted(false);
+    setForm({
+      fullName: "",
+      workEmail: "",
+      companySize: "",
+      phoneNumber: "",
+      countryCode: "+1",
+      subject: "",
+      message: "",
+    });
   }
-
-  const inputBase =
-    "w-full rounded-lg border bg-white px-4 py-3 text-sm text-[#0b1c30] placeholder-[#4a4455] outline-none transition-colors";
-  const inputNormal = "border-[#ccc3d8] focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/10";
-  const inputError = "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-500/10";
 
   return (
     <div className="min-h-screen bg-[#f8f9ff]">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-[#f8f9ff] bg-dot-pattern pt-32 pb-16">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
-          <div className="absolute right-1/3 bottom-0 h-[300px] w-[500px] rounded-full bg-[#630ed4]/6 blur-[100px]" />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-6 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#630ed4]">
-            <span className="inline-block h-2 w-2 rounded-full bg-orange-400" />
-            Get in Touch
+      {/* Ambient Backdrop */}
+      <div className="relative w-full overflow-hidden">
+        <div className="pointer-events-none absolute top-0 right-1/4 h-[500px] w-[500px] rounded-full bg-[#d2bbff]/20 blur-3xl -z-10" />
+        <div className="pointer-events-none absolute top-48 left-10 h-[350px] w-[350px] rounded-full bg-[#d3e4fe]/40 blur-3xl -z-10" />
+
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 py-12 lg:py-24">
+          {/* Section Header */}
+          <div className="flex flex-col items-start max-w-3xl mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-[12px] font-bold uppercase tracking-[0.08em] mb-4 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-pulse" />
+              Get in Touch
+            </div>
+            <h1 className="text-[32px] lg:text-[56px] font-bold text-[#0b1c30] tracking-tight leading-[1.08] mb-4">
+              Talk to a Real Person About Your Outbound Goals
+            </h1>
+            <p className="text-lg text-[#5e5d6b] max-w-2xl leading-relaxed">
+              Whether you&apos;re running your first cold campaign or building a 50-seat call center — our team can help you set up, scale, and stay compliant.
+            </p>
           </div>
 
-          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight tracking-tight text-[#0b1c30] sm:text-5xl">
-            Let&apos;s Talk About Accelerating{" "}
-            <span className="gradient-text">Your Outbound Sales</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5e5d6b]">
-            Custom telephony infrastructure, high-volume minutes, and autonomous
-            AI cold-calling tailored to your pipeline goals.
-          </p>
-        </div>
-      </section>
-
-      {/* Two Column Layout */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Left Column */}
-          <div className="space-y-8">
-            {/* Direct Routing Header */}
-            <div className="flex items-center justify-between">
-              <span className="section-label">Direct Routing</span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5e5d6b]">
-                <Clock className="h-3.5 w-3.5" />
-                Avg Response &lt; 8m
-              </span>
-            </div>
-
-            {/* Contact Routing Cards */}
-            <div className="space-y-3">
-              <ContactCard
-                icon={<Zap className="h-5 w-5 text-[#7C3AED]" />}
-                title="Sales & Enterprise Inquiries"
-                email="sales@vocalisdialer.ai"
-              />
-              <ContactCard
-                icon={<Shield className="h-5 w-5 text-[#7C3AED]" />}
-                title="Telephony & 10DLC Compliance"
-                email="support@vocalisdialer.ai"
-              />
-              <ContactCard
-                icon={<Star className="h-5 w-5 text-[#7C3AED]" />}
-                title="Press & Strategic Partnerships"
-                email="press@vocalisdialer.ai"
-              />
-            </div>
-
-            {/* Telecom NOC Card */}
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-700">
-                  <Activity className="h-3.5 w-3.5" />
-                  Telecom NOC
-                </span>
-                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
-                  99.99% SLA
-                </span>
-              </div>
-              <p className="text-sm leading-relaxed text-emerald-800">
-                Global SIP Trunking NOC: 24/7/365 active monitoring.
-                Auto-failover across 14 carrier routes.
-              </p>
-            </div>
-
-            {/* Demo Call Section */}
-            <div className="rounded-xl border border-[#ccc3d8] bg-[#eff4ff] p-5">
-              <div className="mb-2 flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-[#7C3AED]" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
-                  Direct Engineering Walkthrough
-                </span>
-              </div>
-              <p className="mb-3 text-sm text-[#5e5d6b]">
-                Want a live walkthrough of the AI rebuttal engine and Telnyx
-                setup?
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7C3AED] transition-colors hover:text-[#630ed4]"
-              >
-                Book a Live Demo Call
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Form */}
-          <div>
-            <div className="rounded-2xl border border-[#ccc3d8] bg-white p-8 shadow-sm">
-              <div className="mb-6">
-                <div className="mb-1 flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-[#0b1c30]">
-                    Initiate Discussion
-                  </h2>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    Rep Available
-                  </span>
+          {/* 2-Column Content Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column */}
+            <div className="lg:col-span-5 flex flex-col gap-8">
+              {/* Direct Channels Block */}
+              <div className="bg-white p-8 rounded-xl shadow-[0_1px_3px_rgba(15,15,26,0.04),0_8px_24px_rgba(15,15,26,0.03)] flex flex-col gap-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#630ed4]">Direct Routing</span>
+                  <span className="text-[12px] font-semibold text-[#5e5d6b]">Avg Response &lt; 8m</span>
                 </div>
-                <p className="text-sm text-[#5e5d6b]">
-                  Direct route to solutions architects and telephony engineers.
-                </p>
-              </div>
 
-              {submitted ? (
-                <div className="rounded-xl bg-emerald-50 p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
-                    <Zap className="h-6 w-6 text-emerald-600" />
+                <div className="flex flex-col gap-4">
+                  <a href="mailto:sales@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
+                        <Zap className="h-5 w-5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-[#0b1c30]">Sales &amp; Enterprise</span>
+                        <span className="text-sm text-[#5e5d6b]">sales@dialeads.io</span>
+                      </div>
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
+                  </a>
+
+                  <a href="mailto:support@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
+                        <Phone className="h-5 w-5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-[#0b1c30]">Technical Support &amp; 10DLC</span>
+                        <span className="text-sm text-[#5e5d6b]">support@dialeads.io</span>
+                      </div>
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
+                  </a>
+
+                  <a href="mailto:press@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
+                        <Megaphone className="h-5 w-5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-[#0b1c30]">Press &amp; Partnerships</span>
+                        <span className="text-sm text-[#5e5d6b]">press@dialeads.io</span>
+                      </div>
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
+                  </a>
+                </div>
+
+                {/* NOC Status Sub-Panel */}
+                <div className="mt-1 bg-[#213145] text-[#eaf1ff] p-4 rounded-xl relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#7c3aed] shadow-[0_0_8px_rgba(124,58,237,0.8)]" />
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                      </span>
+                      <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#d2bbff]">Telecom NOC</span>
+                    </div>
+                    <span className="text-[12px] font-semibold text-[#cbdbf5] font-mono">99.99% SLA</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-[#0b1c30]">
-                    Message Received
-                  </h3>
-                  <p className="mt-2 text-sm text-[#5e5d6b]">
-                    A solutions architect will be in touch within 8 minutes.
+                  <p className="text-sm text-[#f8f9ff] mt-2">
+                    Global SIP Trunking NOC: 24/7/365 active monitoring. Auto-failover across 14 carrier routes.
                   </p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Row 1: Name + Email */}
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-gray-700">
-                        Full Name <span className="text-red-500">*</span>
+              </div>
+
+              {/* Schedule Strategy Call Card */}
+              <div className="bg-gradient-to-br from-[#eff4ff] via-white to-[#eff4ff] p-8 rounded-xl shadow-[0_1px_3px_rgba(15,15,26,0.04),0_8px_24px_rgba(15,15,26,0.03)] flex flex-col gap-4 relative overflow-hidden">
+                <div className="w-10 h-10 rounded-full bg-[#630ed4]/10 text-[#630ed4] flex items-center justify-center">
+                  <CalendarDays className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#eaddff] text-[#630ed4] text-[12px] font-semibold mb-2">
+                    Direct Engineering Walkthrough
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#0b1c30] tracking-tight leading-tight">
+                    Want a live walkthrough of the AI rebuttal engine and Telnyx setup?
+                  </h3>
+                  <p className="text-base text-[#5e5d6b] mt-2 leading-relaxed">
+                    Pick a 15-minute slot with our Head of Solutions. We&apos;ll run mock cold calls live against your toughest sales objections.
+                  </p>
+                </div>
+                <a href="#" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-[#eaddff] text-[#630ed4] text-sm font-semibold shadow-sm hover:shadow-md transition-all self-start">
+                  Book a Live Demo Call
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </a>
+              </div>
+
+              {/* Global Physical Footprint */}
+              <div className="bg-white p-8 rounded-xl shadow-[0_1px_3px_rgba(15,15,26,0.04),0_8px_24px_rgba(15,15,26,0.03)] flex flex-col gap-6">
+                <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#5e5d6b]">Location</span>
+                <div className="flex flex-col bg-[#eff4ff]/50 p-4 rounded-lg">
+                  <div className="flex items-center gap-1 text-[#630ed4] mb-1">
+                    <MapPin className="h-[18px] w-[18px]" />
+                    <span className="text-sm font-bold text-[#0b1c30]">Remote-First</span>
+                  </div>
+                  <p className="text-sm text-[#5e5d6b] leading-snug">
+                    Remote-first team. We respond fast, wherever you are.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Form */}
+            <div className="lg:col-span-7 flex flex-col gap-4">
+              <div className="bg-white p-8 lg:p-12 rounded-xl shadow-[0_4px_24px_rgba(15,15,26,0.06)] relative">
+                {/* Success State Overlay */}
+                {submitted && (
+                  <div className="absolute inset-0 bg-white/[0.98] rounded-xl z-20 flex flex-col items-center justify-center p-12 text-center backdrop-blur-sm">
+                    <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4 shadow-[0_4px_16px_rgba(16,185,129,0.2)]">
+                      <CheckCircle2 className="h-9 w-9" />
+                    </div>
+                    <h3 className="text-[32px] font-bold text-[#0b1c30] tracking-tight leading-tight mb-2">
+                      Message Transmitted!
+                    </h3>
+                    <p className="text-lg text-[#5e5d6b] max-w-md mb-6 leading-relaxed">
+                      A sales engineer has received your parameters and will respond within <strong className="text-[#0b1c30]">15 minutes</strong> with technical specifications and dialing sandbox access.
+                    </p>
+                    <div className="p-4 bg-[#eff4ff] rounded-xl w-full max-w-sm mb-6 text-left">
+                      <div className="flex justify-between items-center text-[#5e5d6b] text-[12px] font-semibold mb-1">
+                        <span>Inquiry Ticket</span>
+                        <span className="font-mono text-[#630ed4] font-bold">#DIA-9042</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[#5e5d6b] text-[12px] font-semibold">
+                        <span>Routing Priority</span>
+                        <span className="text-emerald-700 font-semibold">Elevated (SLA: 15m)</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={resetForm}
+                      className="px-6 py-2 bg-[#e5eeff] hover:bg-[#dce9ff] text-[#0b1c30] text-sm font-semibold rounded-full transition-colors"
+                    >
+                      Send Another Inquiry
+                    </button>
+                  </div>
+                )}
+
+                {/* Form Header */}
+                <div className="flex items-center justify-between pb-4 mb-6">
+                  <div>
+                    <h2 className="text-[32px] font-bold text-[#0b1c30] tracking-tight leading-tight">
+                      Tell Us What You&apos;re Working On
+                    </h2>
+                    <p className="text-base text-[#5e5d6b] mt-0.5">
+                      We&apos;ll match you with the right setup for your team size, campaign type, and dial volume.
+                    </p>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-1 px-3 py-1 bg-[#eff4ff] rounded-full">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="text-[12px] font-medium text-[#4a4455]">Rep Available</span>
+                  </div>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                  {/* Row 1: Full Name & Work Email */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="fullName" className="text-sm font-semibold text-[#0b1c30] flex items-center justify-between">
+                        Full Name <span className="text-[#630ed4] text-xs">*</span>
                       </label>
                       <input
-                        type="text"
+                        id="fullName"
                         name="fullName"
+                        type="text"
+                        required
                         value={form.fullName}
                         onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="John Doe"
-                        className={`${inputBase} ${isError("fullName") ? inputError : inputNormal}`}
+                        placeholder="Sarah Jenkins"
+                        className="w-full bg-[#eff4ff]/60 focus:bg-white text-[#0b1c30] text-base px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 shadow-inner transition-all"
                       />
                     </div>
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-gray-700">
-                        Work Email <span className="text-red-500">*</span>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="workEmail" className="text-sm font-semibold text-[#0b1c30] flex items-center justify-between">
+                        Work Email <span className="text-[#630ed4] text-xs">*</span>
                       </label>
                       <input
-                        type="email"
+                        id="workEmail"
                         name="workEmail"
+                        type="email"
+                        required
                         value={form.workEmail}
                         onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="john@company.com"
-                        className={`${inputBase} ${isError("workEmail") ? inputError : inputNormal}`}
+                        placeholder="s.jenkins@acmesales.com"
+                        className="w-full bg-[#eff4ff]/60 focus:bg-white text-[#0b1c30] text-base px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 shadow-inner transition-all"
                       />
                     </div>
                   </div>
 
-                  {/* Row 2: Company + Phone */}
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-gray-700">
-                        Company & SDR Team Size
+                  {/* Row 2: Company & Phone */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="companySize" className="text-sm font-semibold text-[#0b1c30]">
+                        Company &amp; SDR Team Size
                       </label>
                       <input
+                        id="companySize"
+                        name="companySize"
                         type="text"
-                        name="company"
-                        value={form.company}
+                        value={form.companySize}
                         onChange={handleChange}
-                        placeholder="Acme Inc. / 12 SDRs"
-                        className={`${inputBase} ${inputNormal}`}
+                        placeholder="Acme Corp • 15 SDRs"
+                        className="w-full bg-[#eff4ff]/60 focus:bg-white text-[#0b1c30] text-base px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 shadow-inner transition-all"
                       />
                     </div>
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-gray-700">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="phoneNumber" className="text-sm font-semibold text-[#0b1c30]">
                         Phone Number
                       </label>
-                      <div className="flex">
-                        <span className="inline-flex items-center rounded-l-lg border border-r-0 border-[#ccc3d8] bg-[#eff4ff] px-3 text-sm text-[#5e5d6b]">
-                          +1
-                        </span>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={form.phone}
+                      <div className="flex gap-2">
+                        <select
+                          name="countryCode"
+                          value={form.countryCode}
                           onChange={handleChange}
-                          placeholder="(555) 000-0000"
-                          className={`${inputBase} rounded-l-none ${inputNormal}`}
+                          className="bg-[#eff4ff]/60 text-[#0b1c30] text-base px-2 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 cursor-pointer"
+                        >
+                          {countryOptions.map((opt) => (
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                          ))}
+                        </select>
+                        <input
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          type="tel"
+                          value={form.phoneNumber}
+                          onChange={handleChange}
+                          placeholder="(555) 234-5678"
+                          className="w-full bg-[#eff4ff]/60 focus:bg-white text-[#0b1c30] text-base px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 shadow-inner transition-all"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Inquiry Focus */}
-                  <div>
-                    <label className="mb-1.5 block text-xs font-medium text-gray-700">
-                      Inquiry Focus <span className="text-red-500">*</span>
+                  {/* Row 3: Subject Dropdown */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="subject" className="text-sm font-semibold text-[#0b1c30] flex items-center justify-between">
+                      Inquiry Focus <span className="text-[#630ed4] text-xs">*</span>
                     </label>
                     <div className="relative">
                       <select
-                        name="inquiryFocus"
-                        value={form.inquiryFocus}
+                        id="subject"
+                        name="subject"
+                        required
+                        value={form.subject}
                         onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={`${inputBase} appearance-none pr-10 ${isError("inquiryFocus") ? inputError : inputNormal} ${!form.inquiryFocus ? "text-[#4a4455]" : "text-[#0b1c30]"}`}
+                        className={`w-full bg-[#eff4ff]/60 focus:bg-white text-base px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 cursor-pointer appearance-none ${form.subject ? "text-[#0b1c30]" : "text-[#4a4455]"}`}
                       >
-                        <option value="">Select inquiry type</option>
-                        {inquiryOptions.slice(1).map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
+                        <option disabled value="">Select an area of interest...</option>
+                        {inquiryOptions.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
                         ))}
                       </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4a4455]" />
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#5e5d6b]">
+                        <ChevronDown className="h-5 w-5" />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Project Details */}
-                  <div>
-                    <label className="mb-1.5 block text-xs font-medium text-gray-700">
-                      Project Details & Volume Target{" "}
-                      <span className="text-red-500">*</span>
+                  {/* Row 4: Message Area */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="message" className="text-sm font-semibold text-[#0b1c30] flex items-center justify-between">
+                      Project Details &amp; Volume Target <span className="text-[#630ed4] text-xs">*</span>
                     </label>
                     <textarea
-                      name="projectDetails"
-                      value={form.projectDetails}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
+                      id="message"
+                      name="message"
+                      required
                       rows={4}
-                      placeholder="Tell us about your outbound goals, current call volume, and target metrics..."
-                      className={`${inputBase} resize-none ${isError("projectDetails") ? inputError : inputNormal}`}
+                      value={form.message}
+                      onChange={handleChange}
+                      placeholder="Tell us about your current outbound setup, monthly call volume, CRM stack, and core goals..."
+                      className="w-full bg-[#eff4ff]/60 focus:bg-white text-[#0b1c30] text-base p-4 rounded-xl outline-none focus:ring-2 focus:ring-[#630ed4]/20 shadow-inner resize-none transition-all"
                     />
                   </div>
 
                   {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7C3AED] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#630ed4]"
-                  >
-                    Send Message
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-
-                  {/* Privacy Note */}
-                  <p className="text-center text-xs leading-relaxed text-[#4a4455]">
-                    We respect your privacy. No spam ever. SOC-2 Type II
-                    Certified & GDPR Compliant.
-                  </p>
+                  <div className="flex flex-col gap-2 mt-2">
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className={`w-full py-4 px-8 rounded-xl bg-[#630ed4] text-white text-xl font-bold tracking-tight shadow-[0_4px_24px_rgba(124,58,237,0.35)] hover:bg-[#7c3aed] hover:shadow-[0_8px_32px_rgba(124,58,237,0.5)] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer group ${submitting ? "opacity-80 cursor-not-allowed" : ""}`}
+                    >
+                      <span>{submitting ? "Routing to Telephony Team..." : "Send Message"}</span>
+                      <ArrowRight className="h-[22px] w-[22px] group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
                 </form>
-              )}
-            </div>
 
-            {/* Trust Badges */}
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              <TrustBadge label="SUB-500MS" sublabel="Turnaround Latency" />
-              <TrustBadge
-                label="STIR/SHAKEN"
-                sublabel="A-Level Attestation"
-              />
-              <TrustBadge
-                label="DIRECT REST"
-                sublabel="HubSpot & SFDC Sync"
-              />
+                {/* Trust & Compliance Statement */}
+                <div className="mt-6 pt-4 flex items-center gap-2 text-[#5e5d6b] justify-center sm:justify-start">
+                  <Lock className="h-[18px] w-[18px] text-[#630ed4] shrink-0" />
+                  <p className="text-sm leading-tight text-[#5e5d6b]">
+                    SOC2 Type II Certified &middot; GDPR Compliant &middot; No spam, ever.
+                  </p>
+                </div>
+              </div>
+
+              {/* Fast FAQ Pill Strip */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
+                  <Gauge className="h-5 w-5 text-[#630ed4]" />
+                  <div className="flex flex-col">
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Sub-500ms</span>
+                    <span className="text-[12px] text-[#5e5d6b]">Turnaround Latency</span>
+                  </div>
+                </div>
+                <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-[#630ed4]" />
+                  <div className="flex flex-col">
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Stir/Shaken</span>
+                    <span className="text-[12px] text-[#5e5d6b]">A-Level Attestation</span>
+                  </div>
+                </div>
+                <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
+                  <Network className="h-5 w-5 text-[#630ed4]" />
+                  <div className="flex flex-col">
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Direct REST</span>
+                    <span className="text-[12px] text-[#5e5d6b]">HubSpot &amp; SFDC Sync</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Office Locations */}
-      <section className="border-t border-[#ccc3d8] bg-[#eff4ff] py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <span className="section-label mb-8 block">Office Hubs</span>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            <OfficeCard
-              city="San Francisco"
-              address="548 Market St, Suite 3200"
-              location="San Francisco, CA 94104"
-            />
-            <OfficeCard
-              city="New York"
-              address="114 5th Avenue, 10th Floor"
-              location="New York, NY 10011"
-            />
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function ContactCard({
-  icon,
-  title,
-  email,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  email: string;
-}) {
-  return (
-    <a
-      href={`mailto:${email}`}
-      className="flex items-center gap-4 rounded-xl border border-[#ccc3d8] bg-white p-4 transition-all hover:border-[#ccc3d8] hover:shadow-sm"
-    >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#eaddff]">
-        {icon}
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-sm font-semibold text-[#0b1c30]">{title}</div>
-        <div className="text-sm text-[#5e5d6b]">{email}</div>
-      </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-[#cbdbf5]" />
-    </a>
-  );
-}
-
-function TrustBadge({
-  label,
-  sublabel,
-}: {
-  label: string;
-  sublabel: string;
-}) {
-  return (
-    <div className="rounded-xl border border-[#ccc3d8] bg-[#eff4ff] px-4 py-3 text-center">
-      <div className="text-xs font-bold tracking-wider text-[#0b1c30]">
-        {label}
-      </div>
-      <div className="mt-0.5 text-[11px] text-[#4a4455]">{sublabel}</div>
-    </div>
-  );
-}
-
-function OfficeCard({
-  city,
-  address,
-  location,
-}: {
-  city: string;
-  address: string;
-  location: string;
-}) {
-  return (
-    <div className="rounded-xl border border-[#ccc3d8] bg-white p-6">
-      <div className="mb-3 flex items-center gap-2">
-        <MapPin className="h-4 w-4 text-[#7C3AED]" />
-        <span className="text-sm font-bold text-[#0b1c30]">{city}</span>
-      </div>
-      <p className="text-sm leading-relaxed text-[#5e5d6b]">
-        {address}
-        <br />
-        {location}
-      </p>
     </div>
   );
 }
