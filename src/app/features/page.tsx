@@ -26,9 +26,9 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Features - Dialeads",
+  title: "Dialeads Features – AI Calling, Voicemail Drop, Power Dialer & More",
   description:
-    "Every feature built for closers. AI voice agents, power dialer, lead management, objection rebuttals, omnichannel follow-up, and team management.",
+    "Explore every Dialeads feature: AI voice agents, ringless voicemail drops, power dialer, live objection rebuttals, 10DLC SMS, and team analytics. Built for outbound.",
 };
 
 function FeatureCheck({ children }: { children: React.ReactNode }) {
@@ -138,18 +138,17 @@ export default function FeaturesPage() {
         <div className="relative mx-auto max-w-[75rem] px-4 lg:px-8 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e3e0f1]/80 text-[#630ed4] text-[12px] font-bold uppercase tracking-[0.08em] shadow-sm mb-6">
             <span className="w-2 h-2 rounded-full bg-[#7c3aed] animate-pulse" />
-            BUILT FOR TOP PRODUCERS
+            Built for Outbound Sales Teams
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-[68px] lg:leading-[72px] font-black tracking-tight text-[#0b1c30] max-w-4xl mb-4">
-            Every Feature.{" "}
-            <span className="text-[#630ed4]">Built for Closers.</span>
+            Every Feature Built to Get Your Prospect{" "}
+            <span className="text-[#630ed4]">on the Phone</span>
           </h1>
 
           <p className="text-lg text-[#5e5d6b] max-w-2xl mb-8 leading-relaxed">
-            Explore the end-to-end cold calling system designed to eliminate
-            manual admin, power live AI calls, drop smart voicemails instantly,
-            and turn cold prospects into excited buyers.
+            From solo founders to 50-seat call centers — Dialeads gives every
+            team the tools to dial more, connect more, and close more.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2 p-1 bg-[#eff4ff] rounded-full shadow-sm max-w-3xl">
@@ -174,22 +173,22 @@ export default function FeaturesPage() {
               01 &bull; AUTONOMOUS PROSPECTING
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              Live AI Voice Agents &amp; Instant Smart Voicemail Drops
+              Live AI Calls and Ringless Voicemail Drop — In One Platform
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Configure lifelike ElevenLabs voice models and dynamic scripts.
-              Dispatch autonomous SDR calls at scale with automatic answering
-              machine detection and 1-click ringless smart voicemail drops.
+              Configure realistic AI voice agents that handle first-touch cold
+              calls. When no one answers, Dialeads drops a pre-recorded ringless
+              voicemail instantly — no dial tone, no hang-up, no wasted time.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
               <FeatureCheck>
-                Sub-500ms ultra-realistic voice synthesis latency
+                Auto answering machine detection (AMD)
               </FeatureCheck>
               <FeatureCheck>
-                Smart Voicemail Drops with AI-customized messages
+                1-click pre-recorded voicemail drop
               </FeatureCheck>
               <FeatureCheck>
-                Automated calendar booking and CRM disposition sync
+                AI voice agent for full autonomous first-touch calls
               </FeatureCheck>
             </ul>
             <div>
@@ -356,20 +355,20 @@ export default function FeaturesPage() {
               02 &bull; DIALING VELOCITY
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              3x More Conversations with Zero Wasted Downtime
+              3x More Calls Per Day Without the Manual Work
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Power through lead lists without manually tapping digits or waiting
-              through endless dial tones. Automatic detection of disconnected
-              numbers and voicemails.
+              Stop dialing numbers by hand. Dialeads cycles through your lead
+              queue automatically with local caller ID matching for higher pickup
+              rates. Your reps focus on conversations, not keypads.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
-              <FeatureCheck>WebRTC in-browser SIP softphone</FeatureCheck>
+              <FeatureCheck>WebRTC in-browser softphone — no hardware needed</FeatureCheck>
               <FeatureCheck>
-                Local CID matching for 85%+ pickup rates
+                Local presence caller ID for 85%+ answer rates
               </FeatureCheck>
               <FeatureCheck>
-                Keyboard shortcuts like Spacebar for Next Lead
+                Keyboard shortcuts to move between leads instantly
               </FeatureCheck>
             </ul>
           </div>
@@ -384,18 +383,19 @@ export default function FeaturesPage() {
               03 &bull; ORGANIZED PIPELINE
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              3,670 Leads. Filtered, Segmented, and Ready to Dial
+              10,000 Leads Organized and Ready to Dial
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Clean high-density lead view with instant category tags, uncalled
-              toggles, and search across thousands of prospects in milliseconds.
+              Import leads via CSV, auto-validate phone numbers, and segment by
+              campaign, territory, or deal size. Filter uncalled contacts
+              instantly. Search across thousands of records in milliseconds.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
-              <FeatureCheck>1-click CSV and CRM sync</FeatureCheck>
+              <FeatureCheck>Bulk CSV import up to 250,000 rows</FeatureCheck>
               <FeatureCheck>
-                Custom sales angle column for immediate context
+                Automatic DNC scrub and phone number formatting
               </FeatureCheck>
-              <FeatureCheck>Smart lead status badges</FeatureCheck>
+              <FeatureCheck>Custom lead tags and status badges</FeatureCheck>
             </ul>
           </div>
 
@@ -522,20 +522,19 @@ export default function FeaturesPage() {
               04 &bull; REAL-TIME COPILOT
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              Never Freeze on an Objection Again
+              The Right Rebuttal — Before Your Rep Even Thinks
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Instant one-click objection rebuttals (&ldquo;We have a
-              guy&rdquo;, &ldquo;Too expensive&rdquo;, &ldquo;Overseas&rdquo;,
-              &ldquo;Send an email&rdquo;). Type any custom question and receive
-              instant AI-crafted pivot scripts.
+              Dialeads transcribes prospect speech in real time. The moment an
+              objection lands — price, timing, competition — the right rebuttal
+              appears on screen. No scripts to memorize. No freezing up.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
               <FeatureCheck>
-                Pre-built battlecards for common objections
+                Pre-built objection playbooks for common pushbacks
               </FeatureCheck>
-              <FeatureCheck>Angle-based rebuttals</FeatureCheck>
-              <FeatureCheck>1-click copy script</FeatureCheck>
+              <FeatureCheck>Custom rebuttal decks by vertical or competitor</FeatureCheck>
+              <FeatureCheck>1-click copy to paste verbatim or modify</FeatureCheck>
             </ul>
           </div>
         </div>
@@ -549,22 +548,22 @@ export default function FeaturesPage() {
               05 &bull; DISPOSITION INTELLIGENCE
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              One-Click Dispositions That Advance the Queue Instantly
+              Log Every Call Result in One Second
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Log calls in under 1 second with pill buttons: Interested, Sent
-              Mockup, Voicemail, No Answer, Bad Number. Automatically triggers
-              next action.
+              After each call, reps tap one button — Interested, Voicemail, No
+              Answer, Callback, Bad Number. Queue advances automatically. CRM
+              updates in real time. Zero manual entry.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
               <FeatureCheck>
-                1-click drop custom voicemail and auto-advance queue
+                1-click disposition system
               </FeatureCheck>
               <FeatureCheck>
-                Automatic CRM activity &amp; stage logging
+                Automatic next-step triggers per disposition
               </FeatureCheck>
               <FeatureCheck>
-                Call recording and AI transcription attribution
+                Call recording + AI transcript for every call
               </FeatureCheck>
             </ul>
           </div>
@@ -689,17 +688,18 @@ export default function FeaturesPage() {
               06 &bull; MULTI-CHANNEL VELOCITY
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              Follow Up in 10 Seconds via WhatsApp, Email, or SMS
+              Follow Up via SMS, Email, or WhatsApp — Right After the Call
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Send pre-configured interactive mockups, pricing proposals, and
-              calendar links before the prospect even hangs up the phone.
+              Timing is everything. Dialeads triggers pre-written follow-up
+              messages the moment a call ends — personalized with the
+              prospect&apos;s name, company, and next step. No copy-paste.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
-              <FeatureCheck>Personalized dynamic placeholders</FeatureCheck>
-              <FeatureCheck>Instant Telnyx SMS dispatch</FeatureCheck>
+              <FeatureCheck>Personalized SMS with dynamic placeholders</FeatureCheck>
+              <FeatureCheck>Email and WhatsApp dispatch in 10 seconds</FeatureCheck>
               <FeatureCheck>
-                Ready-made executive proposal templates
+                Pre-built executive proposal and calendar link templates
               </FeatureCheck>
             </ul>
           </div>
@@ -714,17 +714,17 @@ export default function FeaturesPage() {
               07 &bull; CENTRALIZED COMMS
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              SMS, Call Recordings, and AI Notes in One Clean Stream
+              Every Call, SMS, and Note in One View
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              A 3-column chronological conversation cockpit with audio waveform
-              player, outbound/inbound SMS chat bubbles, and real-time carrier
-              delivery receipt status.
+              No more switching between 5 tools. Dialeads combines call
+              recordings, AI transcripts, inbound/outbound SMS, and notes into
+              one clean per-contact timeline.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
-              <FeatureCheck>Integrated audio player with scrubber</FeatureCheck>
-              <FeatureCheck>Telnyx SMS character/segment counter</FeatureCheck>
-              <FeatureCheck>Live conversation tags</FeatureCheck>
+              <FeatureCheck>Audio player with waveform scrubber</FeatureCheck>
+              <FeatureCheck>Inbound/outbound SMS chat view</FeatureCheck>
+              <FeatureCheck>Live conversation tags for context</FeatureCheck>
             </ul>
           </div>
 
@@ -847,21 +847,21 @@ export default function FeaturesPage() {
               08 &bull; ENTERPRISE TELEPHONY
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              Carrier-Grade Telnyx Infrastructure &amp; 10DLC Trust
+              Carrier-Grade Compliance Built In
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Built-in A2P 10DLC Brand and Campaign Registration to ensure your
-              SMS messages never get carrier filtered. Direct SIP trunk and DID
-              phone number management.
+              Dialeads handles A2P 10DLC brand registration, STIR/SHAKEN caller
+              ID verification, and time-zone calling window enforcement
+              automatically — so you stay compliant without a legal team.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
               <FeatureCheck>
-                10DLC Campaign Registry verification wizard
+                10DLC campaign registration wizard
               </FeatureCheck>
               <FeatureCheck>
-                Real-time balance and burn velocity telemetry
+                Automatic time-zone call window enforcement (8am–9pm local)
               </FeatureCheck>
-              <FeatureCheck>Split audio routing for headsets</FeatureCheck>
+              <FeatureCheck>STIR/SHAKEN A-attestation for all outbound caller IDs</FeatureCheck>
             </ul>
           </div>
         </div>
@@ -875,17 +875,17 @@ export default function FeaturesPage() {
               09 &bull; OPERATOR VISIBILITY
             </span>
             <h2 className="text-3xl sm:text-[40px] sm:leading-[44px] font-extrabold tracking-tight text-[#0b1c30] mb-4">
-              Monitor Live Queue Velocity and SDR Availability
+              See Every Rep&apos;s Performance in Real Time
             </h2>
             <p className="text-lg text-[#5e5d6b] mb-6 leading-relaxed">
-              Real-time presence dots (Available, Busy, Offline), team call
-              throughput metrics, and leaderboards that keep your outbound sales
-              team motivated.
+              Live presence dashboard shows who&apos;s on a call, who&apos;s
+              idle, and who&apos;s closing. Managers can listen in, whisper
+              coaching, and pull rep-level performance reports.
             </p>
             <ul className="flex flex-col gap-3 mb-8">
-              <FeatureCheck>Live call listening and whispering</FeatureCheck>
-              <FeatureCheck>Role-based access controls</FeatureCheck>
-              <FeatureCheck>Agent performance analytics</FeatureCheck>
+              <FeatureCheck>Real-time rep availability and call status</FeatureCheck>
+              <FeatureCheck>Call monitoring and live whisper mode</FeatureCheck>
+              <FeatureCheck>Leaderboards and daily dial targets</FeatureCheck>
             </ul>
           </div>
 
@@ -947,11 +947,11 @@ export default function FeaturesPage() {
             ZERO FRICTION ONBOARDING
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-[56px] lg:leading-[60px] font-black tracking-tight text-white mb-4 max-w-3xl">
-            Experience All 9 Capabilities Free for 14 Days
+            Try All Features Free for 14 Days
           </h2>
           <p className="text-lg text-[#eaddff] max-w-2xl mb-8 leading-relaxed">
-            Load your lead list, pick your AI persona, and start booking
-            qualified pipeline within 15 minutes. No credit card required.
+            Load your lead list, pick a campaign, and launch your first AI dial
+            session in under 15 minutes. No credit card required.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <a
@@ -970,13 +970,13 @@ export default function FeaturesPage() {
           </div>
           <div className="mt-6 flex items-center gap-6 text-[#eaddff] text-xs">
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="h-3.5 w-3.5" /> Instant Setup
+              <CheckCircle2 className="h-3.5 w-3.5" /> Instant setup
             </span>
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="h-3.5 w-3.5" /> Pre-configured DIDs
+              <CheckCircle2 className="h-3.5 w-3.5" /> Pre-configured numbers
             </span>
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="h-3.5 w-3.5" /> Cancel Anytime
+              <CheckCircle2 className="h-3.5 w-3.5" /> Cancel anytime
             </span>
           </div>
         </div>

@@ -20,22 +20,22 @@ import {
 const plans = [
   {
     name: "Starter",
-    badge: "Solo / Trial",
+    badge: "Solo / Early-Stage",
     badgeColor: "bg-[#e5eeff] text-[#4a4455]",
     monthlyPrice: 29,
     annualPrice: 23,
     subtitle:
-      "For solo founders and early SDRs testing cold outreach cadence.",
+      "For solo founders, small agencies, and SDRs testing outbound campaigns.",
     annualBillingNote: "billed $276 annually",
     monthlyBillingNote: "billed month-to-month",
     features: [
-      "1,000 Outbound Minutes included",
-      "Manual click-to-call & WebRTC dialer",
-      "500 Active Leads management",
-      "SMS & Email basic follow-up templates",
-      "Standard audio codecs & local caller ID",
-      "Email support (24h SLA)",
-      "1-Click Voicemail Drop templates",
+      "1,000 outbound minutes included",
+      "Manual click-to-call with WebRTC softphone",
+      "Up to 500 active leads",
+      "1-click pre-recorded voicemail drop",
+      "Basic SMS and email follow-up templates",
+      "Local caller ID matching",
+      "Email support (24h response)",
     ],
     icon: "check" as const,
     cta: "Get Started with Starter",
@@ -44,24 +44,24 @@ const plans = [
   },
   {
     name: "Pro Cadence",
-    badge: "High Velocity",
+    badge: "Most Popular",
     badgeColor: "bg-[#e3e0f1] text-[#630ed4]",
     monthlyPrice: 49,
     annualPrice: 39,
     subtitle:
-      "For aggressive growth teams and high-velocity SDR pods scaling cold volume.",
+      "For growing sales teams and agencies running high-volume outbound campaigns.",
     annualBillingNote: "billed $468 annually",
     monthlyBillingNote: "billed month-to-month",
     features: [
-      "Unlimited Outbound Calling & Smart Voicemail Drops",
-      "High-velocity Power & Predictive Dialer",
-      "Autonomous AI Voice Calling & Assistant",
-      "Live Objection Rebuttals & Real-time AI Copilot",
-      "1-Click Outcome Tracking & Dispositions",
-      "3-Column Unified Inbox & Telnyx SMS",
-      "Custom Pitch Assets & Demo Link Dispatch",
-      "Priority Slack & Phone Support",
-      "Automated AI Voicemail Drop & Detection",
+      "Unlimited outbound calling + voicemail drops",
+      "AI voice agent for autonomous first-touch calls",
+      "Power dialer with local presence (85%+ answer rate)",
+      "Live objection rebuttals (AI Copilot)",
+      "1-click call dispositions + outcome tracking",
+      "Unified inbox with SMS, call recordings, and AI transcripts",
+      "Automated follow-up via SMS, email, and WhatsApp",
+      "10DLC guided campaign registration",
+      "Priority support (Slack + phone)",
     ],
     icon: "verified" as const,
     cta: "Start 14-Day Free Pro Trial",
@@ -75,18 +75,19 @@ const plans = [
     monthlyPrice: null,
     annualPrice: null,
     subtitle:
-      "For large outbound call centers and multi-team lead generation agencies.",
+      "For large call centers, multi-team agencies, and high-volume lead generation operations.",
     annualBillingNote: null,
     monthlyBillingNote: null,
     pricingSubtitle: "Tiered volume discounts & multi-seat pools",
     features: [
-      "Everything in Pro with no volume caps",
-      "Custom Voice Cloning & Fine-tuned Scripts",
-      "Dedicated SIP Trunks & Private Carrier Routes",
-      "Full A2P 10DLC Campaign & Dedicated DIDs",
-      "White-label Domain & Custom Branding",
-      "Dedicated TAM & 99.99% Uptime SLA",
-      "Salesforce, HubSpot & Close Bi-directional sync",
+      "Everything in Pro with no volume limits",
+      "Custom AI voice cloning for your brand",
+      "Dedicated SIP trunks and private carrier routes",
+      "Full A2P 10DLC setup and compliance management",
+      "White-label branding and custom domain",
+      "Salesforce, HubSpot, and Close.io bi-directional sync",
+      "Dedicated account manager",
+      "99.99% uptime SLA",
     ],
     icon: "shield" as const,
     cta: "Contact Sales / Custom Plan",
@@ -165,28 +166,28 @@ const comparisonRows: {
 
 const faqs = [
   {
-    q: "Do I need an LLC or registered business to make calls?",
-    a: "For purely outbound voice dialing via standard local DIDs, an individual can begin immediately. However, if you plan to dispatch SMS messages or register brand-identified outbound caller ID cards, FCC regulations require an EIN for A2P 10DLC campaign approval. Dialeads provides a simple 3-minute form inside workspace settings to register your entity directly with the TCR registry.",
+    q: "Do I need a registered business to start?",
+    a: "No. For outbound voice calls, you can start immediately as an individual. If you plan to send SMS campaigns under your brand name, FCC regulations require an EIN for A2P 10DLC registration. Dialeads walks you through this in under 3 minutes inside your account settings.",
   },
   {
-    q: "What SIP provider powers the voice infrastructure?",
-    a: "We leverage enterprise-grade Telnyx global carrier infrastructure running Opus HD voice codecs over WebRTC. With points-of-presence in Chicago, Frankfurt, London, and Tokyo, network audio traversal yields sub-25ms round-trip latency, ensuring zero stutter or unnatural conversational pauses.",
+    q: "What powers the voice calls?",
+    a: "Dialeads uses Telnyx carrier-grade infrastructure with Opus HD voice over WebRTC, delivering sub-25ms latency with global points of presence. Every call sounds crystal clear.",
   },
   {
-    q: "Is there a free trial, and do I need a credit card?",
-    a: "Yes! The Pro plan comes with an unthrottled 14-day trial including 250 free calling minutes and complete access to the autonomous AI voice assistant and live objection copilot. No credit card is required to sign up and launch your first lead list.",
+    q: "Is there a free trial?",
+    a: "Yes. The Pro plan includes a full 14-day free trial with 250 calling minutes and complete access to the AI voice agent and live objection copilot. No credit card required.",
   },
   {
-    q: "How does the CSV lead import work?",
-    a: "Our intelligent importer accepts CSV files up to 250,000 rows. It automatically parses phone numbers into standard E.164 formats, matches custom fields (e.g., Prospect Title, Target Pain Point, Past Vendor), and scrubs invalid lines against known spam and DNC national databases prior to dialing.",
+    q: "How does CSV lead import work?",
+    a: "Import up to 250,000 leads per file. Dialeads auto-formats phone numbers, scrubs against DNC databases, and maps custom columns like Prospect Title or Target Pain Point. Ready to dial in minutes.",
   },
   {
-    q: "What happens if I exceed my included minutes?",
-    a: "Never experience unexpected service cutoffs. Additional minutes and voicemail drops bill at a completely transparent flat rate ($0.018/min for Starter, $0.012/min for Pro) with zero surcharge multipliers. Smart voicemail drops count toward standard outbound allowances. You can also configure automated hard or soft spending caps directly inside your workspace billing console.",
+    q: "What happens if I go over my included minutes?",
+    a: "You'll never get cut off. Overages bill at a flat rate — $0.018/min on Starter, $0.012/min on Pro. You can set a hard spending cap inside your billing dashboard.",
   },
   {
-    q: "How do you handle A2P 10DLC and TCPA compliance?",
-    a: "Dialeads includes built-in compliance firewalls: time-zone-based automatic calling windows (protecting prospects before 8:00 AM and after 9:00 PM local time), instant opt-out keyword handling for SMS, automated Do-Not-Call list suppression, and STIR/SHAKEN Level-A Caller ID cryptographic signing to prevent spam flags.",
+    q: "How does Dialeads handle TCPA compliance?",
+    a: "Built-in compliance tools include: time-zone-based calling windows (8am–9pm local), instant SMS opt-out handling, automatic DNC suppression, and STIR/SHAKEN A-level caller ID signing.",
   },
 ];
 
@@ -250,17 +251,17 @@ export default function PricingPage() {
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-16 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#630ed4] text-xs font-bold tracking-[0.08em] uppercase mb-6 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-ping" />
-            <span>TRANSPARENT PLANS</span>
+            <span>Transparent Pricing. No Surprises.</span>
           </div>
 
           <h1 className="text-4xl md:text-[72px] md:leading-[76px] font-bold tracking-tight text-[#0b1c30] mb-4 max-w-4xl mx-auto">
-            Simple, Transparent{" "}
-            <span className="text-[#630ed4]">Pricing</span>
+            Pick the Plan That Matches Your{" "}
+            <span className="text-[#630ed4]">Dial Volume</span>
           </h1>
 
           <p className="text-[#4a4455] max-w-2xl mx-auto mb-10 text-lg leading-7">
-            Choose the dialer cadence that fits your sales volume. Scale your
-            pipeline with autonomous voice bots and switch or cancel anytime.
+            Whether you&apos;re a solo agency owner or running a 50-seat call
+            center — Dialeads has a plan that scales with your outbound volume.
           </p>
 
           {/* Billing Toggle */}
@@ -625,11 +626,11 @@ export default function PricingPage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[#0b1c30]">
-                  Risk-free. Cancel with 1-click at any time.
+                  Risk-free. Cancel anytime. 14-day money-back guarantee.
                 </h3>
                 <p className="text-sm text-[#4a4455]">
-                  Includes 14-day money-back guarantee, full SOC-2 Type II audit
-                  report, and HIPAA compliance readiness.
+                  SOC-2 Type II certified. No hidden fees. No long-term
+                  contracts.
                 </p>
               </div>
             </div>

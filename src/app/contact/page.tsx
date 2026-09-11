@@ -18,11 +18,11 @@ import {
 } from "lucide-react";
 
 const inquiryOptions = [
-  { value: "enterprise-demo", label: "Schedule an Enterprise Demo (Multi-Seat)" },
-  { value: "wholesale-sip", label: "Wholesale Telnyx SIP / High-Volume Minutes" },
-  { value: "10dlc-support", label: "A2P 10DLC Registration & Carrier Trust" },
-  { value: "voice-clone", label: "Custom Ultra-Low Latency AI Voice Clone" },
-  { value: "general", label: "General Architecture & API Integration" },
+  { value: "enterprise-demo", label: "Book an Enterprise Demo (Multi-Seat)" },
+  { value: "wholesale-sip", label: "High-Volume Minutes & Custom SIP Setup" },
+  { value: "10dlc-support", label: "A2P 10DLC Registration Help" },
+  { value: "voice-clone", label: "AI Voice Agent Configuration" },
+  { value: "general", label: "General Integration & API Questions" },
 ];
 
 const countryOptions = [
@@ -88,10 +88,10 @@ export default function ContactPage() {
               Get in Touch
             </div>
             <h1 className="text-[32px] lg:text-[56px] font-bold text-[#0b1c30] tracking-tight leading-[1.08] mb-4">
-              Let&apos;s Talk About Accelerating Your Outbound Sales
+              Talk to a Real Person About Your Outbound Goals
             </h1>
             <p className="text-lg text-[#5e5d6b] max-w-2xl leading-relaxed">
-              Have questions about custom telephony, high-volume minutes, or setting up autonomous AI cold-calling? Our engineering and sales teams are here to help.
+              Whether you&apos;re running your first cold campaign or building a 50-seat call center — our team can help you set up, scale, and stay compliant.
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export default function ContactPage() {
                         <Zap className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-[#0b1c30]">Sales &amp; Enterprise Inquiries</span>
+                        <span className="text-sm font-semibold text-[#0b1c30]">Sales &amp; Enterprise</span>
                         <span className="text-sm text-[#5e5d6b]">sales@dialeads.io</span>
                       </div>
                     </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
                         <Phone className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-[#0b1c30]">Telephony &amp; 10DLC Compliance</span>
+                        <span className="text-sm font-semibold text-[#0b1c30]">Technical Support &amp; 10DLC</span>
                         <span className="text-sm text-[#5e5d6b]">support@dialeads.io</span>
                       </div>
                     </div>
@@ -139,7 +139,7 @@ export default function ContactPage() {
                         <Megaphone className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-[#0b1c30]">Press &amp; Strategic Partnerships</span>
+                        <span className="text-sm font-semibold text-[#0b1c30]">Press &amp; Partnerships</span>
                         <span className="text-sm text-[#5e5d6b]">press@dialeads.io</span>
                       </div>
                     </div>
@@ -190,26 +190,15 @@ export default function ContactPage() {
 
               {/* Global Physical Footprint */}
               <div className="bg-white p-8 rounded-xl shadow-[0_1px_3px_rgba(15,15,26,0.04),0_8px_24px_rgba(15,15,26,0.03)] flex flex-col gap-6">
-                <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#5e5d6b]">Office Hubs</span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col bg-[#eff4ff]/50 p-4 rounded-lg">
-                    <div className="flex items-center gap-1 text-[#630ed4] mb-1">
-                      <MapPin className="h-[18px] w-[18px]" />
-                      <span className="text-sm font-bold text-[#0b1c30]">San Francisco</span>
-                    </div>
-                    <p className="text-sm text-[#5e5d6b] leading-snug">
-                      548 Market St, Suite 3200<br />San Francisco, CA 94104
-                    </p>
+                <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#5e5d6b]">Location</span>
+                <div className="flex flex-col bg-[#eff4ff]/50 p-4 rounded-lg">
+                  <div className="flex items-center gap-1 text-[#630ed4] mb-1">
+                    <MapPin className="h-[18px] w-[18px]" />
+                    <span className="text-sm font-bold text-[#0b1c30]">Remote-First</span>
                   </div>
-                  <div className="flex flex-col bg-[#eff4ff]/50 p-4 rounded-lg">
-                    <div className="flex items-center gap-1 text-[#630ed4] mb-1">
-                      <Building2 className="h-[18px] w-[18px]" />
-                      <span className="text-sm font-bold text-[#0b1c30]">New York</span>
-                    </div>
-                    <p className="text-sm text-[#5e5d6b] leading-snug">
-                      114 5th Avenue, 10th Floor<br />New York, NY 10011
-                    </p>
-                  </div>
+                  <p className="text-sm text-[#5e5d6b] leading-snug">
+                    Remote-first team. We respond fast, wherever you are.
+                  </p>
                 </div>
               </div>
             </div>
@@ -252,10 +241,10 @@ export default function ContactPage() {
                 <div className="flex items-center justify-between pb-4 mb-6">
                   <div>
                     <h2 className="text-[32px] font-bold text-[#0b1c30] tracking-tight leading-tight">
-                      Initiate Discussion
+                      Tell Us What You&apos;re Working On
                     </h2>
                     <p className="text-base text-[#5e5d6b] mt-0.5">
-                      Direct route to solutions architects and telephony engineers.
+                      We&apos;ll match you with the right setup for your team size, campaign type, and dial volume.
                     </p>
                   </div>
                   <div className="hidden sm:flex items-center gap-1 px-3 py-1 bg-[#eff4ff] rounded-full">
@@ -403,7 +392,7 @@ export default function ContactPage() {
                 <div className="mt-6 pt-4 flex items-center gap-2 text-[#5e5d6b] justify-center sm:justify-start">
                   <Lock className="h-[18px] w-[18px] text-[#630ed4] shrink-0" />
                   <p className="text-sm leading-tight text-[#5e5d6b]">
-                    We respect your privacy. No spam ever. SOC-2 Type II Certified &amp; GDPR Compliant.
+                    SOC2 Type II Certified &middot; GDPR Compliant &middot; No spam, ever.
                   </p>
                 </div>
               </div>

@@ -23,9 +23,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About - Dialeads",
+  title: "About Dialeads – AI Calling Platform Built for Sales Teams",
   description:
-    "Built by sales people, for sales people. Learn about our mission, team, and the technology behind Dialeads.",
+    "Dialeads is an AI-powered calling and voicemail drop platform built to help sales teams, agencies, and businesses book more meetings without manual dialing.",
 };
 
 const stats = [
@@ -59,26 +59,26 @@ const stats = [
 const values = [
   {
     icon: Zap,
-    title: "Speed Over Everything",
-    desc: "In cold outreach, hesitation kills deals. From sub-25ms WebRTC audio to 1-click outcome logging, every millisecond is optimized.",
+    title: "Speed First",
+    desc: "Every millisecond matters in cold outreach. From sub-25ms call latency to 1-click dispositions, every workflow is optimized for sales velocity.",
     footnote: "Benchmarked daily against Tier-1 SIP carriers",
   },
   {
     icon: Layers,
     title: "Radical Simplicity",
-    desc: "No bloated 20-field CRM modals. Just the essential lead data, live rebuttals, and 1-click omnichannel dispatches so sales teams remain focused.",
+    desc: "No bloated dashboards. No 20-field forms. Dialeads shows reps exactly what they need — lead info, live rebuttals, and one-tap follow-up — nothing else.",
     footnote: "Zero context-switching design",
   },
   {
     icon: ShieldCheck,
-    title: "Radical Transparency",
-    desc: "Direct wholesale carrier pricing, transparent 10DLC compliance verification, and clear AI voice engine metrics without hidden telephony margins.",
+    title: "Full Transparency",
+    desc: "Straightforward pricing. No hidden carrier markups. Clear compliance tooling. What you see is what you get.",
     footnote: "Direct-to-SIP bypass without markups",
   },
   {
     icon: Target,
-    title: "Results-Driven Obsession",
-    desc: "We judge our software by one metric only: booked discovery meetings and closed revenue for our clients. No vanity engagement figures.",
+    title: "Results Only",
+    desc: "We measure success one way: booked meetings and closed revenue for our customers. Not time-on-platform. Not feature usage. Pipeline.",
     footnote: "Measured strictly in booked pipeline ($ARR)",
   },
 ];
@@ -86,39 +86,39 @@ const values = [
 const nodes = [
   {
     id: "01",
-    title: "SIP Trunk Ingest",
-    desc: "Automated local carrier registration with STIR/SHAKEN A-attestation verification.",
-    metric: "< 8ms jitter",
+    title: "Telnyx SIP Trunking",
+    desc: "Carrier-grade SIP trunking with global points of presence for crystal-clear audio.",
+    metric: "Sub-25ms latency",
   },
   {
     id: "02",
-    title: "Voice Synthesis",
-    desc: "Neural streaming acoustic models producing micro-inflected human cadences.",
-    metric: "18ms TTFB",
+    title: "Platform Uptime",
+    desc: "Redundant infrastructure with automatic failover across multiple regions.",
+    metric: "99.98% uptime",
   },
   {
     id: "03",
-    title: "Objection Matrix",
-    desc: "Zero-shot retrieval model feeding dynamic rebuttals based on caller tonality.",
-    metric: "99.4% intent match",
+    title: "Caller ID Verification",
+    desc: "STIR/SHAKEN A-level attestation on all outbound caller IDs to prevent spam flags.",
+    metric: "A-attestation",
   },
   {
     id: "04",
-    title: "CRM Push & SMS",
-    desc: "Bi-directional contact syncing and instant calendar invite dispatch via Twilio.",
-    metric: "Zero data leakage",
+    title: "Security & Compliance",
+    desc: "SOC2 Type II certified with DNC scrubbing on every number before it dials.",
+    metric: "SOC2 Type II",
   },
 ];
 
 const leaders = [
   {
-    initials: "AV",
-    name: "Alex Vance",
-    role: "CEO & Co-Founder",
+    initials: "CF",
+    name: "Co-Founder",
+    role: "Operations & Strategy",
     prevIcon: Briefcase,
-    prev: "Ex-Head of Outbound, Scale AI",
-    desc: "Logged 100k+ lifetime cold calls before scaling enterprise pipeline. Built the original Dialeads prototype to replace manual BDR dialing spreadsheets.",
-    location: "San Francisco, CA",
+    prev: "Background in outbound sales and revenue operations",
+    desc: "Background in outbound sales and revenue operations.",
+    location: "Remote",
     links: [
       { icon: Share2, label: "LinkedIn" },
       { icon: Link2, label: "Personal site" },
@@ -126,13 +126,13 @@ const leaders = [
     gradient: "from-[#630ed4] to-[#7c3aed]",
   },
   {
-    initials: "ER",
-    name: "Elena Rostova",
-    role: "CTO & Co-Founder",
+    initials: "CF",
+    name: "Co-Founder",
+    role: "Engineering & Infrastructure",
     prevIcon: Terminal,
-    prev: "Ex-Staff Telephony, Twilio & Telnyx",
-    desc: "Core WebRTC protocol contributor and creator of custom multi-region audio ingest meshes handling tens of millions of concurrent SIP channels with ultra-low packet jitter.",
-    location: "New York, NY",
+    prev: "Background in enterprise telephony and WebRTC",
+    desc: "Background in enterprise telephony and WebRTC.",
+    location: "Remote",
     links: [
       { icon: Code, label: "GitHub" },
       { icon: Share2, label: "Network" },
@@ -140,13 +140,13 @@ const leaders = [
     gradient: "from-[#7c3aed] to-[#d2bbff]",
   },
   {
-    initials: "MC",
-    name: "Marcus Chen",
-    role: "VP of Product & AI",
+    initials: "CF",
+    name: "Co-Founder",
+    role: "Product & AI",
     prevIcon: Brain,
-    prev: "Ex-ElevenLabs & Stanford AI Lab",
-    desc: "Pioneered streaming contextual LLM voice tokens and real-time natural interruption detection algorithms to eliminate conversational lag in automated phone calls.",
-    location: "San Francisco, CA",
+    prev: "Background in AI engineering and voice systems",
+    desc: "Background in AI engineering and voice systems.",
+    location: "Remote",
     links: [
       { icon: GraduationCap, label: "Research" },
       { icon: Share2, label: "Network" },
@@ -169,20 +169,20 @@ export default function AboutPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] shadow-sm mb-6">
             <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
-              Our Story &amp; Mission
+              Our Story
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-[72px] lg:leading-[76px] font-extrabold tracking-tight text-[#0b1c30] max-w-4xl mx-auto mb-6">
-            Built by Sales People,{" "}
+            Built to Replace the Manual Work{" "}
             <br className="hidden sm:inline" />
-            <span className="text-[#7c3aed]">for Sales People</span>
+            <span className="text-[#7c3aed]">That Kills Sales Momentum</span>
           </h1>
 
           <p className="text-lg text-[#4a4455] max-w-2xl mx-auto mb-12">
-            We spent 10,000+ hours cold calling local businesses and Fortune
-            500s. We built Dialeads to replace the clunky, disjointed tools that
-            were slowing SDRs down.
+            Every hour a sales rep spends dialing busy signals, leaving
+            voicemails manually, or forgetting to follow up is an hour not spent
+            closing. Dialeads was built to fix that.
           </p>
 
           {/* Visual Collage */}
@@ -251,10 +251,14 @@ export default function AboutPage() {
               <Quote className="h-7 w-7" />
             </div>
             <blockquote className="text-2xl lg:text-[32px] lg:leading-[38px] font-extrabold text-[#0b1c30] tracking-tight leading-snug mb-8">
-              &ldquo;The best salespeople shouldn&rsquo;t spend 70% of their
-              workday logging notes, manually dialing 10-digit numbers, and
-              getting caught off guard by predictable objections. AI should handle
-              the mechanics so humans can build the relationships.&rdquo;
+              &ldquo;Sales teams have had the same problem for 20 years — too
+              many leads, not enough time, and tools that make reps do the grunt
+              work instead of eliminating it. CRMs don&rsquo;t dial. Auto-dialers
+              don&rsquo;t handle objections. Voicemail drop tools don&rsquo;t
+              follow up. Dialeads combines everything into one platform: AI
+              calling, ringless voicemail drop, live objection rebuttals, and
+              automated follow-up — so reps spend 100% of their time on
+              conversations that matter.&rdquo;
             </blockquote>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#630ed4] to-[#7c3aed] text-white flex items-center justify-center font-bold text-sm shadow-md">
@@ -313,7 +317,7 @@ export default function AboutPage() {
               Engineering Standard
             </span>
             <h2 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold text-[#0b1c30] tracking-tight">
-              Our Core Operating Values
+              How We Build
             </h2>
           </div>
           <p className="text-base text-[#4a4455] max-w-md">
@@ -360,7 +364,7 @@ export default function AboutPage() {
                 Internal Infrastructure
               </span>
               <h3 className="text-[32px] leading-[38px] font-bold">
-                Dialeads Ultra-Low Latency Mesh
+                Enterprise Infrastructure. Startup Simplicity.
               </h3>
             </div>
             <div className="flex items-center gap-3">
@@ -402,11 +406,11 @@ export default function AboutPage() {
             Executive Leadership
           </span>
           <h2 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold text-[#0b1c30] tracking-tight mb-3">
-            Architected by Builders &amp; Closers
+            Built by Operators Who&apos;ve Been in the Trenches
           </h2>
           <p className="text-base text-[#4a4455]">
-            Seasoned outbound executives and world-class telecom architects
-            united to solve conversational cold outreach.
+            Our founding team brings experience from enterprise telephony,
+            outbound sales, and AI engineering.
           </p>
         </div>
 
@@ -474,22 +478,11 @@ export default function AboutPage() {
         {/* Investors */}
         <div className="text-center mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#4a4455] block mb-6">
-            Backed by Leading Global Investors
+            Backed by investors who believe in the future of AI-powered sales.
           </span>
           <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16 opacity-80">
             <div className="flex items-center gap-2 text-xl font-bold text-[#0b1c30]">
-              <span className="w-8 h-8 rounded bg-[#630ed4] text-white flex items-center justify-center font-black text-sm">
-                Y
-              </span>
-              Combinator
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold text-[#0b1c30]">
-              <span className="text-[#630ed4]">◆</span>
-              Craft Ventures
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold text-[#0b1c30]">
-              <span className="text-[#630ed4]">◈</span>
-              Index Ventures
+              Seed-funded. Building for the long term.
             </div>
           </div>
         </div>
@@ -504,12 +497,11 @@ export default function AboutPage() {
                 14 Open Roles in Engineering, Design, &amp; Sales
               </div>
               <h3 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold tracking-tight leading-tight mb-3">
-                We&rsquo;re hiring builders passionate about speech systems.
+                Start Calling Smarter Today
               </h3>
               <p className="text-lg text-[#eaddff] max-w-xl">
-                Join our headquarters in SF or NYC, or work remotely anywhere
-                within ±3 hours of US Pacific Time. Help us turn telephone dials
-                into high-converting revenue.
+                No long onboarding. No sales calls required. Load your first
+                lead list and launch a campaign in 15 minutes.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0">

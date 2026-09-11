@@ -22,50 +22,50 @@ import {
 const features = [
   {
     icon: Phone,
-    title: "Autonomous AI Calling & Voicemail Drop",
+    title: "Auto-Detect, Dial, and Drop — Hands Free",
     href: "/features/ai-calling",
     description:
-      "Dial thousands of prospects hands-free. Dialeads detects live pickups vs voicemail and drops pre-recorded messages instantly -- so your reps only talk to humans who answer.",
+      "Dialeads detects live answers vs voicemail automatically. When nobody picks up, it drops your pre-recorded message instantly. Your reps skip the hold music and talk to humans only.",
     linkText: "Explore Voice & Drop Models",
   },
   {
     icon: Users,
-    title: "High-Capacity Lead Management",
+    title: "Import 10,000 Leads. Start Dialing in 2 Minutes.",
     href: "/features/lead-management",
     description:
-      "Import, segment, and prioritize leads at scale. Assign campaigns by industry, region, or deal size. Dialeads keeps your pipeline organized and your reps focused on the hottest contacts.",
+      "Upload any CSV, auto-clean numbers against DNC lists, and segment leads by campaign, industry, or region. Dialeads keeps your queue organized so your team stays focused.",
     linkText: "View Queue Engine",
   },
   {
     icon: Shield,
-    title: "Live Objection Rebuttals",
+    title: "Never Freeze on an Objection Again",
     href: "/features/objection-rebuttals",
     description:
-      "Never lose a call to \"I'm not interested\" again. Dialeads listens in real time and surfaces the right rebuttal script on screen -- trained on your top closers' playbooks.",
+      "When a prospect pushes back, Dialeads transcribes their reply in real time and shows your rep the exact rebuttal to use — trained on high-converting scripts.",
     linkText: "See Live Prompts",
   },
   {
     icon: BarChart3,
-    title: "Granular Outcome Tracking",
+    title: "Know What's Working. Cut What's Not.",
     href: "/features/outcome-tracking",
     description:
-      "Log every call disposition -- Connected, VM Left, No Answer, Callback, Closed. Build reports by rep, campaign, or time range. Know exactly what's working and cut what's not.",
+      "Log every call result in one click — Connected, Voicemail Left, No Answer, Callback Scheduled. Build reports by rep, campaign, or date range.",
     linkText: "Review Dispositions",
   },
   {
     icon: MessageSquare,
-    title: "Omnichannel Follow-Up",
+    title: "SMS, Email, and Ring-Back — Triggered Automatically",
     href: "/features/omnichannel",
     description:
-      "One call rarely closes the deal. Dialeads auto-triggers SMS, email, and ring-back sequences after every call -- keeping your brand top-of-mind until the prospect is ready to buy.",
+      "One call rarely closes a deal. Dialeads fires follow-up sequences by SMS, email, or callback timer the moment a call ends — no manual action needed.",
     linkText: "Learn Automations",
   },
   {
     icon: Inbox,
-    title: "Unified Operator Inbox",
+    title: "Every Call, Note, and Message in One Place",
     href: "/features/unified-inbox",
     description:
-      "One inbox. Every channel. Reps see the full call history, notes, and next steps without switching tools. Managers get a bird's-eye view of every active conversation in real time.",
+      "Managers see every active rep conversation. Call recordings, AI transcripts, and SMS threads live in one clean view — no tab switching.",
     linkText: "Inspect Workspace",
   },
 ];
@@ -73,64 +73,64 @@ const features = [
 const steps = [
   {
     number: "01",
-    title: "Upload Leads",
+    title: "Upload Your Leads",
     description:
-      "CSV bulk import with automated phone hygiene, carrier lookup, DNC checks, and local presence area-code alignment. Ready in under 2 minutes.",
+      "CSV import with auto phone validation, DNC scrub, and local area code matching. Ready in under 2 minutes.",
   },
   {
     number: "02",
     title: "Start Dialing",
     description:
-      "Connect live with AI voice agents or drop pre-recorded, hyper-personalized voicemails with 1 click. Dials queues at multi-line cadence and negotiates gatekeepers.",
+      "AI detects live answers vs voicemail. Drops pre-recorded messages instantly. Reps connect only with live prospects.",
   },
   {
     number: "03",
-    title: "Close & Follow Up",
+    title: "Follow Up and Close",
     description:
-      "Immediate 1-click staging of personalized links, calendar invite dispatches, and bi-directional CRM deal stage updates. Zero slippage.",
+      "One-click SMS, calendar invite, or email dispatch the moment the call ends. CRM updates automatically.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "We 3x'd our qualified pipeline in the first 45 days. The live objection prompts turned our junior SDRs into cold-calling monsters who never get flustered by gatekeepers.",
-    name: "Kieran Patel",
-    title: "VP of Sales @ Hypergrowth Cloud",
+      "We started booking 3x more demos per rep per week after switching to Dialeads. The voicemail drop alone saves us 2 hours a day.",
+    name: "Sales Manager",
+    title: "B2B SaaS Company",
   },
   {
     quote:
-      "Dialeads cut our connect-to-meeting time in half. The AI voicemail drops get callbacks we never would have gotten manually. It's become the backbone of our entire outbound motion.",
-    name: "Sarah Jenkins",
-    title: "SDR Manager @ ScaleOps AI",
+      "As a one-person agency, I needed something that could dial my client's leads without me babysitting it. Dialeads does exactly that.",
+    name: "Founder",
+    title: "Lead Generation Agency",
   },
   {
     quote:
-      "As a solo founder wearing 10 hats, the autonomous voice agent handled our first 5,000 cold leads while I focused on shipping product. Dialeads booked 68 enterprise pilots automatically.",
-    name: "Mateo Alvarez",
-    title: "Founder & CEO @ Omniflow",
+      "The live objection prompts are a game changer for junior reps who used to freeze on cold calls.",
+    name: "SDR Team Lead",
+    title: "Financial Services",
   },
 ];
 
 const stats = [
   {
-    value: "5.2M+",
-    label: "Calls Dialed",
+    value: "5M+",
+    label: "Calls Processed",
     description: "Autonomous & agent-assisted outbound calls this quarter alone.",
   },
   {
-    value: "4x",
-    label: "Pipeline Velocity",
-    description: "Faster lead qualification compared to manual SDR dialing.",
-  },
-  {
     value: "87%",
-    label: "Local Answer Rate",
+    label: "Average Answer Rate with Local ID",
     description: "Dynamic local caller ID presence with zero SPAM likelihood flags.",
   },
   {
-    value: "4.8/5",
-    label: "Operator CSAT",
+    value: "4x",
+    label: "More Dials Per Rep Per Day",
+    description: "Faster lead qualification compared to manual SDR dialing.",
+  },
+  {
+    value: "1-Click",
+    label: "Voicemail Drop — Under 2 Seconds",
     description: "Verified feedback from over 1,200 commercial sales reps.",
   },
 ];
@@ -150,16 +150,16 @@ export default function Home() {
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1.5 shadow-sm hover:scale-105 transition-transform cursor-pointer">
             <span className="text-sm">&#10024;</span>
             <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-              AI-Powered Cold Calling &amp; Voicemail Drops
+              AI Calling &amp; Ringless Voicemail Drop Platform
             </span>
             <span className="h-1.5 w-1.5 animate-ping rounded-full bg-[#630ed4]" />
           </div>
 
           {/* Massive H1 */}
           <h1 className="text-4xl font-extrabold tracking-tighter text-[#0b1c30] sm:text-5xl lg:text-[72px] lg:leading-[76px] max-w-4xl mx-auto mb-6">
-            Book More Meetings With{" "}
+            Turn Your Lead List Into Booked Meetings —{" "}
             <span className="relative inline-block text-[#630ed4]">
-              Every Call
+              On Autopilot
               <svg
                 className="absolute -bottom-3 left-0 w-full overflow-visible"
                 fill="none"
@@ -179,9 +179,9 @@ export default function Home() {
 
           {/* Subtitle */}
           <p className="text-lg text-[#5e5d6b] max-w-[620px] mx-auto mb-12 leading-relaxed">
-            Empower your SDRs with autonomous AI dialing, 1-click smart voicemail
-            drops, instant objection rebuttals, and automated multi-channel
-            follow-ups engineered for 10x pipeline growth.
+            Dialeads runs AI-powered outbound calls and drops ringless voicemails
+            for small businesses, agencies, and sales teams. Your reps only talk
+            to people who are ready to respond.
           </p>
 
           {/* CTA Row */}
@@ -537,7 +537,7 @@ export default function Home() {
             </span>
           </div>
           <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] max-w-2xl mx-auto mb-16">
-            Everything Your Team Needs to Dominate the Phones
+            Everything You Need to Run High-Volume Outbound
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
@@ -577,10 +577,10 @@ export default function Home() {
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] block mb-2">
-              AI-Powered Cold Calling &amp; Voicemail Drops
+              AI Calling &amp; Ringless Voicemail Drop Platform
             </span>
             <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px]">
-              Three Steps to 10x Cold Outbound
+              Three Steps to More Meetings
             </h2>
           </div>
 
@@ -845,10 +845,10 @@ export default function Home() {
       <section className="w-full bg-[#eff4ff] py-24">
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8 text-center">
           <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] block mb-2">
-            AI-Powered Cold Calling &amp; Voicemail Drops
+            AI Calling &amp; Ringless Voicemail Drop Platform
           </span>
           <h2 className="text-3xl font-extrabold tracking-tight text-[#0b1c30] sm:text-[56px] sm:leading-[60px] mb-16">
-            Trusted by High-Velocity Revenue Leaders
+            What Sales Teams Say About Dialeads
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -891,15 +891,15 @@ export default function Home() {
             <div className="pointer-events-none absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/10 blur-2xl" />
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
               <span className="text-xs font-bold uppercase tracking-widest text-[#eaddff] mb-3">
-                AI-Powered Cold Calling &amp; Voicemail Drops
+                AI Calling &amp; Ringless Voicemail Drop Platform
               </span>
               <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-[56px] sm:leading-[60px] mb-4">
-                Ready to Dial Smarter and 4x Your Pipeline?
+                Ready to Dial Smarter?
               </h2>
               <p className="text-lg text-[#d2bbff] mb-12 leading-relaxed">
-                Scale your pipeline with autonomous voice agents and smart
-                voicemail drops in under 15 minutes. Connect your CRM and start
-                closing qualified meetings today.
+                Start your free trial in under 5 minutes. No credit card
+                required. Connect your lead list and launch your first campaign
+                today.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
                 <Link
@@ -920,15 +920,15 @@ export default function Home() {
               <div className="flex items-center gap-6 mt-12 text-xs text-[#d2bbff]">
                 <span className="flex items-center gap-1">
                   <Check className="h-4 w-4" />
-                  Instant Setup
+                  No credit card
                 </span>
                 <span className="flex items-center gap-1">
                   <Check className="h-4 w-4" />
-                  Cancel Anytime
+                  Cancel anytime
                 </span>
                 <span className="flex items-center gap-1">
                   <Check className="h-4 w-4" />
-                  SOC2 Type II Certified
+                  SOC2 Compliant
                 </span>
               </div>
             </div>
