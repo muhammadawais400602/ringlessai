@@ -97,6 +97,7 @@ body {
   & .text-\[\#5e5d6b\] { color: #94a3b8 !important; }
   & .text-\[\#4a4455\] { color: #a0aec0 !important; }
   & .text-\[\#1b1a26\] { color: #eaf1ff !important; }
+  & .text-\[\#25005a\] { color: #e0d0ff !important; }
 
   /* Borders */
   & .border-\[\#ccc3d8\] { border-color: #2d3b4d !important; }
@@ -166,4 +167,19 @@ body {
 .bg-dot-pattern {
   background-image: radial-gradient(#7c3aed 0.75px, transparent 0.75px);
   background-size: 24px 24px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .md\:animate-none {
+    animation: none !important;
+  }
 }

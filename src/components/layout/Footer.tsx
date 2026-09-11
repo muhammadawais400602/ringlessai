@@ -68,7 +68,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col">
+          <div className="lg:col-span-2 flex flex-col">
             <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Product</span>
             <ul className="flex flex-col gap-2">
               {productLinks.map((link) => (
@@ -81,7 +81,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col">
+          <div className="lg:col-span-2 flex flex-col">
             <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Company</span>
             <ul className="flex flex-col gap-2">
               {companyLinks.map((link) => (
@@ -112,7 +112,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-1 flex flex-col">
+          <div className="lg:col-span-2 flex flex-col">
             <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-4">Legal</span>
             <ul className="flex flex-col gap-2">
               {legalLinks.map((link) => (
