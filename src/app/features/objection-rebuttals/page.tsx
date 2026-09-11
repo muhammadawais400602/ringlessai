@@ -125,7 +125,7 @@ const frequencyData = [
 /* ------------------------------------------------------------------ */
 
 const heroScriptText =
-  "“Totally understand, Marcus! Most teams we partner with actually kept their in-house reps solely focused on closing deals, using Vocalis to feed them warmed meetings on autopilot. Can I show you how in 3 minutes?”";
+  "“Totally understand, Marcus! Most teams we partner with actually kept their in-house reps solely focused on closing deals, using Dialeads to feed them warmed meetings on autopilot. Can I show you how in 3 minutes?”";
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
@@ -226,11 +226,7 @@ export default function ObjectionRebuttalsPage() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-500">
-                  Trusted by{" "}
-                  <span className="font-semibold text-gray-900">
-                    2,400+ SDRs
-                  </span>{" "}
-                  running over 180k objection turns daily.
+                  Trusted by sales teams running 180k+ objection turns daily.
                 </p>
               </div>
             </div>
@@ -375,7 +371,7 @@ export default function ObjectionRebuttalsPage() {
             </div>
             <p className="text-base text-gray-500 max-w-md mt-4 md:mt-0">
               Objection handling is won or lost in half a second. Here is how
-              Vocalis orchestrates sub-second intelligence.
+              Dialeads orchestrates sub-second intelligence.
             </p>
           </div>
 
@@ -445,7 +441,7 @@ export default function ObjectionRebuttalsPage() {
                 Team Objection Heatmaps
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                Aggregate frequency dashboards identifying where deals choke,
+                Aggregate frequency-diagnostic dashboards identifying where deals choke,
                 which objections are trending, and which reps master the turn.
               </p>
               <div className="bg-white p-3 rounded-lg flex items-center justify-between text-gray-500 text-xs font-semibold">
@@ -466,7 +462,7 @@ export default function ObjectionRebuttalsPage() {
               Interactive Objection Playbook
             </h2>
             <p className="text-base text-gray-500">
-              Explore how Vocalis structures objection pivots into a proven
+              Explore how Dialeads structures objection pivots into a proven
               3-phase progression:{" "}
               <span className="text-gray-900 font-medium">Acknowledge</span>,{" "}
               <span className="text-gray-900 font-medium">Reframe</span>, and{" "}
@@ -597,7 +593,7 @@ export default function ObjectionRebuttalsPage() {
                 Telemetry Built for Revenue Leaders
               </h2>
               <p className="text-base text-gray-500 mb-8">
-                Vocalis monitors rep behavioral responses in real time, scoring
+                Dialeads monitors rep behavioral responses in real time, scoring
                 objection turnaround velocity and turning your mid-tier sales
                 reps into quota crushers.
               </p>
@@ -612,7 +608,7 @@ export default function ObjectionRebuttalsPage() {
                       Higher Objection Win-Rate
                     </h4>
                     <p className="text-sm text-gray-500">
-                      Across audited calls in SaaS, FinTech, and Logistics
+                      Across audited sales cycles in SaaS, FinTech, and Logistics
                       outbound motions.
                     </p>
                   </div>
@@ -642,7 +638,7 @@ export default function ObjectionRebuttalsPage() {
                       Battle-Tested Dial Prompts
                     </h4>
                     <p className="text-sm text-gray-500">
-                      Pre-indexed heuristics curated from over 5,000,000 cold
+                      Pre-indexed objection heuristics curated from over 5,000,000 cold
                       call transcripts.
                     </p>
                   </div>
@@ -721,7 +717,7 @@ export default function ObjectionRebuttalsPage() {
 
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-purple-300 text-[10px] font-bold uppercase tracking-wider mb-4">
-            Deploy in 5 Minutes
+            Deploy in 6 Minutes
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
@@ -751,8 +747,7 @@ export default function ObjectionRebuttalsPage() {
           </div>
 
           <p className="text-xs text-zinc-500 mt-6">
-            SOC2 Type II Certified &bull; TCPA &amp; 10DLC Compliant &bull; No
-            browser extension required
+            SOC2 Type II Certified &middot; 10k+ Battle-Tested Objection Heuristics
           </p>
         </div>
       </section>

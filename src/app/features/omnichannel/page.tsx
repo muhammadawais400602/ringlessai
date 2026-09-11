@@ -294,7 +294,7 @@ export default function OmnichannelPage() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
                 <span className="text-[12px] font-bold tracking-wider uppercase">
-                  MULTI-TOUCH CONVERSION ENGINE
+                  Multi-Touch Conversion Engine
                 </span>
               </div>
 
@@ -349,7 +349,7 @@ export default function OmnichannelPage() {
                       98.4%
                     </span>
                     <span className="text-xs font-semibold text-gray-500">
-                      Carrier Delivery SLA
+                      Deliverability SLA
                     </span>
                   </div>
                 </div>
@@ -607,7 +607,7 @@ export default function OmnichannelPage() {
                   <MessageSquare className="h-8 w-8" />
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="section-label">SMS Channels</span>
+                  <span className="section-label">SMS — 98% Open Rate</span>
                   <span className="bg-gray-100 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded">
                     98% Open Rate
                   </span>
@@ -616,10 +616,7 @@ export default function OmnichannelPage() {
                   Direct Telnyx A2P 10DLC SMS Engine
                 </h3>
                 <p className="text-base text-gray-600 mb-6">
-                  High-deliverability Tier-1 direct carrier routes bypass spam
-                  filters automatically. Deliver interactive app URLs,
-                  personalized booking slots, and concise segment bursts right
-                  after the call terminates.
+                  High-deliverability Tier-1 direct carrier route routes bypass spam filters automatically. Deliver interactive URLs, personalized sales slides, and concise segment notes within seconds of the call termination.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-4 mt-4">
@@ -649,17 +646,14 @@ export default function OmnichannelPage() {
                     Global Instant Messaging
                   </span>
                   <span className="bg-gray-100 text-gray-700 text-xs font-semibold px-2 py-0.5 rounded">
-                    Action Buttons
+                    Active Businesses
                   </span>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   WhatsApp Business API Integration
                 </h3>
                 <p className="text-base text-gray-600 mb-6">
-                  Equip international and enterprise buyers with rich
-                  interactive cards. Send dynamic multi-option quick replies,
-                  secure PDF proposals, screen-recorded personalized video
-                  demos, and one-tap calendar holds.
+                  Reach international and enterprise buyers with rich interactive cards. Send dynamic multi-option quick replies, secure PDF proposals, screen-recorded personalized video demos, and one-tap calendar links.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-4 mt-4">
@@ -688,7 +682,7 @@ export default function OmnichannelPage() {
                   <Inbox className="h-8 w-8" />
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="section-label">Automated Collateral</span>
+                  <span className="section-label">Automated Calibration</span>
                   <span className="bg-gray-100 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded">
                     AI Audio Notes
                   </span>
@@ -697,10 +691,7 @@ export default function OmnichannelPage() {
                   One-Click Executive Email Summaries
                 </h3>
                 <p className="text-base text-gray-600 mb-6">
-                  Autonomous post-call synthesis delivers polished executive
-                  summaries. Contains timestamped conversation takeaways,
-                  customized pricing tables, sales slide collateral, and direct
-                  calendar invitations.
+                  Dialeads automatically synthesizes delivers polished executive summaries. Contains timestamped conversation takeaways, customized pricing tables, sales slide collateral, and direct calendar invitations.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-4 mt-4">
@@ -758,7 +749,7 @@ export default function OmnichannelPage() {
                   Higher Response Rate
                 </span>
                 <span className="text-sm text-gray-500 mt-1">
-                  When follow-up is dispatched within 60s of dial conclusion
+                  When follow-up is dispatched within 60 seconds of live call termination.
                 </span>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-sm flex flex-col items-center text-center">
@@ -769,7 +760,7 @@ export default function OmnichannelPage() {
                   Mean Delivery Time
                 </span>
                 <span className="text-sm text-gray-500 mt-1">
-                  Telnyx SMS segment transit to Tier-1 USA cell carriers
+                  Telnyx SMS delivery with full carrier agency.
                 </span>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-sm flex flex-col items-center text-center">
@@ -777,10 +768,10 @@ export default function OmnichannelPage() {
                   41%
                 </span>
                 <span className="text-sm font-bold text-gray-900 mt-1">
-                  Same-Day Booking
+                  Same Day Booking
                 </span>
                 <span className="text-sm text-gray-500 mt-1">
-                  Direct calendar holds placed right from interactive SMS links
+                  Calendar tokens accepted meet day-close sales rates.
                 </span>
               </div>
             </div>
@@ -894,7 +885,7 @@ export default function OmnichannelPage() {
                 </h2>
                 <p className="text-base text-gray-600 mb-6">
                   Outbound reputation is binary: messages either arrive in
-                  seconds or disappear into carrier filtration voids. Vocalis is
+                  seconds or disappear into carrier filtration voids. Dialeads is
                   built with carrier-grade compliance safeguards natively
                   embedded.
                 </p>
@@ -1062,16 +1053,14 @@ export default function OmnichannelPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/70 to-transparent p-8 md:p-16 flex flex-col justify-center max-w-2xl">
                 <span className="text-[12px] font-bold tracking-widest uppercase text-violet-300 mb-2">
-                  Synchronized Outbound Stacks
+                  Synchronised Outbound Stack
                 </span>
                 <h3 className="text-2xl lg:text-[40px] lg:leading-[44px] font-bold text-white mb-4">
                   Built to integrate seamlessly with Salesforce, HubSpot, and
                   Outreach.
                 </h3>
                 <p className="text-base text-gray-300 mb-6">
-                  Every SMS outbound burst, WhatsApp conversation thread, and
-                  meeting confirmation writes directly back into your core CRM
-                  objects with zero manual entry by your SDRs.
+                  Every SMS with/without note, email confirmation, and meeting confirmation writes directly back into your CRM automatically to your logs.
                 </p>
                 <div className="flex items-center gap-4">
                   <Link
@@ -1111,9 +1100,7 @@ export default function OmnichannelPage() {
             </h2>
 
             <p className="text-lg text-violet-200/90 max-w-2xl mb-10">
-              Equip your outbound engine with automated SMS, WhatsApp, and
-              email follow-ups that land while conversation recall is 100%.
-              Free 14-day full platform access.
+              Equip your outbound engine with automated SMS, WhatsApp, and email follow-ups that land with carrier-grade compliance at 100%. Free 14-day full platform access.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -1139,11 +1126,11 @@ export default function OmnichannelPage() {
               </span>
               <span className="flex items-center gap-1">
                 <Check className="h-4 w-4" />
-                10DLC fast-track setup
+                10DLC fully managed
               </span>
               <span className="flex items-center gap-1">
                 <Check className="h-4 w-4" />
-                Full CRM webhooks included
+                Full platform access included
               </span>
             </div>
           </div>

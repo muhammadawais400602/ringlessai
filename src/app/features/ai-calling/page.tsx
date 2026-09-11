@@ -38,40 +38,40 @@ const voiceProfiles = [
   {
     initials: "AE",
     name: "Adam",
-    style: "Executive · Deep Pitch",
+    style: "Executive / Deep Authority",
     region: "North American",
     desc: "Calm, authoritative cadence tailored for enterprise VP & C-Suite outbound conversations.",
-    pitch: { label: "Pitch Baseline", value: "88 Hz", pct: 45 },
+    pitch: { label: "Pitch Baseline", value: "88 bpm", pct: 45 },
     cadence: { label: "Cadence Rate", value: "148 wpm", pct: 62 },
     avatarBg: "bg-primary",
   },
   {
     initials: "SC",
     name: "Sarah",
-    style: "Conversational · Warm",
+    style: "Conversational / Warm Outreach",
     region: "Mid-Atlantic",
     desc: "Natural, empathetic tone designed for mid-market relationship building and discovery calls.",
-    pitch: { label: "Pitch Baseline", value: "210 Hz", pct: 72 },
+    pitch: { label: "Pitch Baseline", value: "250 ms", pct: 72 },
     cadence: { label: "Cadence Rate", value: "155 wpm", pct: 68 },
     avatarBg: "bg-primary-dark",
   },
   {
     initials: "MD",
     name: "Marcus",
-    style: "Direct · High Precision",
+    style: "Direct / High-Pressure Verticals",
     region: "British Crisp",
     desc: "Pithy, clear diction for fintech, cybersecurity, and engineering leadership qualification.",
-    pitch: { label: "Pitch Baseline", value: "105 Hz", pct: 52 },
+    pitch: { label: "Pitch Baseline", value: "105 ms", pct: 52 },
     cadence: { label: "Cadence Rate", value: "162 wpm", pct: 76 },
     avatarBg: "bg-gray-900",
   },
   {
     initials: "EH",
     name: "Elena",
-    style: "High-Energy · Fast Closer",
+    style: "High-Energy / High-Volume SMS+Voice",
     region: "West Coast US",
     desc: "Dynamic, cheerful momentum perfect for high-velocity SMB and transactional sales cadences.",
-    pitch: { label: "Pitch Baseline", value: "235 Hz", pct: 82 },
+    pitch: { label: "Pitch Baseline", value: "120 ms", pct: 82 },
     cadence: { label: "Cadence Rate", value: "170 wpm", pct: 85 },
     avatarBg: "bg-primary",
   },
@@ -161,7 +161,7 @@ export default function AiCallingPage() {
               <div className="inline-flex items-center gap-2 rounded-full bg-primary-light px-4 py-1 mb-6 shadow-sm">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs font-bold uppercase tracking-wider text-primary-dark">
-                  Voice Agent &amp; Voicemail Infrastructure
+                  AI Voice &amp; Voicemail Infrastructure
                 </span>
               </div>
 
@@ -171,10 +171,9 @@ export default function AiCallingPage() {
               </h1>
 
               <p className="text-lg text-gray-600 max-w-2xl mb-12 leading-relaxed">
-                Deploy ultra-realistic conversational voice agents that dial
-                thousands of leads, converse naturally with human-like sub-500ms
-                latency, handle objections, and drop personalized voicemails in
-                one click.
+                Deploy ultra-realistic AI voice agents that dial thousands of
+                leads, handle objections conversationally, and drop personalized
+                voicemails in one click.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
@@ -201,7 +200,7 @@ export default function AiCallingPage() {
                   )}
                   {heroPlaying
                     ? "Playing Sarah Sample (00:08)..."
-                    : "Listen to Sample Audio (12s)"}
+                    : "Listen to Sample Audio"}
                 </button>
               </div>
 
@@ -209,7 +208,7 @@ export default function AiCallingPage() {
               <div className="flex flex-wrap items-center gap-6 pt-12 mt-6 text-gray-600 text-xs font-semibold">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-[18px] w-[18px] text-primary" />
-                  <span>STIR/SHAKEN Tier-A Certified</span>
+                  <span>STIR/SHAKEN Verified</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Zap className="h-[18px] w-[18px] text-primary" />
@@ -217,7 +216,7 @@ export default function AiCallingPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="h-[18px] w-[18px] text-primary" />
-                  <span>100% TCPA Compliant</span>
+                  <span>99%+ TCPA Compliant</span>
                 </div>
               </div>
             </div>
@@ -321,7 +320,7 @@ export default function AiCallingPage() {
                       </span>
                     </div>
                     <p className="text-white text-sm leading-snug">
-                      &ldquo;Totally get that, David. Vocalis integrates
+                      &ldquo;Totally get that, David. Dialeads integrates
                       natively into Outreach steps—we trigger direct branch
                       calling, auto-log dispositions, and sync recording links
                       instantly.&rdquo;
@@ -378,15 +377,15 @@ export default function AiCallingPage() {
         <div className="mx-auto max-w-7xl px-8">
           <div className="max-w-2xl mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-primary block mb-2">
-              Unfair Speed Advantage
+              Rapid Speed Advantage
             </span>
             <h2 className="text-[40px] leading-[44px] font-bold tracking-tight text-gray-900">
               Architected for Extreme Conversation Realism
             </h2>
             <p className="text-base text-gray-600 mt-3">
-              Eliminate the robotic pause that reveals synthetic callers. Vocalis
-              speaks, interrupts, and listens like a top-performing enterprise
-              BDR.
+              Eliminate the robotic pause that freezes synthetic callers. Dialeads
+              speaks, interrupts, and responds like a high-performing enterprise
+              SDR.
             </p>
           </div>
 
@@ -403,13 +402,13 @@ export default function AiCallingPage() {
                 Sub-500ms Latency Pipeline
               </h3>
               <p className="text-base text-gray-600 leading-relaxed mb-4">
-                Proprietary WebSockets audio streaming routed over a dedicated
-                Telnyx SIP backbone. Conversational turn-taking occurs within
-                human latency bounds—eradicating silence and awkward caller
-                overlaps.
+                Proprietary WebSocket audio streaming rounds over a dedicated
+                Telnyx SIP route. Conversational turn-taking delivers
+                human-latency dynamics — eradicating silence and unnatural
+                pauses.
               </p>
               <div className="flex items-center gap-2 text-primary text-sm font-semibold">
-                <span>Learn about audio routing</span>
+                <span>Learn about audio routing →</span>
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -426,12 +425,12 @@ export default function AiCallingPage() {
                 Intelligent AMD &amp; Beep Sniffer
               </h3>
               <p className="text-base text-gray-600 leading-relaxed mb-4">
-                99.4% precision Answering Machine Detection. Vocalis calculates
-                millisecond tone frequencies, waits for the tone to terminate
-                completely, and cleanly injects tailored voicemail notes.
+                99.4% precision Answering Machine Detection. Detects calculated
+                millisecond voicemail beeps, waits for the tone to terminate
+                completely, and cleanly injects tailored voicemail drops.
               </p>
               <div className="flex items-center gap-2 text-primary text-sm font-semibold">
-                <span>Review AMD benchmarks</span>
+                <span>Review AMD benchmarks →</span>
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -453,7 +452,7 @@ export default function AiCallingPage() {
                 Salesforce, and Apollo right as the connection rings.
               </p>
               <div className="flex items-center gap-2 text-primary text-sm font-semibold">
-                <span>Explore data injection specs</span>
+                <span>Explore data injection specs →</span>
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -469,15 +468,15 @@ export default function AiCallingPage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-primary block mb-2">
-                Engineered For Zero Jitter
+                Dialing Architecture
               </span>
               <h2 className="text-[40px] leading-[44px] font-bold tracking-tight text-gray-900">
                 End-to-End Autonomous Calling Architecture
               </h2>
             </div>
             <p className="text-base text-gray-600 max-w-md">
-              How Vocalis processes high-volume outbound queues from lead
-              injection to disposition sync in sub-second round trips.
+              How Dialeads processes high-volume outbound queues from lead
+              ingestion to disposition sync in sub-second round trips.
             </p>
           </div>
 
@@ -497,8 +496,8 @@ export default function AiCallingPage() {
                     CRM Lead Queue
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Batched contact records stream from HubSpot, Salesforce, or
-                    CSV with full firmographic metadata.
+                    Agents pull contact records stream from HubSpot, Salesforce,
+                    or CSV with full demographic context.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 text-[11px] font-semibold text-gray-500 flex items-center gap-1">
@@ -520,8 +519,8 @@ export default function AiCallingPage() {
                     Telnyx SIP Trunk
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Global carrier connectivity with Tier-A local caller ID
-                    rotation, 10DLC compliance, and auto-carrier failover.
+                    Global carrier infrastructure with pre-configured outbound
+                    routes and auto-carrier failover.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 text-[11px] font-semibold text-gray-500 flex items-center gap-1">
@@ -543,8 +542,8 @@ export default function AiCallingPage() {
                     LLM + ElevenLabs
                   </h4>
                   <p className="text-sm text-purple-200">
-                    Low-latency acoustic tokenizer evaluates prospect reply and
-                    synthesizes adaptive human tone in &lt;180ms.
+                    Contextual real-time AI voice synthesis delivers lifelike
+                    conversation with human latency below 500ms.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 text-[11px] font-semibold text-white flex items-center gap-1">
@@ -566,8 +565,8 @@ export default function AiCallingPage() {
                     Dual Path Branch
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Routes immediately: Live 2-way qualification conversation OR
-                    instant voicemail drop upon machine beep detection.
+                    Live answer triggers live AI conversation. Voicemail detected
+                    triggers instant personalized voicemail drop.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 text-[11px] font-semibold text-gray-500 flex items-center gap-1">
@@ -589,8 +588,8 @@ export default function AiCallingPage() {
                     Instant Logging
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Call audio, time-stamped transcription, sentiment markers,
-                    and meeting bookings write back into CRM.
+                    Immediate CRM sync, call transcript, disposition tagging,
+                    and follow-up trigger back into HubSpot.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 text-[11px] font-semibold text-gray-500 flex items-center gap-1">
@@ -652,9 +651,9 @@ export default function AiCallingPage() {
               Engineered Voice Profiles Built For High Trust
             </h2>
             <p className="text-base text-gray-600 mt-3">
-              Select from tested neural profiles tuned for executive objection
-              handling, warm consultative outreach, or fast-paced transactional
-              sales.
+              Sales-optimized voice profiles fine-tuned for executive objection
+              handling, warm consultative outreach, or high-frequency
+              transactional sales.
             </p>
           </div>
 
@@ -750,8 +749,8 @@ export default function AiCallingPage() {
             </h2>
             <p className="text-base text-gray-600 mt-3">
               Traditional autodialers blast robotic audio files that get deleted
-              in 2 seconds. Vocalis drops customized voice notes in your exact
-              cloned tone.
+              in 2 seconds. Dialeads customizes voice notes in your exact
+              cloned lines.
             </p>
           </div>
 
@@ -765,25 +764,25 @@ export default function AiCallingPage() {
                 </span>
               </div>
               <p className="text-sm text-gray-600 mb-8">
-                Legacy dialers playing static pre-uploaded MP3 files when
-                answering machines pick up.
+                Cold, robotic drop messages after any uploaded MP3 file without
+                answering machine intelligence.
               </p>
               <ul className="space-y-4 text-base text-gray-600">
                 {[
                   {
                     bold: "Zero personal context:",
-                    text: 'Uses generic greetings like "Hey there!" without lead name, company name, or relevance.',
+                    text: "Uses generic greetings like 'Hey [name]' without lead name, company name, or relevance.",
                   },
                   {
                     bold: "Premature audio cutoff:",
-                    text: "Plays over the voicemail greeting because legacy AMD cannot accurately identify the end tone.",
+                    text: "Plays over the voicemail greeting and often cuts the message before the beep.",
                   },
                   {
-                    bold: "3-5% Callback Rates:",
-                    text: "Leads instantly recognize mass-blast voicemails and flag caller ID as spam.",
+                    bold: "3–5% Callback Rate:",
+                    text: "Leads instantly recognize mass-blast automation and hang up immediately.",
                   },
                   {
-                    bold: "Rep mismatch:",
+                    bold: "Rep-robotic:",
                     text: "Audio sounds radically different if the prospect unexpectedly answers the phone live.",
                   },
                 ].map((item) => (
@@ -803,30 +802,29 @@ export default function AiCallingPage() {
               <div className="flex items-center gap-2 text-primary mb-4">
                 <CheckCircle className="h-6 w-6" />
                 <span className="text-xl font-semibold">
-                  Vocalis Dynamic Voicemail Drops
+                  Dialeads Dynamic Voicemail Drops
                 </span>
               </div>
               <p className="text-sm text-gray-500 mb-8">
-                Real-time synthesized voice clips created on-the-fly
-                specifically for the individual prospect.
+                Dialeads synthesizes a unique voicemail delivery calibrated specifically for this individual&apos;s context.
               </p>
               <ul className="space-y-4 text-base text-gray-900">
                 {[
                   {
-                    bold: "Dynamic firmographic injection:",
-                    text: '"Hey David, saw FinScale just raised Series B—wanted to check your sales tooling..."',
+                    bold: "Dynamic first-line injection:",
+                    text: '"Hey Gavin, saw FinScale just raised Series B — wanted to check your sales sequencing."',
                   },
                   {
                     bold: "Cadence-locked beep detection:",
-                    text: "Pauses cleanly, waits for the tone drop, and injects voice note with 99.4% precision.",
+                    text: "Pauses cleanly, waits for the tone and injects voice with 99%+ detection precision.",
                   },
                   {
                     bold: "34% Verified Callback Rate:",
-                    text: "Prospects believe the rep spent 60 seconds personally crafting the message.",
+                    text: "Prospects believe the top-sent 80 seconds personally crafting the message.",
                   },
                   {
-                    bold: "Voice cloning parity:",
-                    text: "Uses the exact cloned vocal signature whether dropped on voicemail or conversing live.",
+                    bold: "Wake-cloning parity:",
+                    text: "Uses the exact cloned vocal signature whether dropped on voicemail or live pick-up.",
                   },
                 ].map((item) => (
                   <li key={item.bold} className="flex items-start gap-3">
@@ -855,27 +853,25 @@ export default function AiCallingPage() {
                 Proven Conversion Metrics
               </span>
               <h2 className="text-[40px] leading-[44px] font-bold tracking-tight text-gray-900">
-                Cold Calling Scaled Without Hiring 20 Extra SDRs
+                Cold Calling Scaled Without Hiring More SDRs
               </h2>
               <p className="text-base text-gray-600">
-                Revenue teams deploy Vocalis to conduct 200+ intelligent live
-                conversations daily per rep, automating top-of-funnel outreach
-                without losing authenticity.
+                Revenue teams deploy Dialeads to run 200+ intelligent conversations daily per rep — automating top-of-funnel outreach without losing authenticity.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                 {[
                   {
                     stat: "4.8x",
-                    desc: "More live conversations per outbound rep per week",
+                    desc: "More conversations per rep per day vs manual dialing",
                   },
                   {
                     stat: "89%",
-                    desc: "Answering machine accuracy with zero false-hangup drops",
+                    desc: "Answering machine detection accuracy on first attempt",
                   },
                   {
                     stat: "34%",
-                    desc: "Average voicemail callback and direct email reply rate",
+                    desc: "Average voicemail callback rate on dynamic drops",
                   },
                 ].map((m) => (
                   <div key={m.stat} className="rounded-xl bg-gray-50 p-4">
@@ -902,9 +898,9 @@ export default function AiCallingPage() {
                   ))}
                 </div>
                 <blockquote className="text-xl font-semibold text-gray-900 leading-snug mb-8">
-                  &ldquo;We ran a side-by-side test with 5 BDRs dialing
-                  manually versus 1 Vocalis Autonomous Agent. In 10 days, the AI
-                  voice agent held 1,420 live conversations and booked 68
+                  &ldquo;We ran a side-by-side test with 5 SDRs dialing
+                  manually versus the Dialeads AI Agent. In 10 days, the AI
+                  voice agent held 1,400+ live conversations and booked 68
                   qualified demos. Prospects had no idea it wasn&rsquo;t a human
                   calling.&rdquo;
                 </blockquote>
@@ -918,7 +914,7 @@ export default function AiCallingPage() {
                       Julian Vance
                     </h4>
                     <p className="text-sm text-gray-600">
-                      Head of Global Outbound · CloudScale Analytics
+                      Head of Global Outbound, B2B SaaS
                     </p>
                   </div>
                 </div>
@@ -939,7 +935,7 @@ export default function AiCallingPage() {
 
             <div className="relative z-10 max-w-3xl">
               <span className="text-xs font-bold uppercase tracking-widest text-purple-200 block mb-3">
-                Zero Setup Overhead
+                Zero Setup Wizard
               </span>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-white">
                 Ready to let AI handle your first 5,000 cold calls?
@@ -969,8 +965,7 @@ export default function AiCallingPage() {
 
               <p className="mt-6 text-[13px] text-purple-200/80 flex items-center gap-2">
                 <CheckCircle className="h-4 w-4" />
-                No credit card required · 50 free dialed minutes included ·
-                Pre-configured voice templates
+                No credit card required · No fake disconnected numbers · Pre-loaded with 500 free verification credits
               </p>
             </div>
           </div>

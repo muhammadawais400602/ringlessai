@@ -505,7 +505,7 @@ export default function OutcomeTrackingPage() {
                   Conditional Post-Call Automations
                 </h3>
                 <p className="text-base text-gray-600 mb-6">
-                  Set deterministic workflows. For example: If Voicemail &rarr;
+                  Set deterministic workflows. For example: if Voicemail &rarr;
                   Auto-drop studio voice clip + SMS intro card + reschedule
                   retry cadence strictly in 48 hours.
                 </p>
@@ -540,7 +540,7 @@ export default function OutcomeTrackingPage() {
                   CRM Record Sync
                 </span>
                 <span className="text-xs font-semibold text-primary">
-                  &lt; 1.2s Latency
+                  +1.2s Latency
                 </span>
               </div>
             </div>
@@ -704,15 +704,13 @@ export default function OutcomeTrackingPage() {
                 <div className="flex items-center gap-2 text-gray-900 text-sm">
                   <CheckCircle className="h-5 w-5 text-primary shrink-0" />
                   <span>
-                    Automated attribution tracking back to marketing source
-                    lists
+                    Attribution tracking back to marketing source lists
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-900 text-sm">
                   <CheckCircle className="h-5 w-5 text-primary shrink-0" />
                   <span>
-                    Sub-minute rep performance recalibration based on connect
-                    velocity
+                    Identify rep performance bottlenecks based on connect velocity
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-900 text-sm">
@@ -869,10 +867,7 @@ export default function OutcomeTrackingPage() {
                   <strong className="text-gray-900 font-semibold">
                     &apos;DNC / Not Interested&apos;
                   </strong>{" "}
-                  triggers a system-wide lock. It immediately purges
-                  disconnected numbers, flags invalid carrier tags, and adds the
-                  contact to your global Do-Not-Call compliance list across all
-                  rep teams instantly.
+                  triggers a system-wide lock. It immediately disconnects flagged numbers, flags invalid carrier data, and adds the contact to your global Do-Not-Call compliance list across all rep teams instantly.
                 </p>
               </div>
               <div className="lg:col-span-4 flex flex-col gap-3">
@@ -885,7 +880,7 @@ export default function OutcomeTrackingPage() {
                       Carrier Spam Flag Shield
                     </div>
                     <div className="text-xs text-gray-500">
-                      Keeps Caller ID &amp; 10DLC trust scores green
+                      Keeps carrier trust scores and reputation scores across all outbound caller IDs consistently green.
                     </div>
                   </div>
                 </div>
@@ -898,7 +893,7 @@ export default function OutcomeTrackingPage() {
                       Instant TCPA Defense
                     </div>
                     <div className="text-xs text-gray-500">
-                      Deterministic timestamped opt-out registry
+                      Deterministic timestamp opt-out registry.
                     </div>
                   </div>
                 </div>

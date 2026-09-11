@@ -563,7 +563,7 @@ export default function UnifiedInboxPage() {
               Context Switch Reduction
             </div>
             <p className="text-sm text-gray-500">
-              Sales teams save an average of 1.8 hours daily by consolidating
+              Sales teams save an average of 1.6 hours daily by consolidating
               dials, SMS, and notes onto a zero-hop operator desk.
             </p>
           </div>
@@ -575,7 +575,7 @@ export default function UnifiedInboxPage() {
               Conversation Capture Rate
             </div>
             <p className="text-sm text-gray-500">
-              Every cellular recording, voicemail payload, and messaging exchange
+              Every call recording, voicemail payload, and messaging exchange
               auto-indexes into your CRM with zero manual data entry.
             </p>
           </div>
@@ -602,7 +602,7 @@ export default function UnifiedInboxPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-3">
-              ENGINEERED FOR OUTBOUND VELOCITY
+              Engineered for Extreme Velocity
             </div>
             <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-3">
               Three Architectural Pillars of the Operator Inbox
@@ -631,11 +631,11 @@ export default function UnifiedInboxPage() {
               <div className="bg-gray-50 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
                   <RefreshCw className="h-4 w-4" />
-                  Continuous Synchronization
+                  Continuous Synchronisation
                 </div>
                 <p className="text-xs text-gray-500">
                   No asynchronous silos. If a customer texts during a live call,
-                  the bubble updates on your screen in &lt;18ms.
+                  the bubble updates on your screen in real time.
                 </p>
               </div>
             </div>
@@ -657,7 +657,7 @@ export default function UnifiedInboxPage() {
               <div className="bg-gray-50 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
                   <Gauge className="h-4 w-4" />
-                  Karaoke Transcript Sync
+                  Awaiting Transcript Sync
                 </div>
                 <p className="text-xs text-gray-500">
                   Audio waveforms synchronize with natural language processing
@@ -686,8 +686,7 @@ export default function UnifiedInboxPage() {
                   Global PSTN Routing
                 </div>
                 <p className="text-xs text-gray-500">
-                  Automated caller-ID localization and zero carrier hops ensure
-                  industry-leading connect and pickup metrics.
+                  Automated caller ID localization and zero carrier relay keeps industry-leading content and pickup metrics.
                 </p>
               </div>
             </div>
@@ -706,7 +705,7 @@ export default function UnifiedInboxPage() {
                   <div className="flex items-center gap-2">
                     <Bot className="h-[22px] w-[22px] text-primary" />
                     <span className="font-bold text-xl text-gray-900">
-                      Vocalis Cognitive Summarizer
+                      Dialeads Cognitive Summarizer
                     </span>
                   </div>
                   <span className="bg-primary text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">
@@ -755,15 +754,14 @@ export default function UnifiedInboxPage() {
             {/* Explanatory Narrative */}
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
-                INTELLIGENT WORKFLOW SYNAPSE
+                Intelligent Workflow Streams
               </div>
               <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-4">
                 Zero Notes Taken. Total Accuracy Guaranteed.
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Operators should be building pipeline and closing revenue, not
-                manually typing notes into CRM fields. Vocalis AI actively
-                structures conversation payloads in real time.
+                manually typing notes into CRM fields. Dialeads actively structures conversation payloads so you never miss a detail.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -807,7 +805,7 @@ export default function UnifiedInboxPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-3">
-              SEAMLESS TEAM HANDOFFS
+              Dialeads Team Aggregate
             </div>
             <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-3">
               Close Deals Together Without Leaving the Stream
@@ -869,7 +867,7 @@ export default function UnifiedInboxPage() {
         <div className="max-w-5xl mx-auto bg-gray-100 rounded-3xl p-8 lg:p-16 shadow-xl flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="max-w-lg">
             <span className="text-primary text-[10px] font-bold uppercase tracking-widest block mb-2">
-              Ready for Operator Superpowers?
+              Ready for Operator Supercharge
             </span>
             <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-4">
               Bring Clarity to Your Sales Communication.
@@ -884,7 +882,7 @@ export default function UnifiedInboxPage() {
                 href="/free-trial"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-semibold text-sm shadow-md transition-all"
               >
-                Start Free 14-Day Trial
+                Start Free 16-Day Trial
                 <ArrowRight className="h-[18px] w-[18px]" />
               </Link>
               <Link
@@ -906,7 +904,7 @@ export default function UnifiedInboxPage() {
                   100% TCPA
                 </div>
                 <div className="text-xs text-gray-500">
-                  Compliant Recording Shield
+                  Carrier-level insurance
                 </div>
               </div>
             </div>

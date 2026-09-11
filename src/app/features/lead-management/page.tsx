@@ -400,7 +400,7 @@ export default function LeadManagementPage() {
                 Manual Data Entry
               </span>
               <p className="text-sm text-gray-400 mt-2">
-                Instant bidirectional synchronization across your CRM stack with
+                Instant bidirectional synchronization across your CRM platform with
                 automatic lead status resolution.
               </p>
             </div>
@@ -445,7 +445,7 @@ export default function LeadManagementPage() {
                 <div className="flex items-center justify-between text-xs font-semibold text-muted mb-1">
                   <span>CSV Mapping Engine</span>
                   <span className="text-primary font-semibold">
-                    100% Normalized
+                    100% Normalised
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
@@ -503,7 +503,7 @@ export default function LeadManagementPage() {
                 </h3>
                 <p className="text-base text-muted leading-relaxed mb-6">
                   Prioritize leads by local timezone windows (focusing
-                  automatically on 10am-2pm prime pick-up slots), engagement
+                  automatically on 10am–2pm prime pick-up slots), engagement
                   history, job seniority, and high-converting industry
                   categories.
                 </p>
@@ -512,7 +512,7 @@ export default function LeadManagementPage() {
                 <div className="flex items-center justify-between text-xs font-semibold text-muted mb-1">
                   <span>Prime Window Execution</span>
                   <span className="text-primary font-semibold">
-                    Active: EST &amp; CST
+                    Active EST &amp; CST
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
@@ -537,7 +537,7 @@ export default function LeadManagementPage() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-primary">
-                    Rule Orchestrator
+                    Bulk Orchestrator
                   </span>
                   <h3 className="text-2xl font-bold text-gray-900 mt-1">
                     Dynamic Segment Builder
@@ -746,7 +746,7 @@ export default function LeadManagementPage() {
               Bi-Directional CRM Sync Engine
             </h2>
             <p className="text-base text-muted">
-              No complicated webhooks or fragile export spreadsheets. Vocalis
+              No complicated webhooks or fragile export spreadsheets. Dialeads
               keeps your existing sales toolchain seamlessly synchronized in
               real-time.
             </p>
@@ -804,7 +804,7 @@ export default function LeadManagementPage() {
                 Pipedrive &amp; Webhooks
               </h4>
               <p className="text-sm text-muted mt-1 mb-3">
-                Custom stage triggers
+                Sub-second latency
               </p>
               <span className="px-3 py-0.5 rounded-full bg-gray-100 text-muted text-xs font-medium">
                 Sub-second Latency
@@ -880,7 +880,7 @@ export default function LeadManagementPage() {
             <div className="flex items-center gap-2 mb-4">
               <MonitorPlay className="w-6 h-6 text-primary" />
               <h4 className="text-xl font-bold text-gray-900">
-                Vocalis Smart Queue in 120 Seconds
+                Dialeads Smart Queue in 120 Seconds
               </h4>
             </div>
             <div className="aspect-video bg-hero-bg rounded-xl flex flex-col items-center justify-center text-white relative overflow-hidden">
