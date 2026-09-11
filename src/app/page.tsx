@@ -490,12 +490,12 @@ export default function Home() {
             Integrates with your existing stack
           </span>
         </div>
-        <div className="w-full overflow-hidden flex items-center">
-          <div className="flex items-center justify-around gap-16 w-full py-3 opacity-60 hover:opacity-100 transition-opacity">
-            {logos.map((name) => (
+        <div className="w-full overflow-hidden">
+          <div className="flex items-center gap-12 md:gap-16 py-3 opacity-60 hover:opacity-100 transition-opacity animate-marquee md:animate-none md:justify-around md:w-full w-max">
+            {[...logos, ...logos].map((name, i) => (
               <span
-                key={name}
-                className="text-[32px] leading-[36px] font-bold tracking-tight text-[#0b1c30] hover:text-[#630ed4] transition-colors cursor-pointer"
+                key={`${name}-${i}`}
+                className="text-[28px] md:text-[32px] leading-[36px] font-bold tracking-tight text-[#0b1c30] hover:text-[#630ed4] transition-colors cursor-pointer whitespace-nowrap shrink-0"
               >
                 {name}
               </span>
