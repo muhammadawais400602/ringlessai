@@ -504,8 +504,9 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="overflow-x-auto bg-white rounded-2xl shadow-sm p-4">
-          <table className="w-full min-w-[700px] text-left text-[#0b1c30]">
+        {/* Desktop table */}
+        <div className="hidden md:block overflow-x-auto bg-white rounded-2xl shadow-sm p-4">
+          <table className="w-full text-left text-[#0b1c30]">
             <thead>
               <tr className="bg-[#eff4ff]">
                 <th className="py-4 px-6 text-sm font-bold">
@@ -542,6 +543,42 @@ export default function PricingPage() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile stacked cards */}
+        <div className="md:hidden space-y-4">
+          {comparisonRows.map((row) => (
+            <div
+              key={row.label}
+              className="bg-white rounded-xl shadow-sm p-4"
+            >
+              <h4 className="text-sm font-bold text-[#0b1c30] mb-3">
+                {row.label}
+              </h4>
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#4a4455] block mb-1">
+                    Starter
+                  </span>
+                  <CellValue value={row.starter} />
+                </div>
+                <div className="bg-[#630ed4]/5 rounded-lg py-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#630ed4] block mb-1">
+                    Pro
+                  </span>
+                  <span className="font-bold text-[#630ed4]">
+                    <CellValue value={row.pro} />
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#4a4455] block mb-1">
+                    Enterprise
+                  </span>
+                  <CellValue value={row.enterprise} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
