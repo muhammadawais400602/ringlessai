@@ -309,15 +309,15 @@ export default function IntegrationsPage() {
               <div className="flex flex-wrap items-center gap-6 pt-8 mt-6 border-t border-[#e5eeff] text-[#5e5d6b] text-xs font-semibold">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-[18px] h-[18px] text-emerald-600" />
-                  <span>Two-Way Live Sync</span>
+                  <span>15+ Native Integrations</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-[18px] h-[18px] text-emerald-600" />
-                  <span>Sub-Second Telemetry</span>
+                  <span>Zero Manual Data Entry</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-[18px] h-[18px] text-emerald-600" />
-                  <span>SOC2 Type II &amp; OAuth2</span>
+                  <span>5 Min Setup</span>
                 </div>
               </div>
             </div>
