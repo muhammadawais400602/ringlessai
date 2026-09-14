@@ -22,7 +22,6 @@ import {
   MessageSquareMore,
   Monitor,
   AudioLines,
-  Star,
   ChevronRight,
   Home,
   Verified,
@@ -787,14 +786,6 @@ export default function SalesTeamsPage() {
                 className="p-8 rounded-2xl bg-white shadow-sm flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-amber-400 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
                   <p className="text-base text-[#0b1c30] italic mb-6">
                     &quot;{t.quote}&quot;
                   </p>
