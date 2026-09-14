@@ -32,8 +32,6 @@ import {
   BadgeCheck,
   Filter,
   RefreshCw,
-  Star,
-  ChevronRight,
   PhoneCall,
   Clock,
   Send,
@@ -708,14 +706,6 @@ export default function SmallBusinessPage() {
                 className="bg-white p-8 rounded-xl shadow-sm flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-[#630ed4] mb-4">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-[18px] h-[18px] fill-[#630ed4]"
-                      />
-                    ))}
-                  </div>
                   <p className="text-base leading-relaxed text-[#0b1c30] mb-6 italic">
                     {t.quote}
                   </p>
