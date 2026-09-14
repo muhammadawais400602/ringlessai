@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   ChevronDown,
   Home,
-  Star,
   Verified,
   Bot,
   AudioLines,
@@ -372,6 +371,7 @@ export default function DemoPage() {
 
           {/* Calendar mockup */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto">
+            {/* Calendly embed goes here — paste your Calendly script */}
             <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
               {/* Left info panel */}
               <div className="lg:col-span-5 p-8 bg-[#f8f9ff] flex flex-col justify-between">
@@ -792,14 +792,6 @@ export default function DemoPage() {
                 className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-amber-500 mb-4">
-                    {[...Array(5)].map((_, j) => (
-                      <Star
-                        key={j}
-                        className="w-5 h-5 fill-amber-500 text-amber-500"
-                      />
-                    ))}
-                  </div>
                   <blockquote className="text-lg text-[#0b1c30] leading-relaxed mb-6">
                     &quot;{t.quote}&quot;
                   </blockquote>
