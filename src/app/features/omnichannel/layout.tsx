@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Omnichannel Follow-Up – SMS, WhatsApp & Email – Dialeads",
+  title: "Follow-Up & SMS – Two-Way Telnyx SMS – Dialeads",
   description:
-    "Dialeads auto-triggers personalized SMS, WhatsApp, and email follow-ups the moment a call ends. Send mockups, proposals, and calendar links in under 10 seconds.",
+    "Dialeads sends and receives two-way SMS through Telnyx, detects STOP and UNSUBSCRIBE opt-outs, and drafts follow-ups as wa.me WhatsApp links or mailto: emails. 10DLC registration required.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

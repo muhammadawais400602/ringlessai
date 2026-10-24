@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dialeads Integrations – Connect Your CRM, Dialer & Sales Stack",
+  title: "Dialeads Integrations – Telnyx, Google Sheets, Claude & Gemini",
   description:
-    "Dialeads integrates natively with HubSpot, Salesforce, Close CRM, GoHighLevel, Zapier, Slack, and more. Sync every call, disposition, and voicemail drop automatically.",
+    "Dialeads connects to Telnyx for voice and SMS, Google Sheets for leads and outcomes, Claude and Gemini for live AI rebuttals, and exports leads as HubSpot-compatible CSV.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -5,913 +5,992 @@ import Link from "next/link";
 import {
   ChevronRight,
   ChevronDown,
-  BarChart3,
   Check,
   X,
+  Minus,
   ArrowRight,
-  CheckCircle2,
+  ArrowUpRight,
+  Scale,
+  Phone,
+  MapPin,
+  Sparkles,
+  ShieldCheck,
+  Info,
+  Search,
+  Target,
 } from "lucide-react";
+
+/* ─── Types ────────────────────────────────────────────── */
+
+type Status = "yes" | "partial" | "no" | "na";
+
+type TableRow = {
+  category: string;
+  feature: string;
+  dialeads: string;
+  dialStatus: Status;
+  rival: string;
+  rivalStatus: Status;
+};
+
+type HeroRow = { label: string; value: string; status: Status };
+
+type Hero = {
+  badge: string;
+  titleLead: string;
+  titleAccent: string;
+  subtitle: string;
+  note: string;
+  rivalTag: string;
+  rivalPill: string;
+  rivalRows: HeroRow[];
+  dialTag: string;
+  dialPill: string;
+  dialRows: HeroRow[];
+  diffIntro: string;
+  ctaHeading: string;
+  ctaBody: string;
+};
 
 /* ─── Data ─────────────────────────────────────────────── */
 
-const comparisonRows = [
-  { feature: "Ringless voicemail drop", dialeads: "Yes", dialStatus: "green", sly: "Yes", slyStatus: "green" },
-  { feature: "AI voice agent — live autonomous calls", dialeads: "Yes (Sub-500ms)", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Power dialer with local presence CID", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Live objection rebuttal copilot", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Automatic SMS follow-up", dialeads: "Yes (Outcome-triggered)", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Automatic email follow-up", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "WhatsApp follow-up", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "CRM sync — HubSpot, Salesforce, Close", dialeads: "Native 2-Way", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "GoHighLevel integration", dialeads: "Native Direct", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Zapier integration", dialeads: "Full (Instant Triggers)", dialStatus: "green", sly: "Limited", slyStatus: "amber" },
-  { feature: "Call recordings and AI transcripts", dialeads: "Real-Time Sync", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "1-click call dispositions", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Unified inbox — calls, SMS, notes", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Speed-to-lead calling via webhook", dialeads: "Under 60 Seconds", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "National DNC auto-scrub", dialeads: "Auto (On every dial)", dialStatus: "green", sly: "Manual upload required", slyStatus: "amber" },
-  { feature: "Time-zone calling window enforcement", dialeads: "Auto (8am–9pm strict)", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "STIR/SHAKEN A-attestation", dialeads: "Yes (Carrier-grade)", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "A2P 10DLC SMS registration", dialeads: "Guided in 5 minutes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "Local presence caller ID matching", dialeads: "Yes", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "AI dynamic personalized voicemail", dialeads: "Yes", dialStatus: "green", sly: "No (Generic MP3 only)", slyStatus: "red" },
-  { feature: "Team management and rep reporting", dialeads: "Yes (Full dashboard)", dialStatus: "green", sly: "No", slyStatus: "red" },
-  { feature: "White-label for agencies", dialeads: "Enterprise Custom Domain", dialStatus: "green", sly: "No", slyStatus: "red" },
+const RIVAL = "Slybroadcast";
+const RIVAL_INITIALS = "SB";
+
+const hero: Hero = {
+  badge: "Honest comparison",
+  titleLead: "Slybroadcast drops voicemails.",
+  titleAccent: "Dialeads has real conversations.",
+  subtitle:
+    "Slybroadcast is a voicemail broadcasting service: record a message, pick a list, and it lands in voicemail boxes. Dialeads is an AI-powered cold calling platform for teams that want to talk to the prospect. This page lays out how they differ and who each is for.",
+  note: "Usage-based pricing from $0.02/min. No subscription tiers.",
+  rivalTag: "Voicemail broadcasting",
+  rivalPill: "Voicemail-only",
+  rivalRows: [
+    {
+      label: "Core product",
+      value: "Voicemail delivery",
+      status: "yes",
+    },
+    {
+      label: "Live calling",
+      value: "Not offered",
+      status: "no",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Bring your own list",
+      status: "no",
+    },
+    {
+      label: "Pricing",
+      value: "See vendor",
+      status: "na",
+    },
+  ],
+  dialTag: "AI cold calling",
+  dialPill: "Conversation-first",
+  dialRows: [
+    {
+      label: "Core product",
+      value: "Calls + AI qualifier",
+      status: "yes",
+    },
+    {
+      label: "Live calling",
+      value: "Browser softphone",
+      status: "yes",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Google Maps scraper",
+      status: "yes",
+    },
+    {
+      label: "Voicemail drops",
+      value: "Not offered",
+      status: "no",
+    },
+  ],
+  diffIntro: "Five differences between broadcasting a voicemail and starting a conversation.",
+  ctaHeading: "Ready to talk to prospects instead of leaving messages?",
+  ctaBody:
+    "Dialeads is in early access. Join the list, or book a demo and we will walk through scraping a niche, enriching the leads and making a first call.",
+};
+
+const shortAnswer = {
+  heading: "Two different strategies for reaching a prospect",
+  intro:
+    "One sends a recorded message and waits. The other puts a person or an AI assistant on the phone with the prospect.",
+  rivalLabel: "Voicemail broadcasting",
+  rivalBody:
+    "Senders who want a recorded message delivered to many voicemail boxes: reminders, announcements, outreach where a callback is the desired outcome. It is a simple, focused service for that purpose.",
+  rivalBest: "Best when the message matters more than the conversation.",
+  dialLabel: "AI-powered cold calling platform",
+  dialBody:
+    "Teams that want to speak with prospects. Dialeads scrapes Google Maps for local businesses, enriches and scores each lead, and supports manual browser calls, AI qualifier calls and two-way SMS follow-up in one place.",
+  dialBest: "Best when the goal is a conversation and a qualified lead.",
+};
+
+const comparisonRows: TableRow[] = [
+  {
+    category: "Core model",
+    feature: "Primary channel",
+    dialeads: "Live calls and SMS",
+    dialStatus: "yes",
+    rival: "Voicemail broadcast",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Core model",
+    feature: "Voicemail drop / ringless voicemail",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Core feature",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Core model",
+    feature: "Live outbound phone calls",
+    dialeads: "Yes, browser WebRTC softphone via Telnyx",
+    dialStatus: "yes",
+    rival: "Not offered",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead sourcing",
+    feature: "Google Maps lead scraper (niche + city)",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No, bring your own list",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead sourcing",
+    feature: "Website audit and Google Ads detection",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead sourcing",
+    feature: "Instagram / Facebook / TikTok presence",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead sourcing",
+    feature: "Lead scoring with pitch angles",
+    dialeads: "RUNS_ADS, NO_SITE, WEAK_SITE, STRONG_SITE",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Manual one-at-a-time calling",
+    dialeads: "Yes, with lead context on screen",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Calling",
+    feature: "AI qualifier calls",
+    dialeads: "Yes, Telnyx AI assistant that discloses it is AI",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Live AI rebuttals during calls",
+    dialeads: "Yes, Claude / Gemini",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Power or predictive dialer",
+    dialeads: "No",
+    dialStatus: "no",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Call recording",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Messaging",
+    feature: "Two-way SMS",
+    dialeads: "Yes, via Telnyx",
+    dialStatus: "yes",
+    rival: "Confirm current options",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Campaign management",
+    dialeads: "Manual and AI modes",
+    dialStatus: "yes",
+    rival: "Broadcast campaigns",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Workflow",
+    feature: "Call scripts with per-lead placeholders",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Recorded audio, not scripts",
+    rivalStatus: "partial",
+  },
+  {
+    category: "Workflow",
+    feature: "Google Sheet integration",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "CRM integrations",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Suppression list",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Calling windows (8am to 9pm) and attempt caps",
+    dialeads: "Yes, enforced in campaigns",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "AI disclosure on AI calls",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Teams",
+    feature: "Multi-tenant orgs, roles and invites",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Teams",
+    feature: "Number pools with health monitoring",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Pricing",
+    feature: "Pricing model",
+    dialeads: "Usage-based: $0.02/min manual, $0.25/min AI, $0.03/SMS",
+    dialStatus: "yes",
+    rival: "See Slybroadcast for current pricing",
+    rivalStatus: "na",
+  },
 ];
 
 const differences = [
   {
     num: "01",
-    title: "Voicemail Drop Quality — Generic vs AI Dynamic",
-    sly: "Slybroadcast uploads a single static WAV or MP3 file and blasts the identical recording to every contact on your list. No personalization beyond a basic name-insertion merge tag in some plans. Every prospect hears the same generic script, word for word.",
-    dialeads: "Dialeads generates a unique AI voicemail per contact — inserting their name, company, the specific offer, and a tailored call to action, synthesized to sound naturally recorded. Verified callback rates run several times higher than static blasts.",
+    title: "Broadcasting a recording vs holding a conversation",
+    rival:
+      "Slybroadcast delivers a recorded message to voicemail boxes. The sender speaks once and the recipient listens, or does not, later. Nothing the prospect says can change what happens next on the call.",
+    dialeads:
+      "Dialeads is built for the exchange. A rep calls from the browser or an AI qualifier calls and asks your questions. You hear the answer, handle the objection and decide the next step while the prospect is still on the line.",
   },
   {
     num: "02",
-    title: "What Happens After the Voicemail Drop",
-    sly: "Once the drop lands, Slybroadcast's job is done. There is no automatic SMS, no automatic email, no scheduled callback reminder, and nothing to route an interested reply anywhere. Every next step is manual.",
-    dialeads: "Dialeads triggers a multi-touch follow-up sequence automatically the moment a voicemail is delivered — SMS within seconds, email the same day, and additional touches over the following week, all triggered by the outcome of the drop with zero manual action required.",
+    title: "Where the list comes from",
+    rival: "You supply the contact list. Building and researching it is a separate task, done elsewhere.",
+    dialeads:
+      "The Google Maps scraper builds a list from a niche and a city. Enrichment then adds a website audit, Google Ads detection and Instagram, Facebook and TikTok presence, and every lead gets a pitch angle: RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE.",
   },
   {
     num: "03",
-    title: "Live Calling Capability",
-    sly: "No live calling capability exists inside Slybroadcast at all. It is exclusively a voicemail and SMS blasting tool. Any live outbound calling — power dialing, AI calling, or manual dialing — requires an entirely separate platform, subscription, and login.",
-    dialeads: "Dialeads includes a full power dialer with local presence caller ID plus an autonomous AI voice agent for live conversations, built into the same platform as voicemail drops. One login covers the entire outbound motion.",
+    title: "Personalization",
+    rival:
+      "A single recorded message goes to everyone on the list, so the content stays the same across recipients.",
+    dialeads:
+      "Call scripts take per-lead placeholders, and the lead's enrichment data is on screen during the call. The opener can reference the business and what it is actually doing online.",
   },
   {
     num: "04",
-    title: "CRM Integration Depth",
-    sly: "No native CRM integration. Zapier support is limited to basic trigger events, with no automatic deal stage updates, no call recording sync, and no disposition-driven pipeline movement.",
-    dialeads: "Native two-way sync with HubSpot, Salesforce, Close CRM, and GoHighLevel. Every drop, call outcome, SMS reply, and disposition writes automatically to the correct CRM record in real time — zero manual data entry.",
+    title: "Learning whether the lead is interested",
+    rival:
+      "After a broadcast, interest shows up as callbacks. If nobody calls back, you do not know whether the message was heard.",
+    dialeads:
+      "On a call or an AI qualifier call, you learn the answer directly. Two-way SMS then lets you follow up and read replies in the same lead record.",
   },
   {
     num: "05",
-    title: "TCPA Compliance Tools",
-    sly: "DNC scrubbing is a manual process — download the registry, cross-reference your list yourself, and remove numbers before uploading a campaign. No STIR/SHAKEN attestation and no automatic time-zone enforcement.",
-    dialeads: "Every compliance function runs automatically on every single dial — national DNC scrub, per-contact time-zone window enforcement, STIR/SHAKEN A-level attestation, and a full consent audit trail, with zero manual compliance work.",
+    title: "Guardrails",
+    rival:
+      "Compliance controls for voicemail broadcasting are the sender's responsibility. Confirm what the service provides directly.",
+    dialeads:
+      "Campaigns include a suppression list, 8am to 9pm calling windows, attempt caps and AI disclosure on AI calls. These help, but they are guardrails and not legal advice.",
   },
+];
+
+const rivalStrengths = {
+  intro: "If voicemail broadcast is the plan, Slybroadcast does the thing Dialeads deliberately does not do.",
+  items: [
+    {
+      title: "Voicemail delivery is the product",
+      body: "Dialeads has no voicemail drop feature. If you need a recorded message pushed to many voicemail boxes, Slybroadcast is the relevant service and Dialeads is not a substitute.",
+    },
+    {
+      title: "Focused and simple",
+      body: "A single-purpose service is easy to understand: record, choose a list, send. Dialeads is a broader platform with more to learn.",
+    },
+    {
+      title: "No rep or AI minutes needed",
+      body: "A broadcast does not need anyone on the line, so it can reach a list without staff time. Dialeads calls take a rep's time or per-minute AI usage.",
+    },
+    {
+      title: "Fits announcement-style messaging",
+      body: "Reminders, notices and one-way messages do not need a conversation. For those, voicemail broadcast can be enough.",
+    },
+  ],
+};
+
+const workflowSteps = {
+  heading: "What a Dialeads workflow looks like",
+  intro:
+    "Dialeads goes from list building to follow-up inside one product. Here is the flow, using only features that exist today.",
+  items: [
+    {
+      tag: "Source",
+      title: "Scrape local businesses",
+      body: "Enter a niche and a city. The Google Maps scraper builds your lead list.",
+    },
+    {
+      tag: "Enrich",
+      title: "See what each business is doing online",
+      body: "Website audit, Google Ads detection and Instagram, Facebook and TikTok presence are attached to each lead.",
+    },
+    {
+      tag: "Score",
+      title: "Pick the right angle",
+      body: "Pitch angles RUNS_ADS, NO_SITE, WEAK_SITE and STRONG_SITE tell you what to lead with.",
+    },
+    {
+      tag: "Script",
+      title: "Prepare a script",
+      body: "Add per-lead placeholders so the script adapts to each business.",
+    },
+    {
+      tag: "Call",
+      title: "Talk to them",
+      body: "Dial manually from the browser, or run an AI-mode campaign where a Telnyx AI assistant makes qualifier calls and discloses that it is AI.",
+    },
+    {
+      tag: "Follow up",
+      title: "Text and track",
+      body: "Two-way SMS keeps the conversation going in the same record, within calling windows and attempt caps.",
+    },
+  ],
+};
+
+const rivalPricing = {
+  title: "Priced around message delivery",
+  body: "Voicemail broadcast services typically charge based on how many messages you send. We are not quoting Slybroadcast's rates because they can change and we do not want to print stale numbers.",
+  points: [
+    "Check Slybroadcast's own site for current pricing.",
+    "Pricing varies by volume and options.",
+    "Your contact list is a separate cost and task.",
+  ],
+};
+
+const dialeadsRates = [
+  {
+    label: "Manual calling",
+    price: "$0.02",
+    unit: "per minute",
+    body: "Browser softphone calls placed one at a time over Telnyx, with the lead's enrichment data on screen.",
+  },
+  {
+    label: "AI qualifier calls",
+    price: "$0.25",
+    unit: "per minute",
+    body: "Telnyx AI assistant calls that disclose they are AI and qualify the lead against your script.",
+  },
+  {
+    label: "SMS",
+    price: "$0.03",
+    unit: "per message",
+    body: "Two-way SMS over Telnyx for follow-up and replies, inside the same lead record.",
+  },
+];
+
+const useCases = [
+  {
+    title: "Sending the same voicemail to a large list",
+    winner: "Slybroadcast",
+    rival: "This is exactly what it is for: a recorded message delivered to many voicemail boxes.",
+    dialeads: "Not a fit. Dialeads has no voicemail drop feature.",
+  },
+  {
+    title: "Selling to local businesses",
+    winner: "Dialeads",
+    rival:
+      "You would need to find and research the businesses elsewhere, and a generic recording cannot reflect what each is doing.",
+    dialeads: "Scrape the niche and city, check ads and websites, and call with a relevant pitch angle.",
+  },
+  {
+    title: "Qualifying leads without tying up reps",
+    winner: "Dialeads",
+    rival: "A broadcast does not qualify anyone. It invites a callback.",
+    dialeads:
+      "AI qualifier calls, disclosed as AI, ask your questions so reps only pick up leads that responded.",
+  },
+  {
+    title: "Announcements and reminders",
+    winner: "Slybroadcast",
+    rival: "One-way messages with no need for a reply suit a broadcast service well.",
+    dialeads:
+      "It is not designed for this. SMS is available for short notices, but there is no voicemail delivery.",
+  },
+  {
+    title: "Starting with a small budget",
+    winner: "Either",
+    rival: "Check the vendor's current pricing and minimums.",
+    dialeads:
+      "There are no subscription tiers. Manual calls are $0.02/min, AI calls $0.25/min and SMS $0.03/message.",
+  },
+];
+
+const switchingSteps = {
+  heading: "Can you use both?",
+  intro:
+    "They address different strategies, so some teams use both. If you are adding Dialeads, this is the practical path.",
+  items: [
+    {
+      title: "Decide which touches need a conversation",
+      body: "Reserve live calls and AI qualifier calls for leads worth a conversation. Keep broadcast-style messages in a voicemail service.",
+    },
+    {
+      title: "Build or connect a list",
+      body: "Scrape a new list from Google Maps, or connect a Google Sheet that already has your contacts.",
+    },
+    {
+      title: "Let enrichment run",
+      body: "Review the website audit, ad status, social presence and pitch angle on each lead.",
+    },
+    {
+      title: "Set up a campaign",
+      body: "Pick manual or AI mode, write a script and set your calling window, attempt cap and suppression list.",
+    },
+    {
+      title: "Start small",
+      body: "Usage-based pricing means a few test calls cost very little. Judge the conversations before you scale.",
+    },
+  ],
+};
+
+const chooseRival = [
+  "You want to deliver recorded voicemails to a list",
+  "Your messages are announcements, reminders or one-way outreach",
+  "You do not need live calls, AI qualifying or lead sourcing",
+  "You prefer a single-purpose service",
+  "You need voicemail features Dialeads does not offer",
+];
+
+const chooseDialeads = [
+  "You want to talk to prospects, not leave recordings",
+  "You sell to local businesses and want Google Maps lead sourcing",
+  "You want enrichment and pitch angles on each lead",
+  "You want AI qualifier calls with clear AI disclosure",
+  "You want SMS follow-up in the same record as the call",
+  "You prefer usage-based pricing without subscription tiers",
 ];
 
 const faqItems = [
   {
-    question: "Does Dialeads do ringless voicemail drops like Slybroadcast?",
+    question: "Does Dialeads offer voicemail drops like Slybroadcast?",
     answer:
-      "Yes. Dialeads drops pre-recorded voicemails directly to voicemail without ringing the phone — the same core function as Slybroadcast. The difference is that Dialeads adds AI dynamic personalization, automated follow-up sequences, live calling, and native CRM sync around every drop.",
+      "No. Dialeads does not offer ringless voicemail or voicemail drops. It is an AI-powered cold calling platform with manual browser calls, AI qualifier calls and two-way SMS. If voicemail broadcast is what you need, Slybroadcast is the relevant service.",
   },
   {
-    question: "Is Dialeads more expensive than Slybroadcast?",
+    question: "Is Dialeads cheaper than Slybroadcast?",
     answer:
-      "At very low volumes, Slybroadcast's pay-per-drop pricing can look cheaper on paper. At any meaningful scale, Dialeads is significantly cheaper once you account for the separate tools needed to match its functionality. A full equivalent stack around Slybroadcast runs $299–$1,049 per month versus $49 for Dialeads Pro.",
+      "We cannot honestly say. The products do different jobs and are priced differently. Dialeads is usage-based at $0.02/min manual, $0.25/min AI and $0.03/SMS, with no subscription tiers. Check Slybroadcast for its current pricing. We do not publish a savings comparison.",
   },
   {
-    question: "Can I import my Slybroadcast contact lists into Dialeads?",
+    question: "Can Dialeads find leads for me?",
     answer:
-      "Yes. Export your contacts from Slybroadcast as CSV and import directly into Dialeads. Phone numbers are auto-validated, DNC-scrubbed, and matched to local caller IDs on import — ready to dial in under 2 minutes.",
+      "Yes. The Google Maps scraper builds a lead list from a niche and a city, then enrichment adds a website audit, Google Ads detection and social presence, and scoring adds a pitch angle.",
   },
   {
-    question: "Does Dialeads have a pay-per-drop option like Slybroadcast?",
+    question: "Does the AI caller say it is an AI?",
+    answer: "Yes. AI qualifier calls run on a Telnyx AI assistant and disclose that the caller is AI.",
+  },
+  {
+    question: "Does Dialeads have a power dialer?",
+    answer: "No. Calling is manual, one lead at a time, or AI mode for qualifier calls.",
+  },
+  {
+    question: "Does Dialeads record calls or integrate with a CRM?",
     answer:
-      "Dialeads runs on flat monthly plans starting at $29/mo rather than metered per-drop pricing. At most volumes this ends up cheaper than pay-per-drop once SMS, email, live calling, and CRM sync are factored in, since all of that is included rather than billed separately.",
+      "Neither, currently. Call recording and CRM integrations are not offered. A Google Sheet integration is available.",
   },
   {
-    question: "How long does it take to switch from Slybroadcast to Dialeads?",
+    question: "What compliance controls are included?",
     answer:
-      "Under 30 minutes. Export your contact lists from Slybroadcast, import into Dialeads, re-record or upload your voicemail drop, connect your CRM, and launch your first campaign. Your 14-day free Pro trial starts immediately — no credit card required.",
+      "A suppression list, 8am to 9pm calling windows, attempt caps and AI disclosure. They are guardrails, not legal advice, and you remain responsible for how you use any outreach tool.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Dialeads is in early access. Use the Get Early Access button, or book a demo and we will walk through a Google Maps scrape and a first call.",
   },
 ];
 
-const testimonials = [
+const relatedComparisons = [
   {
-    quote:
-      "“We were paying for Slybroadcast and a separate power dialer just to get voicemail drops and live calls in the same pipeline. Dialeads replaced both for $49 a month and the two systems finally talk to each other.”",
-    name: "Sales Manager",
-    role: "B2B SaaS Company",
+    href: "/compare/dialeads-vs-drop-cowboy",
+    label: "Dialeads vs Drop Cowboy",
+    blurb: "Another ringless voicemail service, compared to live AI calling.",
   },
   {
-    quote:
-      "“Slybroadcast has no follow-up whatsoever — you drop the voicemail and that is the entire interaction unless you manually text or email someone yourself. Dialeads fires SMS and email automatically the moment a drop lands. That alone changed our response rate.”",
-    name: "Founder",
-    role: "Lead Generation Agency",
+    href: "/compare/dialeads-vs-mojo-dialer",
+    label: "Dialeads vs Mojo Dialer",
+    blurb: "Multi-line power dialing vs AI-assisted calling with lead sourcing.",
   },
   {
-    quote:
-      "“Our callback rate on Slybroadcast's generic drops sat around 1 to 2 percent for years. Switching to Dialeads' AI personalized voicemail pushed us to 6 to 8 percent on the same lists.”",
-    name: "Real Estate Wholesaler",
-    role: "Motivated Seller Outreach",
+    href: "/compare/dialeads-vs-calltools",
+    label: "Dialeads vs CallTools",
+    blurb: "Call center software vs a lightweight browser-based platform.",
   },
 ];
 
-const migrationSteps = [
+const dialeadsPillars = [
   {
-    step: "01",
-    title: "Export Your Contact Lists",
-    body: "Download your existing contact lists and campaign data from Slybroadcast as CSV files. All contacts and phone numbers export cleanly with no data loss.",
-    footer: "CSV format",
-    footerColor: "text-[#7b7487]",
+    icon: MapPin,
+    title: "Built-in lead sourcing",
+    body: "Scrape Google Maps by niche and city, so the list lives in the same product as the calls.",
   },
   {
-    step: "02",
-    title: "Import Into Dialeads",
-    body: "Upload your CSV directly into Dialeads. Phone numbers auto-validated, DNC-scrubbed automatically, duplicates removed, local caller IDs matched to every contact. Ready to dial in under 2 minutes.",
-    footer: "Under 2 min",
-    footerColor: "text-[#630ed4]",
+    icon: Search,
+    title: "Enrichment before the dial",
+    body: "Website audit, Google Ads detection, and Instagram, Facebook and TikTok presence on every lead.",
   },
   {
-    step: "03",
-    title: "Re-Record Your Drop",
-    body: "Upload your existing Slybroadcast recording directly into Dialeads or record a new one inside the platform. Optionally enable AI dynamic voicemail drops for personalized messages per contact — a major upgrade from Slybroadcast's static drops.",
-    footer: "Audio / AI",
-    footerColor: "text-[#7b7487]",
+    icon: Target,
+    title: "Scores and pitch angles",
+    body: "Each lead is tagged RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE so you know what to open with.",
   },
   {
-    step: "04",
-    title: "Connect Your CRM",
-    body: "Connect HubSpot, Salesforce, GoHighLevel, or Close CRM in one click. Every drop, call outcome, and reply will sync automatically going forward — functionality Slybroadcast simply does not offer.",
-    footer: "1-Click Native Sync",
-    footerColor: "text-[#630ed4]",
+    icon: Phone,
+    title: "Browser WebRTC softphone",
+    body: "Manual one-at-a-time calling in the browser through Telnyx. No hardware, no install.",
   },
   {
-    step: "05",
-    title: "Launch Your Campaign",
-    body: "Launch your first campaign with the same voicemail drop capability as Slybroadcast — plus live calling, automated multi-touch follow-up, CRM sync, and automatic TCPA compliance running alongside it.",
-    footer: "Full Stack Live",
-    footerColor: "text-emerald-600",
+    icon: Sparkles,
+    title: "AI qualifier and live rebuttals",
+    body: "A Telnyx AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Compliance guardrails",
+    body: "Suppression list, 8am to 9pm calling windows, attempt caps and AI disclosure built into campaigns.",
   },
 ];
 
-const chooseSlybroadcast = [
-  "You only need basic voicemail drops — nothing more",
-  "You are running a single one-time campaign with no ongoing outbound infrastructure needs",
-  "You send a very low volume of drops per month and prefer pay-per-use pricing",
-  "You already have a separate dialer and CRM you are satisfied managing independently",
-  "You do not need live calling, automated follow-up, or CRM sync",
-];
+const statusMeta: Record<Status, { label: string; cls: string }> = {
+  yes: { label: "Yes", cls: "text-emerald-600" },
+  partial: { label: "Partial", cls: "text-amber-600" },
+  no: { label: "No", cls: "text-rose-500" },
+  na: { label: "Varies", cls: "text-[#4a4455]" },
+};
 
-const chooseDialeads = [
-  "You need voicemail drops as part of a complete outbound system with live calling and follow-up",
-  "You want every call outcome, voicemail, and SMS reply to sync to your CRM automatically",
-  "You want AI dynamic voicemail personalization instead of one generic recording",
-  "You need TCPA compliance running automatically — not manually managed per campaign",
-  "You are tired of paying for and managing separate tools for voicemail, SMS, calling, and CRM",
-  "You need white-label options for running client campaigns as an agency",
-];
+/* ─── Helpers ──────────────────────────────────────────── */
 
-const slyMissing = [
-  "No live calling included",
-  "No CRM sync included",
-  "No automated follow-up sequences included",
-  "No AI personalization — static audio only",
-];
-
-const slyBreakdown = [
-  { label: "Slybroadcast voicemail drops:", cost: "~$150–$300" },
-  { label: "Separate SMS platform needed:", cost: "~$50–$150/mo" },
-  { label: "Separate dialer needed:", cost: "~$99–$299/mo" },
-  { label: "Separate CRM integration:", cost: "~$50–$300/mo" },
-];
-
-const dialeadsIncludes = [
-  "Unlimited calling and power dialer",
-  "Unlimited ringless voicemail drops",
-  "AI voice agent autonomous calling",
-  "Automated 7-day SMS and email follow-ups",
-  "Full native CRM 2-way sync (HubSpot, GHL, Salesforce)",
-  "Automated TCPA compliance on every single dial",
-];
+function StatusIcon({ status, className }: { status: Status; className?: string }) {
+  const cls = className ?? "w-4 h-4";
+  if (status === "yes") return <Check className={cls + " text-emerald-600"} />;
+  if (status === "partial") return <Minus className={cls + " text-amber-600"} />;
+  if (status === "no") return <X className={cls + " text-rose-500"} />;
+  return <Info className={cls + " text-[#4a4455]"} />;
+}
 
 /* ─── Component ────────────────────────────────────────── */
 
 export default function DialeadsVsSlybroadcastPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [category, setCategory] = useState<string>("All");
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
+  const categories = ["All", ...Array.from(new Set(comparisonRows.map((r) => r.category)))];
+  const visibleRows =
+    category === "All" ? comparisonRows : comparisonRows.filter((r) => r.category === category);
 
   return (
-    <div className="bg-[#f8f9ff] text-[#0b1c30] antialiased min-h-screen selection:bg-[#7C3AED] selection:text-white">
+    <div className="bg-[#f8f9ff] text-[#0b1c30] antialiased min-h-screen selection:bg-[#eaddff] selection:text-[#630ed4]">
       {/* BREADCRUMBS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div className="flex items-center gap-1 text-xs text-[#4a4455]">
-          <Link href="/" className="hover:text-[#0b1c30]">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-[#4a4455]">
+          <Link href="/" className="hover:text-[#630ed4]">
             Home
           </Link>
           <ChevronRight className="w-3 h-3" />
-          <Link href="/compare" className="hover:text-[#0b1c30]">
-            Comparisons
-          </Link>
+          <span>Comparisons</span>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-[#0b1c30] font-medium">Dialeads vs Slybroadcast</span>
-        </div>
+          <span className="text-[#0b1c30] font-medium">Dialeads vs {RIVAL}</span>
+        </nav>
       </div>
 
-      {/* SECTION 1 — HERO */}
+      {/* HERO */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7C3AED] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#7C3AED]" />
-            </span>
-            <BarChart3 className="w-3.5 h-3.5" />
-            Platform Comparison
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-6">
+            <Scale className="w-3.5 h-3.5" />
+            {hero.badge}
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[#0b1c30] font-extrabold tracking-tight mb-6 leading-[1.12]">
-            Dialeads vs Slybroadcast &mdash;{" "}
-            <br className="hidden sm:inline" />
-            Which Platform{" "}
-            <span className="relative inline-block text-[#630ed4]">
-              Actually Grows
-              <svg
-                className="absolute left-0 -bottom-2 w-full h-2.5"
-                viewBox="0 0 200 12"
-                preserveAspectRatio="none"
-                fill="none"
-              >
-                <path
-                  d="M2 8C40 2 80 2 100 6C120 10 160 10 198 4"
-                  stroke="#7C3AED"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{" "}
-            Your Pipeline?
+            {hero.titleLead} <span className="text-[#630ed4]">{hero.titleAccent}</span>
           </h1>
-          <p className="text-lg sm:text-xl text-[#4a4455] max-w-3xl mx-auto mb-8 font-normal leading-relaxed">
-            Slybroadcast drops a pre-recorded voicemail and stops there.
-            Dialeads drops the voicemail, then adds live AI calling, power
-            dialing, automated multi-touch follow-up, and full CRM sync &mdash;
-            all in one platform. Here is the complete breakdown.
+          <p className="text-lg sm:text-xl text-[#4a4455] max-w-3xl mx-auto mb-8 leading-relaxed">
+            {hero.subtitle}
           </p>
 
-          {/* CTA BUTTONS */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
             <Link
-              href="/signup"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-base shadow-lg shadow-[#7C3AED]/25 transition-all"
+              href="/demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#630ed4] hover:bg-[#7c3aed] text-white font-bold text-base shadow-lg shadow-[#630ed4]/20 transition-colors"
             >
-              Start Dialeads Free
+              Get Early Access
+              <ArrowRight className="w-4 h-4" />
             </Link>
             <a
               href="#comparison-table"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white border border-[#d3e4fe] text-[#0b1c30] hover:bg-[#eff4ff] font-bold text-base transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white border border-[#e3e0f1] text-[#0b1c30] hover:bg-[#eff4ff] font-bold text-base transition-colors"
             >
-              See Full Feature List
+              Jump to the Feature Table
             </a>
           </div>
-          <p className="text-xs sm:text-sm text-[#4a4455] font-medium">
-            No credit card &middot; 14-day full Pro access &middot; Cancel anytime
-          </p>
+          <p className="text-xs sm:text-sm text-[#4a4455] font-medium">{hero.note}</p>
 
-          {/* VISUAL COMPARISON PREVIEW */}
-          <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-6 text-left max-w-5xl mx-auto">
-            {/* Slybroadcast Card */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-[#d3e4fe] shadow-sm relative overflow-hidden">
-              <div className="flex items-center justify-between pb-4 border-b border-[#eff4ff]">
+          {/* SIDE BY SIDE PREVIEW */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
+            <div className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <div className="flex items-center justify-between pb-4 border-b border-[#e5eeff]">
                 <div>
-                  <span className="text-xs font-semibold text-[#7b7487] uppercase tracking-wider">
-                    Legacy Architecture
+                  <span className="text-xs font-semibold text-[#4a4455] uppercase tracking-wider">
+                    {hero.rivalTag}
                   </span>
-                  <h3 className="text-xl font-bold text-[#0b1c30]">Slybroadcast</h3>
+                  <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL}</h3>
                 </div>
-                <span className="text-xs bg-[#eff4ff] text-[#4a4455] px-2.5 py-1 rounded font-medium">
-                  Single Purpose
+                <span className="text-xs bg-[#e5eeff] text-[#213145] px-2.5 py-1 rounded font-medium">
+                  {hero.rivalPill}
                 </span>
               </div>
-              <div className="mt-4 space-y-2.5 text-sm text-[#4a4455]">
-                <div className="p-3 bg-[#eff4ff] rounded-lg">
-                  <span className="font-medium text-[#0b1c30]">1. Upload Static WAV/MP3</span>
-                </div>
-                <div className="flex justify-center text-[#7b7487]">
-                  <ChevronDown className="w-4 h-4" />
-                </div>
-                <div className="p-3 bg-[#eff4ff] rounded-lg">
-                  <span className="font-medium text-[#0b1c30]">2. Blast Blind to Full List</span>
-                </div>
-                <div className="flex justify-center text-[#7b7487]">
-                  <ChevronDown className="w-4 h-4" />
-                </div>
-                <div className="p-3 bg-[#ffdad6] rounded-lg flex items-center gap-2">
-                  <X className="w-3.5 h-3.5 text-[#ba1a1a]" />
-                  <span className="font-medium text-[#93000a]">3. Pipeline Dead End</span>
-                </div>
-              </div>
-              <div className="mt-5 pt-3 border-t border-[#eff4ff] flex items-center justify-between text-xs text-[#4a4455]">
-                <span>Average Callback Rate:</span>
-                <span className="font-bold text-[#0b1c30] text-sm">1.4%</span>
+              <div className="mt-4 space-y-2.5 text-sm">
+                {hero.rivalRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-[#f8f9ff] rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="font-medium text-[#0b1c30]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " + statusMeta[row.status].cls
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Dialeads Card */}
-            <div className="lg:col-span-7 p-6 rounded-2xl bg-gradient-to-b from-[#213145] to-[#0b1c30] text-white border border-[#7C3AED]/40 shadow-xl shadow-[#7C3AED]/10 relative overflow-hidden">
-              <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#7C3AED]/20 rounded-full blur-2xl pointer-events-none" />
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
+            <div className="p-6 rounded-2xl bg-[#213145] text-[#eaf1ff] border border-[#630ed4]/40 shadow-xl shadow-[#630ed4]/10 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#7c3aed]/30 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center justify-between pb-4 border-b border-[#eaf1ff]/15 relative z-10">
                 <div>
                   <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider">
-                    All-In-One Platform
+                    {hero.dialTag}
                   </span>
-                  <h3 className="text-xl font-bold text-white">
-                    Autonomous AI Outbound Matrix
-                  </h3>
+                  <h3 className="text-xl font-bold text-white">Dialeads</h3>
                 </div>
-                <span className="text-xs bg-white/10 text-[#d2bbff] border border-[#7C3AED]/30 px-2.5 py-1 rounded font-medium">
-                  Unified
+                <span className="text-xs bg-[#630ed4] text-white px-2.5 py-1 rounded font-medium">
+                  {hero.dialPill}
                 </span>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs relative z-10">
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                  <span className="text-[#eaf1ff] font-semibold block mb-1">Dynamic Audio Drop</span>
-                  <span className="text-[#d2bbff]">AI personalized per prospect</span>
-                </div>
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                  <span className="text-[#eaf1ff] font-semibold block mb-1">Autonomous Live Calling</span>
-                  <span className="text-[#d2bbff]">Power dialer + AI agent</span>
-                </div>
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                  <span className="text-[#eaf1ff] font-semibold block mb-1">Multi-Touch Drip</span>
-                  <span className="text-[#d2bbff]">Instant SMS + 7-day cadence</span>
-                </div>
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                  <span className="text-[#eaf1ff] font-semibold block mb-1">2-Way Native CRM Sync</span>
-                  <span className="text-[#d2bbff]">HubSpot / SF / GHL</span>
-                </div>
-              </div>
-              <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-[#d2bbff] relative z-10">
-                <span>Average Verified Callback:</span>
-                <span className="font-bold text-emerald-400 text-sm">
-                  6.8% &mdash; 3.8x Pipeline Multiplier
-                </span>
+              <div className="mt-4 space-y-2.5 text-sm relative z-10">
+                {hero.dialRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-white/5 border border-white/10 rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="text-[#eaf1ff]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " +
+                        (row.status === "yes"
+                          ? "text-emerald-400"
+                          : row.status === "no"
+                            ? "text-rose-300"
+                            : "text-[#d2bbff]")
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2 — QUICK VERDICT */}
-      <section className="py-16 bg-white border-y border-[#d3e4fe] px-4 sm:px-6 lg:px-8">
+      {/* SHORT ANSWER */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-              Bottom Line Up Front
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
+              The short answer
             </div>
             <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-              The Short Answer &mdash; What Each Platform Is Actually For
+              {shortAnswer.heading}
             </h2>
+            <p className="mt-4 text-[#4a4455] max-w-2xl mx-auto">{shortAnswer.intro}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Slybroadcast is for */}
-            <div className="p-8 rounded-2xl bg-[#eff4ff] border border-[#d3e4fe] flex flex-col justify-between">
+            <div className="p-8 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1] flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#5e5d6b] text-white flex items-center justify-center font-bold text-lg">
-                    SB
+                  <div className="w-10 h-10 rounded-xl bg-[#213145] text-[#eaf1ff] flex items-center justify-center font-bold">
+                    {RIVAL_INITIALS}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-[#0b1c30]">Slybroadcast:</h3>
-                    <span className="text-xs text-[#4a4455] font-medium">
-                      Single-Channel Utility
-                    </span>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL} is for</h3>
+                    <span className="text-xs text-[#4a4455] font-medium">{shortAnswer.rivalLabel}</span>
                   </div>
                 </div>
-                <p className="text-[#0b1c30] text-base leading-relaxed mb-4">
-                  For teams that only need voicemail drops &mdash; nothing more.
-                </p>
-                <ul className="space-y-2.5 text-sm text-[#4a4455]">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" /> Ringless voicemail drops
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-[#ba1a1a] shrink-0" /> No live calling
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-[#ba1a1a] shrink-0" /> No automated follow-up
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-[#ba1a1a] shrink-0" /> No native CRM sync
-                  </li>
-                </ul>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.rivalBody}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#d3e4fe] flex items-center gap-2 text-xs font-semibold text-[#4a4455]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#5e5d6b]" />
-                Best for low-volume one-off blasts with no CRM requirements
+              <div className="mt-6 pt-4 border-t border-[#e3e0f1] flex items-start gap-2 text-xs font-semibold text-[#213145]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#213145] mt-1.5 shrink-0" />
+                {shortAnswer.rivalBest}
               </div>
             </div>
 
-            {/* Dialeads is for */}
-            <div className="p-8 rounded-2xl bg-[#ede0ff] border border-[#d2bbff] flex flex-col justify-between shadow-sm">
+            <div className="p-8 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#7C3AED] text-white flex items-center justify-center font-bold text-lg shadow-md shadow-[#7C3AED]/20">
+                  <div className="w-10 h-10 rounded-xl bg-[#630ed4] text-white flex items-center justify-center font-bold">
                     DL
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads:</h3>
-                    <span className="text-xs text-[#630ed4] font-semibold">
-                      Comprehensive Growth Engine
-                    </span>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads is for</h3>
+                    <span className="text-xs text-[#630ed4] font-semibold">{shortAnswer.dialLabel}</span>
                   </div>
                 </div>
-                <p className="text-[#0b1c30] text-base leading-relaxed mb-4">
-                  Voicemail drops plus AI calling, follow-up, and CRM sync &mdash; all in one platform.
-                </p>
-                <ul className="space-y-2.5 text-sm text-[#0b1c30] font-medium">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" /> AI dynamic voicemail drops
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" /> Power dialer + AI voice agent
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" /> Automated multi-touch follow-up
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" /> Native 2-way CRM sync
-                  </li>
-                </ul>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.dialBody}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#d2bbff] flex items-center gap-2 text-xs font-bold text-[#630ed4]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
-                Best for teams scaling callbacks, appointments, and qualified pipeline
+              <div className="mt-6 pt-4 border-t border-[#d2bbff] flex items-start gap-2 text-xs font-bold text-[#630ed4]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#630ed4] mt-1.5 shrink-0" />
+                {shortAnswer.dialBest}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — FULL COMPARISON TABLE */}
-      <section id="comparison-table" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-            Feature by Feature
-          </div>
-          <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-            Dialeads vs Slybroadcast &mdash; Complete Feature Comparison
-          </h2>
-          <p className="text-[#4a4455] text-sm mt-3">
-            An exhaustive side-by-side audit of outbound capabilities, compliance
-            automation, and CRM intelligence.
-          </p>
-        </div>
-
-        <div className="overflow-x-auto bg-white rounded-2xl border border-[#d3e4fe] shadow-sm">
-          <table className="w-full text-left border-collapse min-w-[640px]">
-            <thead>
-              <tr className="border-b border-[#d3e4fe] bg-[#eff4ff]/80">
-                <th className="p-4 sm:p-5 text-sm font-bold text-[#0b1c30] w-1/2">
-                  Feature
-                </th>
-                <th className="p-4 sm:p-5 text-sm font-bold text-[#630ed4] w-1/4 bg-[#ede0ff]/50">
-                  Dialeads
-                  <span className="ml-2 text-[10px] bg-[#7C3AED] text-white px-2 py-0.5 rounded font-extrabold uppercase">
-                    All-In-One
-                  </span>
-                </th>
-                <th className="p-4 sm:p-5 text-sm font-bold text-[#4a4455] w-1/4">
-                  Slybroadcast
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#eff4ff] text-sm">
-              {comparisonRows.map((row, i) => (
-                <tr key={i} className="hover:bg-[#eff4ff]/50 transition-colors">
-                  <td className="p-4 font-medium text-[#0b1c30]">{row.feature}</td>
-                  <td className="p-4 bg-[#ede0ff]/30">
-                    <span
-                      className={`font-semibold ${
-                        row.dialStatus === "green"
-                          ? "text-emerald-600"
-                          : row.dialStatus === "amber"
-                          ? "text-amber-600"
-                          : "text-[#7b7487]"
-                      }`}
-                    >
-                      {row.dialStatus === "green" && <>{"✅"} </>}
-                      {row.dialeads}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    <span
-                      className={`font-${row.slyStatus === "green" ? "semibold" : "medium"} ${
-                        row.slyStatus === "green"
-                          ? "text-emerald-600"
-                          : row.slyStatus === "amber"
-                          ? "text-amber-600"
-                          : "text-[#7b7487]"
-                      }`}
-                    >
-                      {row.slyStatus === "green" && "✅ "}
-                      {row.slyStatus === "red" && "❌ "}
-                      {row.slyStatus === "amber" && "✅ "}
-                      {row.sly}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-              <tr className="bg-[#eff4ff]/90 font-bold">
-                <td className="p-4 text-[#0b1c30]">Starting price</td>
-                <td className="p-4 bg-[#ede0ff]/50 text-[#630ed4] text-base">
-                  $29/mo (All-inclusive)
-                </td>
-                <td className="p-4 text-[#0b1c30] text-base">$0.05/drop</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* SECTION 4 — DEEP DIVE COMPARISON */}
-      <section className="py-20 bg-white border-y border-[#d3e4fe] px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-              Where They Differ Most
-            </div>
-            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-              The 5 Biggest Differences Between Dialeads and Slybroadcast
-            </h2>
-          </div>
-
-          <div className="space-y-12">
-            {differences.map((diff) => (
-              <div
-                key={diff.num}
-                className="p-8 rounded-2xl bg-[#f8f9ff] border border-[#d3e4fe]"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[#7C3AED] font-extrabold text-2xl">
-                    {diff.num}
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#0b1c30]">
-                    {diff.title}
-                  </h3>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                  <div className="bg-white p-5 rounded-xl border border-[#d3e4fe]">
-                    <span className="text-xs font-bold text-[#7b7487] uppercase tracking-wider block mb-2">
-                      Slybroadcast
-                    </span>
-                    <p className="text-[#4a4455] text-sm leading-relaxed">
-                      {diff.sly}
-                    </p>
-                  </div>
-                  <div className="bg-[#ede0ff]/60 p-5 rounded-xl border border-[#d2bbff]">
-                    <span className="text-xs font-bold text-[#630ed4] uppercase tracking-wider block mb-2">
-                      Dialeads
-                    </span>
-                    <p className="text-[#0b1c30] text-sm leading-relaxed font-medium">
-                      {diff.dialeads}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5 — PRICING COMPARISON */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-            Cost Comparison
-          </div>
-          <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-            Dialeads vs Slybroadcast &mdash; Real Cost at Scale
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-10">
-          {/* Slybroadcast Pricing Card */}
-          <div className="p-8 rounded-2xl bg-white border border-[#d3e4fe] shadow-sm flex flex-col justify-between">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#7b7487]">
-                Metered Tool
-              </span>
-              <h3 className="text-2xl font-bold text-[#0b1c30] mt-1 mb-4">
-                Slybroadcast Pricing
-              </h3>
-
-              <div className="p-4 bg-[#eff4ff] rounded-xl mb-6">
-                <span className="text-2xl font-extrabold text-[#0b1c30]">
-                  $0.05
-                </span>
-                <span className="text-xs text-[#4a4455] block mt-1 font-medium">
-                  Per drop approximately &middot; Volume tiers available
-                </span>
-              </div>
-
-              <ul className="space-y-2.5 text-sm text-[#4a4455] mb-6">
-                {slyMissing.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="text-[#ba1a1a] font-bold">
-                      <X className="w-3.5 h-3.5" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="pt-4 border-t border-[#eff4ff]">
-                <span className="text-xs font-bold text-[#0b1c30] uppercase tracking-wide block mb-2">
-                  At 5,000 drops per month:
-                </span>
-                <div className="text-xs text-[#4a4455] space-y-1.5">
-                  {slyBreakdown.map((item, i) => (
-                    <div key={i} className="flex justify-between">
-                      <span>{item.label}</span>
-                      <span className="font-semibold text-[#0b1c30]">
-                        {item.cost}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-4 border-t border-[#d3e4fe]">
-              <div className="flex items-baseline justify-between">
-                <span className="text-sm font-semibold text-[#0b1c30]">
-                  Total to match Dialeads:
-                </span>
-                <span className="text-xl font-extrabold text-[#ba1a1a]">
-                  $349&ndash;$1,049/mo
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Dialeads Pricing Card */}
-          <div className="p-8 rounded-2xl bg-gradient-to-b from-[#ede0ff] to-white border-2 border-[#7C3AED] shadow-xl shadow-[#7C3AED]/10 flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-4 right-4">
-              <span className="text-[11px] bg-[#7C3AED] text-white font-extrabold uppercase px-3 py-1 rounded-full shadow-sm">
-                All-Inclusive
-              </span>
-            </div>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
-                Dialeads Plans
-              </span>
-              <h3 className="text-2xl font-bold text-[#0b1c30] mt-1 mb-4">
-                Starter &amp; Pro
-              </h3>
-
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="p-4 bg-white rounded-xl border border-[#d2bbff] shadow-sm">
-                  <span className="text-xs font-semibold text-[#4a4455] block mb-1">Starter</span>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-extrabold text-[#0b1c30]">$29</span>
-                    <span className="text-[#4a4455] text-xs font-semibold">/mo</span>
-                  </div>
-                </div>
-                <div className="p-4 bg-white rounded-xl border border-[#d2bbff] shadow-sm">
-                  <span className="text-xs font-semibold text-[#630ed4] block mb-1">Pro</span>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-extrabold text-[#630ed4]">$49</span>
-                    <span className="text-[#4a4455] text-xs font-semibold">/mo</span>
-                  </div>
-                </div>
-              </div>
-
-              <ul className="space-y-2.5 text-sm text-[#0b1c30] mb-6">
-                {dialeadsIncludes.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="text-emerald-600 font-bold">
-                      <Check className="w-4 h-4" />
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-8 pt-4 border-t border-[#d2bbff]">
-              <Link
-                href="/signup"
-                className="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-base shadow-md shadow-[#7C3AED]/30 transition-all text-center"
-              >
-                Start 14-Day Free Pro Trial <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              <span className="block text-center text-xs text-[#4a4455] mt-2 font-medium">
-                No credit card required &middot; Instant access
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* TCO Breakdown Card */}
-        <div className="rounded-2xl bg-[#213145] text-white p-8 sm:p-10">
-          <h3 className="text-xl font-bold mb-6 text-center">
-            The Real Total Cost of Ownership
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
-            <div className="p-5 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider block mb-2">
-                Assembled Legacy Stack
-              </span>
-              <span className="text-3xl font-extrabold text-white block mb-1">
-                $349&ndash;$1,049
-              </span>
-              <span className="text-xs text-[#eaf1ff]/70">per month, across 4 disconnected tools</span>
-            </div>
-            <div className="p-5 rounded-xl bg-[#7C3AED]/20 border border-[#7C3AED]/40">
-              <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider block mb-2">
-                Dialeads Pro
-              </span>
-              <span className="text-3xl font-extrabold text-emerald-400 block mb-1">
-                $49
-              </span>
-              <span className="text-xs text-[#eaf1ff]/70">per month, one unified platform</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 6 — WHEN TO CHOOSE EACH */}
-      <section className="py-20 bg-white border-y border-[#d3e4fe] px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-              Honest Recommendation
-            </div>
-            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-              When Slybroadcast Makes Sense &mdash; And When It Doesn&apos;t
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Choose Slybroadcast if */}
-            <div className="p-8 rounded-2xl bg-[#f8f9ff] border border-[#d3e4fe]">
-              <h3 className="text-xl font-bold text-[#0b1c30] mb-6 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-[#e5eeff] text-[#4a4455] flex items-center justify-center text-sm font-bold">
-                  <X className="w-4 h-4" />
-                </span>
-                Choose Slybroadcast if:
-              </h3>
-              <ul className="space-y-4 text-sm text-[#4a4455]">
-                {chooseSlybroadcast.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-[#7b7487] font-bold mt-0.5">&bull;</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Choose Dialeads if */}
-            <div className="p-8 rounded-2xl bg-[#ede0ff]/50 border border-[#d2bbff] shadow-sm">
-              <h3 className="text-xl font-bold text-[#4c1d95] mb-6 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-[#7C3AED] text-white flex items-center justify-center text-sm font-bold">
-                  <Check className="w-4 h-4" />
-                </span>
-                Choose Dialeads if:
-              </h3>
-              <ul className="space-y-4 text-sm text-[#0b1c30]">
-                {chooseDialeads.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-[#7C3AED] font-bold mt-0.5">&bull;</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7 — MIGRATION FROM SLYBROADCAST */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-            Switching From Slybroadcast
-          </div>
-          <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-            Moving From Slybroadcast to Dialeads Takes Under 30 Minutes
-          </h2>
-          <p className="text-[#4a4455] text-sm mt-3">
-            Follow this simple 5-step roadmap to migrate campaigns without
-            missing a single dial.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {migrationSteps.map((s) => (
-            <div
-              key={s.step}
-              className="p-5 rounded-2xl bg-white border border-[#d3e4fe] shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <span className="text-xs font-extrabold text-[#7C3AED] uppercase tracking-wider block mb-2">
-                  Step {s.step}
-                </span>
-                <h3 className="text-base font-bold text-[#0b1c30] mb-2">
-                  {s.title}
-                </h3>
-                <p className="text-xs text-[#4a4455] leading-relaxed">
-                  {s.body}
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#eff4ff] text-[11px] font-semibold">
-                <span className={s.footerColor}>{s.footer}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 8 — FAQ */}
-      <section className="py-20 bg-white border-y border-[#d3e4fe] px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-              Common Questions
-            </div>
-            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-              Frequently Asked Questions About Dialeads vs Slybroadcast
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {faqItems.map((faq, i) => (
-              <div
-                key={i}
-                className="rounded-2xl bg-[#f8f9ff] border border-[#d3e4fe] shadow-sm overflow-hidden"
-              >
-                <button
-                  onClick={() => toggleFaq(i)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4"
-                >
-                  <h3 className="text-lg font-bold text-[#0b1c30]">
-                    Q{i + 1}: {faq.question}
-                  </h3>
-                  <ChevronDown
-                    className={`w-5 h-5 text-[#7b7487] shrink-0 transition-transform ${
-                      openFaq === i ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-6">
-                    <p className="text-sm text-[#4a4455] leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 9 — TESTIMONIALS (NO STARS) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* WHAT DIALEADS ACTUALLY INCLUDES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ede0ff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
-              From Teams Who Switched
-            </div>
-            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
-              What Teams Say After Switching From Slybroadcast to Dialeads
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              What Dialeads actually includes
             </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Dialeads is an AI-powered cold calling platform. Here is the product, stated plainly, so the
+              comparison below has something concrete to measure against.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {dialeadsPillars.map((p) => {
+              const Icon = p.icon;
+              return (
+                <div key={p.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#eaddff] text-[#630ed4] flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-[#0b1c30] mb-2">{p.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-6 p-4 rounded-xl bg-[#eff4ff] border border-[#e3e0f1] flex items-start gap-3 text-sm text-[#4a4455]">
+            <Info className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+            <p>
+              Also included: campaign management (manual and AI modes), call scripts with per-lead
+              placeholders, Google Sheet integration, number pools with health monitoring, and multi-tenant
+              organizations with roles and invites.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPARISON TABLE */}
+      <section
+        id="comparison-table"
+        className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Feature-by-feature comparison
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Including the rows where Dialeads says no. A comparison that only lists wins is not much use.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-2xl bg-white border border-[#d3e4fe] shadow-sm flex flex-col justify-between"
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {categories.map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCategory(c)}
+                className={
+                  "px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors " +
+                  (category === c
+                    ? "bg-[#630ed4] text-white border-[#630ed4]"
+                    : "bg-white text-[#4a4455] border-[#e3e0f1] hover:bg-[#eff4ff]")
+                }
               >
-                <div>
-                  <p className="text-sm text-[#0b1c30] leading-relaxed italic mb-6">
-                    {t.quote}
-                  </p>
+                {c}
+              </button>
+            ))}
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-[#e3e0f1] shadow-sm">
+            <table className="w-full min-w-[720px] text-sm text-left">
+              <thead>
+                <tr className="bg-[#213145] text-[#eaf1ff]">
+                  <th className="px-5 py-4 font-semibold w-[34%]">Feature</th>
+                  <th className="px-5 py-4 font-semibold w-[33%] text-[#d2bbff]">Dialeads</th>
+                  <th className="px-5 py-4 font-semibold w-[33%]">{RIVAL}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {visibleRows.map((row, i) => (
+                  <tr
+                    key={row.feature}
+                    className={(i % 2 === 0 ? "bg-white" : "bg-[#f8f9ff]") + " border-t border-[#e3e0f1]"}
+                  >
+                    <td className="px-5 py-3.5 font-medium text-[#0b1c30]">
+                      {row.feature}
+                      <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#4a4455]/70 mt-0.5">
+                        {row.category}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.dialStatus].cls}>
+                        <StatusIcon status={row.dialStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.dialeads}</span>
+                      </span>
+                    </td>
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.rivalStatus].cls}>
+                        <StatusIcon status={row.rivalStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.rival}</span>
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#4a4455]">
+            <span className="flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5 text-emerald-600" /> Included
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Minus className="w-3.5 h-3.5 text-amber-600" /> Partial or limited
+            </span>
+            <span className="flex items-center gap-1.5">
+              <X className="w-3.5 h-3.5 text-rose-500" /> Not offered
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Info className="w-3.5 h-3.5 text-[#4a4455]" /> Varies or confirm with vendor
+            </span>
+          </div>
+          <p className="mt-4 text-xs text-[#4a4455] text-center max-w-3xl mx-auto">
+            {RIVAL} details reflect its general public positioning and may change. Confirm current features
+            and pricing with {RIVAL} directly before you decide.
+          </p>
+        </div>
+      </section>
+
+      {/* DEEP DIVES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Where the two approaches really differ
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{hero.diffIntro}</p>
+          </div>
+          <div className="space-y-8">
+            {differences.map((d) => (
+              <div
+                key={d.num}
+                className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm overflow-hidden"
+              >
+                <div className="flex items-center gap-4 px-6 py-4 bg-[#e5eeff] border-b border-[#e3e0f1]">
+                  <span className="text-2xl font-extrabold text-[#630ed4]">{d.num}</span>
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{d.title}</h3>
                 </div>
-                <div className="pt-4 border-t border-[#eff4ff]">
-                  <span className="text-xs font-bold text-[#0b1c30] block">
-                    &mdash; {t.name}
-                  </span>
-                  <span className="text-[11px] text-[#4a4455]">{t.role}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="p-6 md:border-r border-[#e3e0f1]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-2">
+                      {RIVAL}
+                    </div>
+                    <p className="text-[#4a4455] leading-relaxed">{d.rival}</p>
+                  </div>
+                  <div className="p-6 bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-2">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{d.dialeads}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -919,48 +998,307 @@ export default function DialeadsVsSlybroadcastPage() {
         </div>
       </section>
 
-      {/* SECTION 10 — BOTTOM CTA */}
-      <section id="trial" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="rounded-3xl bg-[#0b1c30] text-white p-8 sm:p-14 text-center relative overflow-hidden shadow-2xl border border-[#213145]">
-          <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#7C3AED]/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#213145] text-[#d2bbff] text-xs font-bold uppercase tracking-wider mb-6 border border-white/10">
-              Ready to Switch?
+      {/* WHERE RIVAL IS STRONGER */}
+      <section className="py-16 bg-[#213145] text-[#eaf1ff] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#d2bbff] text-xs font-bold uppercase tracking-wider mb-3">
+              <Scale className="w-3.5 h-3.5" />
+              Being straight with you
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
-              Get Everything Slybroadcast Offers &mdash;{" "}
-              <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d2bbff] to-indigo-300">
-                Plus Everything It Doesn&apos;t
-              </span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              Where {RIVAL} is stronger
             </h2>
-            <p className="text-[#eaf1ff] text-base sm:text-lg mb-8 font-normal leading-relaxed opacity-90">
-              Voicemail drops, AI live calling, intelligent SMS sequences, CRM
-              sync, and automatic TCPA compliance &mdash; all in one platform
-              for $49 per month. Import your Slybroadcast lists and launch your
-              first Dialeads campaign in under 30 minutes.
-            </p>
+            <p className="mt-3 text-[#eaf1ff]/80 max-w-2xl mx-auto">{rivalStrengths.intro}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {rivalStrengths.items.map((s) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <h3 className="font-bold text-white">{s.title}</h3>
+                </div>
+                <p className="text-sm text-[#eaf1ff]/80 leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+      {/* WORKFLOW */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {workflowSteps.heading}
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{workflowSteps.intro}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {workflowSteps.items.map((s, i) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-extrabold text-[#630ed4]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#e3e0f1] text-[#213145] px-2 py-0.5 rounded">
+                    {s.tag}
+                  </span>
+                </div>
+                <h3 className="font-bold text-[#0b1c30] mb-2">{s.title}</h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING MODELS */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              How pricing works on each side
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              We are not going to invent a savings number. The two products are priced differently because
+              they do different jobs, so the useful question is which model matches how you work.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-2 p-6 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1">{RIVAL}</div>
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-3">{rivalPricing.title}</h3>
+              <p className="text-sm text-[#4a4455] leading-relaxed mb-4">{rivalPricing.body}</p>
+              <ul className="space-y-2">
+                {rivalPricing.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2 text-sm text-[#4a4455]">
+                    <Info className="w-4 h-4 text-[#4a4455] mt-0.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-3 p-6 rounded-2xl bg-[#213145] text-[#eaf1ff]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-1">Dialeads</div>
+              <h3 className="text-xl font-bold text-white mb-1">Usage-based, no subscription tiers</h3>
+              <p className="text-sm text-[#eaf1ff]/80 mb-5">
+                You pay for the minutes and messages you use. Nothing else is bundled into a plan you have to
+                size up front.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {dialeadsRates.map((r) => (
+                  <div key={r.label} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="text-xs font-semibold text-[#d2bbff] mb-1">{r.label}</div>
+                    <div className="text-3xl font-extrabold text-white leading-none">{r.price}</div>
+                    <div className="text-xs text-[#eaf1ff]/70 mb-2">{r.unit}</div>
+                    <p className="text-xs text-[#eaf1ff]/80 leading-relaxed">{r.body}</p>
+                  </div>
+                ))}
+              </div>
               <Link
-                href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#7C3AED] hover:bg-[#8b5cf6] text-white font-bold text-base shadow-xl shadow-[#7C3AED]/30 transition-all"
+                href="/pricing"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d2bbff] hover:text-white"
               >
-                Start Free 14-Day Trial
+                See the full pricing page
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* USE CASES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Which one fits which situation
+            </h2>
+          </div>
+          <div className="space-y-5">
+            {useCases.map((u) => (
+              <div key={u.title} className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{u.title}</h3>
+                  <span
+                    className={
+                      "text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full " +
+                      (u.winner === "Dialeads"
+                        ? "bg-[#eaddff] text-[#630ed4]"
+                        : u.winner === RIVAL
+                          ? "bg-[#213145] text-[#eaf1ff]"
+                          : "bg-[#e3e0f1] text-[#213145]")
+                    }
+                  >
+                    {u.winner === "Either" ? "Either can work" : "Better fit: " + u.winner}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="p-4 rounded-xl bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1.5">
+                      {RIVAL}
+                    </div>
+                    <p className="text-[#4a4455] leading-relaxed">{u.rival}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#eaddff]/40">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-1.5">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{u.dialeads}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SWITCHING / GETTING STARTED */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {switchingSteps.heading}
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{switchingSteps.intro}</p>
+          </div>
+          <ol className="space-y-4">
+            {switchingSteps.items.map((s, i) => (
+              <li key={s.title} className="flex gap-4 p-5 rounded-2xl bg-[#f8f9ff] border border-[#e3e0f1]">
+                <div className="w-9 h-9 rounded-full bg-[#630ed4] text-white font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#0b1c30] mb-1">{s.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* CHOOSE */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              So which should you choose?
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-7 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose {RIVAL} if</h3>
+              <ul className="space-y-3">
+                {chooseRival.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#4a4455] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#213145] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-7 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose Dialeads if</h3>
+              <ul className="space-y-3">
+                {chooseDialeads.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#0b1c30] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Dialeads vs {RIVAL}: common questions
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {faqItems.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div
+                  key={f.question}
+                  className="rounded-xl border border-[#e3e0f1] bg-[#f8f9ff] overflow-hidden"
+                >
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-[#0b1c30] hover:bg-[#eff4ff]"
+                  >
+                    {f.question}
+                    <ChevronDown
+                      className={
+                        "w-5 h-5 shrink-0 text-[#630ed4] transition-transform " + (open ? "rotate-180" : "")
+                      }
+                    />
+                  </button>
+                  {open && <div className="px-5 pb-5 text-sm text-[#4a4455] leading-relaxed">{f.answer}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center rounded-3xl bg-[#213145] text-[#eaf1ff] px-6 py-14 relative overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-48 h-48 bg-[#7c3aed]/30 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+              {hero.ctaHeading}
+            </h2>
+            <p className="text-[#eaf1ff]/80 max-w-2xl mx-auto mb-8">{hero.ctaBody}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/demo"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#7c3aed] hover:bg-[#630ed4] text-white font-bold transition-colors"
+              >
+                Get Early Access
+                <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/demo"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#213145] hover:bg-[#2c3e56] text-white border border-white/10 font-bold text-base transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#e3e0f1] text-[#213145] hover:bg-white font-bold transition-colors"
               >
-                Book a Live Demo
+                Book a Demo
               </Link>
             </div>
-            <p className="text-xs sm:text-sm text-[#eaf1ff]/70 font-medium">
-              No credit card &middot; Import your existing lists &middot; Cancel
-              anytime
-            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED */}
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-lg font-bold text-[#0b1c30] mb-4">More comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {relatedComparisons.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group p-5 rounded-2xl bg-white border border-[#e3e0f1] hover:border-[#630ed4] transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-[#0b1c30]">{r.label}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#630ed4]" />
+                </div>
+                <p className="mt-1.5 text-sm text-[#4a4455]">{r.blurb}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

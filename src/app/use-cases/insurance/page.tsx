@@ -1,887 +1,513 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  ChevronRight,
-  CheckCircle2,
-  Check,
-  Zap,
-  Voicemail,
-  BadgeCheck,
-  Mic,
-  Gauge,
-  HeartPulse,
-  Users,
-  Building2,
-  Stethoscope,
+  Ban,
+  Bot,
   Briefcase,
-  ShieldCheck,
+  Building2,
+  Check,
+  CheckCircle2,
+  ChevronDown,
   Clock,
-  Shield,
-  BanIcon,
-  FileText,
-  AudioWaveform,
-  MapPin,
-  Repeat,
-  Inbox,
-  Handshake,
-  PhoneCall,
-  Webhook,
+  Download,
   FileSpreadsheet,
-  Globe,
-  ThumbsUp,
-  BarChart3,
+  FileText,
+  Filter,
+  FolderKanban,
+  Hash,
+  MapPin,
+  MessageSquare,
+  Phone,
+  Receipt,
+  RefreshCw,
+  Repeat,
+  Shield,
+  ShieldCheck,
+  Sparkles,
   Umbrella,
-  Home,
-  Car,
+  Users,
+  X,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  Data arrays                                                        */
-/* ------------------------------------------------------------------ */
+/* ─── Data ─────────────────────────────────────────────── */
 
-const stats = [
-  { value: "60 sec", label: "Speed-to-Lead" },
-  { value: "5x", label: "More Quotes Written" },
-  { value: "3x", label: "Higher Callback Rate" },
-  { value: "100%", label: "TCPA Compliant" },
+const hero = {
+  icon: Shield,
+  badge: "Built for insurance agents and IMOs",
+  title: "Find business owners who need coverage,",
+  titleAccent: "pre-screen interest with AI, and stay inside the rules.",
+  sub: "Dialeads scrapes Google Maps for businesses in your target area, enriches each with website and social data, and lets an AI qualifier or your agents make the call. Calling windows, suppression lists, and attempt caps are built in.",
+  checks: [
+    "Calling windows enforced",
+    "Suppression lists",
+    "AI disclosure on every call",
+  ],
+  card: {
+    header: "Commercial lines campaign",
+    tag: "AI mode",
+    sourceLabel: "Maps search: restaurants in Phoenix",
+    leadName: "Desert Rose Grill",
+    leadMeta: "Rating 4.4 · Instagram active · Runs Google Ads",
+    chips: ["Score 81", "RUNS_ADS", "Instagram", "Attempt 1 of 3"],
+    scriptLabel: "AI qualifier result",
+    script: "\"Interest: medium. Renewal in about two months. Qualified: yes. Next action: agent callback to review general liability.\"",
+    outcomes: ["Qualified", "Callback", "Suppress"],
+  },
+};
+
+const facts = [
+  {
+    value: "8am-9pm",
+    label: "Calling window enforced on campaigns",
+  },
+  {
+    value: "Suppression",
+    label: "Lists block contact and detect SMS opt-outs",
+  },
+  {
+    value: "Attempt caps",
+    label: "Limit how many times a lead is called",
+  },
+  {
+    value: "AI disclosed",
+    label: "The qualifier says it is an AI",
+  },
 ];
 
 const profiles = [
   {
     icon: Briefcase,
-    tag: "Optimized for Single-Seat Speed",
-    title: "Independent Insurance Agents",
-    body: "Working internet leads, referrals, and aged lists on your own. You do not have a call center behind you — you need every lead contacted within 60 seconds, every voicemail dropped instantly, and every follow-up automated so nothing slips through while you are on another call.",
-    footer: "Ideal for: solo agents running 1-3 lead sources",
-  },
-  {
-    icon: HeartPulse,
-    tag: "AEP & T65 Cadence Engine",
-    title: "Medicare and Final Expense Agents",
-    body: "AEP and T65 volume is brutal — hundreds of leads pour in over a few weeks and every one needs to be contacted fast or a competing agent gets there first. Dialeads runs a built-in AEP/T65 cadence so every senior lead gets called, voicemailed, and texted automatically.",
-    footer: "Built for AEP, T65, and SEP surge volume",
-  },
-  {
-    icon: Users,
-    tag: "Multi-Agent Hierarchy Control",
-    title: "Insurance Marketing Organizations",
-    body: "Managing dozens of downline agents means visibility into who is calling, who is not, and which leads are going cold. Dialeads gives IMOs per-agent dashboards, hierarchy-level reporting, and centralized lead distribution so no agent — and no lead — falls through the cracks.",
-    footer: "Ideal for: IMOs managing 10-200+ agents",
-  },
-  {
-    icon: Stethoscope,
-    tag: "OEP Continuous Contact Protocol",
-    title: "Health Insurance and ACA Agents",
-    body: "Open Enrollment is a sprint — thousands of subsidy-eligible leads need contact within a narrow window. Dialeads keeps a continuous outbound cadence running through OEP, tracking enrollment deadlines and firing automated follow-up so no eligible household is missed.",
-    footer: "Built for OEP subsidy-eligible lead volume",
+    title: "Independent commercial agents",
+    body: "Target restaurants, contractors, salons, retailers, and other small businesses in your territory for general liability, workers' comp, commercial auto, and BOP.",
+    tag: "Commercial lines",
   },
   {
     icon: Building2,
-    tag: "B2B Commercial Account Discovery",
-    title: "Commercial Insurance Brokers",
-    body: "Prospecting business owners for P&C, workers' comp, and liability coverage is a long-cycle, relationship-driven sale. Dialeads automates first-touch outreach and multi-week follow-up sequences so you spend your time on renewal conversations and risk assessments — not manual dialing.",
-    footer: "Ideal for: commercial P&C and group benefits brokers",
-    footerExtra: "CRM & ZoomInfo Compatible",
-    wide: true,
+    title: "IMOs and agencies recruiting or supporting agents",
+    body: "Run campaigns by product line or territory in separate organizations, with roles for owners, admins, and agents.",
+    tag: "Multi-team",
+  },
+  {
+    icon: Users,
+    title: "Benefits and employer-focused producers",
+    body: "Find small employers by category and city and use pre-screening to identify who is open to a conversation.",
+    tag: "Small employers",
+  },
+  {
+    icon: Umbrella,
+    title: "P&C agents expanding a book",
+    body: "Use website and social signals to understand how established a business is before you call.",
+    tag: "New business",
   },
 ];
 
 const painPoints = [
   {
-    num: "01",
-    title: "Internet Leads Go Cold in Under 5 Minutes",
-    body: "A lead fills out a Medicare or auto quote form on EverQuote, MediaAlpha, or your own site. If you do not call within 5 minutes, conversion drops by more than 80%. Manually checking your inbox and dialing takes 20-30 minutes on average — the lead has already spoken to two other agents by then.",
-    fix: "Speed-to-lead calling via Zapier or direct webhook. The moment a lead submits any form, Dialeads calls automatically within 60 seconds — before the competition even sees the notification.",
+    icon: MapPin,
+    title: "Finding the right businesses is manual",
+    body: "Searching by category and city, copying details, and sorting out who is real takes hours.",
+    fix: "Scrape Google Maps by niche and city, enrich each business with a website audit, ad detection, and social presence, and get a scored sheet and CSV.",
   },
   {
-    num: "02",
-    title: "8-12 Touchpoints Are Needed to Convert — Most Agents Stop at 2",
-    body: "Insurance leads convert on the 8th to 12th touch on average across calls, voicemails, and texts. Most agents call twice, leave one voicemail, and move on to the next lead — leaving the majority of their pipeline uncontacted and unconverted.",
-    fix: "Automated multi-touch follow-up sequences run calls, voicemail drops, and SMS across 8+ touchpoints automatically — so every lead gets the full cadence without you lifting a finger after the first click.",
+    icon: Bot,
+    title: "Most calls go nowhere",
+    body: "Agents spend hours reaching people who are not interested or not decision-makers.",
+    fix: "The AI qualifier pre-screens each lead, discloses that it is an AI, and returns a score, interest level, qualified flag, and next action. Your agents focus on qualified leads.",
   },
   {
-    num: "03",
-    title: "Generic Voicemails Get Deleted Without a Callback",
-    body: '"Hi, this is [name] with [agency], calling about your insurance quote, give me a call back." Every agent working the same lead vendor leaves this exact message. Prospects delete it instantly. Generic voicemail callback rates sit under 3%.',
-    fix: "AI dynamic voicemail drops are personalized with the prospect's name, the specific plan or coverage type they inquired about, and a clear next step — so it sounds like a real callback, not a mass blast.",
+    icon: FolderKanban,
+    title: "Product lines need different approaches",
+    body: "A pitch for workers' comp is not the pitch for commercial auto.",
+    fix: "Campaigns have their own brief, greeting, and call script. Run one campaign per product line, in manual or AI mode, with sheet import and worklist filtering.",
   },
   {
-    num: "04",
-    title: "AEP/OEP Volume Overwhelms Manual Dialing Capacity",
-    body: "During AEP, T65, and OEP surges, lead volume can triple or quadruple overnight. A single agent or small team simply cannot manually call, voicemail, and text every lead within the compliant contact window — leads sit uncontacted for hours or days.",
-    fix: "The AI voice agent handles first-touch outreach autonomously during surge periods — qualifying interest, answering basic questions, and routing hot leads straight into your inbox for a live callback.",
-  },
-  {
-    num: "05",
-    title: "TCPA Violations Are an Existential Risk for Insurance Agencies",
-    body: "A single uncompliant call — wrong time zone, a number on the DNC list, missing consent documentation — can trigger a TCPA lawsuit with statutory damages of $500 to $1,500 per violation. For agencies dialing thousands of leads, the exposure is enormous.",
-    fix: "TCPA compliance is built in and automatic: DNC scrubbing, time-zone enforcement, STIR/SHAKEN attestation, and consent timestamp logging run on every single dial with no manual setup required.",
+    icon: ShieldCheck,
+    title: "Compliance is a constant worry",
+    body: "A single complaint can mean fines or regulator attention.",
+    fix: "Built-in suppression lists, 8am to 9pm calling windows, attempt caps, and AI disclosure give you guardrails. Final compliance responsibility stays with you.",
   },
 ];
 
 const features = [
   {
-    icon: Gauge,
-    title: "Speed-to-Lead AI Calling — 60 Seconds",
-    body: "Connect any lead source via Zapier or webhook. The moment a lead comes in, Dialeads calls automatically within 60 seconds — every time, day or night.",
-  },
-  {
-    icon: Voicemail,
-    title: "AI Dynamic Voicemail Drop",
-    body: "Personalized voicemail drops with the prospect's name and coverage interest, delivered instantly on every missed call. No re-recording, no dead time.",
-  },
-  {
-    icon: Repeat,
-    title: "Automated 8-Touch Follow-Up",
-    body: "A pre-built cadence of calls, voicemail drops, and SMS runs automatically across 8+ touchpoints so every lead gets a full follow-up sequence without manual effort.",
-  },
-  {
-    icon: Zap,
-    title: "AEP/OEP Surge Capacity AI Voice Agent",
-    body: "During enrollment surges, the AI voice agent handles first-touch conversations autonomously — qualifying and routing hot leads straight to your inbox.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "TCPA Compliance — Automatic",
-    body: "DNC scrubbing, time-zone enforcement, STIR/SHAKEN attestation, and consent logging run on every dial automatically, with zero manual configuration.",
-  },
-  {
     icon: MapPin,
-    title: "Local Presence Caller ID",
-    body: "Every outbound call displays a local area-code number matched to the prospect's location, driving significantly higher pickup rates than toll-free or out-of-state numbers.",
+    title: "Maps-based lead sourcing",
+    body: "Search for businesses by niche and city in your territory. Output goes to a Google Sheet and CSV.",
+    tag: "Territory search",
   },
   {
-    icon: Repeat,
-    title: "CRM Sync — AgencyZoom, HubSpot, Salesforce",
-    body: "Two-way sync keeps call outcomes, dispositions, and lead status updated automatically in AgencyZoom, HubSpot, or Salesforce — no manual data entry.",
+    icon: Filter,
+    title: "Enrichment",
+    body: "Website audit, Google Ads detection, and Instagram, Facebook, and TikTok presence reveal how established and active a business is.",
+    tag: "Opportunity signals",
   },
   {
-    icon: BarChart3,
-    title: "Per-Agent Reporting for IMOs",
-    body: "IMOs get a hierarchy-level dashboard showing contact rates, speed-to-lead, and quote activity broken down by every downline agent in real time.",
-  },
-];
-
-const insuranceLines = [
-  {
-    icon: HeartPulse,
-    title: "Medicare Advantage and Supplement",
-    body: "Purpose-built cadence for AEP, T65, and SEP campaigns with senior-friendly call scripting and follow-up timing.",
-    tags: ["AEP Ready", "T65 Lead Campaigns", "24/7 AI Outreach"],
+    icon: Bot,
+    title: "AI pre-screening",
+    body: "The Telnyx AI assistant calls with per-lead context and returns score, interest, qualified, and next action.",
+    tag: "Qualify first",
   },
   {
-    icon: Umbrella,
-    title: "Final Expense Life Insurance",
-    body: "Optimized for working aged lead lists and Facebook-generated final expense inquiries with rapid multi-touch follow-up.",
-    tags: ["Aged Lead Campaigns", "Facebook Lead Gen", "SMS Follow-Up"],
+    icon: Phone,
+    title: "Browser dialer",
+    body: "Agents call from a Telnyx WebRTC softphone with keyboard shortcuts and log outcomes to Google Sheets.",
+    tag: "C / H / 1-6",
   },
   {
-    icon: Car,
-    title: "Auto and Home Insurance",
-    body: "Built for high-volume comparison-shopping leads from EverQuote and similar vendors where speed decides who writes the policy.",
-    tags: ["60-Second Speed-to-Lead", "Multi-Touch Sequence", "EverQuote Compatible"],
+    icon: Sparkles,
+    title: "Live rebuttals",
+    body: "Claude or Gemini suggests objection handling with the lead's context, and drafts follow-ups after the call.",
+    tag: "In-call support",
   },
   {
-    icon: Stethoscope,
-    title: "Health Insurance and ACA",
-    body: "Tracks Open Enrollment Period deadlines and keeps subsidy-eligible leads in a continuous contact cadence through the OEP window.",
-    tags: ["OEP Ready", "Auto Follow-Up", "Enrollment Window Tracking"],
-  },
-  {
-    icon: Building2,
-    title: "Commercial Insurance",
-    body: "Supports longer B2B sales cycles for P&C, workers' comp, and liability prospecting with business-owner-focused outreach.",
-    tags: ["Business Owner Prospecting", "ZoomInfo Compatible", "CRM Sync"],
-  },
-  {
-    icon: Home,
-    title: "Life Insurance",
-    body: "Runs referral-list and cross-sell campaigns with personalized, multi-touch outreach built for relationship-based life sales.",
-    tags: ["Referral List Campaigns", "8-Touch Sequence", "Personalized Outreach"],
-  },
-];
-
-const leadSources = [
-  {
-    icon: Zap,
-    name: "EverQuote",
-    badge: "60-Second Auto-Call",
-    body: "Connect EverQuote's real-time lead feed directly to Dialeads. New quote requests trigger an automatic call within 60 seconds of submission — every time.",
-  },
-  {
-    icon: Webhook,
-    name: "MediaAlpha",
-    badge: "Webhook Integration",
-    body: "MediaAlpha leads post directly into Dialeads via webhook, triggering immediate calling, voicemail drop, and SMS follow-up with zero manual handoff.",
-  },
-  {
-    icon: Globe,
-    name: "Your Own Website",
-    badge: "Native Webhook",
-    body: "Point your website's quote form or Calendly-style intake directly at Dialeads. Every submission triggers the full contact sequence automatically.",
-  },
-  {
-    icon: FileSpreadsheet,
-    name: "Aged Lead Lists",
-    badge: "Direct CSV Import",
-    body: "Upload aged final expense, Medicare, or P&C lead lists as CSV. Dialeads validates numbers, scrubs DNC, and queues the entire list for dialing in minutes.",
-  },
-  {
-    icon: ThumbsUp,
-    name: "Facebook Lead Gen Ads",
-    badge: "Instant FB Lead Response",
-    body: "Sync your Facebook Lead Ads directly to Dialeads. The moment a prospect submits a lead form on Facebook or Instagram, Dialeads calls within 60 seconds — capturing interest while it is highest, before the prospect has left the app.",
-    wide: true,
-  },
-];
-
-const steps = [
-  {
-    num: "01",
-    icon: Inbox,
-    title: "Lead Comes In",
-    body: "A new lead arrives from EverQuote, MediaAlpha, your website, a CSV upload, or Facebook Lead Ads.",
-  },
-  {
-    num: "02",
-    icon: PhoneCall,
-    title: "Dialeads Calls Within 60 Seconds",
-    body: "The lead is automatically dialed within 60 seconds — with a local caller ID and TCPA-compliant timing.",
-  },
-  {
-    num: "03",
-    icon: Repeat,
-    title: "Automatic Follow-Up Fires",
-    body: "If there is no answer, a personalized voicemail drops instantly and the 8-touch follow-up sequence begins.",
-  },
-  {
-    num: "04",
-    icon: Inbox,
-    title: "Interested Prospect Appears in Inbox",
-    body: "Any prospect who engages — answers, calls back, or replies to SMS — is flagged and routed to your unified inbox.",
-  },
-  {
-    num: "05",
-    icon: Handshake,
-    title: "Run the Quote and Close",
-    body: "Call the interested prospect with full context — call history, voicemail receipt, and SMS thread — and close the sale.",
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "During AEP I was drowning in leads with no way to call them all fast enough. Dialeads contacts every senior lead within 60 seconds and drops a personalized voicemail on every miss. My AEP enrollment count doubled compared to last season with the same lead spend.",
-    initials: "MA",
-    role: "Medicare Sales Specialist",
-    detail: "AEP & T65 Campaigns",
-  },
-  {
-    quote:
-      "My EverQuote contact rate was stuck around 22% because leads went cold before I could call them back. Dialeads calls within 60 seconds automatically and my contact rate jumped to 71%. I am writing more auto and home policies with the exact same lead spend.",
-    initials: "PC",
-    role: "P&C Agency Principal",
-    detail: "Auto & Home Insurance",
-  },
-  {
-    quote:
-      "As an IMO managing 40 downline agents, I had zero visibility into who was actually calling their leads on time. Dialeads gives me per-agent reporting so I can see speed-to-lead and contact rate for every single agent in one dashboard. It changed how we manage the whole downline.",
-    initials: "DS",
-    role: "Director of Sales, IMO",
-    detail: "Managing 40 Agents",
-  },
-  {
-    quote:
-      "Final expense aged leads are hard to convert because everyone has already called them a dozen times. Dialeads' dynamic voicemail and 8-touch sequence tripled my conversion rate on the same aged lead lists I had been working manually for months.",
-    initials: "FE",
-    role: "Senior Life Producer",
-    detail: "Final Expense Specialist",
-  },
-];
-
-const complianceItems = [
-  {
-    icon: ShieldCheck,
-    title: "DNC Scrubbing",
-    body: "Every number checked against the National DNC Registry before every single dial.",
-  },
-  {
-    icon: Clock,
-    title: "Time-Zone Enforcement",
-    body: "8am-9pm local calling windows enforced automatically based on the prospect's area code.",
-  },
-  {
-    icon: Shield,
-    title: "STIR/SHAKEN Attestation",
-    body: "A-level caller ID verification on every call to avoid spam-likely flags and carrier blocking.",
-  },
-  {
-    icon: BanIcon,
-    title: "SMS Opt-Out Handling",
-    body: "STOP replies are suppressed instantly and permanently across every active campaign.",
+    icon: MessageSquare,
+    title: "Two-way SMS",
+    body: "Follow up after connected calls and read replies. Opt-outs are detected, and you register 10DLC.",
+    tag: "$0.03 / SMS",
   },
   {
     icon: FileText,
-    title: "Consent Timestamp Logging",
-    body: "A full, auditable record of consent and contact history is logged for every call and text — built for TCPA legal defense.",
-    wide: true,
+    title: "Call scripts",
+    body: "Templates with {name}, {category}, {city}, {rating}, and {evidence} placeholders for each product line.",
+    tag: "Per product line",
+  },
+  {
+    icon: Users,
+    title: "Orgs and roles",
+    body: "Owners, admins, and agents with invites and per-org numbers, useful for agencies and IMOs.",
+    tag: "Teams",
+  },
+  {
+    icon: Hash,
+    title: "Number pools",
+    body: "Several numbers, health monitoring, and consistent lead-to-number mapping.",
+    tag: "Caller ID reputation",
   },
 ];
 
-const starterFeatures = [
-  "1,000 outbound calling minutes",
-  "1-Click Voicemail Drop",
-  "Basic SMS follow-up trigger",
-  "Local caller ID matching",
+const workflow = [
+  {
+    title: "Choose a niche and territory",
+    body: "For example, contractors in Tampa for workers' comp or restaurants in Phoenix for general liability.",
+  },
+  {
+    title: "Scrape and review",
+    body: "Dialeads builds the enriched, scored sheet. Remove businesses you do not write.",
+  },
+  {
+    title: "Create the campaign",
+    body: "Pick manual or AI mode, import the sheet, and write the brief, greeting, and script for that product line.",
+  },
+  {
+    title: "Set compliance controls",
+    body: "Confirm the calling window, add suppression numbers, and set the attempt cap.",
+  },
+  {
+    title: "Pre-screen with AI or call yourself",
+    body: "The AI qualifier returns who is interested and the suggested next action. Agents call qualified leads.",
+  },
+  {
+    title: "Follow up and log",
+    body: "Send follow-up texts where appropriate and keep outcomes in your Google Sheet.",
+  },
 ];
 
-const proFeatures = [
-  "Unlimited calling minutes",
-  "Autonomous AI Voice Agent",
-  "Automated 8-touch follow-up sequence",
-  "AEP/OEP surge capacity",
-  "TCPA compliance suite included",
+const scriptPanel = {
+  points: [
+    "The AI states that it is an AI before it asks any questions.",
+    "Campaign briefs keep the conversation on the right product line.",
+    "Live rebuttals are suggestions for the agent to review and say in their own voice.",
+    "Follow-up drafts keep wording consistent with what was said on the call.",
+  ],
+  template: "Hi {name}, this is Chris, an independent insurance agent in {city}. I work with {category} owners on their business coverage. {evidence}. Do you have two minutes to see whether a second look at your policy would help?",
+  objection: "We already have an agent we have used for years.",
+  rebuttal: "That is good to hear, and I am not asking you to leave them. A lot of owners ask for a second set of eyes at renewal. If I send a short note with questions to check, would that be okay?",
+};
+
+const outcomes = [
+  {
+    icon: FileSpreadsheet,
+    title: "Outcome logging",
+    body: "Calls and AI qualifier results are written to the sheet.",
+  },
+  {
+    icon: Download,
+    title: "CSV in HubSpot format",
+    body: "Move qualified leads to your agency management or CRM system by hand.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Retries",
+    body: "Retry logic works inside your attempt caps and calling windows.",
+  },
+  {
+    icon: Receipt,
+    title: "Usage ledger",
+    body: "Track the cost of each campaign line by line.",
+  },
 ];
 
-const enterpriseFeatures = [
-  "Multi-agent hierarchy management",
-  "Per-agent reporting dashboard",
-  "Dedicated onboarding & support",
-  "Custom CRM & webhook integrations",
+const compliance = [
+  {
+    icon: Clock,
+    title: "8am to 9pm calling windows",
+    body: "Campaigns respect permitted calling hours.",
+  },
+  {
+    icon: Ban,
+    title: "Suppression lists",
+    body: "Block numbers from being called or texted. SMS opt-outs are detected.",
+  },
+  {
+    icon: Repeat,
+    title: "Attempt caps",
+    body: "Cap the number of calls per lead.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "AI disclosure",
+    body: "The AI qualifier discloses that it is an AI in every call.",
+  },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
+const pricing = [
+  {
+    label: "Manual calling",
+    price: "$0.02 / min",
+    body: "You dial from the browser softphone and talk to the lead yourself. Billed per minute of call time.",
+  },
+  {
+    label: "AI qualifier calls",
+    price: "$0.25 / min",
+    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+  },
+  {
+    label: "SMS",
+    price: "$0.03 / message",
+    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+  },
+];
+
+const limits = [
+  "No voicemail drops or ringless voicemail",
+  "No power or predictive dialer",
+  "No native CRM or agency management system sync",
+  "No Zapier or webhook automations",
+  "No analytics dashboards",
+  "No call recording, and no SOC 2 or HIPAA certification claims",
+];
+
+const faqs = [
+  {
+    q: "Does Dialeads include consumer insurance leads?",
+    a: "No. Leads come from Google Maps, so it fits commercial and small-business prospecting. It does not sell or supply lead lists for Medicare, ACA, or final expense.",
+  },
+  {
+    q: "Can the AI discuss policy details or give quotes?",
+    a: "No. The AI qualifier is for pre-screening. It records a score, interest, qualified flag, and next action, and your licensed agent handles everything else.",
+  },
+  {
+    q: "How do I handle do-not-call requests?",
+    a: "Add numbers to a suppression list. Dialeads also detects opt-outs in SMS replies. You remain responsible for honoring all applicable do-not-call rules.",
+  },
+  {
+    q: "Can I run separate campaigns for each product line?",
+    a: "Yes. Each campaign has its own brief, greeting, script, and lead sheet, and can run in manual or AI mode.",
+  },
+  {
+    q: "Is Dialeads compliant for me?",
+    a: "It provides compliance tools such as calling windows, suppression, attempt caps, and AI disclosure. Compliance with the law depends on how you use them and your own consent practices.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "$0.02 per minute for manual calls, $0.25 per minute for AI calls, and $0.03 per SMS.",
+  },
+];
+
+const enrichment = [
+  {
+    angle: "RUNS_ADS",
+    title: "Actively advertising",
+    body: "The business is investing in growth. Ask about exposure, vehicles, employees, and contracts.",
+  },
+  {
+    angle: "NO_SITE",
+    title: "No website",
+    body: "Likely a smaller or older operation. A direct, plain conversation about current coverage tends to fit.",
+  },
+  {
+    angle: "WEAK_SITE",
+    title: "Weak website",
+    body: "May indicate limited back office. Ask who handles insurance and renewals.",
+  },
+  {
+    angle: "STRONG_SITE",
+    title: "Strong website",
+    body: "Established operations with staff and assets often have more complex coverage needs.",
+  },
+];
+
+/* ─── Component ────────────────────────────────────────── */
 
 export default function InsurancePage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   return (
-    <div className="flex flex-col w-full">
-      {/* ── BREADCRUMB ─────────────────────────────────────── */}
-      <section className="w-full bg-white border-b border-[#e5eeff] py-2 px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-[#4a4455] font-medium">
-            <Link href="/use-cases" className="hover:text-[#630ed4] transition-colors">
-              Use Cases
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-[#0b1c30] font-semibold">
-              Insurance Agents &amp; IMOs
-            </span>
-          </div>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#e5eeff] text-[#630ed4] text-[11px] font-bold tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>60-Sec Speed-to-Lead &amp; TCPA Shield Active</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── HERO ───────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden py-16 lg:py-24 px-4 lg:px-8">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[380px] bg-[#630ed4]/5 rounded-full blur-3xl pointer-events-none -z-10" />
-        <div className="max-w-[75rem] mx-auto flex flex-col items-center text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-6 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#7C3AED]" />
-            <span>BUILT FOR INSURANCE PROFESSIONALS</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[62px] lg:leading-[1.08] font-bold tracking-tight text-[#0b1c30] max-w-5xl mb-6">
-            Contact Every Insurance Lead{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#630ed4] via-[#7C3AED] to-[#732ee4]">
-              Within 60 Seconds
-            </span>{" "}
-            — Fully TCPA Compliant
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg leading-7 text-[#4a4455] max-w-3xl mb-8">
-            Dialeads helps insurance agents and IMOs contact every lead within
-            60 seconds, drop personalized voicemails, automate 8-touch
-            follow-up sequences, and stay TCPA compliant — across Medicare,
-            Final Expense, P&amp;C, ACA, and commercial lines.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-4 w-full sm:w-auto">
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-base shadow-lg shadow-[#630ed4]/25 transition-all"
-            >
-              <span>Start Free Trial</span>
-              <ArrowRight className="w-[18px] h-[18px]" />
-            </Link>
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0b1c30] font-semibold text-base shadow-sm transition-all"
-            >
-              <PhoneCall className="w-5 h-5 text-[#7C3AED]" />
-              <span>Book an Insurance Demo</span>
-            </Link>
-          </div>
-
-          {/* Trust line */}
-          <div className="flex items-center justify-center gap-2 text-[#4a4455] text-sm font-medium mb-12">
-            <BadgeCheck className="w-4 h-4 text-[#7C3AED]" />
-            <span>No credit card · TCPA compliant by default · Cancel anytime</span>
-          </div>
-
-          {/* Console Mockup */}
-          <div className="w-full max-w-5xl bg-[#0f0f1a] text-white rounded-2xl p-4 sm:p-8 shadow-2xl relative text-left">
-            {/* Top accent */}
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#630ed4] via-[#7C3AED] to-[#732ee4] rounded-t-2xl" />
-
-            {/* Console header */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 bg-white/5 px-4 py-3 rounded-xl">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
-                <span className="font-bold text-sm tracking-wide text-white">
-                  Live Dispatch Engine — Active Campaign: Medicare &amp; Final
-                  Expense Outbound Engine
+    <div className="flex flex-col w-full bg-[#f8f9ff]">
+      {/* ── HERO ── */}
+      <section className="relative w-full overflow-hidden pt-12 pb-16 lg:pb-24">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-[#d2bbff]/30 to-[#d3e4fe]/40 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col items-start">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e3e0f1]/70 shadow-sm mb-6">
+                <hero.icon className="w-[18px] h-[18px] text-[#630ed4]" />
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">
+                  {hero.badge}
                 </span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7C3AED]/20 text-[#ede0ff] text-xs font-semibold">
-                <Webhook className="w-3.5 h-3.5" />
-                <span>EverQuote Realtime Direct Hook</span>
+              <h1 className="text-[32px] leading-[36px] lg:text-[52px] lg:leading-[58px] font-bold tracking-tight text-[#0b1c30] mb-4">
+                {hero.title}{" "}
+                <span className="text-[#630ed4]">{hero.titleAccent}</span>
+              </h1>
+              <p className="text-lg leading-7 text-[#4a4455] max-w-2xl mb-8">
+                {hero.sub}
+              </p>
+              <div className="flex flex-wrap items-center gap-4 mb-6 w-full sm:w-auto">
+                <Link
+                  href="/pricing"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#7c3aed] text-white font-semibold text-sm shadow-lg shadow-[#630ed4]/25 hover:bg-[#630ed4] transition-all"
+                >
+                  Get Early Access
+                  <ArrowRight className="w-[18px] h-[18px] ml-1" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full bg-white shadow-sm hover:bg-[#eff4ff] text-[#0b1c30] font-semibold text-sm transition-all"
+                >
+                  Book a Demo
+                </Link>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                {hero.checks.map((t) => (
+                  <span key={t} className="inline-flex items-center gap-1 text-[#630ed4] font-medium">
+                    <CheckCircle2 className="w-4 h-4" /> {t}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Active record */}
-            <div className="bg-white/[0.04] p-6 rounded-xl mb-6 space-y-4">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#630ed4] flex items-center justify-center text-white font-bold text-sm">
-                    SJ
+            {/* Hero visual: lead card */}
+            <div className="lg:col-span-5 w-full">
+              <div className="bg-white rounded-xl shadow-xl overflow-hidden p-6 flex flex-col gap-4">
+                <div className="flex items-center justify-between pb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-[#7c3aed] animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#0b1c30]">
+                      {hero.card.header}
+                    </span>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-base text-white">
-                        Sarah Jenkins
-                      </h4>
-                      <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-[#d3e4fe] font-medium">
-                        AEP Inquiry — Medicare Advantage
-                      </span>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#e3e0f1] text-[#4a4455]">
+                    {hero.card.tag}
+                  </span>
+                </div>
+                <div className="p-3 rounded-lg bg-[#eff4ff] flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#630ed4]/10 flex items-center justify-center shrink-0">
+                    <MapPin className="w-[18px] h-[18px] text-[#630ed4]" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-xs font-semibold text-[#4a4455]">{hero.card.sourceLabel}</span>
+                    <span className="text-sm font-semibold text-[#0b1c30]">{hero.card.leadName}</span>
+                    <span className="text-xs text-[#4a4455]">{hero.card.leadMeta}</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {hero.card.chips.map((c) => (
+                    <span key={c} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#eaddff] text-[#630ed4]">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                <div className="p-4 rounded-lg bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Bot className="w-[18px] h-[18px] text-[#d2bbff]" />
+                    <span className="text-xs font-semibold text-white">{hero.card.scriptLabel}</span>
+                  </div>
+                  <p className="text-sm text-[#eaf1ff] italic leading-6">{hero.card.script}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {hero.card.outcomes.map((o) => (
+                    <div key={o} className="px-2 py-2 rounded-lg bg-[#e5eeff] text-xs font-semibold text-[#0b1c30]">
+                      {o}
                     </div>
-                    <p className="text-xs text-[#d3e4fe]/70 font-mono mt-0.5">
-                      Live Carrier Link · In Call · Local Caller ID Matched
-                    </p>
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-300 text-xs font-semibold">
-                  <AudioWaveform className="w-4 h-4" />
-                  <span>Call Connected — AI Voice Agent Live</span>
+                  ))}
                 </div>
               </div>
-
-              {/* Waveform bars */}
-              <div className="flex items-end gap-1 h-10 px-1">
-                {[6, 14, 22, 10, 28, 16, 24, 12, 30, 18, 8, 20, 26, 14, 10, 22, 16, 28, 12, 20].map(
-                  (h, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 bg-[#7C3AED]/60 rounded-sm"
-                      style={{ height: `${h}px` }}
-                    />
-                  )
-                )}
-              </div>
-
-              {/* Transcript */}
-              <div className="bg-[#0b1c30]/70 p-3 rounded-lg">
-                <div className="text-[11px] font-bold text-[#ede0ff] uppercase tracking-wider mb-1 flex items-center gap-1">
-                  <Mic className="w-3.5 h-3.5" />
-                  AI Voice Agent Transcript
-                </div>
-                <p className="text-xs text-[#d3e4fe]/90 italic leading-relaxed">
-                  &ldquo;Hi Sarah, this is calling about the Medicare Advantage
-                  plan info you requested. I can walk you through what is
-                  available in your area, or connect you with a licensed
-                  agent right now — which works better for you?&rdquo;
-                </p>
-              </div>
-            </div>
-
-            {/* Metric chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { label: "Speed-to-Touch", value: "48 sec", color: "text-emerald-400" },
-                { label: "Contact Rate", value: "74.2%", color: "text-white" },
-                { label: "1-Click VM Drops", value: "128", color: "text-[#d2bbff]" },
-                { label: "TCPA DNC Scrubbed", value: "100%", color: "text-[#d3e4fe]" },
-              ].map((m) => (
-                <div key={m.label} className="bg-white/[0.03] p-3 rounded-xl">
-                  <span className="text-[11px] text-[#d3e4fe]/70 uppercase font-semibold block">
-                    {m.label}
-                  </span>
-                  <span className={`font-bold text-xl ${m.color}`}>
-                    {m.value}
-                  </span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STATS BAR ──────────────────────────────────────── */}
-      <section className="w-full bg-white py-12 px-4 lg:px-8 shadow-sm">
-        <div className="max-w-[75rem] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          {stats.map((s) => (
-            <div key={s.label} className="flex flex-col items-center">
-              <span className="text-4xl lg:text-5xl font-bold text-[#7C3AED] tracking-tight mb-1">
-                {s.value}
-              </span>
-              <span className="font-semibold text-[#0b1c30] text-sm sm:text-base max-w-[200px]">
-                {s.label}
-              </span>
+      {/* ── FACTS STRIP ── */}
+      <section className="w-full bg-[#eff4ff] py-12">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {facts.map((f) => (
+            <div key={f.label} className="flex flex-col gap-1">
+              <span className="text-2xl lg:text-3xl font-bold text-[#630ed4]">{f.value}</span>
+              <span className="text-sm text-[#4a4455] leading-5">{f.label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── WHO THIS IS FOR ────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              EVERY INSURANCE PROFESSIONAL WHO DIALS LEADS
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Dialeads Is Built for Every Insurance Agent Running Outbound
+      {/* ── WHO IT IS FOR ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Who uses Dialeads in insurance"}
             </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Whether you are a solo agent working internet leads or an IMO
-              managing hundreds of downline producers — Dialeads handles the
-              outreach so you handle the quotes.
-            </p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Dialeads is built for prospecting business owners found on Google Maps, not for purchased consumer lead lists."}</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {profiles.map((p) => (
-              <div
-                key={p.title}
-                className={`bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${
-                  p.wide ? "lg:col-span-2" : ""
-                }`}
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-[#e5eeff] text-[#7C3AED] flex items-center justify-center mb-4">
-                    <p.icon className="w-7 h-7" />
-                  </div>
-                  <span className="text-xs font-bold text-[#630ed4] tracking-wide uppercase block mb-1">
-                    {p.tag}
-                  </span>
-                  <h3 className="font-bold text-xl text-[#0b1c30] mb-3">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[#4a4455]">
-                    {p.body}
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 bg-[#eff4ff] px-4 py-2 rounded-lg text-xs font-semibold text-[#0b1c30] flex items-center justify-between">
-                  <span>{p.footer}</span>
-                  {p.footerExtra && (
-                    <span className="text-[#630ed4] font-bold">
-                      {p.footerExtra}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PAIN POINTS ────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              THE INSURANCE SALES PROBLEM
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Why Insurance Agents Lose Leads — And How to Stop It
-            </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Insurance leads are expensive and time-sensitive. Most agents
-              lose them not because their quote is uncompetitive but because
-              their follow-up is too slow, too generic, or noncompliant.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {painPoints.map((pp) => (
-              <div
-                key={pp.num}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col lg:flex-row gap-8 items-stretch"
-              >
-                <div className="lg:w-7/12 flex gap-4">
-                  <span className="font-bold text-3xl lg:text-4xl text-[#630ed4]/30">
-                    {pp.num}
-                  </span>
-                  <div>
-                    <h3 className="font-bold text-xl text-[#0b1c30] mb-2">
-                      {pp.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-[#4a4455]">
-                      {pp.body}
-                    </p>
-                  </div>
-                </div>
-                <div className="lg:w-5/12 bg-[#e3e0f1]/40 p-6 rounded-xl flex flex-col justify-center">
-                  <div className="flex items-center gap-2 text-[#7C3AED] font-bold text-xs uppercase tracking-wider mb-1">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>The Dialeads Fix</span>
-                  </div>
-                  <p className="text-sm text-[#0b1c30] font-medium leading-relaxed">
-                    {pp.fix}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURES ───────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              PURPOSE-BUILT FOR INSURANCE OUTREACH
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Every Feature Built for High-Volume Insurance Lead Follow-Up
-            </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Dialeads is not a generic calling tool. Every feature is
-              optimized for the specific workflows insurance agents and IMOs
-              use every day.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#e5eeff] text-[#7C3AED] flex items-center justify-center mb-4">
-                    <f.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-bold text-lg text-[#0b1c30] mb-2">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[#4a4455]">
-                    {f.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── INSURANCE LINES ────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              EVERY LINE OF BUSINESS COVERED
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Dialeads Works Across Every Insurance Line and Campaign Type
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {insuranceLines.map((l) => (
-              <div
-                key={l.title}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#e5eeff] text-[#7C3AED] flex items-center justify-center mb-4">
-                  <l.icon className="w-7 h-7" />
-                </div>
-                <h3 className="font-bold text-xl text-[#0b1c30] mb-2">
-                  {l.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#4a4455] mb-4">
-                  {l.body}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {l.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] font-semibold"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── LEAD SOURCES ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              COMPATIBLE WITH YOUR LEAD SOURCES
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Works With Every Insurance Lead Vendor and Platform
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {leadSources.map((s) => (
-              <div
-                key={s.name}
-                className={`bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all ${
-                  s.wide ? "lg:col-span-2" : ""
-                }`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center text-[#630ed4]">
-                      <s.icon className="w-5 h-5" />
-                    </div>
-                    <span className="font-bold text-xl text-[#0b1c30]">
-                      {s.name}
-                    </span>
-                  </div>
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] font-semibold">
-                    {s.badge}
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed text-[#4a4455]">
-                  {s.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              SIMPLE WORKFLOW
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              From New Lead to Booked Quote — Automatically
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {steps.map((s) => (
-              <div
-                key={s.num}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-bold text-3xl text-[#7C3AED]">
-                    {s.num}
-                  </span>
-                  <div className="w-10 h-10 rounded-full bg-[#e5eeff] flex items-center justify-center text-[#630ed4]">
-                    <s.icon className="w-5 h-5" />
-                  </div>
-                </div>
-                <h3 className="font-bold text-base text-[#0b1c30] mb-2">
-                  {s.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#4a4455]">
-                  {s.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── COMPLIANCE ─────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              TCPA COMPLIANCE FOR INSURANCE
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Built to Keep Insurance Agents Compliant at Scale
-            </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Insurance outbound calling is one of the most heavily scrutinized
-              categories under TCPA. Dialeads protects your agency
-              automatically on every dial.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {complianceItems.map((c) => (
-              <div
-                key={c.title}
-                className={`bg-white p-6 rounded-xl shadow-sm flex items-start gap-4 ${
-                  c.wide ? "lg:col-span-2" : ""
-                }`}
-              >
-                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                  <c.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base text-[#0b1c30] mb-1">
-                    {c.title}
-                  </h3>
-                  <p className="text-sm text-[#4a4455]">{c.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              FROM INSURANCE AGENTS USING DIALEADS
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              What Insurance Professionals Say After 30 Days
-            </h2>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((t) => (
-              <div
-                key={t.initials}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <p className="text-base leading-relaxed text-[#0b1c30] mb-6 italic">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
+            {profiles.map((p) => (
+              <div key={p.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
+                <div className="w-11 h-11 rounded-lg bg-[#eaddff] flex items-center justify-center">
+                  <p.icon className="w-5 h-5 text-[#630ed4]" />
                 </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-[#e5eeff]">
-                  <div className="w-10 h-10 rounded-full bg-[#7C3AED] text-white flex items-center justify-center font-bold">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm text-[#0b1c30] block">
-                      {t.role}
-                    </span>
-                    <span className="text-xs text-[#4a4455]">{t.detail}</span>
-                  </div>
+                <h3 className="text-lg font-bold text-[#0b1c30]">{p.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4] mt-auto">{p.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROBLEMS ── */}
+      <section className="w-full bg-[#e5eeff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Prospecting problems in insurance"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Cold outreach is regulated and most business owners are hard to reach. The tool needs to support both the process and the rules."}</p>
+          </div>
+          <div className="flex flex-col gap-6">
+            {painPoints.map((p) => (
+              <div key={p.title} className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden">
+                <div className="p-6 lg:p-8 flex flex-col gap-2">
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{p.title}</h3>
+                  <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+                </div>
+                <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
+                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
+                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                  </span>
+                  <p className="text-sm leading-6">{p.fix}</p>
                 </div>
               </div>
             ))}
@@ -889,170 +515,247 @@ export default function InsurancePage() {
         </div>
       </section>
 
-      {/* ── PRICING ────────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              SIMPLE PRICING
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Start Contacting More Leads Today
+      {/* ── FEATURES ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Features for insurance prospecting"}
             </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Sourcing, qualifying, calling, and follow-up with compliance controls in the same product."}</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
-            {/* Starter */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-2xl text-[#0b1c30] mb-3">
-                  Starter
-                </h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-bold text-5xl text-[#0b1c30]">
-                    $29
-                  </span>
-                  <span className="text-[#4a4455] font-medium text-sm">
-                    /mo
-                  </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <div key={f.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
+                <div className="w-11 h-11 rounded-lg bg-[#630ed4] flex items-center justify-center">
+                  <f.icon className="w-5 h-5 text-white" />
                 </div>
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6">
-                  Solo agents getting started with compliant outbound calling.
-                  1,000 minutes, voicemail drop, basic SMS follow-up, local
-                  caller ID matching.
-                </p>
-                <div className="space-y-2 mb-8">
-                  {starterFeatures.map((f) => (
-                    <div
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-[#0b1c30]"
-                    >
-                      <Check className="w-[18px] h-[18px] text-[#630ed4]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
+                <h3 className="text-lg font-bold text-[#0b1c30]">{f.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{f.body}</p>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#e3e0f1] text-[#4a4455] self-start mt-auto">
+                  {f.tag}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ENRICHMENT / PITCH ANGLES ── */}
+      <section className="w-full bg-[#213145] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white mb-3">
+              {"Use signals to find the opening question"}
+            </h2>
+            <p className="text-base leading-7 text-[#eaf1ff]">{"Pitch angles started as marketing categories. For insurance they work as a quick read on a business's size and activity, so your first question is relevant."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {enrichment.map((e) => (
+              <div key={e.angle} className="rounded-xl bg-white/10 p-5 flex flex-col gap-2">
+                <span className="text-xs font-bold tracking-[0.08em] text-[#d2bbff]">{e.angle}</span>
+                <h3 className="text-base font-bold text-white">{e.title}</h3>
+                <p className="text-sm leading-6 text-[#eaf1ff]">{e.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORKFLOW ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"A prospecting workflow for one product line"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Repeat per line, per territory, or per agent."}</p>
+          </div>
+          <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {workflow.map((s, i) => (
+              <li key={s.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-2">
+                <span className="text-sm font-bold text-[#7c3aed]">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="text-lg font-bold text-[#0b1c30]">{s.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── SCRIPT PANEL ── */}
+      <section className="w-full bg-[#eff4ff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Scripts that respect the prospect's time"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455] mb-6">{"Business owners screen cold calls. A specific, short opener that is clear about who is calling works best."}</p>
+            <ul className="flex flex-col gap-3">
+              {scriptPanel.points.map((p) => (
+                <li key={p} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">
+                  <Check className="w-4 h-4 text-[#630ed4] mt-1 shrink-0" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">Call script template</span>
+              <p className="mt-3 text-sm leading-6 text-[#0b1c30] whitespace-pre-line">{scriptPanel.template}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["{name}", "{category}", "{city}", "{rating}", "{evidence}"].map((ph) => (
+                  <code key={ph} className="text-xs px-2 py-1 rounded bg-[#e3e0f1] text-[#630ed4]">{ph}</code>
+                ))}
+              </div>
+            </div>
+            <div className="bg-[#213145] rounded-xl p-6 text-[#eaf1ff]">
+              <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">Live AI rebuttal example</span>
+              <p className="mt-3 text-sm leading-6"><span className="font-semibold text-white">Prospect: </span>{scriptPanel.objection}</p>
+              <p className="mt-2 text-sm leading-6"><span className="font-semibold text-white">Suggested reply: </span>{scriptPanel.rebuttal}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUTCOMES ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Tracking, without the dashboards"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Results are in your Google Sheet and the usage ledger. There is no analytics dashboard."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {outcomes.map((o) => (
+              <div key={o.title} className="bg-white rounded-xl shadow-sm p-5 flex flex-col gap-2">
+                <o.icon className="w-5 h-5 text-[#7c3aed]" />
+                <h3 className="text-base font-bold text-[#0b1c30]">{o.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{o.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMPLIANCE ── */}
+      <section className="w-full bg-[#e5eeff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Built-in guardrails for regulated outreach"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Insurance calling is regulated at federal and state levels. Dialeads gives you controls, and you remain responsible for following the law."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {compliance.map((c) => (
+              <div key={c.title} className="bg-white rounded-xl shadow-sm p-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center shrink-0">
+                  <c.icon className="w-5 h-5 text-[#630ed4]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0b1c30] mb-1">{c.title}</h3>
+                  <p className="text-sm leading-6 text-[#4a4455]">{c.body}</p>
                 </div>
               </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
+            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* ── PRICING ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Pay per use while you test product lines"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Try a small campaign for each line and keep only the ones that work."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {pricing.map((p) => (
+              <div key={p.label} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-2">
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">{p.label}</span>
+                <span className="text-3xl font-bold text-[#0b1c30]">{p.price}</span>
+                <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
+            Every billable event is written to a per-event usage ledger, so you can see exactly what each call and text cost.{" "}
+            <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
+          </p>
+          <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {limits.map((l) => (
+                <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">
+                  <X className="w-4 h-4 text-[#4a4455] mt-1 shrink-0" />
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="w-full bg-[#eff4ff] py-16 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 lg:px-8">
+          <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-8">
+            Frequently asked questions
+          </h2>
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => (
+              <div key={f.q} className="bg-white rounded-xl shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
+                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                >
+                  <span className="text-sm font-semibold text-[#0b1c30]">{f.q}</span>
+                  <ChevronDown className={`w-4 h-4 text-[#630ed4] shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === i && (
+                  <p className="px-5 pb-4 text-sm leading-6 text-[#4a4455]">{f.a}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="rounded-2xl bg-[#630ed4] px-6 py-12 lg:px-16 lg:py-16 text-center flex flex-col items-center gap-5">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white max-w-2xl">
+              {"Pre-screen your territory before you pick up the phone"}
+            </h2>
+            <p className="text-base leading-7 text-[#eaddff] max-w-xl">{"Get early access, or book a demo and we will build a sample commercial lines campaign with you."}</p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/pricing"
-                className="w-full inline-flex items-center justify-center py-3 rounded-xl bg-[#e5eeff] hover:bg-[#dce9ff] text-[#0b1c30] font-bold text-sm transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white text-[#630ed4] font-semibold text-sm hover:bg-[#eaddff] transition-all"
               >
-                Start Free Trial
+                Get Early Access
+                <ArrowRight className="w-[18px] h-[18px] ml-1" />
               </Link>
-            </div>
-
-            {/* Pro */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-between relative ring-2 ring-[#7C3AED]">
-              <div className="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-[#7C3AED] text-white font-bold text-xs shadow">
-                Most Popular for Insurance
-              </div>
-              <div>
-                <h3 className="font-bold text-2xl text-[#0b1c30] mb-3">Pro</h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-bold text-5xl text-[#7C3AED]">
-                    $49
-                  </span>
-                  <span className="text-[#4a4455] font-medium text-sm">
-                    /mo
-                  </span>
-                </div>
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6">
-                  For agents running high-volume outreach through AEP, OEP,
-                  and beyond. Unlimited calling, AI voice agent, automated
-                  8-touch sequences, full TCPA compliance suite.
-                </p>
-                <div className="space-y-2 mb-8">
-                  {proFeatures.map((f) => (
-                    <div
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-[#0b1c30] font-medium"
-                    >
-                      <CheckCircle2 className="w-[18px] h-[18px] text-[#7C3AED]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <Link
-                href="/pricing"
-                className="w-full inline-flex items-center justify-center py-3 rounded-xl bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-sm shadow-md transition-all"
-              >
-                Start 14-Day Free Pro Trial — No Credit Card
-              </Link>
-            </div>
-
-            {/* Enterprise */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-2xl text-[#0b1c30] mb-3">
-                  Enterprise
-                </h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-bold text-5xl text-[#0b1c30]">
-                    Custom
-                  </span>
-                </div>
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6">
-                  Built for IMOs managing multiple agents. Hierarchy-level
-                  dashboards, per-agent reporting, dedicated onboarding, and
-                  custom integrations.
-                </p>
-                <div className="space-y-2 mb-8">
-                  {enterpriseFeatures.map((f) => (
-                    <div
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-[#0b1c30]"
-                    >
-                      <Check className="w-[18px] h-[18px] text-[#630ed4]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
               <Link
                 href="/demo"
-                className="w-full inline-flex items-center justify-center py-3 rounded-xl bg-[#e5eeff] hover:bg-[#dce9ff] text-[#0b1c30] font-bold text-sm transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#7c3aed] text-white font-semibold text-sm hover:bg-[#213145] transition-all"
               >
-                Talk to Sales
+                Book a Demo
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── BOTTOM CTA ─────────────────────────────────────── */}
-      <section className="w-full bg-gradient-to-br from-[#630ed4] via-[#7C3AED] to-[#43088a] text-white py-16 lg:py-24 px-4 lg:px-8 relative overflow-hidden text-center">
-        <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-[#ede0ff] text-xs font-bold uppercase tracking-[0.08em] mb-4">
-            READY TO CONTACT MORE LEADS?
-          </div>
-          <h2 className="text-[28px] sm:text-[40px] lg:text-5xl leading-tight font-bold tracking-tight text-white mb-4 max-w-2xl">
-            Stop Losing Insurance Leads to Slow Follow-Up — Start Today
-          </h2>
-          <p className="text-lg leading-7 text-[#ede0ff]/90 max-w-2xl mb-8">
-            Connect your lead source, configure your voicemail drop, and let
-            Dialeads contact every lead within 60 seconds — while you stay
-            fully TCPA compliant.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-4 w-full sm:w-auto">
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0f0f1a] font-bold text-base shadow-xl transition-all"
-            >
-              <span>Start Free Trial</span>
-              <ArrowRight className="w-[18px] h-[18px]" />
-            </Link>
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-base transition-all"
-            >
-              <PhoneCall className="w-[18px] h-[18px]" />
-              <span>Book an Insurance Demo</span>
-            </Link>
-          </div>
-          <p className="text-xs text-[#ede0ff]/70">
-            No credit card · TCPA compliant by default · Cancel anytime
-          </p>
         </div>
       </section>
     </div>

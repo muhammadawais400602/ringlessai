@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Calling Platform for Lead Gen Agencies – Dialeads",
+  title: "Outbound Calling Platform for Lead Gen Agencies – Dialeads",
   description:
-    "Dialeads helps lead generation agencies run high-volume outbound campaigns for multiple clients — with white-label options, CRM sync, and carrier-grade compliance built in.",
+    "Run outbound for multiple clients with a separate organization per client, Google Maps lead sourcing, AI qualifier or manual calling, and outcomes tracked in Google Sheets.",
+  openGraph: {
+    title: "Outbound Calling Platform for Lead Gen Agencies – Dialeads",
+    description:
+      "Run outbound for multiple clients with a separate organization per client, Google Maps lead sourcing, AI qualifier or manual calling, and outcomes tracked in Google Sheets.",
+    type: "website",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

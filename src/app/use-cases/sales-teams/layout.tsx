@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Calling for Sales Teams – Dialeads",
+  title: "Cold Calling Software for Sales Teams – Dialeads",
   description:
-    "Dialeads automates the top-of-funnel grunt work for SDR and AE teams — dialing queues, dropping voicemails, logging dispositions, and triggering follow-ups — so every rep spends 100% of their time on live conversations.",
+    "Run organized outbound campaigns in manual or AI mode with team roles, per-campaign scripts, number pools, and a per-event usage ledger.",
+  openGraph: {
+    title: "Cold Calling Software for Sales Teams – Dialeads",
+    description:
+      "Run organized outbound campaigns in manual or AI mode with team roles, per-campaign scripts, number pools, and a per-event usage ledger.",
+    type: "website",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -1,950 +1,725 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowRight,
-  Zap,
-  Keyboard,
-  Timer,
-  PlayCircle,
-  Star,
-  Send,
-  Voicemail,
-  PhoneMissed,
-  PhoneOff,
-  AlarmClock,
-  RefreshCw,
-  CalendarPlus,
-  MessageSquare,
-  CheckCircle,
-  Shield,
-  Clock,
-  TrendingUp,
-  ChevronDown,
-  GitFork,
-  Network,
-  MessageCircle,
+  Bot,
   Calendar,
-  Bell,
-  CheckCheck,
-  CalendarCheck,
-  Eye,
-  Mail,
-  RotateCw,
-  PhoneCall,
-  History,
+  Check,
+  CheckCircle,
+  ChevronRight,
+  ClipboardList,
+  FileSpreadsheet,
+  Flag,
+  Gauge,
+  Info,
+  Keyboard,
+  MessageSquare,
+  Minus,
+  Phone,
+  Plus,
+  Receipt,
   Search,
-  Smartphone,
-  ShieldCheck,
-  Gavel,
-  Mic,
-  CircleDot,
+  UserCheck,
+  Wallet,
+  X,
+  XCircle,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  Data                                                               */
+/*  Content data                                                      */
 /* ------------------------------------------------------------------ */
 
-interface DispositionOption {
-  label: string;
-  shortLabel?: string;
-  key: string;
-  icon: React.ReactNode;
-  hotkey: number;
-}
+const heroBadges = [
+  { icon: Keyboard, label: "Keys 1 to 6 for outcomes" },
+  { icon: FileSpreadsheet, label: "Written to your Google Sheet" },
+  { icon: Wallet, label: "Usage ledger and balance" },
+];
 
-interface ExecutionAction {
-  time: string;
-  icon: React.ReactNode;
-  text: React.ReactNode;
-}
+const panel = {
+  title: "Call outcome",
+  subtitle: "One keystroke after the call",
+  footnote: "Illustrative layout. Outcome labels and AI results depend on your campaign settings.",
+  icon: ClipboardList,
+};
 
-const dispositions: DispositionOption[] = [
+const panelRows = [
   {
-    label: "Interested",
-    key: "Interested",
-    icon: <Star className="h-4 w-4" />,
-    hotkey: 1,
+    icon: Keyboard,
+    label: "Operator",
+    value: "Press 1 to 6 to record the result of the call",
   },
   {
-    label: "Sent Mockup",
-    key: "Sent Mockup",
-    icon: <Send className="h-4 w-4" />,
-    hotkey: 2,
+    icon: FileSpreadsheet,
+    label: "Sheet",
+    value: "Outcome is written to the lead's row in your Google Sheet",
   },
   {
-    label: "VM Drop",
-    shortLabel: "VM Drop",
-    key: "Voicemail Drop",
-    icon: <Voicemail className="h-4 w-4" />,
-    hotkey: 3,
+    icon: Gauge,
+    label: "AI calls",
+    value: "lead_score, interest, qualified, appointment booked, next action",
   },
   {
-    label: "No Answer",
-    key: "No Answer",
-    icon: <PhoneMissed className="h-4 w-4" />,
-    hotkey: 4,
-  },
-  {
-    label: "Bad Number",
-    key: "Bad Number",
-    icon: <PhoneOff className="h-4 w-4" />,
-    hotkey: 5,
-  },
-  {
-    label: "Callback",
-    key: "Callback",
-    icon: <AlarmClock className="h-4 w-4" />,
-    hotkey: 6,
+    icon: Receipt,
+    label: "Ledger",
+    value: "Voice minutes and SMS costs added as per-event entries",
   },
 ];
 
-const outcomeData: Record<string, ExecutionAction[]> = {
-  Interested: [
-    {
-      time: "0.08s",
-      icon: <RefreshCw className="h-4 w-4 text-purple-300" />,
-      text: (
-        <>
-          Deal Stage &rarr;{" "}
-          <strong className="text-purple-300">Qualified Lead (HubSpot)</strong>
-        </>
-      ),
-    },
-    {
-      time: "0.19s",
-      icon: <CalendarPlus className="h-4 w-4 text-purple-300" />,
-      text: "Calendar placeholder invite automatically dispatched",
-    },
-    {
-      time: "0.32s",
-      icon: <MessageSquare className="h-4 w-4 text-purple-300" />,
-      text: "Follow-up executive recap SMS queued for 2:15 PM",
-    },
-  ],
-  "Sent Mockup": [
-    {
-      time: "0.05s",
-      icon: <Mail className="h-4 w-4 text-purple-300" />,
-      text: "Email cadence trigger: Interactive Figma prototype link",
-    },
-    {
-      time: "0.14s",
-      icon: <Eye className="h-4 w-4 text-purple-300" />,
-      text: "Lead tracking beacon enabled with page-view alerts",
-    },
-    {
-      time: "0.28s",
-      icon: <Clock className="h-4 w-4 text-purple-300" />,
-      text: "Follow-up check task scheduled for +24 hours",
-    },
-  ],
-  "Voicemail Drop": [
-    {
-      time: "0.04s",
-      icon: <Voicemail className="h-4 w-4 text-purple-300" />,
-      text: 'Pre-recorded 18s studio voicemail drop executing...',
-    },
-    {
-      time: "0.12s",
-      icon: <MessageSquare className="h-4 w-4 text-purple-300" />,
-      text: 'Automated SMS sent: "Just tried you, Sarah - check link"',
-    },
-    {
-      time: "0.21s",
-      icon: <RotateCw className="h-4 w-4 text-purple-300" />,
-      text: "Contact re-queued in dialer pool for 48 hours later",
-    },
-  ],
-  "No Answer": [
-    {
-      time: "0.03s",
-      icon: <PhoneCall className="h-4 w-4 text-purple-300" />,
-      text: "Call attempt recorded; attempt count updated (2/5)",
-    },
-    {
-      time: "0.10s",
-      icon: <History className="h-4 w-4 text-purple-300" />,
-      text: "Rotated to alternative evening time block",
-    },
-  ],
-  "Bad Number": [
-    {
-      time: "0.06s",
-      icon: <PhoneOff className="h-4 w-4 text-purple-300" />,
-      text: "Number tagged as disconnected in CRM database",
-    },
-    {
-      time: "0.15s",
-      icon: <Search className="h-4 w-4 text-purple-300" />,
-      text: "Auto-enrichment queue triggered for secondary mobile",
-    },
-  ],
-  Callback: [
-    {
-      time: "0.09s",
-      icon: <AlarmClock className="h-4 w-4 text-purple-300" />,
-      text: "Callback alarm anchored for Tomorrow @ 10:00 AM",
-    },
-    {
-      time: "0.18s",
-      icon: <Bell className="h-4 w-4 text-purple-300" />,
-      text: "Rep calendar block reserved for Sarah Reynolds",
-    },
-  ],
-};
+const glance = [
+  {
+    icon: Keyboard,
+    title: "One-key outcomes",
+    desc: "Press 1 to 6 right after a call to log how it went.",
+  },
+  {
+    icon: FileSpreadsheet,
+    title: "Sheet output",
+    desc: "Call outcomes are written to your Google Sheet so the data stays in your hands.",
+  },
+  {
+    icon: Gauge,
+    title: "AI results",
+    desc: "Lead score, interest, qualified, appointment booked and next action for AI calls.",
+  },
+  {
+    icon: Wallet,
+    title: "Usage ledger",
+    desc: "Per-event voice minutes and SMS costs, with balance and spend today and month to date.",
+  },
+];
+
+const capabilities: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string; tag?: string; href?: string }[] = [
+  {
+    icon: Keyboard,
+    title: "Keyboard outcomes",
+    desc: "With the browser dialer, keys 1 to 6 record the call outcome so you can move to the next lead quickly.",
+  },
+  {
+    icon: FileSpreadsheet,
+    title: "Written to Google Sheets",
+    desc: "Outcomes land in the Sheet your leads came from, which keeps one source of truth you can filter, share and export.",
+  },
+  {
+    icon: Gauge,
+    title: "AI lead score",
+    desc: "AI qualifier calls produce a lead score from 1 to 10 that you can sort by.",
+  },
+  {
+    icon: UserCheck,
+    title: "Interest and qualified",
+    desc: "Separate fields show how interested the lead was and whether they met your criteria.",
+  },
+  {
+    icon: Calendar,
+    title: "Appointment booked",
+    desc: "AI call outcomes include an appointment booked flag, and a next action for whatever should happen next.",
+  },
+  {
+    icon: Receipt,
+    title: "Usage ledger",
+    desc: "Each voice call and SMS adds a ledger event, so spend is traceable down to the individual event.",
+  },
+];
+
+const steps = [
+  {
+    icon: Phone,
+    title: "Call finishes",
+    desc: "A manual call from the browser dialer, or an AI qualifier call, ends.",
+  },
+  {
+    icon: Keyboard,
+    title: "Outcome logged",
+    desc: "The operator presses a key, or the AI returns score, interest, qualified and next action.",
+  },
+  {
+    icon: FileSpreadsheet,
+    title: "Sheet updated",
+    desc: "The outcome is written to the matching row in your Google Sheet.",
+  },
+  {
+    icon: Receipt,
+    title: "Ledger entry",
+    desc: "Voice minutes and any SMS costs are recorded as events in the usage ledger.",
+  },
+  {
+    icon: Wallet,
+    title: "Balance visible",
+    desc: "Check balance and spend for today and month to date at any time.",
+  },
+];
+
+const dives = [
+  {
+    eyebrow: "Operator outcomes",
+    title: "Log the call before the next one starts",
+    desc: "Admin work slows cold calling down. Keyboard shortcuts in the browser dialer keep outcome logging to one keypress.",
+    icon: Keyboard,
+    panelTitle: "Browser dialer shortcuts",
+    panelLines: [
+      "C = call",
+      "H = hang up",
+      "1 to 6 = record outcome",
+      "outcome written to the Google Sheet",
+    ],
+    points: [
+      { icon: Keyboard, title: "Fast keys", desc: "C starts a call, H hangs up, and 1 to 6 record the outcome." },
+      { icon: FileSpreadsheet, title: "Sheet as source of truth", desc: "Outcomes are written to your Google Sheet, where you already work." },
+      { icon: Flag, title: "Per campaign", desc: "Outcomes are grouped by campaign so you can see how each list is performing." },
+    ],
+  },
+  {
+    eyebrow: "AI call results",
+    title: "Structured outcomes from qualifier calls",
+    desc: "AI calls report back in a consistent format so you can sort, filter and hand the best leads to a human.",
+    icon: Gauge,
+    panelTitle: "AI call result",
+    panelLines: [
+      "lead_score: 9",
+      "interest: high",
+      "qualified: true",
+      "appointment_booked: false",
+      "next_action: \"Send info by email and call Friday\"",
+    ],
+    points: [
+      { icon: Gauge, title: "Lead score", desc: "A number from 1 to 10 for ranking." },
+      { icon: UserCheck, title: "Interest and qualified", desc: "Reads on enthusiasm and fit, kept as separate fields." },
+      { icon: ClipboardList, title: "Next action", desc: "A suggested follow-up so nothing is left to memory." },
+    ],
+  },
+  {
+    eyebrow: "Usage ledger",
+    title: "Costs you can trace to the event",
+    desc: "Voice and SMS cost money. The usage ledger records each event so you can see what a campaign actually cost, not just a monthly total.",
+    icon: Receipt,
+    panelTitle: "Ledger view",
+    panelLines: [
+      "event: voice call, minutes recorded",
+      "event: SMS sent, cost recorded",
+      "balance: current",
+      "spend: today, month to date",
+    ],
+    points: [
+      { icon: Receipt, title: "Per-event entries", desc: "Voice minutes and SMS costs are logged individually." },
+      { icon: Wallet, title: "Balance", desc: "See your current balance without leaving the app." },
+      { icon: Calendar, title: "Today and MTD", desc: "Spend is shown for today and for the month to date." },
+    ],
+  },
+];
+
+const isList = [
+  "Writes call outcomes to your Google Sheet",
+  "Records AI lead score, interest, qualified, appointment booked and next action",
+  "Keeps a usage ledger with per-event voice minutes and SMS costs",
+  "Shows balance and spend for today and month to date",
+  "Tracks outcomes per campaign",
+];
+
+const isNotList = [
+  "No analytics dashboards or charts",
+  "No automatic CRM updates: export the CSV to HubSpot yourself",
+  "No automated workflows triggered by outcomes",
+  "No call recordings or transcripts attached to outcomes",
+  "No subscription billing: costs reflect usage",
+];
+
+const faqs = [
+  {
+    q: "Where are outcomes stored?",
+    a: "Call outcomes are written to your Google Sheet. AI call results and usage ledger entries are also kept in Dialeads.",
+  },
+  {
+    q: "Are there dashboards or charts?",
+    a: "No. Dialeads shows outcomes, balance and spend, but it does not include analytics dashboards or charts. Use your Sheet if you want to chart the data.",
+  },
+  {
+    q: "What does the usage ledger track?",
+    a: "Per-event voice minutes and SMS costs, with balance and spend for today and month to date.",
+  },
+  {
+    q: "What AI results are recorded?",
+    a: "Lead score from 1 to 10, interest, qualified, appointment booked and next action.",
+  },
+  {
+    q: "Does it update my CRM?",
+    a: "No. There is no native CRM sync. Lead data can be exported as a HubSpot-compatible CSV.",
+  },
+  {
+    q: "Can I see results by campaign?",
+    a: "Yes. Outcomes are tracked per campaign.",
+  },
+];
+
+const related = [
+  {
+    icon: Bot,
+    href: "/features/ai-calling",
+    title: "AI Qualifier Calls",
+    desc: "Where AI outcomes come from.",
+  },
+  {
+    icon: Search,
+    href: "/features/lead-management",
+    title: "Lead Sourcing",
+    desc: "Where your Sheet starts.",
+  },
+  {
+    icon: MessageSquare,
+    href: "/features/omnichannel",
+    title: "Follow-Up and SMS",
+    desc: "What happens after outcomes are logged.",
+  },
+];
+
 
 /* ------------------------------------------------------------------ */
-/*  Component                                                          */
+/*  Page component                                                    */
 /* ------------------------------------------------------------------ */
-
 export default function OutcomeTrackingPage() {
-  const [activeDisposition, setActiveDisposition] = useState("Interested");
-  const [executionStream, setExecutionStream] = useState<ExecutionAction[]>(
-    outcomeData["Interested"]
-  );
-  const speedRunRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const triggerOutcome = useCallback((name: string) => {
-    setActiveDisposition(name);
-    setExecutionStream(outcomeData[name] || outcomeData["Interested"]);
-  }, []);
-
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const num = parseInt(e.key, 10);
-      if (num >= 1 && num <= 6) {
-        const disp = dispositions[num - 1];
-        if (disp) triggerOutcome(disp.key);
-      }
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [triggerOutcome]);
-
-  const runSpeedDemo = () => {
-    if (speedRunRef.current) return;
-    const sequence = [
-      "Interested",
-      "Sent Mockup",
-      "Voicemail Drop",
-      "Callback",
-      "Interested",
-    ];
-    let step = 0;
-    speedRunRef.current = setInterval(() => {
-      if (step >= sequence.length) {
-        clearInterval(speedRunRef.current!);
-        speedRunRef.current = null;
-        return;
-      }
-      triggerOutcome(sequence[step]);
-      step++;
-    }, 650);
-  };
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* ---- Breadcrumb ---- */}
-      <section className="w-full pt-8 pb-2 bg-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="flex items-center gap-2 text-muted text-xs font-semibold tracking-wide">
-            <Link
-              href="/features"
-              className="hover:text-primary transition-colors flex items-center gap-1"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Features</span>
+    <div className="flex w-full flex-col bg-[#f8f9ff] text-[#0b1c30]">
+      {/* ============================================================ */}
+      {/* HERO                                                          */}
+      {/* ============================================================ */}
+      <section className="relative w-full overflow-hidden bg-[#f8f9ff] pb-24">
+        <div className="pointer-events-none absolute -top-40 right-1/4 h-[550px] w-[550px] rounded-full bg-[#7c3aed]/10 blur-[130px]" />
+        <div className="pointer-events-none absolute top-1/3 -left-32 h-[450px] w-[450px] rounded-full bg-[#630ed4]/5 blur-[120px]" />
+
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <nav className="flex items-center gap-2 pt-8 text-xs font-semibold tracking-wide text-[#4a4455]">
+            <Link href="/features" className="transition-colors hover:text-[#630ed4]">
+              Features
             </Link>
-            <span className="text-gray-300">/</span>
-            <span className="text-gray-900 font-semibold">
-              Granular Outcome Tracking &amp; Dispositions
-            </span>
-          </div>
-        </div>
-      </section>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="font-semibold text-[#0b1c30]">{"Outcome Tracking"}</span>
+          </nav>
 
-      {/* ---- Hero Section ---- */}
-      <section className="relative w-full py-16 overflow-hidden">
-        {/* Ambient blurs */}
-        <div className="absolute top-1/4 -right-48 w-96 h-96 bg-primary-light/40 rounded-full blur-3xl pointer-events-none -z-10" />
-        <div className="absolute -bottom-24 -left-32 w-80 h-80 bg-gray-100/60 rounded-full blur-2xl pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Text Column */}
-            <div className="lg:col-span-6 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary-light text-primary text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+          <div className="grid grid-cols-1 items-center gap-12 pt-12 lg:grid-cols-12">
+            <div className="flex flex-col items-start lg:col-span-7">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1 shadow-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#630ed4]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
+                  {"Outcome tracking"}
                 </span>
-                <span>SPEED-LOGGING &amp; AUTOMATION</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-4 leading-tight">
-                One-Click Dispositions &amp; Granular Outcome Tracking
+              <h1 className="mb-6 text-4xl font-bold leading-[1.08] tracking-tight text-[#0b1c30] sm:text-5xl lg:text-[56px]">
+                {"Every call leaves a record,"}{" "}
+                <span className="text-[#630ed4]">{"and every cost is accounted for."}</span>
               </h1>
 
-              <p className="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed">
-                Log call results in less than one second. Trigger automated next
-                actions, CRM stage updates, multi-channel cadences, and smart
-                voicemail drops with a single keystroke.
+              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
+                {"Log outcomes with a single key, see AI scores and qualification beside them, and track voice minutes and SMS spend in a usage ledger, per campaign and over time."}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                <a
-                  href="#builder-preview"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary-dark transition-all"
+              <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#630ed4] px-8 py-4 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#7c3aed]"
                 >
-                  <span>Explore Workflow Automation</span>
-                  <Zap className="h-4 w-4" />
-                </a>
-                <button
-                  onClick={runSpeedDemo}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gray-100 text-gray-900 text-sm font-semibold hover:bg-gray-200 transition-all"
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e5eeff] px-6 py-4 text-sm font-semibold text-[#0b1c30] shadow-sm transition-all hover:bg-[#e3e0f1]"
                 >
-                  <PlayCircle className="h-5 w-5 text-primary" />
-                  <span>Watch Speed Run</span>
-                  <span className="text-gray-500 text-xs px-1.5 py-0.5 rounded bg-white font-mono">
-                    0:42
-                  </span>
-                </button>
+                  <Calendar className="h-5 w-5 text-[#630ed4]" />
+                  Book a Demo
+                </Link>
               </div>
 
-              <div className="mt-8 pt-4 flex items-center gap-8 text-gray-600">
-                <div className="flex items-center gap-2">
-                  <Timer className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-semibold">
-                    <strong className="text-gray-900">0.4 sec</strong> average
-                    log latency
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Keyboard className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-semibold">
-                    <strong className="text-gray-900">100%</strong> keyboard
-                    navigable
-                  </span>
-                </div>
+              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-[#4a4455]">
+                {heroBadges.map((b) => (
+                  <div key={b.label} className="flex items-center gap-2">
+                    <b.icon className="h-[18px] w-[18px] text-[#630ed4]" />
+                    <span>{b.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Interactive Hero Visual */}
-            <div className="lg:col-span-6 w-full">
-              <div className="rounded-xl p-6 bg-[#131025] text-white shadow-xl relative overflow-hidden border border-white/10">
-                {/* Terminal Header */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500" />
-                    <span className="w-3 h-3 rounded-full bg-gray-500" />
-                    <span className="w-3 h-3 rounded-full bg-purple-300" />
-                    <span className="ml-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      DISPOSITION TERMINAL v4.12
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1 text-purple-300 text-xs font-semibold">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-400" />
-                    </span>
-                    <span>LIVE CALL (01:42)</span>
-                  </div>
-                </div>
-
-                {/* Active Contact */}
-                <div className="p-4 rounded-lg bg-white/5 mb-4 flex flex-wrap items-center justify-between gap-3">
+            {/* Illustrative panel */}
+            <div className="relative lg:col-span-5">
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#630ed4]/20 to-[#eaddff]/40 blur-xl" />
+              <div className="relative overflow-hidden rounded-2xl bg-[#213145] p-6 text-[#eaf1ff] shadow-xl">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#630ed4] to-[#7c3aed]" />
+                <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">
-                      SR
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <panel.icon className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-white">
-                        Sarah Reynolds
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        VP of Revenue Ops &bull; FinEdge Global
-                      </div>
+                      <p className="text-sm font-bold text-white">{panel.title}</p>
+                      <p className="text-xs text-[#d2bbff]">{panel.subtitle}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 bg-purple-500/40 text-purple-200 px-3 py-1 rounded-full text-xs font-semibold">
-                    <Zap className="h-3.5 w-3.5" />
-                    <span>High Propensity Match</span>
-                  </div>
+                  <span className="rounded-full bg-[#630ed4]/40 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#d2bbff]">
+                    Illustrative
+                  </span>
                 </div>
 
-                {/* Disposition Hotkeys */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      Instant Log Keyboard Row
-                    </span>
-                    <span className="text-xs text-gray-500 font-mono">
-                      Press [1-6]
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {dispositions.map((d) => (
-                      <button
-                        key={d.key}
-                        onClick={() => triggerOutcome(d.key)}
-                        className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold transition-all active:scale-95 ${
-                          activeDisposition === d.key
-                            ? "bg-primary text-white shadow-sm"
-                            : "bg-white/10 hover:bg-white/15 text-white"
-                        }`}
-                      >
-                        <span className="flex items-center gap-1.5 truncate">
-                          {d.icon}
-                          {d.shortLabel || d.label}
-                        </span>
-                        <span
-                          className={`text-xs px-1.5 py-0.5 rounded font-mono ${
-                            activeDisposition === d.key
-                              ? "bg-white/20"
-                              : "bg-white/5"
-                          }`}
-                        >
-                          {d.hotkey}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Execution Stream */}
-                <div className="rounded-lg bg-white/5 p-4">
-                  <div className="flex items-center justify-between mb-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                    <span>Autonomous Trigger Stream</span>
-                    <span className="text-purple-300 flex items-center gap-1">
-                      <RefreshCw className="h-3.5 w-3.5" />
-                      Realtime Execution
-                    </span>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    {executionStream.map((act, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2 text-white bg-white/5 p-2 rounded transition-all"
-                      >
-                        {act.icon}
-                        <span className="font-mono text-xs text-purple-300">
-                          [{act.time}]
-                        </span>
-                        <span>{act.text}</span>
+                <div className="flex flex-col gap-3">
+                  {panelRows.map((r) => (
+                    <div
+                      key={r.label}
+                      className="flex items-start gap-3 rounded-xl bg-white/5 p-3.5"
+                    >
+                      <r.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#d2bbff]" />
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-[#d2bbff]">
+                          {r.label}
+                        </p>
+                        <p className="text-sm leading-snug text-[#eaf1ff]">{r.value}</p>
                       </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-5 text-[11px] leading-relaxed text-[#d2bbff]/80">
+                  {panel.footnote}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* AT A GLANCE                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-12 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"At a glance"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Know what happened and what it cost"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {glance.map((g) => (
+              <div key={g.title} className="rounded-2xl bg-white p-6 shadow-sm">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <g.icon className="h-5 w-5 text-[#630ed4]" />
+                </div>
+                <h3 className="mb-2 text-base font-bold text-[#0b1c30]">{g.title}</h3>
+                <p className="text-sm leading-relaxed text-[#4a4455]">{g.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* CAPABILITIES                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-14 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"Capabilities"}
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Outcomes, scores and spend in one place"}
+            </h2>
+            <p className="text-base leading-relaxed text-[#4a4455]">
+              {"Dialeads records what matters after each call and keeps costs transparent. It is not a charting product."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((cap) => {
+              const inner = (
+                <>
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <cap.icon className="h-6 w-6 text-white" />
+                    </div>
+                    {cap.tag ? (
+                      <span className="rounded-full bg-[#eaddff] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+                        {cap.tag}
+                      </span>
+                    ) : null}
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold text-[#0b1c30]">{cap.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{cap.desc}</p>
+                  {cap.href ? (
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#630ed4] transition-all group-hover:gap-2.5">
+                      Explore
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  ) : null}
+                </>
+              );
+              return cap.href ? (
+                <Link
+                  key={cap.title}
+                  href={cap.href}
+                  className="group flex flex-col rounded-2xl bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <div key={cap.title} className="flex flex-col rounded-2xl bg-white p-7 shadow-sm">
+                  {inner}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* HOW IT WORKS                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#213145] py-24 text-[#eaf1ff]">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-14 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+              {"How it works"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              {"From call to ledger entry"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <div key={s.title} className="relative rounded-2xl bg-white/5 p-6">
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#630ed4]">
+                    <s.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-3xl font-bold text-[#d2bbff]/30">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mb-2 text-base font-bold text-white">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-[#eaf1ff]/80">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* DEEP DIVES                                                    */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-24 px-6 sm:px-8">
+          {dives.map((d, idx) => (
+            <div
+              key={d.title}
+              className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12"
+            >
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+                  {d.eyebrow}
+                </span>
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30]">
+                  {d.title}
+                </h2>
+                <p className="mb-8 text-base leading-relaxed text-[#4a4455]">{d.desc}</p>
+                <ul className="flex flex-col gap-5">
+                  {d.points.map((p) => (
+                    <li key={p.title} className="flex items-start gap-4">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#eaddff]">
+                        <p.icon className="h-4 w-4 text-[#630ed4]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-[#0b1c30]">{p.title}</p>
+                        <p className="text-sm leading-relaxed text-[#4a4455]">{p.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                <div className="rounded-2xl bg-[#e5eeff] p-6 shadow-sm">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#7c3aed]">
+                      <d.icon className="h-5 w-5 text-white" />
+                    </div>
+                    <p className="text-sm font-bold text-[#0b1c30]">{d.panelTitle}</p>
+                  </div>
+                  <div className="flex flex-col gap-2.5 rounded-xl bg-[#213145] p-5 font-mono text-[13px] leading-relaxed text-[#eaf1ff]">
+                    {d.panelLines.map((l) => (
+                      <p key={l} className="break-words">
+                        {l}
+                      </p>
                     ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- 3 Core Highlights ---- */}
-      <section className="w-full py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="section-label mb-1">
-                Zero Administrative Friction
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-                Architected for Speed &amp; Total Pipeline Truth
-              </h2>
-            </div>
-            <p className="text-base text-gray-600 max-w-md">
-              Every dial disposition removes manual data entry entirely while
-              ensuring no opportunity leaks through administrative cracks.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Highlight Card 1 */}
-            <div className="p-8 rounded-xl bg-white shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Keyboard className="h-7 w-7" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Keyboard-Shortcut Dispositions
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Hit Spacebar to bridge or advance to the next record. Press
-                  numeric keys 1 through 9 for instantaneous one-touch call
-                  logging without leaving your dialing posture.
-                </p>
-              </div>
-              <div className="p-4 rounded-lg bg-gray-50 flex items-center justify-between">
-                <span className="text-xs font-semibold text-gray-900">
-                  Hotkey Mapping
-                </span>
-                <div className="flex items-center gap-1 font-mono text-xs text-primary font-bold">
-                  <span className="px-2 py-0.5 rounded bg-white shadow-xs">
-                    SPACE
-                  </span>
-                  <span>+</span>
-                  <span className="px-2 py-0.5 rounded bg-white shadow-xs">
-                    [1-9]
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Highlight Card 2 */}
-            <div className="p-8 rounded-xl bg-white shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <GitFork className="h-7 w-7" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Conditional Post-Call Automations
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Set deterministic workflows. For example: if Voicemail &rarr;
-                  Auto-drop studio voice clip + SMS intro card + reschedule
-                  retry cadence strictly in 48 hours.
-                </p>
-              </div>
-              <div className="p-4 rounded-lg bg-gray-50 flex items-center justify-between">
-                <span className="text-xs font-semibold text-gray-900">
-                  Dynamic Branches
-                </span>
-                <span className="text-xs font-semibold text-primary">
-                  14+ Pre-built Recipes
-                </span>
-              </div>
-            </div>
-
-            {/* Highlight Card 3 */}
-            <div className="p-8 rounded-xl bg-white shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Mic className="h-7 w-7" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Precision Transcripts &amp; AI Summaries
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Crystal-clear dual-channel recordings with real-time
-                  word-level alignment attached directly to your Salesforce,
-                  HubSpot, or Close CRM records with bulleted action points.
-                </p>
-              </div>
-              <div className="p-4 rounded-lg bg-gray-50 flex items-center justify-between">
-                <span className="text-xs font-semibold text-gray-900">
-                  CRM Record Sync
-                </span>
-                <span className="text-xs font-semibold text-primary">
-                  +1.2s Latency
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- Workflow Automation Builder Preview ---- */}
-      <section className="w-full py-24 bg-white" id="builder-preview">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="section-label mb-2">
-              Interactive Architecture Flow
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
-              Workflow Automation Builder Preview
-            </h2>
-            <p className="text-lg text-gray-600">
-              Watch what happens when a rep marks an interaction as{" "}
-              <span className="text-primary font-semibold">Interested</span>.
-              Four asynchronous systems sync simultaneously without rep
-              intervention.
-            </p>
-          </div>
-
-          {/* Flow Diagram */}
-          <div className="rounded-2xl bg-white p-8 shadow-lg relative overflow-hidden border border-border">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              {/* Trigger Node */}
-              <div className="lg:col-span-4 flex flex-col items-center lg:items-start">
-                <div className="w-full p-6 rounded-xl bg-primary-dark text-white shadow-md relative">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-purple-200">
-                      Root Disposition Trigger
-                    </span>
-                    <CircleDot className="h-4 w-4" />
-                  </div>
-                  <div className="text-2xl font-bold mb-1 flex items-center gap-2">
-                    <span>[Interested]</span>
-                    <span className="text-xs bg-primary px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">
-                      0.00s
-                    </span>
-                  </div>
-                  <p className="text-sm text-white/80">
-                    Outbound call outcome captured by rep via key-press or
-                    automated sentiment detection.
+                  <p className="mt-3 text-[11px] text-[#4a4455]">
+                    Illustrative example for explanation only.
                   </p>
                 </div>
-                <div className="mt-4 hidden lg:flex items-center gap-2 text-gray-600 text-xs font-semibold">
-                  <GitFork className="h-4 w-4 text-primary" />
-                  <span>Propagating across 4 parallel branches</span>
-                </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-              {/* Branches */}
-              <div className="lg:col-span-8 flex flex-col gap-3">
-                {/* Branch A */}
-                <div className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-gray-200 text-primary flex items-center justify-center font-bold">
-                      <Network className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold tracking-widest uppercase text-primary">
-                        Branch A &bull; CRM Pipeline
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">
-                        Update CRM Stage &rarr; Qualified Pipeline
-                      </div>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-primary-light text-gray-700 text-xs font-semibold font-mono flex items-center gap-1 shrink-0">
-                    <CheckCheck className="h-3.5 w-3.5" /> HubSpot &amp; SFDC
-                  </span>
-                </div>
-
-                {/* Branch B */}
-                <div className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-gray-200 text-primary flex items-center justify-center font-bold">
-                      <MessageCircle className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold tracking-widest uppercase text-primary">
-                        Branch B &bull; Outbound Messaging
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">
-                        Send WhatsApp / SMS Deck Link
-                      </div>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-primary-light text-gray-700 text-xs font-semibold font-mono flex items-center gap-1 shrink-0">
-                    <Send className="h-3.5 w-3.5" /> Latency 400ms
-                  </span>
-                </div>
-
-                {/* Branch C */}
-                <div className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-gray-200 text-primary flex items-center justify-center font-bold">
-                      <Calendar className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold tracking-widest uppercase text-primary">
-                        Branch C &bull; Meeting Scheduling
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">
-                        Generate Calendar Hold Placeholder
-                      </div>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-primary-light text-gray-700 text-xs font-semibold font-mono flex items-center gap-1 shrink-0">
-                    <CalendarCheck className="h-3.5 w-3.5" /> Cal.com / Google
-                    Cal
-                  </span>
-                </div>
-
-                {/* Branch D */}
-                <div className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-gray-200 text-primary flex items-center justify-center font-bold">
-                      <Bell className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold tracking-widest uppercase text-primary">
-                        Branch D &bull; Internal Alerting
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">
-                        Notify Account Exec on Dedicated Slack Channel
-                      </div>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-primary-light text-gray-700 text-xs font-semibold font-mono flex items-center gap-1 shrink-0">
-                    <Zap className="h-3.5 w-3.5" /> #rev-wins-live
-                  </span>
-                </div>
-              </div>
+      {/* ============================================================ */}
+      {/* IS / IS NOT                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              Straight answers
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"What outcome tracking is, and is not"}
+            </h2>
+            <p className="text-base leading-relaxed text-[#4a4455]">{"Simple, accurate records rather than a business intelligence suite."}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <CheckCircle className="h-5 w-5 text-[#630ed4]" />
+                What it does
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#630ed4]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <XCircle className="h-5 w-5 text-[#4a4455]" />
+                What it does not do
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isNotList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-[#4a4455]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ---- Performance Analytics ---- */}
-      <section className="w-full py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Text */}
-            <div className="lg:col-span-5">
-              <div className="section-label mb-1">
-                Telephony Intelligence
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-                Live Funnel Reports &amp; Conversion Velocity
+      {/* ============================================================ */}
+      {/* FAQ                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-3xl px-6 sm:px-8">
+          <div className="mb-10 text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              FAQ
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Questions about outcome tracking"}
+            </h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={f.q} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                  <button
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  >
+                    <span className="text-sm font-bold text-[#0b1c30]">{f.q}</span>
+                    {open ? (
+                      <Minus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    ) : (
+                      <Plus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    )}
+                  </button>
+                  {open ? (
+                    <div className="px-6 pb-5 text-sm leading-relaxed text-[#4a4455]">{f.a}</div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* RELATED                                                       */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <h2 className="mb-8 text-2xl font-bold tracking-tight text-[#0b1c30]">
+            Related features
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {related.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group flex items-start gap-4 rounded-2xl bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <r.icon className="h-5 w-5 text-[#630ed4]" />
+                </div>
+                <div>
+                  <h3 className="mb-1 flex items-center gap-1.5 text-base font-bold text-[#0b1c30]">
+                    {r.title}
+                    <ArrowRight className="h-4 w-4 text-[#630ed4] transition-transform group-hover:translate-x-1" />
+                  </h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{r.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* CTA                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-[#630ed4] p-10 text-white shadow-xl md:p-20">
+            <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative z-10 max-w-3xl">
+              <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+                {"Early access"}
+              </span>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+                {"Keep a clean record of every call"}
               </h2>
-              <p className="text-base text-gray-600 mb-6">
-                Aggregated disposition analytics show exactly where conversation
-                bottlenecks occur. Filter rep performance by list segment,
-                time-of-day cadence, or audio script variant.
+              <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
+                {"See outcomes land in your Google Sheet and costs show up in the ledger."}
               </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-gray-900 text-sm">
-                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
-                  <span>
-                    Attribution tracking back to marketing source lists
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-900 text-sm">
-                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
-                  <span>
-                    Identify rep performance bottlenecks based on connect velocity
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-900 text-sm">
-                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
-                  <span>
-                    Comprehensive CSV and webhook exports for custom BI stacks
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Analytics Grid */}
-            <div className="lg:col-span-7">
-              <div className="p-8 rounded-2xl bg-white shadow-md">
-                <div className="flex items-center justify-between mb-6 pb-2 border-b border-border">
-                  <div>
-                    <div className="text-lg font-semibold text-gray-900">
-                      Weekly Dial Funnel Health
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      Live telemetry aggregated across 12,480 outbound attempts
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-gray-900 text-xs font-semibold">
-                    <span>Last 7 Days</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </div>
-                </div>
-
-                {/* KPI Tiles */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                  <div className="p-4 rounded-xl bg-gray-50 flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      Contact Rate
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-                      28.4%
-                    </span>
-                    <span className="text-xs font-semibold text-primary mt-1 flex items-center">
-                      <TrendingUp className="h-3.5 w-3.5 mr-0.5" /> +4.6% vs
-                      benchmark
-                    </span>
-                  </div>
-                  <div className="p-4 rounded-xl bg-gray-50 flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      Conversion / Demo
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold text-primary mt-1">
-                      14.2%
-                    </span>
-                    <span className="text-xs font-semibold text-primary mt-1 flex items-center">
-                      <TrendingUp className="h-3.5 w-3.5 mr-0.5" /> +2.1% net
-                      lift
-                    </span>
-                  </div>
-                  <div className="p-4 rounded-xl bg-gray-50 flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      Drop Rate
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-                      2.1%
-                    </span>
-                    <span className="text-xs font-semibold text-gray-600 mt-1 flex items-center">
-                      <Shield className="h-3.5 w-3.5 mr-0.5" /> Under FCC cap
-                    </span>
-                  </div>
-                  <div className="p-4 rounded-xl bg-gray-50 flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500">
-                      Avg Duration
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-                      2m 44s
-                    </span>
-                    <span className="text-xs font-semibold text-gray-500 mt-1 flex items-center">
-                      <Clock className="h-3.5 w-3.5 mr-0.5" /> High engage
-                    </span>
-                  </div>
-                </div>
-
-                {/* Funnel Bar */}
-                <div className="space-y-3">
-                  <div className="flex justify-between text-xs font-semibold text-gray-900">
-                    <span>Disposition Breakdown</span>
-                    <span className="text-gray-500">
-                      Total Calls Handled: 12,480
-                    </span>
-                  </div>
-                  <div className="w-full h-4 rounded-full bg-gray-100 flex overflow-hidden">
-                    <div
-                      className="bg-primary h-full"
-                      style={{ width: "28.4%" }}
-                      title="Interested & Demo Booked (28.4%)"
-                    />
-                    <div
-                      className="bg-purple-300 h-full"
-                      style={{ width: "32.1%" }}
-                      title="Voicemail Drop (32.1%)"
-                    />
-                    <div
-                      className="bg-primary-light h-full"
-                      style={{ width: "24.5%" }}
-                      title="Callback Requested (24.5%)"
-                    />
-                    <div
-                      className="bg-gray-300 h-full"
-                      style={{ width: "15%" }}
-                      title="Unreachable / Bad (15%)"
-                    />
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between text-xs text-gray-500 pt-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-sm bg-primary" />
-                      <span>Qualified / Demo (28.4%)</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-sm bg-purple-300" />
-                      <span>VM Drop (32.1%)</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-sm bg-primary-light" />
-                      <span>Callback (24.5%)</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-sm bg-gray-300" />
-                      <span>Bad # / DNC (15.0%)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- Compliance & Call Hygiene ---- */}
-      <section className="w-full py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="rounded-2xl p-8 md:p-12 bg-gray-50 shadow-sm">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-8">
-                <div className="flex items-center gap-2 section-label mb-1">
-                  <ShieldCheck className="h-4 w-4" />
-                  <span>Reputation Engine &amp; Carrier Health</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
-                  Automated Bad Number Scrubbing &amp; Instant DNC Inoculation
-                </h2>
-                <p className="text-base text-gray-600 max-w-2xl">
-                  One single click on{" "}
-                  <strong className="text-gray-900 font-semibold">
-                    &apos;Bad Number&apos;
-                  </strong>{" "}
-                  or{" "}
-                  <strong className="text-gray-900 font-semibold">
-                    &apos;DNC / Not Interested&apos;
-                  </strong>{" "}
-                  triggers a system-wide lock. It immediately disconnects flagged numbers, flags invalid carrier data, and adds the contact to your global Do-Not-Call compliance list across all rep teams instantly.
-                </p>
-              </div>
-              <div className="lg:col-span-4 flex flex-col gap-3">
-                <div className="p-4 rounded-xl bg-white shadow-sm flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center">
-                    <Smartphone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">
-                      Carrier Spam Flag Shield
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Keeps carrier trust scores and reputation scores across all outbound caller IDs consistently green.
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 rounded-xl bg-white shadow-sm flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary-light text-primary flex items-center justify-center">
-                    <Gavel className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">
-                      Instant TCPA Defense
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Deterministic timestamp opt-out registry.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- CTA Block ---- */}
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 md:px-8">
-          <div className="rounded-3xl p-8 md:p-16 bg-primary text-white text-center relative overflow-hidden shadow-2xl">
-            {/* Background flares */}
-            <div className="absolute -right-20 -top-20 w-80 h-80 bg-purple-500/50 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-purple-800/40 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/15 text-purple-200 text-xs font-bold tracking-widest uppercase mb-4">
-                <span>Productivity Multiplier</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-                Automate your post-call admin and double your dials per hour
-              </h2>
-              <p className="text-lg text-purple-200 mb-12">
-                Give your sales team 30+ extra hours per rep each month by
-                replacing spreadsheet updates and manual CRM notes with instant
-                one-key dispositions.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="flex flex-wrap items-center gap-4">
                 <Link
-                  href="/free-trial"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white text-primary text-sm font-semibold shadow-lg hover:bg-gray-100 transition-all"
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#0b1c30] shadow-md transition-all hover:bg-[#eaddff]"
                 >
-                  <span>Start Free 14-Day Trial</span>
-                  <ArrowRight className="h-4 w-4" />
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
                 </Link>
                 <Link
-                  href="/contact-us"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all"
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#7c3aed] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[#213145]"
                 >
-                  <span>Book Architecture Demo</span>
+                  <Calendar className="h-[18px] w-[18px]" />
+                  Book a Demo
                 </Link>
               </div>
-              <div className="mt-8 text-purple-200 text-sm flex items-center justify-center gap-4 flex-wrap">
-                <span>No credit card required</span>
-                <span>&bull;</span>
-                <span>HubSpot &amp; Salesforce native</span>
-                <span>&bull;</span>
-                <span>SOC2 Type II verified</span>
-              </div>
+              <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
+                <Info className="h-4 w-4 shrink-0" />
+                {"No dashboards or charts. Outcomes live in your Sheet, costs live in the ledger."}
+              </p>
             </div>
           </div>
         </div>

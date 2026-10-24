@@ -5,669 +5,1005 @@ import Link from "next/link";
 import {
   ChevronRight,
   ChevronDown,
-  Scale,
-  Zap,
-  ArrowDown,
-  CheckCircle2,
+  Check,
+  X,
+  Minus,
   ArrowRight,
-  Brain,
-  PhoneCall,
-  Bot,
-  Voicemail,
-  MessageSquare,
-  RefreshCw,
-  Shield,
-  XCircle,
-  AlertTriangle,
-  RadioTower,
-  TrendingUp,
-  BadgeCheck,
-  ArrowLeftRight,
-  Calculator,
-  Calendar,
-  Mic2,
-  Upload,
-  Link2,
-  Settings,
-  Rocket,
+  ArrowUpRight,
+  Scale,
+  Phone,
+  MapPin,
+  Sparkles,
+  ShieldCheck,
+  Info,
+  Search,
+  Target,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  DATA: Comparison Table Rows                                       */
-/* ------------------------------------------------------------------ */
+/* ─── Types ────────────────────────────────────────────── */
 
-const comparisonRows = [
-  { feature: "Power dialer", dialeads: "✅", mojoDialer: "✅ Triple-line", highlight: false },
-  { feature: "AI voice agent — autonomous calls", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "Local presence caller ID", dialeads: "✅", mojoDialer: "✅", highlight: false },
-  { feature: "Ringless voicemail drop", dialeads: "✅ AI Dynamic", mojoDialer: "✅ Pre-recorded", highlight: true },
-  { feature: "Live objection rebuttal copilot", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "Automatic SMS follow-up", dialeads: "✅", mojoDialer: "✅ Basic", highlight: false },
-  { feature: "Automatic email follow-up", dialeads: "✅", mojoDialer: "✅ Basic", highlight: false },
-  { feature: "WhatsApp follow-up", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "CRM sync — HubSpot, Salesforce", dialeads: "✅ Native", mojoDialer: "✅ Limited", highlight: false },
-  { feature: "GoHighLevel integration", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "Real estate CRM integrations", dialeads: "✅", mojoDialer: "✅ Strong", highlight: false },
-  { feature: "Call recordings and AI transcripts", dialeads: "✅", mojoDialer: "✅ Recordings only", highlight: false },
-  { feature: "AI call transcripts", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "1-click call dispositions", dialeads: "✅", mojoDialer: "✅", highlight: false },
-  { feature: "Unified inbox — calls, SMS, notes", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "Speed-to-lead calling via webhook", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "National DNC auto-scrub", dialeads: "✅ Auto", mojoDialer: "✅", highlight: false },
-  { feature: "Time-zone enforcement", dialeads: "✅ Auto", mojoDialer: "✅", highlight: false },
-  { feature: "STIR/SHAKEN A-attestation", dialeads: "✅", mojoDialer: "❌", highlight: true },
-  { feature: "A2P 10DLC SMS registration", dialeads: "✅ Guided", mojoDialer: "❌", highlight: true },
-  { feature: "Team management and reporting", dialeads: "✅", mojoDialer: "✅", highlight: false },
-  { feature: "White-label for agencies", dialeads: "✅ Enterprise", mojoDialer: "❌", highlight: true },
-  { feature: "Starting price", dialeads: "$29/mo", mojoDialer: "$99/mo", highlight: true, isPrice: true },
+type Status = "yes" | "partial" | "no" | "na";
+
+type TableRow = {
+  category: string;
+  feature: string;
+  dialeads: string;
+  dialStatus: Status;
+  rival: string;
+  rivalStatus: Status;
+};
+
+type HeroRow = { label: string; value: string; status: Status };
+
+type Hero = {
+  badge: string;
+  titleLead: string;
+  titleAccent: string;
+  subtitle: string;
+  note: string;
+  rivalTag: string;
+  rivalPill: string;
+  rivalRows: HeroRow[];
+  dialTag: string;
+  dialPill: string;
+  dialRows: HeroRow[];
+  diffIntro: string;
+  ctaHeading: string;
+  ctaBody: string;
+};
+
+/* ─── Data ─────────────────────────────────────────────── */
+
+const RIVAL = "Mojo Dialer";
+const RIVAL_INITIALS = "MD";
+
+const hero: Hero = {
+  badge: "Honest comparison",
+  titleLead: "Mojo dials fast.",
+  titleAccent: "Dialeads dials smart.",
+  subtitle:
+    "Mojo Dialer is a multi-line power dialer built for high-volume calling, especially in real estate. Dialeads is a manual, browser-based dialer with AI on top: it sources and enriches its own leads, runs AI qualifier calls and suggests rebuttals live. Mojo gives you more dials per hour. Dialeads gives you more context per dial.",
+  note: "Usage-based pricing from $0.02/min. No subscription tiers.",
+  rivalTag: "Power dialer",
+  rivalPill: "Throughput-first",
+  rivalRows: [
+    {
+      label: "Dialing style",
+      value: "Multi-line power dialing",
+      status: "yes",
+    },
+    {
+      label: "Dials per hour",
+      value: "Higher than Dialeads",
+      status: "yes",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Bring or buy your list",
+      status: "na",
+    },
+    {
+      label: "AI qualifier calls",
+      value: "Not a focus",
+      status: "no",
+    },
+  ],
+  dialTag: "AI cold calling",
+  dialPill: "Context-first",
+  dialRows: [
+    {
+      label: "Dialing style",
+      value: "One at a time, manual",
+      status: "partial",
+    },
+    {
+      label: "Dials per hour",
+      value: "Lower than Mojo",
+      status: "no",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Google Maps scraper",
+      status: "yes",
+    },
+    {
+      label: "AI qualifier calls",
+      value: "Yes, AI disclosed",
+      status: "yes",
+    },
+  ],
+  diffIntro: "Mojo and Dialeads both help you make outbound calls, but they optimize for different things.",
+  ctaHeading: "Would you rather call better-informed leads?",
+  ctaBody:
+    "Dialeads is in early access. Join the list, or book a demo and we will show you how a lead goes from a Google Maps scrape to a scored, enriched call.",
+};
+
+const shortAnswer = {
+  heading: "Speed of dialing vs quality of each call",
+  intro:
+    "If your constraint is raw contact volume, one of these wins clearly. If your constraint is knowing who you are calling, the other does.",
+  rivalLabel: "Multi-line power dialing",
+  rivalBody:
+    "Reps who live on the phone and need to cycle through a lot of numbers quickly. Mojo's multi-line approach is designed to reduce the time spent waiting on rings, voicemails and dead numbers, and it has a long track record with real estate teams.",
+  rivalBest: "Best when the list is ready and the goal is dials per hour.",
+  dialLabel: "AI-powered cold calling",
+  dialBody:
+    "Reps and small teams who sell to local businesses and want the research done before the call. Dialeads scrapes Google Maps, audits websites, detects ads, finds social profiles and scores each lead, then lets you call from the browser or hand first-pass qualifying to an AI assistant.",
+  dialBest: "Best when each conversation is worth preparing for.",
+};
+
+const comparisonRows: TableRow[] = [
+  {
+    category: "Dialing",
+    feature: "Multi-line / power dialing",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Core feature",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Dialing",
+    feature: "Manual one-at-a-time calling",
+    dialeads: "Yes, browser WebRTC softphone via Telnyx",
+    dialStatus: "yes",
+    rival: "Available alongside power dialing",
+    rivalStatus: "na",
+  },
+  {
+    category: "Dialing",
+    feature: "Predictive dialer",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Dialing",
+    feature: "Dialing throughput",
+    dialeads: "Lower, one call at a time",
+    dialStatus: "partial",
+    rival: "Higher, designed for volume",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Dialing",
+    feature: "Runs in the browser",
+    dialeads: "Yes, no install",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "AI",
+    feature: "AI qualifier calls",
+    dialeads: "Yes, Telnyx AI assistant that discloses it is AI",
+    dialStatus: "yes",
+    rival: "Not a focus of the product",
+    rivalStatus: "no",
+  },
+  {
+    category: "AI",
+    feature: "Live AI rebuttals during calls",
+    dialeads: "Yes, Claude / Gemini",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Google Maps lead scraper (niche + city)",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Website audit and Google Ads detection",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Instagram / Facebook / TikTok presence",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Lead scoring with pitch angles",
+    dialeads: "RUNS_ADS, NO_SITE, WEAK_SITE, STRONG_SITE",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Real estate list sources",
+    dialeads: "Not specific to real estate",
+    dialStatus: "no",
+    rival: "Strong real estate orientation",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Messaging",
+    feature: "Two-way SMS",
+    dialeads: "Yes, via Telnyx",
+    dialStatus: "yes",
+    rival: "Confirm current texting options",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Campaign management",
+    dialeads: "Manual and AI modes",
+    dialStatus: "yes",
+    rival: "Call lists and queues",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Workflow",
+    feature: "Call scripts with per-lead placeholders",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Google Sheet integration",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "CRM integrations",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Call recording",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Suppression list",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Calling windows (8am to 9pm) and attempt caps",
+    dialeads: "Yes, enforced in campaigns",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "AI disclosure on AI calls",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Teams",
+    feature: "Multi-tenant orgs, roles and invites",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Teams",
+    feature: "Number pools with health monitoring",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Pricing",
+    feature: "Pricing model",
+    dialeads: "Usage-based: $0.02/min manual, $0.25/min AI, $0.03/SMS",
+    dialStatus: "yes",
+    rival: "See Mojo for current pricing",
+    rivalStatus: "na",
+  },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  DATA: Deep-Dive Differences                                       */
-/* ------------------------------------------------------------------ */
-
-const deepDives = [
+const differences = [
   {
     num: "01",
-    title: "Price — Dialeads is 70% Cheaper Than Mojo",
-    mojoText:
-      "Starts at $99/month for a single-line dialer. Triple-line dialing — Mojo’s signature feature — costs $149/month. Additional seats priced separately. For a 5-person team on triple-line, expect $500–$750/month.",
-    dialeadsText:
-      "$29/month for Starter. $49/month for Pro — which includes unlimited calling, AI voice agent, power dialer, live objection rebuttals, automated follow-up, and full CRM sync. A 5-person team on Dialeads Pro costs $245/month — vs $500–$750 on Mojo.",
-    calloutIcon: TrendingUp,
-    callout: "Annual savings for a 5-person team: $3,060–$6,060 per year.",
-    calloutStyle: "highlight" as const,
+    title: "Lines per rep: throughput vs context",
+    rival:
+      "Mojo dials several lines at once and connects you to whoever answers first. For a rep working a big list, that removes a lot of dead time and is the whole reason power dialers exist.",
+    dialeads:
+      "Dialeads calls one lead at a time from a browser softphone. You make fewer dials per hour, and each one starts with the lead's website audit, ad status, social presence and pitch angle in front of you. The trade is volume for preparation.",
   },
   {
     num: "02",
-    title: "AI Voice Agent — Mojo Has None",
-    mojoText:
-      "No AI voice agent capability. Every call requires a human rep on the line. First-touch outreach at scale requires proportional headcount growth. More leads contacted = more reps hired = higher cost.",
-    dialeadsText:
-      "AI voice agent handles first-touch outbound calls autonomously — 24 hours a day, 7 days a week, with no human rep required. The AI introduces your business, qualifies prospects, handles common objections, and routes warm leads to human reps. One operator can oversee campaigns contacting thousands of leads per day.",
-    calloutLabel: "Human Headcount Impact",
-    callout: "Scale lead qualification 10x without recruiting, onboarding, or managing additional cold callers.",
-    calloutStyle: "neutral" as const,
+    title: "Where the leads come from",
+    rival:
+      "Mojo is a calling tool. You supply the list, whether from your own research, a purchased list or a real estate data source, and Mojo works through it.",
+    dialeads:
+      "Dialeads sources leads itself. Give it a niche and a city and the Google Maps scraper builds the list, then enrichment and scoring run on it. If your leads are local businesses, that removes a separate research step. If your leads are homeowners, it is not the right source.",
   },
   {
     num: "03",
-    title: "Live Objection Rebuttals — Mojo Has None",
-    mojoText:
-      "No real-time objection coaching. When a prospect pushes back on price, timing, or competition — reps are on their own. New reps freeze. Calls die. Mojo offers no AI assistance during live conversations.",
-    dialeadsText:
-      "Sub-200ms real-time audio transcription detects objections the moment they land. The exact rebuttal script appears on the rep’s screen before they even process what the prospect said. New reps close like veterans from their first week. Objection win rates increase 41% across audited campaigns.",
-    calloutIcon: BadgeCheck,
-    callout: "+41% objection win rate on live sales calls",
-    calloutStyle: "highlight" as const,
+    title: "AI doing the first conversation",
+    rival:
+      "Mojo is built so a human rep handles the connected call. The dialer's job is to get a person on the line faster.",
+    dialeads:
+      "In AI mode, a Telnyx AI assistant calls and qualifies the lead against your script, and it discloses that it is AI. A rep then follows up on the leads that qualified. This is a different model: the AI does the first pass instead of the dialer speeding up the rep.",
   },
   {
     num: "04",
-    title: "Voicemail Drop Quality — Static vs AI Dynamic",
-    mojoText:
-      "Pre-recorded voicemail drop — same audio file dropped to every contact. Generic message, zero personalization, identical to every other agent dropping the same voicemail. Callback rates typically under 3%.",
-    dialeadsText:
-      "AI dynamic voicemail drops synthesize a personalized message per contact — inserting their name, the specific property or product they are associated with, and a tailored call to action. Every voicemail sounds individually crafted. Callback rates average 3x higher than Mojo’s static drops.",
-    calloutLabel: "Callback Velocity",
-    callout: "Triple callback conversion with synthesized address and owner data injection.",
-    calloutStyle: "neutral" as const,
+    title: "Help when the prospect objects",
+    rival: "Mojo does not generate rebuttals. Rep skill, scripts and training handle objections.",
+    dialeads:
+      "During a live call, Dialeads can suggest rebuttals using Claude or Gemini. It is useful for newer reps and for objections you do not hear every day. It does not replace practice and it will not be right every time.",
   },
   {
     num: "05",
-    title: "CRM Integration Depth",
-    mojoText:
-      "Integrates with some real estate CRMs — LionDesk, Top Producer, Follow Up Boss — but limited native sync with HubSpot, Salesforce, and GoHighLevel. No AI transcript delivery to CRM records. No disposition-triggered pipeline movements.",
-    dialeadsText:
-      "Native two-way sync with HubSpot, Salesforce, Close CRM, and GoHighLevel. Every call outcome, voicemail drop receipt, AI transcript, SMS thread, and disposition writes to your CRM automatically in real time. Full custom field mapping for any CRM setup.",
-    calloutIcon: ArrowLeftRight,
-    callout: "100% automated logging — Zero manual admin hours",
-    calloutStyle: "highlight" as const,
-  },
-  {
-    num: "06",
-    title: "STIR/SHAKEN Caller ID Verification",
-    mojoText:
-      "No STIR/SHAKEN attestation on outbound caller IDs. As carrier spam detection has become more aggressive, Mojo users report increasing spam flag rates — reducing answer rates over time as numbers age on shared infrastructure.",
-    dialeadsText:
-      "All outbound caller IDs pass STIR/SHAKEN A-level attestation — the FCC framework for verified caller ID. Numbers stay clean. Answer rates stay consistently above 80% because every call carries verified caller ID status.",
-    calloutLabel: "Reputation Shield",
-    callout: ">80% sustained pickup rates via carrier-authenticated A-tier cryptographic tokens.",
-    calloutStyle: "neutral" as const,
+    title: "Industry fit",
+    rival:
+      "Mojo has a strong real estate following. Its workflow and positioning are shaped by investors and agents calling homeowner lists.",
+    dialeads:
+      "Dialeads is not specific to real estate. Its lead sourcing is aimed at local businesses found on Google Maps, such as agencies selling websites, ads or marketing services to them. Different buyer, different tool.",
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  DATA: Pricing Comparison Table                                    */
-/* ------------------------------------------------------------------ */
+const rivalStrengths = {
+  intro: "Mojo has real advantages over Dialeads, and for some teams they decide the question.",
+  items: [
+    {
+      title: "Multi-line dialing throughput",
+      body: "Dialeads has no power or predictive dialer. If you need to maximize live connects per hour from a large list, Mojo's multi-line approach will get you there faster than one-at-a-time calling.",
+    },
+    {
+      title: "Real estate focus",
+      body: "Mojo has a long record with real estate investors and agents. If you call homeowner lists, you will find more of your peers, workflows and list sources around Mojo than around Dialeads.",
+    },
+    {
+      title: "Maturity",
+      body: "Mojo has been used by high-volume callers for years. Dialeads is newer and in early access, so expect a narrower and still-growing feature set.",
+    },
+    {
+      title: "Built for the dial-all-day rep",
+      body: "If a rep's day is almost entirely on the phone with a prepared list, a tool tuned for that rhythm can feel better than a platform that also does sourcing, enrichment and AI.",
+    },
+  ],
+};
 
-const pricingRows = [
-  { feature: "Entry plan", dialeads: "$29/mo", mojo: "$99/mo" },
-  { feature: "Full-featured plan", dialeads: "$49/mo", mojo: "$149/mo" },
-  { feature: "AI voice agent", dialeads: "Included", mojo: "Not available", mojoError: true },
-  { feature: "Live objection rebuttals", dialeads: "Included", mojo: "Not available", mojoError: true },
-  { feature: "AI call transcripts", dialeads: "Included", mojo: "Not available", mojoError: true },
-  { feature: "Automated follow-up sequences", dialeads: "Included", mojo: "Basic only" },
-  { feature: "HubSpot native sync", dialeads: "Included", mojo: "Limited" },
-  { feature: "STIR/SHAKEN attestation", dialeads: "Included", mojo: "Not available", mojoError: true },
-  { feature: "A2P 10DLC registration", dialeads: "Guided — included", mojo: "Not available", mojoError: true },
-  { feature: "White-label for agencies", dialeads: "Enterprise plan", mojo: "Not available", mojoError: true },
+const workflowSteps = {
+  heading: "What a Dialeads calling session looks like",
+  intro:
+    "A typical Dialeads session is slower per dial and heavier on preparation. Here is what happens, using only features that exist today.",
+  items: [
+    {
+      tag: "Source",
+      title: "Build a list from Google Maps",
+      body: "Choose a niche and city and let the scraper pull local businesses into a lead list. Or connect a Google Sheet you already maintain.",
+    },
+    {
+      tag: "Enrich",
+      title: "Audit before you dial",
+      body: "Website audit, Google Ads detection and Instagram, Facebook and TikTok presence are attached to each lead.",
+    },
+    {
+      tag: "Score",
+      title: "Sort by pitch angle",
+      body: "Leads are labeled RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE, so you can work the group that matches your offer first.",
+    },
+    {
+      tag: "Call",
+      title: "Dial from the browser",
+      body: "Place calls through the WebRTC softphone, one lead at a time, with the script and enrichment visible while you talk.",
+    },
+    {
+      tag: "Assist",
+      title: "Use live rebuttals",
+      body: "When the prospect objects, Claude or Gemini can suggest a response during the call.",
+    },
+    {
+      tag: "Delegate",
+      title: "Let AI qualify the rest",
+      body: "Run a campaign in AI mode so the Telnyx AI assistant makes first-pass qualifier calls, with AI disclosure, within your calling window and attempt cap.",
+    },
+  ],
+};
+
+const rivalPricing = {
+  title: "Priced as a dialer subscription",
+  body: "Dialers like Mojo are typically sold as a subscription, with options that vary by plan and by the number of lines. We are not quoting Mojo's current prices because they change and we would rather send you to the source.",
+  points: [
+    "Check Mojo's own pricing page for current plans.",
+    "Pricing varies by plan and features.",
+    "List costs are separate from the dialer.",
+  ],
+};
+
+const dialeadsRates = [
+  {
+    label: "Manual calling",
+    price: "$0.02",
+    unit: "per minute",
+    body: "Browser softphone calls placed one at a time over Telnyx, with the lead's enrichment data on screen.",
+  },
+  {
+    label: "AI qualifier calls",
+    price: "$0.25",
+    unit: "per minute",
+    body: "Telnyx AI assistant calls that disclose they are AI and qualify the lead against your script.",
+  },
+  {
+    label: "SMS",
+    price: "$0.03",
+    unit: "per message",
+    body: "Two-way SMS over Telnyx for follow-up and replies, inside the same lead record.",
+  },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  DATA: Real Estate Comparison Cards                                */
-/* ------------------------------------------------------------------ */
-
-const realEstateCards = [
+const useCases = [
   {
-    title: "Absentee Owner and Cold List Dialing",
-    mojoText:
-      "Triple-line dialing gets through more contacts per hour than single-line. Strong for volume cold calling on large lists. Pre-recorded voicemail drops available.",
-    dialeadsText:
-      "AI power dialer contacts 400–500 leads per day. AI dynamic voicemails personalized with property address and owner name get 3x more callbacks than Mojo’s generic drops. Local presence CID on every call.",
-    verdict: "Verdict: Dialeads wins on callback rate and automation. Mojo wins on simultaneous line count.",
+    title: "Calling large homeowner lists all day",
+    winner: "Mojo Dialer",
+    rival:
+      "This is the core use case. Multi-line dialing and a real estate-oriented workflow are the reason to choose it.",
+    dialeads:
+      "Not the right fit. One-at-a-time calling is slower, and Dialeads has no homeowner list sourcing.",
   },
   {
-    title: "Expired Listing and FSBO Outreach",
-    mojoText:
-      "Strong real estate database integration for pulling expired and FSBO data directly into dialer. Popular with agents for this specific use case.",
-    dialeadsText:
-      "Speed-to-lead calling via Zapier contacts every new expired listing within 60 seconds of MLS update. AI voice agent handles initial outreach autonomously. Import any expired or FSBO list via CSV from any data source.",
-    verdict: "Verdict: Mojo has better native real estate database access. Dialeads wins on speed-to-lead and AI automation.",
+    title: "Selling websites, ads or marketing to local businesses",
+    winner: "Dialeads",
+    rival: "You would bring your own list and research each business separately before or during the call.",
+    dialeads:
+      "Scrape the niche and city, see who runs ads or has a weak site, and open with that angle. The sourcing and research are part of the product.",
   },
   {
-    title: "Follow-Up and Pipeline Management",
-    mojoText:
-      "Basic follow-up sequences. Manual CRM updates. No unified inbox combining calls, SMS, and notes.",
-    dialeadsText:
-      "Automated multi-touch SMS and email sequences triggered by call outcomes. Full CRM sync. Unified inbox shows every call, text, and note per contact. Callbacks never fall through the cracks.",
-    verdict: "Verdict: Dialeads wins significantly on follow-up automation and pipeline management.",
+    title: "A newer rep who needs support on calls",
+    winner: "Dialeads",
+    rival: "A dialer gets the rep on more calls, which is good practice but offers no in-call help.",
+    dialeads:
+      "Per-lead context on screen, a script with placeholders and live AI rebuttal suggestions give a newer rep something to lean on.",
   },
   {
-    title: "New Agent Ramp Time",
-    mojoText:
-      "No live coaching during calls. New agents learn objection handling through trial and error over weeks of dialing.",
-    dialeadsText:
-      "Live objection rebuttal copilot shows new agents exactly what to say the moment a prospect pushes back. New agents hit full productivity in days — not weeks.",
-    verdict: "Verdict: Dialeads wins significantly for new agent onboarding.",
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/*  DATA: Migration Steps                                             */
-/* ------------------------------------------------------------------ */
-
-const migrationSteps = [
-  {
-    num: "01",
-    title: "Export Your Contact Lists",
-    body: "Export your lead lists and contact data from Mojo Dialer as CSV files. All contacts, phone numbers, call history, and dispositions export cleanly.",
+    title: "Offloading first-pass qualifying",
+    winner: "Dialeads",
+    rival: "Rep time is the constraint. A faster dialer helps but a human is still on each call.",
+    dialeads:
+      "AI qualifier calls handle first-pass questions, disclosed as AI, so reps spend time on leads that already responded.",
   },
   {
-    num: "02",
-    title: "Import Into Dialeads",
-    body: "Upload your Mojo CSV directly into Dialeads. Phone numbers auto-validated, DNC-scrubbed, duplicates removed, local caller IDs matched. Ready to dial in under 2 minutes.",
-  },
-  {
-    num: "03",
-    title: "Re-Upload Your Voicemail Recordings",
-    body: "Upload your existing Mojo voicemail recordings directly into Dialeads. Optionally enable AI dynamic voicemail drops for personalized messages per contact — a significant upgrade from Mojo’s static drops.",
-  },
-  {
-    num: "04",
-    title: "Connect Your CRM",
-    body: "Connect HubSpot, Salesforce, GoHighLevel, or Close CRM with one click. Full bi-directional sync active immediately. Every future call outcome syncs automatically — something Mojo only partially delivered.",
-  },
-  {
-    num: "05",
-    title: "Configure Objection Rebuttals",
-    body: "Upload your objection playbook or use Dialeads pre-built playbooks for real estate and insurance verticals. Live rebuttal copilot activates immediately on every call — a feature Mojo simply does not have.",
-  },
-  {
-    num: "06",
-    title: "Launch Your First Campaign",
-    body: "Start dialing. Same core power dialing capability as Mojo — plus AI voice agent, dynamic voicemail drops, live objection rebuttals, automated follow-up, and full CRM sync running alongside it.",
+    title: "You need a CRM sync or call recording today",
+    winner: "Mojo Dialer",
+    rival:
+      "Confirm the exact CRM and recording options with the vendor, but a mature dialer is more likely to cover them.",
+    dialeads:
+      "Neither CRM integrations nor call recording is currently offered. Google Sheets is the available integration.",
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  DATA: FAQ Items                                                   */
-/* ------------------------------------------------------------------ */
+const switchingSteps = {
+  heading: "Trying Dialeads alongside Mojo",
+  intro:
+    "You do not have to choose one forever. Many teams would test a new approach on a segment of their calling before changing anything.",
+  items: [
+    {
+      title: "Pick one segment to test",
+      body: "Choose a niche and city where context matters, such as local service businesses, rather than your largest homeowner list.",
+    },
+    {
+      title: "Scrape and enrich it in Dialeads",
+      body: "Let the Google Maps scraper and enrichment build the list, then look at the pitch angles assigned to each lead.",
+    },
+    {
+      title: "Call a few manually",
+      body: "Use the browser softphone and your script. Notice whether the enrichment changes how the first thirty seconds go.",
+    },
+    {
+      title: "Try AI mode on a small batch",
+      body: "Run a limited AI qualifier campaign, review how it handled the conversations and adjust the script.",
+    },
+    {
+      title: "Compare outcomes, not dial counts",
+      body: "Mojo will win on dials per hour. The fair question is how many qualified conversations you got for the time and money spent.",
+    },
+  ],
+};
+
+const chooseRival = [
+  "Dials per hour is the metric you are trying to move",
+  "You call prepared lists, especially real estate lists, all day",
+  "You want multi-line dialing",
+  "You need a mature product with a long track record",
+  "You do not need lead sourcing or AI qualifier calls",
+];
+
+const chooseDialeads = [
+  "You sell to local businesses and want Google Maps sourcing built in",
+  "You want website, ads and social context before each call",
+  "You want AI qualifier calls with clear AI disclosure",
+  "You want live rebuttal suggestions for your reps",
+  "You prefer usage-based pricing without subscription tiers",
+  "You are fine trading some dialing volume for better-prepared calls",
+];
 
 const faqItems = [
   {
-    question: "Does Dialeads have triple-line dialing like Mojo?",
+    question: "Does Dialeads have a power dialer like Mojo?",
     answer:
-      "Dialeads uses a single-line AI-assisted power dialer that automatically advances through leads and drops voicemails instantly — achieving similar or higher daily contact volumes to Mojo’s triple-line through automation rather than simultaneous lines. For teams that specifically require simultaneous multi-line dialing, Mojo remains strong in that capability.",
+      "No. Dialeads has manual one-at-a-time calling from a browser softphone and an AI mode for qualifier calls. There is no power, triple-line or predictive dialer. If multi-line throughput is a requirement, Mojo is the stronger choice.",
   },
   {
-    question: "Is Dialeads really 70% cheaper than Mojo?",
+    question: "Is Dialeads good for real estate?",
     answer:
-      "Yes. Mojo Dialer starts at $99/month for single-line and $149/month for triple-line. Dialeads Pro — which includes AI voice agent, live objection rebuttals, and full CRM sync that Mojo does not offer at any price — is $49/month. The savings increase significantly for multi-seat teams.",
+      "It is not built specifically for real estate. Its lead sourcing is the Google Maps scraper, which finds local businesses. Teams calling homeowner lists will likely be better served by a real estate-oriented dialer.",
   },
   {
-    question: "Does Dialeads work for real estate like Mojo does?",
+    question: "Can I import my existing lists?",
     answer:
-      "Yes. Dialeads is widely used by real estate wholesalers, agents, and property managers. CSV import from PropStream, BatchLeads, DealMachine, and any other data source. Local presence CID, ringless voicemail drops, SMS follow-up, and real estate-specific call dispositions all included.",
+      "Dialeads supports a Google Sheet integration, so you can bring leads in from a sheet. You can also scrape new leads from Google Maps.",
   },
   {
-    question: "Can I import my Mojo lead lists into Dialeads?",
+    question: "How does Dialeads pricing compare with Mojo?",
     answer:
-      "Yes. Export your leads from Mojo as CSV and import directly into Dialeads. Automatic phone validation, DNC scrubbing, and local caller ID matching on import. Ready to dial in under 2 minutes.",
+      "Dialeads is usage-based: $0.02 per minute for manual calls, $0.25 per minute for AI calls and $0.03 per SMS, with no subscription tiers. For Mojo, check their pricing page for current plans. We do not publish a savings figure.",
   },
   {
-    question: "Does Dialeads have the same real estate database integrations as Mojo?",
+    question: "Does the AI caller disclose that it is AI?",
     answer:
-      "Mojo has stronger native integrations with real estate-specific databases like Vulcan7 and RedX. Dialeads connects to any lead source via CSV import or Zapier — including PropStream, BatchLeads, DealMachine, and MLS feeds. If your specific data source is not natively supported, Zapier provides the connection.",
+      "Yes. AI qualifier calls run on a Telnyx AI assistant and disclose that the caller is AI. AI disclosure is part of the compliance guardrails in campaigns.",
   },
   {
-    question: "How long does it take to switch from Mojo to Dialeads?",
+    question: "What compliance controls does Dialeads have?",
     answer:
-      "Under 45 minutes for most users. Export contacts from Mojo, import into Dialeads, upload voicemail recordings, connect CRM, configure objection playbook, launch first campaign. 14-day free Pro trial starts immediately — no credit card required.",
+      "A suppression list, calling windows between 8am and 9pm, attempt caps and AI disclosure. These are guardrails, not legal advice, and you remain responsible for how you use any calling tool.",
+  },
+  {
+    question: "Can multiple people use one Dialeads account?",
+    answer:
+      "Yes. Dialeads is multi-tenant, with organizations, roles and invites, and number pools with health monitoring.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Dialeads is in early access. Use the Get Early Access button, or book a demo and we will walk through a Google Maps scrape and a first call.",
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  DATA: Testimonials                                                */
-/* ------------------------------------------------------------------ */
-
-const testimonials = [
+const relatedComparisons = [
   {
-    quote:
-      "“I was paying $149 a month for Mojo triple-line. Switched to Dialeads Pro at $49 and immediately got features Mojo does not have — AI voicemails, live objection scripts on screen, and automatic SMS follow-up. Saved $1,200 a year and got a better platform.”",
-    initials: "MV",
-    name: "Marcus Vance",
-    role: "Real Estate Wholesaler",
+    href: "/compare/dialeads-vs-calltools",
+    label: "Dialeads vs CallTools",
+    blurb: "Call center software vs a lightweight browser-based platform.",
   },
   {
-    quote:
-      "“Mojo is solid for dialing but it is just a dialer. After every call I was manually logging to my CRM, manually sending follow-up texts, manually scheduling callbacks. Dialeads does all of that automatically. I get 2 extra hours of actual dialing time every day.”",
-    initials: "ER",
-    name: "Elena Rostova",
-    role: "Real Estate Agent",
+    href: "/compare/dialeads-vs-drop-cowboy",
+    label: "Dialeads vs Drop Cowboy",
+    blurb: "Voicemail drops vs live conversations.",
   },
   {
-    quote:
-      "“The objection rebuttal copilot was the feature that sold me. My new agents were freezing on cold calls and taking months to ramp. Dialeads shows them exactly what to say the moment a seller pushes back. Ramp time dropped from 8 weeks to 2 weeks.”",
-    initials: "JM",
-    name: "Jason Miller",
-    role: "Team Lead, Real Estate Investment Company",
-  },
-  {
-    quote:
-      "“I switched 6 agents from Mojo to Dialeads and saved $600 per month immediately. The AI voicemail drops alone increased our callback rate significantly because every voicemail now has the property address and seller’s name in it — not a generic recording.”",
-    initials: "DK",
-    name: "David K.",
-    role: "Owner, Real Estate Wholesaling Operation",
+    href: "/compare/dialeads-vs-slybroadcast",
+    label: "Dialeads vs Slybroadcast",
+    blurb: "Voicemail-only service vs AI cold calling.",
   },
 ];
 
-/* ================================================================== */
-/*  COMPONENT                                                         */
-/* ================================================================== */
+const dialeadsPillars = [
+  {
+    icon: MapPin,
+    title: "Built-in lead sourcing",
+    body: "Scrape Google Maps by niche and city, so the list lives in the same product as the calls.",
+  },
+  {
+    icon: Search,
+    title: "Enrichment before the dial",
+    body: "Website audit, Google Ads detection, and Instagram, Facebook and TikTok presence on every lead.",
+  },
+  {
+    icon: Target,
+    title: "Scores and pitch angles",
+    body: "Each lead is tagged RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE so you know what to open with.",
+  },
+  {
+    icon: Phone,
+    title: "Browser WebRTC softphone",
+    body: "Manual one-at-a-time calling in the browser through Telnyx. No hardware, no install.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI qualifier and live rebuttals",
+    body: "A Telnyx AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Compliance guardrails",
+    body: "Suppression list, 8am to 9pm calling windows, attempt caps and AI disclosure built into campaigns.",
+  },
+];
+
+const statusMeta: Record<Status, { label: string; cls: string }> = {
+  yes: { label: "Yes", cls: "text-emerald-600" },
+  partial: { label: "Partial", cls: "text-amber-600" },
+  no: { label: "No", cls: "text-rose-500" },
+  na: { label: "Varies", cls: "text-[#4a4455]" },
+};
+
+/* ─── Helpers ──────────────────────────────────────────── */
+
+function StatusIcon({ status, className }: { status: Status; className?: string }) {
+  const cls = className ?? "w-4 h-4";
+  if (status === "yes") return <Check className={cls + " text-emerald-600"} />;
+  if (status === "partial") return <Minus className={cls + " text-amber-600"} />;
+  if (status === "no") return <X className={cls + " text-rose-500"} />;
+  return <Info className={cls + " text-[#4a4455]"} />;
+}
+
+/* ─── Component ────────────────────────────────────────── */
 
 export default function DialeadsVsMojoDialerPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [category, setCategory] = useState<string>("All");
+
+  const categories = ["All", ...Array.from(new Set(comparisonRows.map((r) => r.category)))];
+  const visibleRows =
+    category === "All" ? comparisonRows : comparisonRows.filter((r) => r.category === category);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* ── Breadcrumb ── */}
-      <section className="w-full bg-[#eff4ff] py-2">
-        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-sm text-[#4a4455]">
-          <nav className="flex items-center gap-2 text-[#5e5d6b]">
-            <Link href="/" className="hover:text-[#630ed4] transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link href="/compare" className="hover:text-[#630ed4] transition-colors">
-              Comparisons
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-[#0b1c30] font-medium">Dialeads vs Mojo Dialer</span>
-          </nav>
-        </div>
-      </section>
+    <div className="bg-[#f8f9ff] text-[#0b1c30] antialiased min-h-screen selection:bg-[#eaddff] selection:text-[#630ed4]">
+      {/* BREADCRUMBS */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-[#4a4455]">
+          <Link href="/" className="hover:text-[#630ed4]">
+            Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <span>Comparisons</span>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-[#0b1c30] font-medium">Dialeads vs {RIVAL}</span>
+        </nav>
+      </div>
 
-      {/* ── SECTION 1: Hero ── */}
-      <section className="w-full py-24 bg-[#f8f9ff] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] font-bold text-xs uppercase tracking-wider mb-4 shadow-sm">
-              <Scale className="w-3.5 h-3.5" />
-              PLATFORM COMPARISON 2025
-            </div>
-            <h1 className="text-4xl md:text-[56px] md:leading-[60px] font-bold tracking-tight text-[#0b1c30] mb-6 text-balance">
-              Dialeads vs Mojo Dialer &mdash; Which Power Dialer Wins for Outbound Teams in 2025?
-            </h1>
-            <p className="text-lg leading-7 text-[#4a4455] max-w-3xl mx-auto mb-8">
-              Mojo Dialer is a solid triple-line power dialer with a strong reputation in real estate. Dialeads adds AI voice agents, live objection rebuttals, dynamic voicemail drops, and automated multi-channel follow-up &mdash; at 70% less cost. Here is the complete honest comparison.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-              <Link
-                href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all"
-              >
-                <span>Start Dialeads Free</span>
-                <Zap className="w-4 h-4" />
-              </Link>
-              <a
-                href="#comparison-table"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0b1c30] font-semibold text-sm shadow-sm transition-all"
-              >
-                <span>See Full Feature List</span>
-                <ArrowDown className="w-4 h-4" />
-              </a>
-            </div>
-            <p className="text-sm text-[#5e5d6b] flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#630ed4]" />
-              No credit card &middot; 14-day full Pro access &middot; Cancel anytime
-            </p>
+      {/* HERO */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-6">
+            <Scale className="w-3.5 h-3.5" />
+            {hero.badge}
           </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[#0b1c30] font-extrabold tracking-tight mb-6 leading-[1.12]">
+            {hero.titleLead} <span className="text-[#630ed4]">{hero.titleAccent}</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-[#4a4455] max-w-3xl mx-auto mb-8 leading-relaxed">
+            {hero.subtitle}
+          </p>
 
-          {/* Hero Cockpit Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* Left: Mojo Legacy Cockpit */}
-            <div className="lg:col-span-5 bg-white rounded-xl p-8 flex flex-col justify-between shadow-sm relative opacity-95">
-              <div>
-                <div className="flex items-center justify-between pb-4 mb-4 bg-[#eff4ff] -mx-8 -mt-8 p-6 rounded-t-xl">
-                  <div>
-                    <span className="text-xl font-bold text-[#0b1c30]">Mojo Dialer</span>
-                    <p className="text-sm text-[#5e5d6b]">Legacy Hardware / Triple-Line Dialer</p>
-                  </div>
-                  <span className="px-3 py-1 bg-[#dce9ff] rounded-full font-bold text-xs text-[#5e5d6b] uppercase">Copper / SIP Core</span>
-                </div>
-                <div className="space-y-4 mb-6">
-                  <div className="p-4 bg-[#eff4ff] rounded-lg">
-                    <div className="flex items-center justify-between text-[#5e5d6b] font-bold text-xs mb-2">
-                      <span>Triple-Line Trunk Status</span>
-                      <span className="text-[#ba1a1a] flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-full bg-[#ba1a1a] inline-block" /> High Connect Drop Rate
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 text-center">
-                      <div className="bg-white p-2 rounded text-sm text-[#0b1c30]">Line 1: Ringing...</div>
-                      <div className="bg-white p-2 rounded text-sm text-[#0b1c30]">Line 2: Busy</div>
-                      <div className="bg-white p-2 rounded text-sm text-[#0b1c30]">Line 3: Voicemail</div>
-                    </div>
-                  </div>
-                  <div className="space-y-2 text-sm text-[#4a4455]">
-                    <div className="flex items-center gap-2 py-1">
-                      <RadioTower className="w-4 h-4 text-[#5e5d6b]" />
-                      <span>Single Static Audio Drop (.wav replay)</span>
-                    </div>
-                    <div className="flex items-center gap-2 py-1">
-                      <XCircle className="w-4 h-4 text-[#ba1a1a]" />
-                      <span className="text-[#ba1a1a] font-medium">No Live AI Transcription</span>
-                    </div>
-                    <div className="flex items-center gap-2 py-1">
-                      <XCircle className="w-4 h-4 text-[#ba1a1a]" />
-                      <span className="text-[#ba1a1a] font-medium">No In-Call Objection Assist</span>
-                    </div>
-                    <div className="flex items-center gap-2 py-1">
-                      <AlertTriangle className="w-4 h-4 text-[#5e5d6b]" />
-                      <span>Basic Real Estate CRM Export (Manual sync)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-4 bg-[#eff4ff] -mx-8 -mb-8 p-4 rounded-b-xl flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            <Link
+              href="/demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#630ed4] hover:bg-[#7c3aed] text-white font-bold text-base shadow-lg shadow-[#630ed4]/20 transition-colors"
+            >
+              Get Early Access
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a
+              href="#comparison-table"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white border border-[#e3e0f1] text-[#0b1c30] hover:bg-[#eff4ff] font-bold text-base transition-colors"
+            >
+              Jump to the Feature Table
+            </a>
+          </div>
+          <p className="text-xs sm:text-sm text-[#4a4455] font-medium">{hero.note}</p>
+
+          {/* SIDE BY SIDE PREVIEW */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
+            <div className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <div className="flex items-center justify-between pb-4 border-b border-[#e5eeff]">
                 <div>
-                  <span className="font-bold text-xs text-[#5e5d6b] uppercase block">Triple-Line Base Seat</span>
-                  <span className="text-2xl font-bold text-[#0b1c30]">$149</span>
-                  <span className="text-sm text-[#5e5d6b]">/mo/seat</span>
+                  <span className="text-xs font-semibold text-[#4a4455] uppercase tracking-wider">
+                    {hero.rivalTag}
+                  </span>
+                  <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL}</h3>
                 </div>
-                <span className="px-3 py-2 bg-[#dce9ff] rounded text-[#5e5d6b] font-semibold text-xs">Legacy Stack</span>
+                <span className="text-xs bg-[#e5eeff] text-[#213145] px-2.5 py-1 rounded font-medium">
+                  {hero.rivalPill}
+                </span>
+              </div>
+              <div className="mt-4 space-y-2.5 text-sm">
+                {hero.rivalRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-[#f8f9ff] rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="font-medium text-[#0b1c30]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " + statusMeta[row.status].cls
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right: Dialeads AI Cockpit */}
-            <div className="lg:col-span-7 bg-white rounded-xl p-8 shadow-xl flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-white via-white to-[#eff4ff]">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#7C3AED]" />
-              <div>
-                <div className="flex flex-wrap items-center justify-between pb-4 mb-4 bg-[#eaddff]/20 -mx-8 -mt-8 p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#7C3AED] text-white flex items-center justify-center shadow-sm">
-                      <Brain className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl font-bold text-[#0b1c30]">Dialeads Outbound AI Cockpit</span>
-                        <span className="px-2 py-0.5 rounded-full bg-[#7C3AED] text-white font-bold text-xs">LIVE</span>
-                      </div>
-                      <p className="text-sm text-[#630ed4] font-medium">Next-Gen AI Outbound Platform &middot; Sub-200ms Latency</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="font-bold text-xs text-[#0b1c30] uppercase">A-Attestation CID Active</span>
-                  </div>
-                </div>
-
-                {/* Active Call Stream */}
-                <div className="bg-[#213145] text-[#eaf1ff] p-4 rounded-xl mb-4 shadow-inner">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <PhoneCall className="w-4 h-4 text-[#d2bbff]" />
-                      <span className="text-sm font-semibold text-white">Sarah Jenkins &mdash; 448 Maple Drive (Expired Lead)</span>
-                    </div>
-                    <span className="text-[#d2bbff] font-semibold text-xs bg-[#630ed4]/30 px-2 py-0.5 rounded">00:42 Active</span>
-                  </div>
-                  {/* Waveform */}
-                  <div className="h-8 flex items-center gap-1 px-2 mb-3 bg-[#213145]/60 rounded">
-                    <div className="w-1.5 h-3 bg-[#7C3AED] rounded-full animate-pulse" />
-                    <div className="w-1.5 h-6 bg-[#7C3AED] rounded-full" />
-                    <div className="w-1.5 h-7 bg-[#eaddff] rounded-full" />
-                    <div className="w-1.5 h-4 bg-[#7C3AED] rounded-full" />
-                    <div className="w-1.5 h-8 bg-[#eaddff] rounded-full" />
-                    <div className="w-1.5 h-5 bg-[#7C3AED] rounded-full" />
-                    <div className="w-1.5 h-3 bg-[#7C3AED] rounded-full" />
-                    <div className="w-1.5 h-6 bg-[#eaddff] rounded-full" />
-                    <span className="ml-auto text-[#eaddff] font-bold text-xs">Real-Time Audio Stream</span>
-                  </div>
-                  <div className="text-[#d3e4fe] text-sm italic">
-                    &ldquo;We had so many looky-loos last month, and honestly we are locked into a contract with an advisor until December...&rdquo;
-                  </div>
-                </div>
-
-                {/* Objection Rebuttal Copilot */}
-                <div className="bg-[#eaddff]/30 rounded-xl p-4 mb-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2 text-[#7C3AED] font-bold text-xs uppercase">
-                      <Bot className="w-4 h-4" />
-                      <span>Sub-200ms Copilot &middot; Detected: &ldquo;Locked into contract&rdquo;</span>
-                    </div>
-                    <span className="px-2 py-0.5 bg-[#7C3AED] text-white rounded text-[11px] font-semibold">94% Confidence</span>
-                  </div>
-                  <p className="text-base text-[#0b1c30] mb-3">
-                    <span className="font-semibold text-[#630ed4]">Script:</span> &ldquo;Totally understand, most teams we talk to are too until Q4. What if we just showed you our 70% cost reduction benchmark so you have numbers for your annual review?&rdquo;
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-[#7C3AED] text-white rounded font-semibold text-xs hover:bg-[#630ed4] shadow-xs">
-                      <Mic2 className="w-3.5 h-3.5" />
-                      <span>Copy to Voice</span>
-                    </button>
-                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-white text-[#0b1c30] rounded font-semibold text-xs hover:bg-[#e5eeff] shadow-xs">
-                      <span>Advance Pipeline</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Cockpit Actions */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm text-[#0b1c30] mb-4">
-                  <div className="bg-[#eff4ff] p-2 rounded text-center">
-                    <Voicemail className="w-5 h-5 text-[#630ed4] mx-auto" />
-                    <span className="font-medium">1-Click AI VM Drop</span>
-                  </div>
-                  <div className="bg-[#eff4ff] p-2 rounded text-center">
-                    <MessageSquare className="w-5 h-5 text-[#630ed4] mx-auto" />
-                    <span className="font-medium">Auto SMS Trigger</span>
-                  </div>
-                  <div className="bg-[#eff4ff] p-2 rounded text-center">
-                    <RefreshCw className="w-5 h-5 text-[#630ed4] mx-auto" />
-                    <span className="font-medium">HubSpot 2-Way</span>
-                  </div>
-                  <div className="bg-[#eff4ff] p-2 rounded text-center">
-                    <Shield className="w-5 h-5 text-[#630ed4] mx-auto" />
-                    <span className="font-medium">Auto DNC Clean</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 bg-[#eff4ff] -mx-8 -mb-8 p-4 rounded-b-xl flex items-center justify-between">
+            <div className="p-6 rounded-2xl bg-[#213145] text-[#eaf1ff] border border-[#630ed4]/40 shadow-xl shadow-[#630ed4]/10 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#7c3aed]/30 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center justify-between pb-4 border-b border-[#eaf1ff]/15 relative z-10">
                 <div>
-                  <span className="font-bold text-xs text-[#630ed4] uppercase block">Dialeads Pro All-Inclusive</span>
-                  <span className="text-2xl font-bold text-[#0b1c30]">$49</span>
-                  <span className="text-sm text-[#5e5d6b]">/mo all-inclusive</span>
+                  <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider">
+                    {hero.dialTag}
+                  </span>
+                  <h3 className="text-xl font-bold text-white">Dialeads</h3>
                 </div>
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-[#7C3AED] text-white font-semibold text-xs hover:bg-[#630ed4] transition-all shadow-sm"
-                >
-                  <span>Claim Pro Access</span>
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
+                <span className="text-xs bg-[#630ed4] text-white px-2.5 py-1 rounded font-medium">
+                  {hero.dialPill}
+                </span>
+              </div>
+              <div className="mt-4 space-y-2.5 text-sm relative z-10">
+                {hero.dialRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-white/5 border border-white/10 rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="text-[#eaf1ff]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " +
+                        (row.status === "yes"
+                          ? "text-emerald-400"
+                          : row.status === "no"
+                            ? "text-rose-300"
+                            : "text-[#d2bbff]")
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 2: Quick Verdict ── */}
-      <section className="w-full py-16 bg-[#eff4ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-white text-[#5e5d6b] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              BOTTOM LINE UP FRONT
+      {/* SHORT ANSWER */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
+              The short answer
             </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              The Short Answer &mdash; What Each Platform Is Built For
+            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
+              {shortAnswer.heading}
             </h2>
-            <p className="text-base text-[#5e5d6b]">No fluff, no bias. Here is the architectural reality of choosing between Mojo and Dialeads in 2025.</p>
+            <p className="mt-4 text-[#4a4455] max-w-2xl mx-auto">{shortAnswer.intro}</p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Mojo Card */}
-            <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-[#e5eeff] text-[#5e5d6b] flex items-center justify-center font-bold">M</div>
-                <div>
-                  <h3 className="text-xl font-bold text-[#0b1c30]">Mojo Dialer is for:</h3>
-                  <p className="text-sm text-[#5e5d6b]">Legacy Triple-Line Cold Call Volumes</p>
+            <div className="p-8 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1] flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#213145] text-[#eaf1ff] flex items-center justify-center font-bold">
+                    {RIVAL_INITIALS}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL} is for</h3>
+                    <span className="text-xs text-[#4a4455] font-medium">{shortAnswer.rivalLabel}</span>
+                  </div>
                 </div>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.rivalBody}</p>
               </div>
-              <p className="text-base text-[#4a4455] leading-relaxed">
-                Real estate agents and sales teams that need a reliable triple-line power dialer with a large existing user base and strong real estate industry integrations. Established tool with a proven track record &mdash; but built on older technology without AI calling, autonomous voice agents, or live objection coaching.
-              </p>
+              <div className="mt-6 pt-4 border-t border-[#e3e0f1] flex items-start gap-2 text-xs font-semibold text-[#213145]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#213145] mt-1.5 shrink-0" />
+                {shortAnswer.rivalBest}
+              </div>
             </div>
-            {/* Dialeads Card */}
-            <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-[#7C3AED]" />
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-[#7C3AED] text-white flex items-center justify-center font-bold">D</div>
-                <div>
-                  <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads is for:</h3>
-                  <p className="text-sm text-[#630ed4] font-medium">Autonomous Scale &amp; High-Conversion Revenue Teams</p>
+
+            <div className="p-8 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] flex flex-col justify-between shadow-sm">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#630ed4] text-white flex items-center justify-center font-bold">
+                    DL
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads is for</h3>
+                    <span className="text-xs text-[#630ed4] font-semibold">{shortAnswer.dialLabel}</span>
+                  </div>
                 </div>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.dialBody}</p>
               </div>
-              <p className="text-base text-[#4a4455] leading-relaxed">
-                Sales teams and real estate professionals who want a modern AI-powered outbound platform &mdash; power dialing plus autonomous AI voice agents, live objection rebuttals that appear on screen in real time, dynamic personalized voicemail drops, and automated multi-channel follow-up &mdash; at significantly lower cost than Mojo.
-              </p>
+              <div className="mt-6 pt-4 border-t border-[#d2bbff] flex items-start gap-2 text-xs font-bold text-[#630ed4]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#630ed4] mt-1.5 shrink-0" />
+                {shortAnswer.dialBest}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 3: Full Comparison Table ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]" id="comparison-table">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              FEATURE BY FEATURE
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Dialeads vs Mojo Dialer &mdash; Complete Feature Comparison
+      {/* WHAT DIALEADS ACTUALLY INCLUDES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              What Dialeads actually includes
             </h2>
-            <p className="text-base text-[#5e5d6b]">
-              Detailed inspection across 23 technical and commercial capabilities.
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Dialeads is an AI-powered cold calling platform. Here is the product, stated plainly, so the
+              comparison below has something concrete to measure against.
             </p>
           </div>
-          <div className="overflow-x-auto rounded-xl shadow-sm bg-white">
-            <table className="w-full text-left text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {dialeadsPillars.map((p) => {
+              const Icon = p.icon;
+              return (
+                <div key={p.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#eaddff] text-[#630ed4] flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-[#0b1c30] mb-2">{p.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-6 p-4 rounded-xl bg-[#eff4ff] border border-[#e3e0f1] flex items-start gap-3 text-sm text-[#4a4455]">
+            <Info className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+            <p>
+              Also included: campaign management (manual and AI modes), call scripts with per-lead
+              placeholders, Google Sheet integration, number pools with health monitoring, and multi-tenant
+              organizations with roles and invites.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPARISON TABLE */}
+      <section
+        id="comparison-table"
+        className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Feature-by-feature comparison
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Including the rows where Dialeads says no. A comparison that only lists wins is not much use.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {categories.map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCategory(c)}
+                className={
+                  "px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors " +
+                  (category === c
+                    ? "bg-[#630ed4] text-white border-[#630ed4]"
+                    : "bg-white text-[#4a4455] border-[#e3e0f1] hover:bg-[#eff4ff]")
+                }
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-[#e3e0f1] shadow-sm">
+            <table className="w-full min-w-[720px] text-sm text-left">
               <thead>
-                <tr className="bg-[#eff4ff] text-[#0b1c30]">
-                  <th className="py-4 px-6 text-xl font-bold" scope="col">Feature</th>
-                  <th className="py-4 px-6 text-xl font-bold text-[#630ed4]" scope="col">Dialeads</th>
-                  <th className="py-4 px-6 text-xl font-bold text-[#5e5d6b]" scope="col">Mojo Dialer</th>
+                <tr className="bg-[#213145] text-[#eaf1ff]">
+                  <th className="px-5 py-4 font-semibold w-[34%]">Feature</th>
+                  <th className="px-5 py-4 font-semibold w-[33%] text-[#d2bbff]">Dialeads</th>
+                  <th className="px-5 py-4 font-semibold w-[33%]">{RIVAL}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#e5eeff]">
-                {comparisonRows.map((row, i) => (
+              <tbody>
+                {visibleRows.map((row, i) => (
                   <tr
-                    key={i}
-                    className={`hover:bg-[#eff4ff]/50 transition-colors ${row.highlight ? "bg-[#eaddff]/5" : ""}`}
+                    key={row.feature}
+                    className={(i % 2 === 0 ? "bg-white" : "bg-[#f8f9ff]") + " border-t border-[#e3e0f1]"}
                   >
-                    <td className={`py-3 px-6 font-medium text-[#0b1c30] ${row.isPrice ? "text-base" : ""}`}>
+                    <td className="px-5 py-3.5 font-medium text-[#0b1c30]">
                       {row.feature}
+                      <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#4a4455]/70 mt-0.5">
+                        {row.category}
+                      </span>
                     </td>
-                    <td className={`py-3 px-6 font-bold text-[#630ed4] ${row.isPrice ? "text-xl" : ""}`}>
-                      {row.dialeads}
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.dialStatus].cls}>
+                        <StatusIcon status={row.dialStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.dialeads}</span>
+                      </span>
                     </td>
-                    <td
-                      className={`py-3 px-6 ${
-                        row.mojoDialer === "❌"
-                          ? "text-[#ba1a1a] font-medium"
-                          : "text-[#5e5d6b]"
-                      } ${row.isPrice ? "text-xl" : ""}`}
-                    >
-                      {row.mojoDialer}
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.rivalStatus].cls}>
+                        <StatusIcon status={row.rivalStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.rival}</span>
+                      </span>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#4a4455]">
+            <span className="flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5 text-emerald-600" /> Included
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Minus className="w-3.5 h-3.5 text-amber-600" /> Partial or limited
+            </span>
+            <span className="flex items-center gap-1.5">
+              <X className="w-3.5 h-3.5 text-rose-500" /> Not offered
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Info className="w-3.5 h-3.5 text-[#4a4455]" /> Varies or confirm with vendor
+            </span>
+          </div>
+          <p className="mt-4 text-xs text-[#4a4455] text-center max-w-3xl mx-auto">
+            {RIVAL} details reflect its general public positioning and may change. Confirm current features
+            and pricing with {RIVAL} directly before you decide.
+          </p>
         </div>
       </section>
 
-      {/* ── SECTION 4: Deep Dive Comparison ── */}
-      <section className="w-full py-24 bg-[#eff4ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-white text-[#630ed4] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              WHERE THEY DIFFER MOST
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              The 6 Biggest Differences Between Dialeads and Mojo Dialer
+      {/* DEEP DIVES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Where the two approaches really differ
             </h2>
-            <p className="text-base text-[#5e5d6b]">A rigorous technical and operational audit of everyday outbound performance.</p>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{hero.diffIntro}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {deepDives.map((item) => (
-              <div key={item.num} className="bg-white rounded-xl p-8 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs">{item.num}</span>
-                    <h3 className="text-xl font-bold text-[#0b1c30]">{item.title}</h3>
-                  </div>
-                  <div className="space-y-3 text-sm text-[#4a4455] mb-6">
-                    <p>
-                      <strong className="text-[#0b1c30]">Mojo Dialer:</strong> {item.mojoText}
-                    </p>
-                    <p>
-                      <strong className="text-[#0b1c30]">Dialeads:</strong> {item.dialeadsText}
-                    </p>
-                  </div>
+          <div className="space-y-8">
+            {differences.map((d) => (
+              <div
+                key={d.num}
+                className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm overflow-hidden"
+              >
+                <div className="flex items-center gap-4 px-6 py-4 bg-[#e5eeff] border-b border-[#e3e0f1]">
+                  <span className="text-2xl font-extrabold text-[#630ed4]">{d.num}</span>
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{d.title}</h3>
                 </div>
-                <div className={`p-4 rounded-lg ${item.calloutStyle === "highlight" ? "bg-[#eaddff]/30" : "bg-[#eff4ff]"}`}>
-                  {item.calloutLabel && (
-                    <span className="font-bold text-xs text-[#5e5d6b] uppercase block mb-1">{item.calloutLabel}</span>
-                  )}
-                  {item.calloutIcon ? (
-                    <div className="flex items-center gap-2 text-[#630ed4] font-semibold text-sm">
-                      <item.calloutIcon className="w-4 h-4" />
-                      <span>{item.callout}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="p-6 md:border-r border-[#e3e0f1]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-2">
+                      {RIVAL}
                     </div>
-                  ) : (
-                    <span className="text-sm text-[#0b1c30]">{item.callout}</span>
-                  )}
+                    <p className="text-[#4a4455] leading-relaxed">{d.rival}</p>
+                  </div>
+                  <div className="p-6 bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-2">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{d.dialeads}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -675,255 +1011,308 @@ export default function DialeadsVsMojoDialerPage() {
         </div>
       </section>
 
-      {/* ── SECTION 5: Pricing Comparison ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              REAL COST COMPARISON
+      {/* WHERE RIVAL IS STRONGER */}
+      <section className="py-16 bg-[#213145] text-[#eaf1ff] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#d2bbff] text-xs font-bold uppercase tracking-wider mb-3">
+              <Scale className="w-3.5 h-3.5" />
+              Being straight with you
             </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Dialeads vs Mojo Dialer &mdash; What You Actually Pay Per Seat
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              Where {RIVAL} is stronger
             </h2>
-            <p className="text-base text-[#5e5d6b]">A transparent breakdown of direct monthly software costs and hidden upgrade fees.</p>
+            <p className="mt-3 text-[#eaf1ff]/80 max-w-2xl mx-auto">{rivalStrengths.intro}</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-8 overflow-x-auto rounded-xl shadow-sm bg-white">
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="bg-[#eff4ff] text-[#0b1c30]">
-                    <th className="py-4 px-6 text-xl font-bold" scope="col">Plan Feature / Tier</th>
-                    <th className="py-4 px-6 text-xl font-bold text-[#630ed4]" scope="col">Dialeads</th>
-                    <th className="py-4 px-6 text-xl font-bold text-[#5e5d6b]" scope="col">Mojo Dialer</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#e5eeff]">
-                  {pricingRows.map((row, i) => (
-                    <tr key={i} className={i % 2 === 1 ? "bg-[#eaddff]/5" : ""}>
-                      <td className="py-3 px-6 font-medium text-[#0b1c30]">{row.feature}</td>
-                      <td className="py-3 px-6 font-semibold text-[#630ed4]">{row.dialeads}</td>
-                      <td className={`py-3 px-6 ${row.mojoError ? "text-[#ba1a1a]" : "text-[#5e5d6b]"}`}>
-                        {row.mojo}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Team Cost Simulation */}
-            <div className="lg:col-span-4 bg-white rounded-xl p-8 shadow-xl flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-2 bg-[#7C3AED]" />
-              <div>
-                <span className="inline-flex items-center gap-1 font-bold text-xs uppercase text-[#630ed4] mb-3">
-                  <Calculator className="w-4 h-4" />
-                  TEAM COST SIMULATION
-                </span>
-                <h3 className="text-xl font-bold text-[#0b1c30] mb-4">
-                  5-Person Team Annual Run Rate
-                </h3>
-                <div className="space-y-4 mb-6">
-                  <div className="p-4 bg-[#eff4ff] rounded-lg">
-                    <div className="flex justify-between items-center text-[#5e5d6b] text-sm mb-1">
-                      <span>Mojo Triple-Line (5 seats)</span>
-                      <span className="text-[#0b1c30] font-semibold">$745/mo</span>
-                    </div>
-                    <div className="text-xl font-bold text-[#5e5d6b]">~$8,940 / year</div>
-                  </div>
-                  <div className="p-4 bg-[#eaddff]/20 rounded-lg">
-                    <div className="flex justify-between items-center text-[#630ed4] text-sm mb-1">
-                      <span>Dialeads Pro (5 seats)</span>
-                      <span className="text-[#0b1c30] font-semibold">$245/mo</span>
-                    </div>
-                    <div className="text-xl font-bold text-[#630ed4]">~$2,940 / year</div>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {rivalStrengths.items.map((s) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <h3 className="font-bold text-white">{s.title}</h3>
                 </div>
-                <div className="p-4 bg-[#7C3AED] text-white rounded-xl text-center shadow-md">
-                  <span className="font-bold text-xs uppercase text-white/80 block mb-1">Guaranteed Capital Optimization</span>
-                  <div className="text-2xl md:text-[32px] md:leading-[38px] font-bold tracking-tight">
-                    Annual saving with Dialeads: ~$6,000
-                  </div>
-                </div>
+                <p className="text-sm text-[#eaf1ff]/80 leading-relaxed">{s.body}</p>
               </div>
-              <div className="pt-6 text-center">
-                <Link
-                  href="/signup"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-semibold text-sm shadow-sm transition-all"
-                >
-                  <span>Switch Your Team Today</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 6: Real Estate Specific ── */}
-      <section className="w-full py-24 bg-[#eff4ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-white text-[#630ed4] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              REAL ESTATE USE CASE
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Dialeads vs Mojo Dialer for Real Estate Professionals
+      {/* WORKFLOW */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {workflowSteps.heading}
             </h2>
-            <p className="text-base text-[#5e5d6b]">
-              Mojo Dialer was built primarily for real estate and has strong brand recognition in the industry. Here is how the two platforms compare specifically for real estate use cases.
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{workflowSteps.intro}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {workflowSteps.items.map((s, i) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-extrabold text-[#630ed4]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#e3e0f1] text-[#213145] px-2 py-0.5 rounded">
+                    {s.tag}
+                  </span>
+                </div>
+                <h3 className="font-bold text-[#0b1c30] mb-2">{s.title}</h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING MODELS */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              How pricing works on each side
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              We are not going to invent a savings number. The two products are priced differently because
+              they do different jobs, so the useful question is which model matches how you work.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {realEstateCards.map((card, i) => (
-              <div key={i} className="bg-white rounded-xl p-8 shadow-sm flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-[#0b1c30] mb-4">{card.title}</h3>
-                  <div className="space-y-3 text-sm text-[#4a4455] mb-6">
-                    <p>
-                      <strong className="text-[#0b1c30]">Mojo:</strong> {card.mojoText}
-                    </p>
-                    <p>
-                      <strong className="text-[#0b1c30]">Dialeads:</strong> {card.dialeadsText}
-                    </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-2 p-6 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1">{RIVAL}</div>
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-3">{rivalPricing.title}</h3>
+              <p className="text-sm text-[#4a4455] leading-relaxed mb-4">{rivalPricing.body}</p>
+              <ul className="space-y-2">
+                {rivalPricing.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2 text-sm text-[#4a4455]">
+                    <Info className="w-4 h-4 text-[#4a4455] mt-0.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-3 p-6 rounded-2xl bg-[#213145] text-[#eaf1ff]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-1">Dialeads</div>
+              <h3 className="text-xl font-bold text-white mb-1">Usage-based, no subscription tiers</h3>
+              <p className="text-sm text-[#eaf1ff]/80 mb-5">
+                You pay for the minutes and messages you use. Nothing else is bundled into a plan you have to
+                size up front.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {dialeadsRates.map((r) => (
+                  <div key={r.label} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="text-xs font-semibold text-[#d2bbff] mb-1">{r.label}</div>
+                    <div className="text-3xl font-extrabold text-white leading-none">{r.price}</div>
+                    <div className="text-xs text-[#eaf1ff]/70 mb-2">{r.unit}</div>
+                    <p className="text-xs text-[#eaf1ff]/80 leading-relaxed">{r.body}</p>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/pricing"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d2bbff] hover:text-white"
+              >
+                See the full pricing page
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* USE CASES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Which one fits which situation
+            </h2>
+          </div>
+          <div className="space-y-5">
+            {useCases.map((u) => (
+              <div key={u.title} className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{u.title}</h3>
+                  <span
+                    className={
+                      "text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full " +
+                      (u.winner === "Dialeads"
+                        ? "bg-[#eaddff] text-[#630ed4]"
+                        : u.winner === RIVAL
+                          ? "bg-[#213145] text-[#eaf1ff]"
+                          : "bg-[#e3e0f1] text-[#213145]")
+                    }
+                  >
+                    {u.winner === "Either" ? "Either can work" : "Better fit: " + u.winner}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="p-4 rounded-xl bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1.5">
+                      {RIVAL}
+                    </div>
+                    <p className="text-[#4a4455] leading-relaxed">{u.rival}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#eaddff]/40">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-1.5">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{u.dialeads}</p>
                   </div>
                 </div>
-                <div className="px-4 py-2 bg-[#eaddff]/30 text-[#630ed4] font-semibold text-xs rounded">
-                  {card.verdict}
-                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 7: Migration Guide ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              SWITCHING FROM MOJO
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Moving From Mojo Dialer to Dialeads Takes Under 45 Minutes
+      {/* SWITCHING / GETTING STARTED */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {switchingSteps.heading}
             </h2>
-            <p className="text-base text-[#5e5d6b]">Zero downtime. Zero list corruption. Clean transition architecture.</p>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{switchingSteps.intro}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {migrationSteps.map((step) => (
-              <div key={step.num} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-8 h-8 rounded-full bg-[#eaddff] text-[#630ed4] font-bold flex items-center justify-center mb-3 text-xs">
-                  {step.num}
+          <ol className="space-y-4">
+            {switchingSteps.items.map((s, i) => (
+              <li key={s.title} className="flex gap-4 p-5 rounded-2xl bg-[#f8f9ff] border border-[#e3e0f1]">
+                <div className="w-9 h-9 rounded-full bg-[#630ed4] text-white font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
                 </div>
-                <h3 className="text-xl font-bold text-[#0b1c30] mb-2">{step.title}</h3>
-                <p className="text-sm text-[#4a4455]">{step.body}</p>
-              </div>
+                <div>
+                  <h3 className="font-bold text-[#0b1c30] mb-1">{s.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+                </div>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* CHOOSE */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              So which should you choose?
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-7 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose {RIVAL} if</h3>
+              <ul className="space-y-3">
+                {chooseRival.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#4a4455] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#213145] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-7 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose Dialeads if</h3>
+              <ul className="space-y-3">
+                {chooseDialeads.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#0b1c30] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 8: FAQ ── */}
-      <section className="w-full py-24 bg-[#eff4ff]">
-        <div className="max-w-4xl mx-auto px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-white text-[#630ed4] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              COMMON QUESTIONS
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Frequently Asked Questions About Dialeads vs Mojo Dialer
+      {/* FAQ */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Dialeads vs {RIVAL}: common questions
             </h2>
-            <p className="text-base text-[#5e5d6b]">Clear answers about migration, technical requirements, and functional differences.</p>
           </div>
-          <div className="space-y-4">
-            {faqItems.map((item, i) => (
-              <div key={i} className="bg-white rounded-xl shadow-sm">
-                <button
-                  className="w-full flex items-center justify-between p-6 text-left"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+          <div className="space-y-3">
+            {faqItems.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div
+                  key={f.question}
+                  className="rounded-xl border border-[#e3e0f1] bg-[#f8f9ff] overflow-hidden"
                 >
-                  <h3 className="text-xl font-bold text-[#0b1c30] pr-4">{item.question}</h3>
-                  <ChevronDown
-                    className={`w-5 h-5 text-[#7b7487] flex-shrink-0 transition-transform ${
-                      openFaq === i ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-6">
-                    <p className="text-sm text-[#4a4455] leading-relaxed">{item.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-[#0b1c30] hover:bg-[#eff4ff]"
+                  >
+                    {f.question}
+                    <ChevronDown
+                      className={
+                        "w-5 h-5 shrink-0 text-[#630ed4] transition-transform " + (open ? "rotate-180" : "")
+                      }
+                    />
+                  </button>
+                  {open && <div className="px-5 pb-5 text-sm text-[#4a4455] leading-relaxed">{f.answer}</div>}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 9: Testimonials (NO STARS) ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] font-bold text-xs uppercase tracking-wider mb-3 shadow-xs">
-              FROM TEAMS WHO SWITCHED
-            </div>
-            <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              What Teams Say After Switching From Mojo Dialer to Dialeads
+      {/* FINAL CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center rounded-3xl bg-[#213145] text-[#eaf1ff] px-6 py-14 relative overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-48 h-48 bg-[#7c3aed]/30 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+              {hero.ctaHeading}
             </h2>
-            <p className="text-base text-[#5e5d6b]">Real operators reporting actual economics, ramp speeds, and conversion uplifts.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-white rounded-xl p-8 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <p className="text-base text-[#0b1c30] mb-6 leading-relaxed italic">{t.quote}</p>
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-[#e5eeff]">
-                  <div className="w-10 h-10 rounded-full bg-[#eaddff] text-[#630ed4] flex items-center justify-center font-bold">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <span className="text-sm font-bold text-[#0b1c30] block">{t.name}</span>
-                    <span className="text-sm text-[#5e5d6b]">{t.role}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <p className="text-[#eaf1ff]/80 max-w-2xl mx-auto mb-8">{hero.ctaBody}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/demo"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#7c3aed] hover:bg-[#630ed4] text-white font-bold transition-colors"
+              >
+                Get Early Access
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/demo"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#e3e0f1] text-[#213145] hover:bg-white font-bold transition-colors"
+              >
+                Book a Demo
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 10: Bottom CTA ── */}
-      <section className="w-full py-32 bg-[#eff4ff] relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-8 text-center">
-          <div className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-white text-[#630ed4] font-bold text-xs uppercase tracking-wider mb-4 shadow-sm">
-            READY TO SWITCH?
+      {/* RELATED */}
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-lg font-bold text-[#0b1c30] mb-4">More comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {relatedComparisons.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group p-5 rounded-2xl bg-white border border-[#e3e0f1] hover:border-[#630ed4] transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-[#0b1c30]">{r.label}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#630ed4]" />
+                </div>
+                <p className="mt-1.5 text-sm text-[#4a4455]">{r.blurb}</p>
+              </Link>
+            ))}
           </div>
-          <h2 className="text-4xl md:text-[56px] md:leading-[60px] font-bold tracking-tight text-[#0b1c30] mb-6 text-balance">
-            Get Everything Mojo Offers &mdash; Plus AI Voice Agents, Live Objection Rebuttals, and Full CRM Sync &mdash; at 70% Less Cost
-          </h2>
-          <p className="text-lg leading-7 text-[#4a4455] max-w-2xl mx-auto mb-8">
-            Import your Mojo lead lists, upload your voicemail recordings, connect your CRM, and launch your first AI-powered dial session in under 45 minutes.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-            <Link
-              href="/signup"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-semibold text-sm shadow-lg hover:shadow-xl transition-all"
-            >
-              <span>Start Free 14-Day Trial</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0b1c30] font-semibold text-sm shadow-sm transition-all"
-            >
-              <Calendar className="w-4 h-4 text-[#630ed4]" />
-              <span>Book a Live Demo</span>
-            </Link>
-          </div>
-          <p className="text-sm text-[#5e5d6b] flex items-center justify-center gap-2">
-            <BadgeCheck className="w-4 h-4 text-[#630ed4]" />
-            No credit card &middot; Import your Mojo lists &middot; Cancel anytime
-          </p>
         </div>
       </section>
     </div>

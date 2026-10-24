@@ -3,690 +3,1016 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowRight,
-  ArrowDown,
   ChevronRight,
   ChevronDown,
-  CheckCircle2,
-  ArrowLeftRight,
-  BadgeCheck,
+  Check,
+  X,
+  Minus,
+  ArrowRight,
+  ArrowUpRight,
+  Scale,
   Phone,
-  UserX,
-  Ban,
-  Network,
-  AudioWaveform,
-  Voicemail,
-  MessageSquareText,
-  RefreshCw,
-  Zap,
-  Building2,
-  Rocket,
-  Users,
-  TrendingUp,
-  PiggyBank,
+  MapPin,
+  Sparkles,
   ShieldCheck,
-  HeadphonesIcon,
-  Calendar,
-  Bot,
-  CircleAlert,
+  Info,
+  Search,
+  Target,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  DATA ARRAYS                                                        */
-/* ------------------------------------------------------------------ */
+/* ─── Types ────────────────────────────────────────────── */
 
-const comparisonRows = [
-  { feature: "Power dialer", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Predictive dialer", dialeads: "Yes (AI-Assisted)", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "AI voice agent — autonomous calls", dialeads: "Yes (Sub-500ms)", calltools: "No", dialeadsWin: true, calltoolsWin: false, keyDiff: true },
-  { feature: "Local presence caller ID", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Ringless voicemail drop", dialeads: "AI Dynamic", calltools: "Pre-recorded", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Live objection rebuttal copilot", dialeads: "Yes", calltools: "No", dialeadsWin: true, calltoolsWin: false, keyDiff: true },
-  { feature: "Automatic SMS follow-up", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Automatic email follow-up", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "WhatsApp follow-up", dialeads: "Yes", calltools: "No", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Inbound call routing", dialeads: "No (Outbound focus)", calltools: "Yes", dialeadsWin: false, calltoolsWin: true },
-  { feature: "IVR system", dialeads: "No", calltools: "Yes", dialeadsWin: false, calltoolsWin: true },
-  { feature: "CRM sync — HubSpot, Salesforce", dialeads: "Native 2-Way", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "GoHighLevel integration", dialeads: "Native", calltools: "No", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Call recordings", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "AI call transcripts", dialeads: "Real-Time", calltools: "No", dialeadsWin: true, calltoolsWin: false },
-  { feature: "1-click call dispositions", dialeads: "Yes", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Unified inbox — calls, SMS, notes", dialeads: "Yes", calltools: "No", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Speed-to-lead calling via webhook", dialeads: "Under 60s", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "National DNC auto-scrub", dialeads: "Auto (Every dial)", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Time-zone enforcement", dialeads: "Auto (8am-9pm local)", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "STIR/SHAKEN A-attestation", dialeads: "Yes (Carrier Grade)", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "A2P 10DLC SMS registration", dialeads: "Guided in 5 min", calltools: "Manual", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Team management and reporting", dialeads: "Yes (Full Dashboard)", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "White-label for agencies", dialeads: "Enterprise", calltools: "Yes", dialeadsWin: true, calltoolsWin: false },
-  { feature: "Setup time", dialeads: "15 minutes", calltools: "Days to weeks", dialeadsWin: true, calltoolsWin: false, bold: true },
-  { feature: "Starting price", dialeads: "$29/mo", calltools: "$99+/mo", dialeadsWin: true, calltoolsWin: false, bold: true, large: true },
+type Status = "yes" | "partial" | "no" | "na";
+
+type TableRow = {
+  category: string;
+  feature: string;
+  dialeads: string;
+  dialStatus: Status;
+  rival: string;
+  rivalStatus: Status;
+};
+
+type HeroRow = { label: string; value: string; status: Status };
+
+type Hero = {
+  badge: string;
+  titleLead: string;
+  titleAccent: string;
+  subtitle: string;
+  note: string;
+  rivalTag: string;
+  rivalPill: string;
+  rivalRows: HeroRow[];
+  dialTag: string;
+  dialPill: string;
+  dialRows: HeroRow[];
+  diffIntro: string;
+  ctaHeading: string;
+  ctaBody: string;
+};
+
+/* ─── Data ─────────────────────────────────────────────── */
+
+const RIVAL = "CallTools";
+const RIVAL_INITIALS = "CT";
+
+const hero: Hero = {
+  badge: "Honest comparison",
+  titleLead: "CallTools is for call centers.",
+  titleAccent: "Dialeads is for revenue teams.",
+  subtitle:
+    "CallTools is established contact center software with predictive dialing and the operational tooling that large calling operations need. Dialeads is a lightweight, browser-based platform for small teams: it finds leads on Google Maps, enriches them, and puts a rep or an AI qualifier on the call. They overlap on outbound calling and very little else.",
+  note: "Usage-based pricing from $0.02/min. No subscription tiers.",
+  rivalTag: "Contact center software",
+  rivalPill: "Enterprise-scale",
+  rivalRows: [
+    {
+      label: "Dialing",
+      value: "Predictive and more",
+      status: "yes",
+    },
+    {
+      label: "Contact center tooling",
+      value: "Extensive",
+      status: "yes",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Not the focus",
+      status: "no",
+    },
+    {
+      label: "Setup",
+      value: "More involved",
+      status: "partial",
+    },
+  ],
+  dialTag: "AI cold calling",
+  dialPill: "Lightweight",
+  dialRows: [
+    {
+      label: "Dialing",
+      value: "Manual + AI qualifier",
+      status: "partial",
+    },
+    {
+      label: "Contact center tooling",
+      value: "Not offered",
+      status: "no",
+    },
+    {
+      label: "Lead sourcing",
+      value: "Google Maps scraper",
+      status: "yes",
+    },
+    {
+      label: "Setup",
+      value: "Browser-based",
+      status: "yes",
+    },
+  ],
+  diffIntro: "A call center and a small revenue team need different things from the same phone call.",
+  ctaHeading: "Does your team need a call center, or a way to start calling?",
+  ctaBody:
+    "Dialeads is in early access. Join the list, or book a demo and we will show you the path from a Google Maps scrape to a first call, in one browser tab.",
+};
+
+const shortAnswer = {
+  heading: "Operational depth vs getting started quickly",
+  intro:
+    "CallTools has the depth of a contact center platform. Dialeads has the simplicity of a single tool. Which one is better depends on the size of the operation.",
+  rivalLabel: "Predictive dialer and call center platform",
+  rivalBody:
+    "Organizations running structured outbound or blended call center operations: agents, supervisors, queues and reporting. CallTools is designed for that environment, with dialing modes and administration that suit larger teams and compliance-heavy operations.",
+  rivalBest: "Best when you run an actual call center and need its tooling.",
+  dialLabel: "AI cold calling for small teams",
+  dialBody:
+    "Founders, agencies and small sales teams who want to start calling without a project. Dialeads builds the lead list from Google Maps, enriches each lead, scores it with a pitch angle, and lets you call from the browser or run AI qualifier calls.",
+  dialBest: "Best when you want leads and calling in one lightweight tool.",
+};
+
+const comparisonRows: TableRow[] = [
+  {
+    category: "Dialing",
+    feature: "Predictive dialer",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Core capability",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Dialing",
+    feature: "Progressive / power dialing",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Available; confirm modes with vendor",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Dialing",
+    feature: "Manual one-at-a-time calling",
+    dialeads: "Yes, browser WebRTC softphone via Telnyx",
+    dialStatus: "yes",
+    rival: "Supported",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Dialing",
+    feature: "Runs in the browser",
+    dialeads: "Yes, no install",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "AI",
+    feature: "AI qualifier calls",
+    dialeads: "Yes, Telnyx AI assistant that discloses it is AI",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "AI",
+    feature: "Live AI rebuttals during calls",
+    dialeads: "Yes, Claude / Gemini",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Lead data",
+    feature: "Google Maps lead scraper (niche + city)",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Website audit and Google Ads detection",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Instagram / Facebook / TikTok presence",
+    dialeads: "Built in",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Lead data",
+    feature: "Lead scoring with pitch angles",
+    dialeads: "RUNS_ADS, NO_SITE, WEAK_SITE, STRONG_SITE",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Contact center",
+    feature: "Agent and supervisor administration",
+    dialeads: "Orgs, roles and invites",
+    dialStatus: "partial",
+    rival: "Extensive",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Contact center",
+    feature: "Inbound / ACD / IVR",
+    dialeads: "Not offered",
+    dialStatus: "no",
+    rival: "Contact center feature set; confirm modules",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Contact center",
+    feature: "Real-time and historical reporting",
+    dialeads: "Basic campaign views",
+    dialStatus: "partial",
+    rival: "Extensive",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Contact center",
+    feature: "Call recording",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Messaging",
+    feature: "Two-way SMS",
+    dialeads: "Yes, via Telnyx",
+    dialStatus: "yes",
+    rival: "Confirm current options",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Campaign management",
+    dialeads: "Manual and AI modes",
+    dialStatus: "yes",
+    rival: "Extensive campaign tooling",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Workflow",
+    feature: "Call scripts with per-lead placeholders",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "Google Sheet integration",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Workflow",
+    feature: "CRM integrations",
+    dialeads: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Suppression list",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "Calling windows (8am to 9pm) and attempt caps",
+    dialeads: "Yes, enforced in campaigns",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "AI disclosure on AI calls",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Compliance",
+    feature: "SOC 2 report",
+    dialeads: "Not available",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Teams",
+    feature: "Number pools with health monitoring",
+    dialeads: "Yes",
+    dialStatus: "yes",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
+  },
+  {
+    category: "Pricing",
+    feature: "Pricing model",
+    dialeads: "Usage-based: $0.02/min manual, $0.25/min AI, $0.03/SMS",
+    dialStatus: "yes",
+    rival: "Contact CallTools for pricing",
+    rivalStatus: "na",
+  },
 ];
 
-const deepDives = [
+const differences = [
   {
-    number: "01",
-    title: "Setup Complexity — 15 Minutes vs Days to Weeks",
-    calltoolsText:
-      "Enterprise telephony platform with significant setup complexity. SIP trunk configuration, IVR setup, inbound routing rules, compliance configuration, CRM mapping, and agent provisioning typically require IT involvement and days to weeks of onboarding. Many users report needing dedicated support resources to get fully operational.",
-    dialeadsText:
-      "Designed for teams that need to be dialing within 15 minutes of signing up. Import your CSV, connect your CRM with one click, upload your voicemail recording, configure your SMS follow-up template, and launch your first campaign. No IT required. No technical knowledge needed. No onboarding calls.",
-    badgeIcon: "verified",
-    badgeText: "Zero IT dependency · Dialing in under 15 minutes guaranteed.",
+    num: "01",
+    title: "Who the product is designed for",
+    rival:
+      "CallTools is designed for call centers: many agents, supervisors, queues, dialing modes and reporting. That scope is a strength if you need it and overhead if you do not.",
+    dialeads:
+      "Dialeads is designed for a founder, an agency or a small sales team. There is no contact center administration to learn. You scrape leads, write a script and start calling from a browser tab.",
   },
   {
-    number: "02",
-    title: "AI Voice Agent — CallTools Has None",
-    calltoolsText:
-      "No AI voice agent capability. Every outbound call requires a human rep. Scaling outbound volume means scaling headcount proportionally. First-touch outreach at 10,000 leads per month requires enough reps to make 10,000 calls manually.",
-    dialeadsText:
-      "AI voice agent handles first-touch outbound calls autonomously around the clock — qualifying prospects, handling common objections, and routing warm leads to human reps. One operator manages campaigns contacting thousands of leads per day without additional headcount. Scale volume without scaling cost.",
-    badgeIcon: "group",
-    badgeText: "Human Headcount Deficit: Scale lead qualification without recruiting, onboarding, or managing additional cold callers.",
+    num: "02",
+    title: "Dialing modes",
+    rival:
+      "Predictive and other automated dialing modes exist to keep agents on live conversations. For a team with enough agents and a large enough list, that matters a lot.",
+    dialeads:
+      "Dialeads has manual calling, one lead at a time, and an AI mode where an AI assistant makes qualifier calls. There is no predictive or power dialer, so it is not built to keep a bank of agents saturated.",
   },
   {
-    number: "03",
-    title: "Live Objection Rebuttals — CallTools Has None",
-    calltoolsText:
-      "No real-time AI coaching during live calls. Reps handle objections based on their own training and experience. New reps ramp slowly. Senior reps carry the team. No systematic way to ensure consistent objection handling across the entire team.",
-    dialeadsText:
-      "Sub-200ms real-time audio transcription detects every objection the moment it lands — price, timing, competition, gatekeeper. The exact rebuttal script appears on the rep’s screen instantly. New reps perform like veterans from day one. Objection handling becomes systematic and consistent across every rep on the team.",
-    badgeIcon: "trending",
-    badgeText: "+41% objection win rate on live sales calls across audited campaigns.",
+    num: "03",
+    title: "Setup and onboarding",
+    rival:
+      "Contact center platforms typically involve configuration of queues, dispositions, users, telephony and compliance rules. Expect an implementation effort proportional to the product's depth.",
+    dialeads:
+      "Dialeads is browser-based and runs on Telnyx. Create an organization, invite teammates with roles, set up a number pool and a campaign. It is a smaller surface, which is also why it does less.",
   },
   {
-    number: "04",
-    title: "Price — Dialeads Is Significantly Cheaper",
-    calltoolsText:
-      "Starts at $99/month per seat and increases significantly with additional features, seats, and usage. For a 10-person team with full features, expect $1,000–$2,500 per month. Enterprise contracts with annual commitments common.",
-    dialeadsText:
-      "$49/month Pro plan includes AI voice agent, live objection rebuttals, automated follow-up, and full CRM sync — features that are either unavailable in CallTools or require significant additional cost. A 10-person team on Dialeads Pro costs $490/month vs $1,000–$2,500 on CallTools. Annual savings for a 10-person team: $6,120–$24,120.",
-    badgeIcon: "savings",
-    badgeText: "Annual savings for a 10-person team: $6,120–$24,120 per year.",
+    num: "04",
+    title: "Lead sourcing",
+    rival: "CallTools works on lists you load. Where the leads come from is outside the product.",
+    dialeads:
+      "Dialeads sources leads itself via the Google Maps scraper, then enriches them with website audit, Google Ads detection and social presence, and scores them with a pitch angle. For a team selling to local businesses, this replaces a research step.",
   },
   {
-    number: "05",
-    title: "Voicemail Drop Intelligence",
-    calltoolsText:
-      "Pre-recorded voicemail drop — same audio file dropped to every contact. No personalization. Generic message identical for every prospect on your list. Standard callback rates under 3%.",
-    dialeadsText:
-      "AI dynamic voicemail drops synthesize a personalized message per contact — inserting their name, company, specific pain point or product interest, and a tailored call to action. Every voicemail sounds individually crafted. Callback rates average 3x higher than generic pre-recorded drops.",
-    badgeIcon: "waveform",
-    badgeText: "Callback Velocity: 3x higher callback rate with synthesized individual voice notes.",
-  },
-  {
-    number: "06",
-    title: "Inbound Capabilities — CallTools Wins Here",
-    calltoolsText:
-      "Strong inbound call routing, IVR systems, queue management, and blended inbound/outbound call center functionality. Built for operations that need to handle both inbound and outbound volume simultaneously.",
-    dialeadsText:
-      "Dialeads is purpose-built for outbound. Inbound call routing and IVR are not core Dialeads features. If your operation requires significant inbound call center functionality alongside outbound, CallTools has an advantage in this specific area.",
-    badgeIcon: "shield",
-    badgeText: "Architectural Honesty: If multi-tier IVR and inbound queues are mandatory, CallTools excels.",
-    calltoolsWins: true,
+    num: "05",
+    title: "Pricing structure",
+    rival:
+      "Contact center software is usually sold per seat or per package, and pricing depends on your requirements. We are not going to guess at numbers, so contact CallTools for a quote.",
+    dialeads:
+      "Dialeads is usage-based with no subscription tiers: $0.02 per minute manual, $0.25 per minute AI and $0.03 per SMS. There is no seat minimum to size in advance, which suits small or variable usage.",
   },
 ];
 
-const pricingRows = [
-  { metric: "Entry price", dialeads: "$29/mo", calltools: "$99+/mo" },
-  { metric: "Full-featured plan", dialeads: "$49/mo", calltools: "$150–$300/mo per seat" },
-  { metric: "AI voice agent", dialeads: "Included", calltools: "Not available", calltoolsError: true },
-  { metric: "Live objection rebuttals", dialeads: "Included", calltools: "Not available", calltoolsError: true },
-  { metric: "AI call transcripts", dialeads: "Included", calltools: "Not available", calltoolsError: true },
-  { metric: "Setup time", dialeads: "15 minutes", calltools: "Days to weeks" },
-  { metric: "Onboarding cost", dialeads: "Zero", calltools: "Often paid" },
-  { metric: "Annual contract required", dialeads: "No", calltools: "Often yes" },
-  { metric: "10-person team monthly", dialeads: "$490", calltools: "$1,000–$2,500", highlight: true },
-  { metric: "10-person team annual", dialeads: "$5,880", calltools: "$12,000–$30,000", highlight: true, large: true },
-];
+const rivalStrengths = {
+  intro: "On enterprise features, CallTools is the stronger platform. Dialeads is not trying to match it.",
+  items: [
+    {
+      title: "Predictive and automated dialing",
+      body: "Dialeads has no predictive, power or progressive dialer. If your operation depends on keeping many agents continuously connected to live calls, CallTools is built for that and Dialeads is not.",
+    },
+    {
+      title: "Contact center administration and reporting",
+      body: "Queues, supervisor tools and deep reporting are part of what a call center platform provides. Dialeads offers organizations, roles, invites and campaign views, which is far lighter.",
+    },
+    {
+      title: "Scale and operational maturity",
+      body: "CallTools serves larger and more regulated calling operations. Dialeads is newer, in early access, and aimed at small teams.",
+    },
+    {
+      title: "A broader telephony feature set",
+      body: "Inbound handling, call routing and similar capabilities are the domain of contact center software. Dialeads focuses on outbound cold calling and SMS.",
+    },
+  ],
+};
 
-const chooseCalltools = [
-  "You run a large traditional call center with dedicated IT and operations staff",
-  "You need robust inbound call routing, IVR systems, and blended inbound/outbound management",
-  "You have an enterprise telephony setup that requires custom SIP trunk configuration",
-  "You have an annual budget for a complex platform and the resources to manage it",
-  "Your team size is 50+ seats and you need enterprise-grade call center infrastructure",
-  "You do not need AI voice agents or live objection coaching — just high-volume predictive dialing",
-];
+const workflowSteps = {
+  heading: "What getting started with Dialeads looks like",
+  intro:
+    "The pitch for Dialeads is a short path from nothing to a conversation. Here are the steps, based on what exists today.",
+  items: [
+    {
+      tag: "Account",
+      title: "Create an organization",
+      body: "Set up your org, invite teammates and assign roles. It is multi-tenant, so an agency can keep clients separate.",
+    },
+    {
+      tag: "Numbers",
+      title: "Set up a number pool",
+      body: "Use Telnyx numbers in a pool with health monitoring, so you can see when a number is in trouble.",
+    },
+    {
+      tag: "Source",
+      title: "Scrape and enrich leads",
+      body: "Pick a niche and city. Dialeads builds the list from Google Maps, audits websites, detects Google Ads and finds social profiles.",
+    },
+    {
+      tag: "Script",
+      title: "Write a script",
+      body: "Use per-lead placeholders so each call opens with the right business details.",
+    },
+    {
+      tag: "Campaign",
+      title: "Choose manual or AI mode",
+      body: "Set your calling window, attempt cap and suppression list. AI mode uses a Telnyx AI assistant that discloses it is AI.",
+    },
+    {
+      tag: "Call",
+      title: "Dial from the browser",
+      body: "Use the WebRTC softphone, get live rebuttal suggestions when you need them and follow up by two-way SMS.",
+    },
+  ],
+};
 
-const chooseDialeads = [
-  "You want to be dialing within 15 minutes of signing up — not after days of setup",
-  "You need AI voice agents to handle first-touch calls autonomously without adding headcount",
-  "You want live objection rebuttals coaching reps in real time during every call",
-  "You need outbound calling plus voicemail drops plus automated follow-up in one platform",
-  "Your team is under 50 seats and you want enterprise features without enterprise complexity",
-  "You want to save $6,000–$24,000 per year compared to CallTools for a 10-person team",
-  "You are an agency that needs white-label branding and multi-client campaign management",
+const rivalPricing = {
+  title: "Quoted to your requirements",
+  body: "Call center software like CallTools is typically priced based on seats, modules and requirements. We will not guess at figures, and any number we printed could be out of date.",
+  points: [
+    "Contact CallTools for a quote.",
+    "Pricing varies with seats and the modules you need.",
+    "Lead lists and telephony costs may be separate.",
+  ],
+};
+
+const dialeadsRates = [
+  {
+    label: "Manual calling",
+    price: "$0.02",
+    unit: "per minute",
+    body: "Browser softphone calls placed one at a time over Telnyx, with the lead's enrichment data on screen.",
+  },
+  {
+    label: "AI qualifier calls",
+    price: "$0.25",
+    unit: "per minute",
+    body: "Telnyx AI assistant calls that disclose they are AI and qualify the lead against your script.",
+  },
+  {
+    label: "SMS",
+    price: "$0.03",
+    unit: "per message",
+    body: "Two-way SMS over Telnyx for follow-up and replies, inside the same lead record.",
+  },
 ];
 
 const useCases = [
   {
-    number: 1,
-    title: "B2B Sales Teams — SDR Outbound",
-    calltoolsText:
-      "Solid predictive dialer for high-volume SDR teams. CRM sync, voicemail drops, SMS follow-up, team reporting all available. No AI coaching during calls. No autonomous AI voice agent. High per-seat cost.",
-    dialeadsText:
-      "AI voice agent handles first-touch calls. Live objection rebuttals coach reps in real time. Automated follow-up sequences run post-call without manual action. 70%+ cheaper per seat. New reps ramp in days not months.",
-    winner: "dialeads",
-    winnerText: "Dialeads for modern SDR teams focused on AI-assisted outbound.",
+    title: "A staffed outbound call center",
+    winner: "CallTools",
+    rival:
+      "This is the target environment: many agents, supervisors, predictive dialing and detailed reporting.",
+    dialeads:
+      "Not a fit. Dialeads has no predictive dialer, and its administration and reporting are far lighter.",
   },
   {
-    number: 2,
-    title: "Real Estate and Insurance Outreach",
-    calltoolsText:
-      "Works for real estate and insurance outbound. Power dialer, voicemail drops, local presence CID, DNC scrubbing all available. Setup complexity and cost may be overkill for individual agents or small teams.",
-    dialeadsText:
-      "Purpose-optimized for real estate and insurance with speed-to-lead calling, dynamic personalized voicemail drops, 8-touch automated follow-up, and TCPA compliance — at $49/month with 15-minute setup.",
-    winner: "dialeads",
-    winnerText: "Dialeads for individual agents and small teams. CallTools for large insurance call centers.",
+    title: "A founder or small team starting outbound",
+    winner: "Dialeads",
+    rival:
+      "A platform of this size can be more than a team of one to five needs, and you still have to find the leads.",
+    dialeads:
+      "Scrape, enrich, script and call from one browser tab, paying per minute with no seat commitments.",
   },
   {
-    number: 3,
-    title: "Large Call Centers — 50+ Seats",
-    calltoolsText:
-      "Strong inbound/outbound blended call center infrastructure. IVR, queue management, workforce management features. Built for large operations with dedicated IT.",
-    dialeadsText:
-      "Enterprise plan handles large teams with dedicated SIP trunks, white-label, and custom configuration — but without native IVR or inbound routing.",
-    winner: "calltools",
-    winnerText: "CallTools for operations requiring inbound call center infrastructure. Dialeads for outbound-only operations at any scale.",
+    title: "An agency selling to local businesses",
+    winner: "Dialeads",
+    rival: "Bring your own list and research each business separately.",
+    dialeads:
+      "Google Maps sourcing, website and ad audits and pitch angles are built in. Multi-tenant orgs and roles help an agency keep clients apart.",
   },
   {
-    number: 4,
-    title: "Lead Generation Agencies",
-    calltoolsText:
-      "White-label available. Multi-campaign management possible but complex. Per-client reporting requires manual configuration.",
-    dialeadsText:
-      "Purpose-built for agencies — multi-client dashboard with full data isolation, one-click per-client reporting, guided 10DLC registration per client, GoHighLevel sync, white-label on Enterprise plan.",
-    winner: "dialeads",
-    winnerText: "Dialeads for lead generation agencies running multiple client campaigns.",
+    title: "Regulated, audit-heavy operations",
+    winner: "CallTools",
+    rival:
+      "Confirm its compliance and audit capabilities directly. A mature platform is more likely to meet formal requirements.",
+    dialeads:
+      "Dialeads has suppression, calling windows, attempt caps and AI disclosure, but it has no SOC 2 report and no call recording. If you need either, do not rely on it.",
+  },
+  {
+    title: "Variable or seasonal calling volume",
+    winner: "Dialeads",
+    rival:
+      "Seat-based pricing means paying for capacity whether you use it or not. Confirm the terms with the vendor.",
+    dialeads: "Usage-based pricing means you pay for the minutes and messages you actually use.",
   },
 ];
 
-const migrationSteps = [
-  {
-    title: "Export Your Contact Data",
-    text: "Request a full data export from CallTools — contact lists, call history, disposition data, and any custom fields. Most data exports as CSV cleanly.",
-  },
-  {
-    title: "Import Into Dialeads",
-    text: "Upload your contact CSV into Dialeads. Phone numbers auto-validated, DNC-scrubbed, duplicates removed, local caller IDs matched. Ready to dial in under 2 minutes per list.",
-  },
-  {
-    title: "Re-Upload Voicemail Recordings",
-    text: "Upload your existing voicemail recordings from CallTools directly into Dialeads. Optionally enable AI dynamic voicemail drops for personalized messages — a significant upgrade from CallTools static drops.",
-  },
-  {
-    title: "Connect Your CRM",
-    text: "Connect HubSpot, Salesforce, GoHighLevel, or Close CRM with one click. Full bi-directional sync active immediately. More comprehensive than CallTools CRM integration for most modern CRM setups.",
-  },
-  {
-    title: "Configure Objection Playbooks",
-    text: "Upload your objection handling scripts or use Dialeads pre-built playbooks by vertical. Live rebuttal copilot activates on every call — a feature unavailable in CallTools at any price.",
-  },
-  {
-    title: "Set Up Follow-Up Sequences",
-    text: "Configure automated SMS, email, and WhatsApp follow-up sequences triggered by call dispositions. More sophisticated than CallTools follow-up capabilities and fully automated.",
-  },
-  {
-    title: "Launch and Save",
-    text: "Start dialing. Same core outbound capability as CallTools — plus AI voice agent, dynamic voicemail drops, live objection rebuttals, unified inbox, and automated follow-up. At a fraction of the cost.",
-    highlight: true,
-  },
+const switchingSteps = {
+  heading: "If you are weighing the two",
+  intro:
+    "These are not interchangeable, so the decision is usually about scale and requirements. A short checklist helps.",
+  items: [
+    {
+      title: "Count your agents",
+      body: "A bank of agents working a large list is call center territory. One to a handful of people calling prepared leads is where Dialeads makes sense.",
+    },
+    {
+      title: "List your hard requirements",
+      body: "Predictive dialing, inbound handling, call recording, CRM integrations and SOC 2 are things Dialeads does not provide today. If any is a must, rule it out early.",
+    },
+    {
+      title: "Decide where leads come from",
+      body: "If you need lead sourcing, Dialeads includes it for local businesses via Google Maps. If your lists come from elsewhere, that benefit does not apply.",
+    },
+    {
+      title: "Think about how fast you need to start",
+      body: "A browser tool can be running in an afternoon. A contact center implementation is a project.",
+    },
+    {
+      title: "Test with real calls",
+      body: "With usage-based pricing, you can try Dialeads on a small batch and see if the lightweight approach is enough.",
+    },
+  ],
+};
+
+const chooseRival = [
+  "You operate a call center with many agents and supervisors",
+  "You need predictive or other automated dialing modes",
+  "You need deep reporting, queues and contact center administration",
+  "You have formal compliance or audit requirements",
+  "Your leads already come from another source",
+];
+
+const chooseDialeads = [
+  "You are a small team that wants to start calling quickly",
+  "You sell to local businesses and want lead sourcing built in",
+  "You want AI qualifier calls with clear AI disclosure",
+  "You want enrichment and pitch angles on every lead",
+  "You prefer usage-based pricing over seats or packages",
+  "You do not need predictive dialing, recording or CRM integrations",
 ];
 
 const faqItems = [
   {
-    q: "Is Dialeads as powerful as CallTools for large teams?",
-    a: "For outbound-focused operations, yes — and with significant additional AI capabilities CallTools does not offer. For operations requiring robust inbound call routing and IVR systems, CallTools has an advantage in those specific areas.",
+    question: "Does Dialeads have a predictive dialer?",
+    answer:
+      "No. Dialeads has manual one-at-a-time calling and an AI mode for qualifier calls. There is no predictive, power or progressive dialer. If you need one, CallTools is the better fit.",
   },
   {
-    q: "Does Dialeads have predictive dialing like CallTools?",
-    a: "Dialeads uses an AI-assisted power dialer that automatically advances through lead queues, detects answering machines, drops voicemails instantly, and routes live answers to reps — achieving similar daily contact volumes to predictive dialers through intelligent automation rather than simultaneous line blasting.",
+    question: "Is Dialeads a call center platform?",
+    answer:
+      "No. It is an AI-powered cold calling platform for small teams. It has organizations, roles and invites, but it does not provide queues, inbound routing or the supervisor tooling of a contact center.",
   },
   {
-    q: "How much does switching from CallTools to Dialeads save?",
-    a: "For a 10-person team, switching from CallTools to Dialeads Pro saves approximately $6,120–$24,120 per year depending on your CallTools plan and seat count. The savings increase further when you eliminate separate tools for voicemail drops, SMS, and CRM integration that Dialeads includes.",
+    question: "How is Dialeads priced compared with CallTools?",
+    answer:
+      "Dialeads is usage-based: $0.02 per minute manual, $0.25 per minute AI and $0.03 per SMS, with no subscription tiers. CallTools pricing depends on your requirements, so contact them for a quote. We do not publish a savings comparison.",
   },
   {
-    q: "Can Dialeads handle the same call volume as CallTools?",
-    a: "Yes. Dialeads handles high-volume outbound campaigns with no caps on call volume on the Pro and Enterprise plans. The AI voice agent handles unlimited simultaneous autonomous calls — significantly exceeding what any human rep-dependent system can achieve.",
+    question: "Does Dialeads record calls?",
+    answer:
+      "Not currently. Call recording is not offered. If you need recordings for quality or compliance, that is a reason to look elsewhere.",
   },
   {
-    q: "Does Dialeads have inbound call routing like CallTools?",
-    a: "Dialeads is currently optimized for outbound operations. Native inbound call routing and IVR systems are not core Dialeads features. If your operation requires significant inbound call center functionality, evaluate whether CallTools or a dedicated inbound platform better serves that need.",
+    question: "Does Dialeads integrate with my CRM?",
+    answer:
+      "Not currently. There are no CRM integrations. There is a Google Sheet integration for moving lead data.",
   },
   {
-    q: "How long does switching from CallTools to Dialeads take?",
-    a: "Most teams are fully operational on Dialeads within a few hours — compared to the days or weeks CallTools typically requires. Export your contacts, import into Dialeads, connect your CRM, configure your sequences, and launch your first campaign. 14-day free Pro trial starts immediately.",
+    question: "Is Dialeads SOC 2 certified?",
+    answer:
+      "No. Dialeads does not have a SOC 2 report. Its compliance features are guardrails inside campaigns: suppression, 8am to 9pm calling windows, attempt caps and AI disclosure.",
   },
   {
-    q: "Does Dialeads offer a contract like CallTools?",
-    a: "No. Dialeads is month-to-month with no annual contract required. Cancel anytime. No cancellation fees. No lock-in.",
+    question: "Can a team share Dialeads?",
+    answer:
+      "Yes. It is multi-tenant, with organizations, roles and invites, and number pools with health monitoring.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Dialeads is in early access. Use the Get Early Access button, or book a demo and we will show you the flow from a Google Maps scrape to a call.",
   },
 ];
 
-const testimonials = [
+const relatedComparisons = [
   {
-    quote:
-      "CallTools is a solid call center platform but it was built for a different era. We needed AI voice agents and live objection coaching — neither of which CallTools offers at any price. Dialeads had both, cost 70% less per seat, and we were up and running in an afternoon instead of two weeks.",
-    initials: "VP",
-    role: "VP of Sales, B2B SaaS Company",
+    href: "/compare/dialeads-vs-mojo-dialer",
+    label: "Dialeads vs Mojo Dialer",
+    blurb: "Multi-line power dialing vs AI-assisted calling with lead sourcing.",
   },
   {
-    quote:
-      "The setup complexity of CallTools required us to bring in a consultant. Dialeads took 20 minutes to set up ourselves. The time and money we saved on implementation alone paid for a year of Dialeads.",
-    initials: "OM",
-    role: "Operations Manager, Lead Generation Agency",
+    href: "/compare/dialeads-vs-drop-cowboy",
+    label: "Dialeads vs Drop Cowboy",
+    blurb: "Voicemail drops vs live conversations.",
   },
   {
-    quote:
-      "We were paying over $2,000 a month for CallTools for a 10-person team. Switched to Dialeads Enterprise for less than half that cost and immediately got AI voice agents and live objection rebuttals that CallTools never offered. Pipeline velocity doubled in 60 days.",
-    initials: "SD",
-    role: "Sales Director, Financial Services Firm",
-  },
-  {
-    quote:
-      "The objection rebuttal copilot is what nobody talks about enough. Our reps used to freeze when prospects pushed back on price. Dialeads shows them exactly what to say before they even process the objection. Win rates on price objections went up significantly within the first month.",
-    initials: "SD",
-    role: "SDR Team Lead, Insurance Agency",
+    href: "/compare/dialeads-vs-slybroadcast",
+    label: "Dialeads vs Slybroadcast",
+    blurb: "Voicemail-only service vs AI cold calling.",
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  COMPONENT                                                          */
-/* ------------------------------------------------------------------ */
+const dialeadsPillars = [
+  {
+    icon: MapPin,
+    title: "Built-in lead sourcing",
+    body: "Scrape Google Maps by niche and city, so the list lives in the same product as the calls.",
+  },
+  {
+    icon: Search,
+    title: "Enrichment before the dial",
+    body: "Website audit, Google Ads detection, and Instagram, Facebook and TikTok presence on every lead.",
+  },
+  {
+    icon: Target,
+    title: "Scores and pitch angles",
+    body: "Each lead is tagged RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE so you know what to open with.",
+  },
+  {
+    icon: Phone,
+    title: "Browser WebRTC softphone",
+    body: "Manual one-at-a-time calling in the browser through Telnyx. No hardware, no install.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI qualifier and live rebuttals",
+    body: "A Telnyx AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Compliance guardrails",
+    body: "Suppression list, 8am to 9pm calling windows, attempt caps and AI disclosure built into campaigns.",
+  },
+];
+
+const statusMeta: Record<Status, { label: string; cls: string }> = {
+  yes: { label: "Yes", cls: "text-emerald-600" },
+  partial: { label: "Partial", cls: "text-amber-600" },
+  no: { label: "No", cls: "text-rose-500" },
+  na: { label: "Varies", cls: "text-[#4a4455]" },
+};
+
+/* ─── Helpers ──────────────────────────────────────────── */
+
+function StatusIcon({ status, className }: { status: Status; className?: string }) {
+  const cls = className ?? "w-4 h-4";
+  if (status === "yes") return <Check className={cls + " text-emerald-600"} />;
+  if (status === "partial") return <Minus className={cls + " text-amber-600"} />;
+  if (status === "no") return <X className={cls + " text-rose-500"} />;
+  return <Info className={cls + " text-[#4a4455]"} />;
+}
+
+/* ─── Component ────────────────────────────────────────── */
 
 export default function DialeadsVsCallToolsPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [category, setCategory] = useState<string>("All");
+
+  const categories = ["All", ...Array.from(new Set(comparisonRows.map((r) => r.category)))];
+  const visibleRows =
+    category === "All" ? comparisonRows : comparisonRows.filter((r) => r.category === category);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* ── Breadcrumb & Carrier Status ── */}
-      <section className="w-full bg-[#eff4ff]/60 border-b border-[#ccc3d8]/30 py-3">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-[#5e5d6b]">
-            <Link href="/" className="hover:text-[#630ed4] transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-[#7b7487]" />
-            <Link href="/compare" className="hover:text-[#630ed4] transition-colors">
-              Comparisons
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-[#7b7487]" />
-            <span className="text-[#0b1c30] font-semibold">Dialeads vs CallTools</span>
-          </nav>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#630ed4]/10 border border-[#630ed4]/20 text-[#630ed4] font-bold text-[11px] tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-pulse" />
-            <span>Carrier Compliance Verified &middot; 99.98% Local Presence Attestation (STIR/SHAKEN Tier-A)</span>
+    <div className="bg-[#f8f9ff] text-[#0b1c30] antialiased min-h-screen selection:bg-[#eaddff] selection:text-[#630ed4]">
+      {/* BREADCRUMBS */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-[#4a4455]">
+          <Link href="/" className="hover:text-[#630ed4]">
+            Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <span>Comparisons</span>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-[#0b1c30] font-medium">Dialeads vs {RIVAL}</span>
+        </nav>
+      </div>
+
+      {/* HERO */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-6">
+            <Scale className="w-3.5 h-3.5" />
+            {hero.badge}
           </div>
-        </div>
-      </section>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[#0b1c30] font-extrabold tracking-tight mb-6 leading-[1.12]">
+            {hero.titleLead} <span className="text-[#630ed4]">{hero.titleAccent}</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-[#4a4455] max-w-3xl mx-auto mb-8 leading-relaxed">
+            {hero.subtitle}
+          </p>
 
-      {/* ── HERO ── */}
-      <section className="w-full relative overflow-hidden pt-16 pb-24 bg-gradient-to-b from-[#f8f9ff] via-white to-[#f8f9ff]">
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-[#7C3AED]/10 rounded-full blur-3xl pointer-events-none -z-10" />
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-4 shadow-sm">
-              <ArrowLeftRight className="w-4 h-4" />
-              PLATFORM COMPARISON
-            </span>
-            <h1 className="font-bold text-[28px] leading-[32px] md:text-[56px] md:leading-[60px] text-[#0b1c30] tracking-tight mb-4">
-              Dialeads vs CallTools &mdash; Which Outbound Platform Is Right for Your Team in 2025?
-            </h1>
-            <p className="text-lg leading-7 text-[#4a4455] max-w-3xl mb-8">
-              CallTools is an established predictive dialer built for traditional call centers. Dialeads is built for modern outbound teams that want AI voice agents handling first-touch calls autonomously, live objection rebuttals coaching reps in real time, and automated multi-channel follow-up running without manual input. Here is the complete honest comparison.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3 mb-4 w-full sm:w-auto">
-              <Link
-                href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#630ed4] text-white font-bold text-sm shadow-lg hover:bg-[#7C3AED] transition-all hover:scale-[1.02]"
-              >
-                Start Dialeads Free
-                <ArrowRight className="w-4 h-4 ml-1" />
-              </Link>
-              <a
-                href="#comparison-table"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-white border border-[#ccc3d8]/60 text-[#0b1c30] font-bold text-sm hover:bg-[#eff4ff] transition-all"
-              >
-                See Full Feature List
-                <ArrowDown className="w-4 h-4 ml-1" />
-              </a>
-            </div>
-            <p className="text-sm text-[#5e5d6b] flex items-center gap-2">
-              <BadgeCheck className="w-4 h-4 text-[#630ed4]" />
-              No credit card &middot; 14-day full Pro access &middot; Cancel anytime
-            </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            <Link
+              href="/demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#630ed4] hover:bg-[#7c3aed] text-white font-bold text-base shadow-lg shadow-[#630ed4]/20 transition-colors"
+            >
+              Get Early Access
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a
+              href="#comparison-table"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white border border-[#e3e0f1] text-[#0b1c30] hover:bg-[#eff4ff] font-bold text-base transition-colors"
+            >
+              Jump to the Feature Table
+            </a>
           </div>
+          <p className="text-xs sm:text-sm text-[#4a4455] font-medium">{hero.note}</p>
 
-          {/* Side-by-Side Architecture Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* CallTools Card */}
-            <div className="lg:col-span-5 rounded-2xl bg-white border border-[#ccc3d8]/50 p-6 flex flex-col justify-between shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#e3e0f1]/40 rounded-bl-full -z-0 pointer-events-none" />
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-lg bg-[#dce9ff] flex items-center justify-center text-[#5e5d6b]">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl text-[#0b1c30]">CallTools</h3>
-                      <span className="text-xs text-[#5e5d6b] font-medium">Legacy Call Center Architecture</span>
-                    </div>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-[#dce9ff] text-[#5e5d6b] text-[11px] font-bold uppercase">PBX Based</span>
-                </div>
-                <p className="text-sm text-[#4a4455] mb-4">
-                  Predictive Multi-Line PBX &middot; Heavy IT Overhead &middot; Days/Weeks Setup &middot; $99+/seat + telephony surcharges
-                </p>
-                <div className="space-y-2 mb-6">
-                  <div className="p-3 rounded-lg bg-[#eff4ff]/70 border border-[#ccc3d8]/30 text-sm text-[#5e5d6b] flex items-start gap-2">
-                    <Network className="w-[18px] h-[18px] text-[#5e5d6b] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0b1c30] block">Complex SIP / PBX Provisioning</span>
-                      <span className="text-xs">Manual trunking, IVR tree builds, and telecom engineering required.</span>
-                    </div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#eff4ff]/70 border border-[#ccc3d8]/30 text-sm text-[#5e5d6b] flex items-start gap-2">
-                    <UserX className="w-[18px] h-[18px] text-[#5e5d6b] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0b1c30] block">100% Rep-Dependent Calling</span>
-                      <span className="text-xs">Zero AI voice autonomy. Every dial consumes human SDR time.</span>
-                    </div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-[#eff4ff]/70 border border-[#ccc3d8]/30 text-sm text-[#5e5d6b] flex items-start gap-2">
-                    <Ban className="w-[18px] h-[18px] text-[#5e5d6b] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0b1c30] block">Static Voicemail Drop</span>
-                      <span className="text-xs">Identical MP3 playback to all prospects. Under 3% callback rate.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-[#ccc3d8]/30 flex items-center justify-between text-sm">
-                <span className="text-[#5e5d6b]">Average Deployment</span>
-                <span className="font-bold text-[#0b1c30]">14 to 28 Days</span>
-              </div>
-            </div>
-
-            {/* Dialeads Card */}
-            <div className="lg:col-span-7 rounded-2xl bg-[#213145] text-[#eaf1ff] p-6 border-2 border-[#7C3AED] shadow-2xl relative flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#630ed4] via-[#7C3AED] to-[#d2bbff]" />
-              <div>
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-[#630ed4] flex items-center justify-center shadow-lg">
-                      <AudioWaveform className="w-[22px] h-[22px] text-white" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-xl text-white">Dialeads Outbound AI Cockpit</h3>
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-bold flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> Live Audio Node
-                        </span>
-                      </div>
-                      <span className="text-xs text-[#cbdbf5] font-medium">Sub-180ms Latency &middot; Autonomous &amp; Assisted</span>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-[#630ed4]/30 border border-[#d2bbff]/40 text-[#eaddff] text-[11px] font-bold">
-                    15-Minute Setup &middot; $49/mo All-Inclusive
+          {/* SIDE BY SIDE PREVIEW */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
+            <div className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <div className="flex items-center justify-between pb-4 border-b border-[#e5eeff]">
+                <div>
+                  <span className="text-xs font-semibold text-[#4a4455] uppercase tracking-wider">
+                    {hero.rivalTag}
                   </span>
+                  <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL}</h3>
                 </div>
-
-                {/* Live Stream Cockpit Visual */}
-                <div className="rounded-xl bg-[#0b1422] border border-white/10 p-4 mb-4 space-y-3">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-2 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="text-white font-semibold">Active Call: Michael Harris (VP RevOps, CloudFlow)</span>
-                      <span className="text-[#cbdbf5]">(415) 555-0182</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-[#eaddff]">
-                      <Zap className="w-4 h-4" />
-                      <span className="font-bold">142ms Latency</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between py-1 px-2 bg-white/5 rounded">
-                    <span className="text-[11px] text-[#cbdbf5]">Prospect Speaking...</span>
-                    <div className="flex items-end gap-1 h-5">
-                      <span className="w-1 bg-[#7C3AED] h-2 animate-pulse" />
-                      <span className="w-1 bg-[#7C3AED] h-4 animate-pulse" />
-                      <span className="w-1 bg-[#7C3AED] h-5 animate-pulse" />
-                      <span className="w-1 bg-[#7C3AED] h-3 animate-pulse" />
-                      <span className="w-1 bg-[#7C3AED] h-4 animate-pulse" />
-                    </div>
-                  </div>
-                  <div className="text-[13px] text-[#cbdbf5] leading-snug">
-                    <span className="text-white font-medium">Prospect:</span> &ldquo;We&rsquo;re actually already locked into an enterprise call center contract with our current dialer through next year.&rdquo;
-                  </div>
-                  <div className="rounded-lg bg-[#ba1a1a]/20 border border-[#ba1a1a]/40 p-2 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <CircleAlert className="w-[18px] h-[18px] text-rose-400" />
-                      <span className="font-bold text-xs text-rose-200">OBJECTION DETECTED: &lsquo;Already locked into an enterprise call center contract&rsquo;</span>
-                    </div>
-                    <span className="text-[11px] text-rose-300 font-mono">Matched in 48ms</span>
-                  </div>
-                  <div className="rounded-lg bg-[#7C3AED]/20 border border-[#630ed4]/50 p-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[11px] font-bold text-[#eaddff] uppercase tracking-wider flex items-center gap-1">
-                        <Bot className="w-3.5 h-3.5" /> Live Rebuttal Script
-                      </span>
-                      <span className="text-[11px] text-[#d2bbff]">Auto-Coached</span>
-                    </div>
-                    <p className="text-[13px] text-white font-medium italic">
-                      &ldquo;Understand completely, most enterprise centers tell us that before testing our hybrid AI pilot. What if we handled just your tier-1 cold outbound at 70% lower cost?&rdquo;
-                    </p>
-                  </div>
-                </div>
-
-                {/* Cockpit feature badges */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                  <div className="p-2 rounded bg-white/5 flex items-center gap-2">
-                    <Voicemail className="w-4 h-4 text-[#d2bbff]" />
-                    <span>Dynamic VM Drop Trigger</span>
-                  </div>
-                  <div className="p-2 rounded bg-white/5 flex items-center gap-2">
-                    <MessageSquareText className="w-4 h-4 text-[#d2bbff]" />
-                    <span>Multi-Channel Auto Follow-up</span>
-                  </div>
-                  <div className="p-2 rounded bg-white/5 flex items-center gap-2 col-span-2 sm:col-span-1">
-                    <RefreshCw className="w-4 h-4 text-[#d2bbff]" />
-                    <span>Bi-Directional CRM Sync</span>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-sm">
-                <span className="text-[#cbdbf5]">Launch Velocity</span>
-                <span className="font-bold text-white flex items-center gap-1">
-                  <CheckCircle2 className="w-[18px] h-[18px] text-emerald-400" />
-                  Dialing in under 15 minutes guaranteed
+                <span className="text-xs bg-[#e5eeff] text-[#213145] px-2.5 py-1 rounded font-medium">
+                  {hero.rivalPill}
                 </span>
               </div>
+              <div className="mt-4 space-y-2.5 text-sm">
+                {hero.rivalRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-[#f8f9ff] rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="font-medium text-[#0b1c30]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " + statusMeta[row.status].cls
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#213145] text-[#eaf1ff] border border-[#630ed4]/40 shadow-xl shadow-[#630ed4]/10 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#7c3aed]/30 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center justify-between pb-4 border-b border-[#eaf1ff]/15 relative z-10">
+                <div>
+                  <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider">
+                    {hero.dialTag}
+                  </span>
+                  <h3 className="text-xl font-bold text-white">Dialeads</h3>
+                </div>
+                <span className="text-xs bg-[#630ed4] text-white px-2.5 py-1 rounded font-medium">
+                  {hero.dialPill}
+                </span>
+              </div>
+              <div className="mt-4 space-y-2.5 text-sm relative z-10">
+                {hero.dialRows.map((row: HeroRow) => (
+                  <div
+                    key={row.label}
+                    className="p-3 bg-white/5 border border-white/10 rounded-lg flex items-center justify-between gap-3"
+                  >
+                    <span className="text-[#eaf1ff]">{row.label}</span>
+                    <span
+                      className={
+                        "flex items-center gap-1 text-right font-semibold " +
+                        (row.status === "yes"
+                          ? "text-emerald-400"
+                          : row.status === "no"
+                            ? "text-rose-300"
+                            : "text-[#d2bbff]")
+                      }
+                    >
+                      <StatusIcon status={row.status} className="w-3.5 h-3.5 shrink-0" />
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── QUICK VERDICT ── */}
-      <section className="w-full py-16 bg-[#eff4ff]/40">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#e3e0f1] text-[#1b1a26] font-bold text-xs tracking-wider uppercase mb-2">
-              BOTTOM LINE UP FRONT
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              The Short Answer &mdash; What Each Platform Is Built For
+      {/* SHORT ANSWER */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] text-xs font-bold uppercase tracking-wider mb-3">
+              The short answer
+            </div>
+            <h2 className="text-3xl sm:text-4xl text-[#0b1c30] font-bold tracking-tight">
+              {shortAnswer.heading}
             </h2>
-            <p className="text-base text-[#4a4455]">
-              No fluff, no bias. Here is the architectural reality of choosing between Dialeads and CallTools in 2025.
-            </p>
+            <p className="mt-4 text-[#4a4455] max-w-2xl mx-auto">{shortAnswer.intro}</p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* CallTools Verdict */}
-            <div className="rounded-2xl bg-white border border-[#ccc3d8]/60 p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-8 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1] flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-xl text-[#0b1c30]">CallTools is for:</h3>
-                  <span className="px-3 py-1 rounded-full bg-[#dce9ff] text-[#5e5d6b] font-bold text-xs">PBX Architecture</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#213145] text-[#eaf1ff] flex items-center justify-center font-bold">
+                    {RIVAL_INITIALS}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">{RIVAL} is for</h3>
+                    <span className="text-xs text-[#4a4455] font-medium">{shortAnswer.rivalLabel}</span>
+                  </div>
                 </div>
-                <div className="inline-block mb-4 px-3 py-1 rounded bg-[#e5eeff] text-[#0b1c30] font-bold text-[13px]">
-                  Traditional Call Centers &amp; Enterprise Telephony
-                </div>
-                <p className="text-base text-[#4a4455] leading-relaxed">
-                  Traditional call centers and high-volume outbound operations that need predictive dialing, inbound call routing, IVR systems, and enterprise telephony infrastructure. Strong for large teams doing transactional outbound with established workflows and a dedicated IT or operations team to manage the platform.
-                </p>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.rivalBody}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#ccc3d8]/30 flex items-center gap-2 text-[#5e5d6b] text-sm">
-                <HeadphonesIcon className="w-[18px] h-[18px]" />
-                <span>Best suited for: 50+ agent inbound/outbound blended centers with full-time telecom IT.</span>
+              <div className="mt-6 pt-4 border-t border-[#e3e0f1] flex items-start gap-2 text-xs font-semibold text-[#213145]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#213145] mt-1.5 shrink-0" />
+                {shortAnswer.rivalBest}
               </div>
             </div>
-            {/* Dialeads Verdict */}
-            <div className="rounded-2xl bg-white border-2 border-[#630ed4]/30 p-8 flex flex-col justify-between shadow-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 px-4 py-1 bg-[#630ed4] text-white text-[11px] font-bold rounded-bl-xl uppercase tracking-wider">
-                Modern SDR Choice
-              </div>
+
+            <div className="p-8 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] flex flex-col justify-between shadow-sm">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-xl text-[#630ed4]">Dialeads is for:</h3>
-                  <span className="px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs">Autonomous AI</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#630ed4] text-white flex items-center justify-center font-bold">
+                    DL
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads is for</h3>
+                    <span className="text-xs text-[#630ed4] font-semibold">{shortAnswer.dialLabel}</span>
+                  </div>
                 </div>
-                <div className="inline-block mb-4 px-3 py-1 rounded bg-[#630ed4]/10 text-[#630ed4] font-bold text-[13px]">
-                  Autonomous AI Outreach &amp; Rapid Scalability
-                </div>
-                <p className="text-base text-[#0b1c30] leading-relaxed">
-                  Modern sales teams, agencies, and businesses that want AI to handle first-touch outreach autonomously, coach reps through live objections in real time, and automate every follow-up touchpoint &mdash; without the complexity, cost, and setup time of a traditional call center platform.
-                </p>
+                <p className="text-[#4a4455] leading-relaxed">{shortAnswer.dialBody}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#ccc3d8]/30 flex items-center gap-2 text-[#630ed4] font-bold text-sm">
-                <Rocket className="w-[18px] h-[18px]" />
-                <span>Best suited for: SDRs, revenue teams, and agencies wanting instant ROI and AI scale.</span>
+              <div className="mt-6 pt-4 border-t border-[#d2bbff] flex items-start gap-2 text-xs font-bold text-[#630ed4]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#630ed4] mt-1.5 shrink-0" />
+                {shortAnswer.dialBest}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── COMPARISON TABLE ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]" id="comparison-table">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              FEATURE BY FEATURE
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              Dialeads vs CallTools &mdash; Complete Feature Comparison
+      {/* WHAT DIALEADS ACTUALLY INCLUDES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              What Dialeads actually includes
             </h2>
-            <p className="text-base text-[#4a4455]">
-              Detailed inspection across 24 technical, operational, and architectural capabilities.
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Dialeads is an AI-powered cold calling platform. Here is the product, stated plainly, so the
+              comparison below has something concrete to measure against.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#ccc3d8]/50 bg-white shadow-md overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[650px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {dialeadsPillars.map((p) => {
+              const Icon = p.icon;
+              return (
+                <div key={p.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#eaddff] text-[#630ed4] flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-[#0b1c30] mb-2">{p.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-6 p-4 rounded-xl bg-[#eff4ff] border border-[#e3e0f1] flex items-start gap-3 text-sm text-[#4a4455]">
+            <Info className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+            <p>
+              Also included: campaign management (manual and AI modes), call scripts with per-lead
+              placeholders, Google Sheet integration, number pools with health monitoring, and multi-tenant
+              organizations with roles and invites.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPARISON TABLE */}
+      <section
+        id="comparison-table"
+        className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Feature-by-feature comparison
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              Including the rows where Dialeads says no. A comparison that only lists wins is not much use.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {categories.map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCategory(c)}
+                className={
+                  "px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors " +
+                  (category === c
+                    ? "bg-[#630ed4] text-white border-[#630ed4]"
+                    : "bg-white text-[#4a4455] border-[#e3e0f1] hover:bg-[#eff4ff]")
+                }
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-[#e3e0f1] shadow-sm">
+            <table className="w-full min-w-[720px] text-sm text-left">
               <thead>
-                <tr className="border-b border-[#ccc3d8]/40 bg-[#eff4ff]/70">
-                  <th className="py-4 px-6 font-bold text-xl text-[#0b1c30] w-1/2">Feature</th>
-                  <th className="py-4 px-6 font-bold text-xl text-[#630ed4] w-1/4 bg-[#630ed4]/5 border-x border-[#630ed4]/10">
-                    Dialeads
-                  </th>
-                  <th className="py-4 px-6 font-bold text-xl text-[#5e5d6b] w-1/4">CallTools</th>
+                <tr className="bg-[#213145] text-[#eaf1ff]">
+                  <th className="px-5 py-4 font-semibold w-[34%]">Feature</th>
+                  <th className="px-5 py-4 font-semibold w-[33%] text-[#d2bbff]">Dialeads</th>
+                  <th className="px-5 py-4 font-semibold w-[33%]">{RIVAL}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#ccc3d8]/30 text-sm">
-                {comparisonRows.map((row, i) => (
+              <tbody>
+                {visibleRows.map((row, i) => (
                   <tr
-                    key={i}
-                    className={`hover:bg-[#eff4ff]/30 transition-colors ${row.keyDiff ? "bg-[#630ed4]/[0.02]" : ""} ${row.large ? "bg-[#630ed4]/10" : row.bold ? "bg-[#630ed4]/5" : ""}`}
+                    key={row.feature}
+                    className={(i % 2 === 0 ? "bg-white" : "bg-[#f8f9ff]") + " border-t border-[#e3e0f1]"}
                   >
-                    <td className={`py-3 px-6 text-[#0b1c30] ${row.bold || row.keyDiff ? "font-bold" : "font-medium"} ${row.large ? "text-xl" : ""}`}>
-                      <span className="flex items-center gap-2">
-                        {row.feature}
-                        {row.keyDiff && (
-                          <span className="px-1.5 py-0.5 rounded bg-[#630ed4]/10 text-[#630ed4] text-[10px] font-bold">KEY AI DIFF</span>
-                        )}
+                    <td className="px-5 py-3.5 font-medium text-[#0b1c30]">
+                      {row.feature}
+                      <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#4a4455]/70 mt-0.5">
+                        {row.category}
                       </span>
                     </td>
-                    <td
-                      className={`py-3 px-6 bg-[#630ed4]/5 border-x border-[#630ed4]/10 ${row.large ? "text-xl" : ""} ${
-                        row.dialeadsWin ? "font-bold text-[#630ed4]" : "text-[#5e5d6b]"
-                      }`}
-                    >
-                      {row.dialeadsWin && row.dialeads !== "No" && row.dialeads !== "No (Outbound focus)" ? "✅ " : ""}
-                      {!row.dialeadsWin ? "❌ " : ""}
-                      {row.dialeads}
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.dialStatus].cls}>
+                        <StatusIcon status={row.dialStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.dialeads}</span>
+                      </span>
                     </td>
-                    <td
-                      className={`py-3 px-6 ${row.large ? "text-xl" : ""} ${
-                        row.calltoolsWin ? "font-bold text-[#630ed4]" : row.calltools === "No" ? "font-semibold text-[#ba1a1a]" : "text-[#5e5d6b]"
-                      }`}
-                    >
-                      {row.calltoolsWin ? "✅ " : ""}
-                      {row.calltools === "No" ? "❌ " : ""}
-                      {row.calltools}
+                    <td className="px-5 py-3.5">
+                      <span className={"flex items-start gap-2 " + statusMeta[row.rivalStatus].cls}>
+                        <StatusIcon status={row.rivalStatus} className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span className="text-[#0b1c30]">{row.rival}</span>
+                      </span>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#4a4455]">
+            <span className="flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5 text-emerald-600" /> Included
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Minus className="w-3.5 h-3.5 text-amber-600" /> Partial or limited
+            </span>
+            <span className="flex items-center gap-1.5">
+              <X className="w-3.5 h-3.5 text-rose-500" /> Not offered
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Info className="w-3.5 h-3.5 text-[#4a4455]" /> Varies or confirm with vendor
+            </span>
+          </div>
+          <p className="mt-4 text-xs text-[#4a4455] text-center max-w-3xl mx-auto">
+            {RIVAL} details reflect its general public positioning and may change. Confirm current features
+            and pricing with {RIVAL} directly before you decide.
+          </p>
         </div>
       </section>
 
-      {/* ── DEEP DIVE ── */}
-      <section className="w-full py-24 bg-[#eff4ff]/50">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              WHERE THEY DIFFER MOST
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              The 6 Biggest Differences Between Dialeads and CallTools
+      {/* DEEP DIVES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Where the two approaches really differ
             </h2>
-            <p className="text-base text-[#4a4455]">
-              A rigorous technical and operational audit of everyday outbound performance.
-            </p>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{hero.diffIntro}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {deepDives.map((d, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-[#ccc3d8]/60 p-8 flex flex-col justify-between shadow-sm">
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className={`font-bold text-[32px] leading-[38px] ${d.calltoolsWins ? "text-[#5e5d6b]/40" : "text-[#630ed4]/40"}`}>
-                      {d.number}
-                    </span>
-                    <h3 className="font-bold text-xl text-[#0b1c30]">{d.title}</h3>
-                  </div>
-                  <div className="space-y-3 text-sm mb-4">
-                    <div className={`p-3 rounded-xl border ${d.calltoolsWins ? "bg-[#dce9ff]/40 border-[#ccc3d8]/30" : "bg-[#eff4ff]/50 border-[#ccc3d8]/30"}`}>
-                      <span className={`font-bold text-[13px] block mb-1 ${d.calltoolsWins ? "text-[#0b1c30]" : "text-[#5e5d6b]"}`}>CallTools:</span>
-                      <p className="text-[#4a4455] leading-relaxed">{d.calltoolsText}</p>
-                    </div>
-                    <div className={`p-3 rounded-xl border ${d.calltoolsWins ? "bg-[#eff4ff]/50 border-[#ccc3d8]/30" : "bg-[#630ed4]/5 border-[#630ed4]/20"}`}>
-                      <span className={`font-bold text-[13px] block mb-1 ${d.calltoolsWins ? "text-[#5e5d6b]" : "text-[#630ed4]"}`}>Dialeads:</span>
-                      <p className={`leading-relaxed ${d.calltoolsWins ? "text-[#4a4455]" : "text-[#0b1c30]"}`}>{d.dialeadsText}</p>
-                    </div>
-                  </div>
+          <div className="space-y-8">
+            {differences.map((d) => (
+              <div
+                key={d.num}
+                className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm overflow-hidden"
+              >
+                <div className="flex items-center gap-4 px-6 py-4 bg-[#e5eeff] border-b border-[#e3e0f1]">
+                  <span className="text-2xl font-extrabold text-[#630ed4]">{d.num}</span>
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{d.title}</h3>
                 </div>
-                <div
-                  className={`p-3 rounded-lg font-bold text-[13px] flex items-center gap-2 ${
-                    d.calltoolsWins ? "bg-[#e3e0f1]/60 text-[#1b1a26]" : "bg-[#eaddff]/40 text-[#630ed4]"
-                  }`}
-                >
-                  {d.calltoolsWins ? (
-                    <ShieldCheck className="w-[18px] h-[18px]" />
-                  ) : d.badgeIcon === "verified" ? (
-                    <BadgeCheck className="w-[18px] h-[18px]" />
-                  ) : d.badgeIcon === "group" ? (
-                    <Users className="w-[18px] h-[18px]" />
-                  ) : d.badgeIcon === "trending" ? (
-                    <TrendingUp className="w-[18px] h-[18px]" />
-                  ) : d.badgeIcon === "savings" ? (
-                    <PiggyBank className="w-[18px] h-[18px]" />
-                  ) : (
-                    <AudioWaveform className="w-[18px] h-[18px]" />
-                  )}
-                  <span>{d.badgeText}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="p-6 md:border-r border-[#e3e0f1]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-2">
+                      {RIVAL}
+                    </div>
+                    <p className="text-[#4a4455] leading-relaxed">{d.rival}</p>
+                  </div>
+                  <div className="p-6 bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-2">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{d.dialeads}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -694,178 +1020,157 @@ export default function DialeadsVsCallToolsPage() {
         </div>
       </section>
 
-      {/* ── PRICING COMPARISON ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              REAL COST COMPARISON
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              Dialeads vs CallTools &mdash; What You Actually Pay
+      {/* WHERE RIVAL IS STRONGER */}
+      <section className="py-16 bg-[#213145] text-[#eaf1ff] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#d2bbff] text-xs font-bold uppercase tracking-wider mb-3">
+              <Scale className="w-3.5 h-3.5" />
+              Being straight with you
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              Where {RIVAL} is stronger
             </h2>
-            <p className="text-base text-[#4a4455]">
-              A transparent breakdown of direct monthly software costs and hidden enterprise infrastructure fees.
+            <p className="mt-3 text-[#eaf1ff]/80 max-w-2xl mx-auto">{rivalStrengths.intro}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {rivalStrengths.items.map((s) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <h3 className="font-bold text-white">{s.title}</h3>
+                </div>
+                <p className="text-sm text-[#eaf1ff]/80 leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WORKFLOW */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {workflowSteps.heading}
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{workflowSteps.intro}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {workflowSteps.items.map((s, i) => (
+              <div key={s.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-extrabold text-[#630ed4]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#e3e0f1] text-[#213145] px-2 py-0.5 rounded">
+                    {s.tag}
+                  </span>
+                </div>
+                <h3 className="font-bold text-[#0b1c30] mb-2">{s.title}</h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING MODELS */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              How pricing works on each side
+            </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              We are not going to invent a savings number. The two products are priced differently because
+              they do different jobs, so the useful question is which model matches how you work.
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-7 rounded-2xl border border-[#ccc3d8]/50 bg-white shadow-md overflow-hidden">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-[#ccc3d8]/40 bg-[#eff4ff]/60">
-                    <th className="py-4 px-4 font-bold text-xl text-[#0b1c30]">Metric / Plan</th>
-                    <th className="py-4 px-4 font-bold text-xl text-[#630ed4] bg-[#630ed4]/5 border-x border-[#630ed4]/10">Dialeads</th>
-                    <th className="py-4 px-4 font-bold text-xl text-[#5e5d6b]">CallTools</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#ccc3d8]/30 text-sm">
-                  {pricingRows.map((row, i) => (
-                    <tr key={i} className={row.highlight ? (row.large ? "bg-[#630ed4]/10" : "bg-[#630ed4]/5") : ""}>
-                      <td className={`py-3 px-4 text-[#0b1c30] ${row.highlight ? "font-bold" : "font-medium"} ${row.large ? "text-xl" : ""}`}>
-                        {row.metric}
-                      </td>
-                      <td className={`py-3 px-4 font-bold text-[#630ed4] bg-[#630ed4]/5 border-x border-[#630ed4]/10 ${row.large ? "text-xl" : ""}`}>
-                        {row.dialeads}
-                      </td>
-                      <td className={`py-3 px-4 font-semibold ${row.calltoolsError ? "text-[#ba1a1a]" : "text-[#5e5d6b]"} ${row.large ? "text-xl" : ""}`}>
-                        {row.calltools}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-2 p-6 rounded-2xl bg-[#eff4ff] border border-[#e3e0f1]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1">{RIVAL}</div>
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-3">{rivalPricing.title}</h3>
+              <p className="text-sm text-[#4a4455] leading-relaxed mb-4">{rivalPricing.body}</p>
+              <ul className="space-y-2">
+                {rivalPricing.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2 text-sm text-[#4a4455]">
+                    <Info className="w-4 h-4 text-[#4a4455] mt-0.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Annual Run-Rate Card */}
-            <div className="lg:col-span-5 rounded-2xl bg-white border-2 border-[#630ed4]/30 p-8 shadow-lg relative">
-              <div className="text-[#5e5d6b] font-bold text-xs uppercase tracking-wider mb-2">Team Economics</div>
-              <h3 className="font-bold text-2xl text-[#0b1c30] mb-6">10-Person Team Annual Run Rate</h3>
-              <div className="space-y-4 mb-6">
-                <div className="p-4 rounded-xl bg-[#eff4ff] border border-[#ccc3d8]/40">
-                  <span className="text-sm text-[#5e5d6b] block mb-1 font-medium">CallTools (Mid-Tier 10 Seats)</span>
-                  <span className="font-bold text-2xl text-[#5e5d6b] line-through">$18,000&ndash;$30,000/year</span>
-                  <span className="text-xs text-[#5e5d6b] block mt-1">+ hidden setup fees &amp; usage surcharges</span>
-                </div>
-                <div className="p-4 rounded-xl bg-[#630ed4]/10 border border-[#630ed4]/30">
-                  <span className="text-sm text-[#630ed4] block mb-1 font-medium">Dialeads Pro (10 Seats)</span>
-                  <span className="font-bold text-[40px] leading-[44px] text-[#630ed4]">$5,880/year</span>
-                  <span className="text-xs text-[#630ed4] block mt-1">Flat rate. Full AI voice agents + real-time copilot included.</span>
-                </div>
-              </div>
-              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 mb-6">
-                <div className="flex items-center gap-2 mb-1">
-                  <BadgeCheck className="w-5 h-5 text-emerald-600" />
-                  <span className="font-bold text-[13px] uppercase tracking-wide">Guaranteed Capital Optimization</span>
-                </div>
-                <p className="font-bold text-xl text-emerald-900">
-                  Annual saving with Dialeads: $6,120 to $24,120
-                </p>
+            <div className="lg:col-span-3 p-6 rounded-2xl bg-[#213145] text-[#eaf1ff]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-1">Dialeads</div>
+              <h3 className="text-xl font-bold text-white mb-1">Usage-based, no subscription tiers</h3>
+              <p className="text-sm text-[#eaf1ff]/80 mb-5">
+                You pay for the minutes and messages you use. Nothing else is bundled into a plan you have to
+                size up front.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {dialeadsRates.map((r) => (
+                  <div key={r.label} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="text-xs font-semibold text-[#d2bbff] mb-1">{r.label}</div>
+                    <div className="text-3xl font-extrabold text-white leading-none">{r.price}</div>
+                    <div className="text-xs text-[#eaf1ff]/70 mb-2">{r.unit}</div>
+                    <p className="text-xs text-[#eaf1ff]/80 leading-relaxed">{r.body}</p>
+                  </div>
+                ))}
               </div>
               <Link
-                href="/signup"
-                className="w-full inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#630ed4] text-white font-bold text-sm shadow-md hover:bg-[#7C3AED] transition-all"
+                href="/pricing"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d2bbff] hover:text-white"
               >
-                Switch Your Team Today
-                <ArrowRight className="w-4 h-4 ml-1" />
+                See the full pricing page
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── WHO SHOULD CHOOSE EACH ── */}
-      <section className="w-full py-24 bg-[#eff4ff]/40">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#e3e0f1] text-[#1b1a26] font-bold text-xs tracking-wider uppercase mb-2">
-              HONEST RECOMMENDATION
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              When CallTools Makes Sense &mdash; And When Dialeads Is the Better Choice
+      {/* USE CASES */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Which one fits which situation
             </h2>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Choose CallTools */}
-            <div className="rounded-2xl bg-white border border-[#ccc3d8]/60 p-8 shadow-sm">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-[#dce9ff] flex items-center justify-center text-[#5e5d6b]">
-                  <Building2 className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-2xl text-[#0b1c30]">Choose CallTools if:</h3>
-              </div>
-              <ul className="space-y-4 text-base text-[#4a4455]">
-                {chooseCalltools.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#5e5d6b] shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* Choose Dialeads */}
-            <div className="rounded-2xl bg-white border-2 border-[#630ed4]/40 p-8 shadow-md">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-[#630ed4] flex items-center justify-center text-white">
-                  <Zap className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-2xl text-[#630ed4]">Choose Dialeads if:</h3>
-              </div>
-              <ul className="space-y-4 text-base text-[#0b1c30]">
-                {chooseDialeads.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── USE CASE COMPARISON ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              REAL WORLD SCENARIOS
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              Dialeads vs CallTools for Specific Use Cases
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {useCases.map((uc, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-[#ccc3d8]/60 p-8 flex flex-col justify-between shadow-sm">
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold ${
-                        uc.winner === "calltools" ? "bg-[#5e5d6b]/10 text-[#5e5d6b]" : "bg-[#630ed4]/10 text-[#630ed4]"
-                      }`}
-                    >
-                      {uc.number}
-                    </div>
-                    <h3 className="font-bold text-xl text-[#0b1c30]">{uc.title}</h3>
-                  </div>
-                  <div className="space-y-3 mb-4 text-sm">
-                    <p>
-                      <strong className="text-[#5e5d6b]">CallTools:</strong> {uc.calltoolsText}
-                    </p>
-                    <p>
-                      <strong className="text-[#630ed4]">Dialeads:</strong> {uc.dialeadsText}
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-3 border-t border-[#ccc3d8]/30 flex items-center gap-2">
+          <div className="space-y-5">
+            {useCases.map((u) => (
+              <div key={u.title} className="rounded-2xl bg-white border border-[#e3e0f1] shadow-sm p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{u.title}</h3>
                   <span
-                    className={`px-2 py-0.5 rounded text-white font-bold text-[11px] uppercase ${
-                      uc.winner === "calltools" ? "bg-[#5e5d6b]" : "bg-[#630ed4]"
-                    }`}
+                    className={
+                      "text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full " +
+                      (u.winner === "Dialeads"
+                        ? "bg-[#eaddff] text-[#630ed4]"
+                        : u.winner === RIVAL
+                          ? "bg-[#213145] text-[#eaf1ff]"
+                          : "bg-[#e3e0f1] text-[#213145]")
+                    }
                   >
-                    Winner
+                    {u.winner === "Either" ? "Either can work" : "Better fit: " + u.winner}
                   </span>
-                  <span className="font-bold text-[#0b1c30] text-sm">{uc.winnerText}</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="p-4 rounded-xl bg-[#f8f9ff]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#4a4455] mb-1.5">
+                      {RIVAL}
+                    </div>
+                    <p className="text-[#4a4455] leading-relaxed">{u.rival}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#eaddff]/40">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-1.5">
+                      Dialeads
+                    </div>
+                    <p className="text-[#0b1c30] leading-relaxed">{u.dialeads}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -873,147 +1178,149 @@ export default function DialeadsVsCallToolsPage() {
         </div>
       </section>
 
-      {/* ── MIGRATION GUIDE ── */}
-      <section className="w-full py-24 bg-[#eff4ff]/40">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              SWITCHING FROM CALLTOOLS
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              Moving From CallTools to Dialeads &mdash; What to Expect
+      {/* SWITCHING / GETTING STARTED */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              {switchingSteps.heading}
             </h2>
-            <p className="text-base text-[#4a4455]">
-              Zero downtime. Zero data loss. Rapid 7-step onboarding roadmap.
-            </p>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">{switchingSteps.intro}</p>
           </div>
-          <div className="relative border-l-2 border-[#630ed4]/30 ml-4 md:ml-8 pl-6 md:pl-10 space-y-8 max-w-4xl mx-auto">
-            {migrationSteps.map((step, i) => (
-              <div key={i} className="relative">
-                <div className="absolute -left-[35px] md:-left-[51px] top-0 w-8 h-8 rounded-full bg-[#630ed4] text-white flex items-center justify-center font-bold text-xs shadow-md">
-                  {String(i + 1).padStart(2, "0")}
+          <ol className="space-y-4">
+            {switchingSteps.items.map((s, i) => (
+              <li key={s.title} className="flex gap-4 p-5 rounded-2xl bg-[#f8f9ff] border border-[#e3e0f1]">
+                <div className="w-9 h-9 rounded-full bg-[#630ed4] text-white font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
                 </div>
+                <div>
+                  <h3 className="font-bold text-[#0b1c30] mb-1">{s.title}</h3>
+                  <p className="text-sm text-[#4a4455] leading-relaxed">{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* CHOOSE */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              So which should you choose?
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-7 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose {RIVAL} if</h3>
+              <ul className="space-y-3">
+                {chooseRival.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#4a4455] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#213145] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-7 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] shadow-sm">
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose Dialeads if</h3>
+              <ul className="space-y-3">
+                {chooseDialeads.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5 text-sm text-[#0b1c30] leading-relaxed">
+                    <Check className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-white border-y border-[#e3e0f1] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
+              Dialeads vs {RIVAL}: common questions
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {faqItems.map((f, i) => {
+              const open = openFaq === i;
+              return (
                 <div
-                  className={`rounded-xl border p-6 shadow-sm ${
-                    step.highlight
-                      ? "bg-[#630ed4]/10 border-2 border-[#630ed4]/40"
-                      : "bg-white border-[#ccc3d8]/50"
-                  }`}
+                  key={f.question}
+                  className="rounded-xl border border-[#e3e0f1] bg-[#f8f9ff] overflow-hidden"
                 >
-                  <h3 className={`font-bold text-xl mb-1 ${step.highlight ? "text-[#630ed4]" : "text-[#0b1c30]"}`}>
-                    {step.title}
-                  </h3>
-                  <p className={`text-base ${step.highlight ? "text-[#0b1c30]" : "text-[#4a4455]"}`}>{step.text}</p>
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-[#0b1c30] hover:bg-[#eff4ff]"
+                  >
+                    {f.question}
+                    <ChevronDown
+                      className={
+                        "w-5 h-5 shrink-0 text-[#630ed4] transition-transform " + (open ? "rotate-180" : "")
+                      }
+                    />
+                  </button>
+                  {open && <div className="px-5 pb-5 text-sm text-[#4a4455] leading-relaxed">{f.answer}</div>}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#e3e0f1] text-[#1b1a26] font-bold text-xs tracking-wider uppercase mb-2">
-              COMMON QUESTIONS
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              Frequently Asked Questions About Dialeads vs CallTools
+      {/* FINAL CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center rounded-3xl bg-[#213145] text-[#eaf1ff] px-6 py-14 relative overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-48 h-48 bg-[#7c3aed]/30 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+              {hero.ctaHeading}
             </h2>
-            <p className="text-base text-[#4a4455]">
-              Clear answers about migration, technical capabilities, and architectural differences.
-            </p>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqItems.map((faq, i) => (
-              <div key={i} className="rounded-xl border border-[#ccc3d8]/50 bg-white shadow-sm overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left"
-                >
-                  <h3 className="font-bold text-xl text-[#0b1c30] pr-4">{faq.q}</h3>
-                  <ChevronDown
-                    className={`w-5 h-5 text-[#7b7487] shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-6">
-                    <p className="text-base text-[#4a4455] leading-relaxed">{faq.a}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section className="w-full py-24 bg-[#eff4ff]/40">
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#eaddff] text-[#630ed4] font-bold text-xs tracking-wider uppercase mb-2">
-              FROM TEAMS WHO SWITCHED
-            </span>
-            <h2 className="font-bold text-[32px] leading-[38px] md:text-[40px] md:leading-[44px] text-[#0b1c30] mb-2">
-              What Teams Say After Switching From CallTools to Dialeads
-            </h2>
-            <p className="text-base text-[#4a4455]">
-              Real operators reporting actual economics, ramp speeds, and conversion uplifts.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-[#ccc3d8]/50 p-8 shadow-sm flex flex-col justify-between">
-                <p className="text-base text-[#0b1c30] italic leading-relaxed mb-4">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-2 pt-3 border-t border-[#ccc3d8]/30">
-                  <div className="w-8 h-8 rounded-full bg-[#630ed4]/20 text-[#630ed4] flex items-center justify-center font-bold text-xs">
-                    {t.initials}
-                  </div>
-                  <span className="font-bold text-sm text-[#0b1c30]">{t.role}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── BOTTOM CTA ── */}
-      <section className="w-full py-32 bg-gradient-to-b from-[#f8f9ff] to-[#dce9ff]/40 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#7c3aed_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.12] pointer-events-none" />
-        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#630ed4] text-white font-bold text-xs tracking-wider uppercase mb-4 shadow-sm">
-              <BadgeCheck className="w-4 h-4" />
-              READY TO SWITCH?
-            </span>
-            <h2 className="font-bold text-[28px] leading-[32px] md:text-[56px] md:leading-[60px] text-[#0b1c30] tracking-tight mb-4">
-              Get More Than CallTools Offers &mdash; At a Fraction of the Cost
-            </h2>
-            <p className="text-lg leading-7 text-[#4a4455] mb-8">
-              AI voice agents, live objection rebuttals, dynamic voicemail drops, automated follow-up, and full CRM sync &mdash; all in one platform. Up and running in 15 minutes. No contract. No IT required.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+            <p className="text-[#eaf1ff]/80 max-w-2xl mx-auto mb-8">{hero.ctaBody}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#630ed4] text-white font-bold text-sm shadow-lg hover:bg-[#7C3AED] transition-all hover:scale-[1.02]"
+                href="/demo"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#7c3aed] hover:bg-[#630ed4] text-white font-bold transition-colors"
               >
-                Start Free 14-Day Trial
-                <ArrowRight className="w-4 h-4 ml-1" />
+                Get Early Access
+                <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/demo"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-white border border-[#ccc3d8]/70 text-[#0b1c30] font-bold text-sm hover:bg-[#eff4ff] transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#e3e0f1] text-[#213145] hover:bg-white font-bold transition-colors"
               >
-                Book a Live Demo
-                <Calendar className="w-4 h-4 ml-1" />
+                Book a Demo
               </Link>
             </div>
-            <p className="text-sm text-[#5e5d6b]">
-              No credit card &middot; No annual contract &middot; Cancel anytime &middot; Setup in 15 minutes
-            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED */}
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-lg font-bold text-[#0b1c30] mb-4">More comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {relatedComparisons.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group p-5 rounded-2xl bg-white border border-[#e3e0f1] hover:border-[#630ed4] transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-[#0b1c30]">{r.label}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#630ed4]" />
+                </div>
+                <p className="mt-1.5 text-sm text-[#4a4455]">{r.blurb}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

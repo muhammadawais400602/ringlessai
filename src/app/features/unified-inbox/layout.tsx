@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Unified Operator Inbox – Calls, SMS & Notes – Dialeads",
+  title: "Messages & Conversations – SMS Threads – Dialeads",
   description:
-    "Dialeads unified inbox consolidates call recordings, SMS threads, AI transcripts, and CRM notes into one real-time stream. Zero tab switching for sales teams.",
+    "Dialeads groups two-way Telnyx SMS into threads by phone number, shows inbound and outbound messages, and resolves phone numbers to lead names. No recordings or transcripts.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

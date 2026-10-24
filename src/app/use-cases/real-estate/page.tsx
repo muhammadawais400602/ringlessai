@@ -4,755 +4,510 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  ChevronRight,
-  CheckCircle2,
+  Ban,
+  Bot,
+  Building2,
   Check,
-  Zap,
-  Voicemail,
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  Download,
+  FileSpreadsheet,
+  FileText,
+  Filter,
+  FolderKanban,
+  Handshake,
+  Hash,
+  Home,
+  MapPin,
   MessageSquare,
   Phone,
-  Upload,
-  BadgeCheck,
-  Mic,
-  CalendarClock,
-  Gauge,
-  Building2,
-  Timer,
-  Landmark,
-  Mountain,
-  Home,
+  Receipt,
+  RefreshCw,
+  Repeat,
   ShieldCheck,
-  Clock,
-  Shield,
-  BanIcon,
-  FileText,
-  AudioWaveform,
-  PhoneForwarded,
-  Handshake,
-  ClipboardCheck,
+  Sparkles,
+  Store,
+  Users,
+  X,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  Data arrays                                                        */
-/* ------------------------------------------------------------------ */
+/* ─── Data ─────────────────────────────────────────────── */
 
-const stats = [
-  { value: "500+", label: "Leads Contacted Per Day Per Agent" },
-  { value: "3x", label: "More Callbacks With Dynamic Voicemail Drops" },
-  { value: "2 sec", label: "Voicemail Drop on Every Missed Call" },
-  { value: "60 sec", label: "Speed-to-Lead — Contact New Leads Within 60 Seconds" },
+const hero = {
+  icon: Building2,
+  badge: "Built for real estate agents and teams",
+  title: "Prospect local business owners and property contacts",
+  titleAccent: "with context about the area.",
+  sub: "Dialeads scrapes Google Maps for businesses around the neighborhoods and properties you work, enriches each listing, and lets you call from the browser or have an AI qualifier make the first touch. Texts follow connected calls.",
+  checks: [
+    "Maps-based area search",
+    "AI discloses itself",
+    "SMS follow-up built in",
+  ],
+  card: {
+    header: "Area prospecting",
+    tag: "Pitch angle: NO_SITE",
+    sourceLabel: "Maps search: retail shops near Main St, Raleigh",
+    leadName: "Oak City Hardware",
+    leadMeta: "Rating 4.7 · No website found · Facebook found",
+    chips: ["Score 79", "NO_SITE", "Facebook", "Local owner"],
+    scriptLabel: "Call script with local details",
+    script: "\"Hi, this is Dana, a local agent who works the Main Street corridor. I saw Oak City Hardware has a 4.7 rating, and I wanted to ask whether you own or lease your space...\"",
+    outcomes: ["Interested", "Send SMS", "Callback"],
+  },
+};
+
+const facts = [
+  {
+    value: "Maps",
+    label: "Find businesses by niche and city",
+  },
+  {
+    value: "Per lead",
+    label: "Context passed to the AI qualifier",
+  },
+  {
+    value: "SMS",
+    label: "Two-way texting after calls",
+  },
+  {
+    value: "8am-9pm",
+    label: "Calling window enforced",
+  },
 ];
 
 const profiles = [
   {
+    icon: Store,
+    title: "Commercial agents and brokers",
+    body: "Search a submarket for the businesses operating there. Owner-operators and tenants near a listing are logical first calls for lease, sale, and expansion conversations.",
+    tag: "Commercial prospecting",
+  },
+  {
     icon: Home,
-    tag: "High Volume Acquisitions",
-    title: "Real Estate Wholesalers",
-    body: "Working absentee owner lists, driving-for-dollars data, probate lists, and tax delinquent leads. You need to contact thousands of property owners per week to find the handful who are motivated to sell below market. Manual dialing gets you through 60 per day. Dialeads gets you through 500.",
-    footer: "Ideal for: 1,000 to 20,000 lead batch campaigns",
+    title: "Residential agents building a local sphere",
+    body: "Local business owners live in the neighborhoods you serve. Call shops, restaurants, and service providers in your farm area and build relationships before they need an agent.",
+    tag: "Farm area",
   },
   {
-    icon: Timer,
-    tag: "Speed-to-Lead",
-    title: "Real Estate Agents Prospecting Expired Listings and FSBOs",
-    body: "Expired listings and FSBOs are the hottest leads in real estate — and every agent in your market is calling them. Speed wins. Dialeads contacts every new expired listing within 60 seconds of it hitting the MLS so you are always the first agent they hear from.",
-    footer: "Direct MLS hook & instant call drops",
+    icon: Users,
+    title: "Teams with a shared market",
+    body: "Invite agents into your organization, give each a role, and split an area across campaigns so no one calls the same business twice.",
+    tag: "Team coordination",
   },
   {
-    icon: Building2,
-    tag: "Zero Vacancy",
-    title: "Property Managers Following Up on Rental Inquiries",
-    body: "Every unfilled unit costs money every day. Dialeads contacts every rental inquiry automatically — within minutes of the form submission — drops a personalized voicemail if they do not pick up, and sends a follow-up SMS automatically. Fill units faster without playing phone tag.",
-    footer: "Automated tenant qualification & booking",
-  },
-  {
-    icon: Landmark,
-    tag: "First Lender Priority",
-    title: "Mortgage Brokers and Loan Officers",
-    body: "Working purchase leads, refinance leads, and referral lists. Dialeads contacts every new lead within 60 seconds of form submission, drops a personalized voicemail on every missed call, and fires a follow-up SMS automatically — so you are always the first lender they speak to.",
-    footer: "Instant webhook integration to web funnels",
-  },
-  {
-    icon: Mountain,
-    tag: "Acreage & Subdivision Scale",
-    title: "Land Investors",
-    body: "Calling rural landowners, vacant lot owners, and agricultural property owners from county record lists. Dialeads imports any CSV, scrubs DNC, matches local caller IDs, and dials at scale — so you spend your time negotiating deals, not dialing numbers.",
-    footer: "Automated parcel-ID & county records matching",
-    footerExtra: "100% Local Caller ID Guaranteed",
-    wide: true,
+    icon: Handshake,
+    title: "Property managers and investors",
+    body: "Reach out to nearby businesses about leasing, vacancies, or partnerships, with notes about the area built into the script.",
+    tag: "Leasing outreach",
   },
 ];
 
 const painPoints = [
   {
-    num: "01",
-    title: "Manual Dialing Gets You Through 60 Leads Per Day — Maximum",
-    body: "A motivated seller list has 5,000 contacts. At 60 manual dials per day, it takes 83 days to get through the list. By then, half the motivated sellers have already sold to someone faster. You need to contact the entire list in days — not months.",
-    fix: "Power dialer with local presence caller ID contacts 400-500 leads per day automatically. AI voice agent handles conversations autonomously. The entire 5,000-row list is contacted in under 2 weeks — not 3 months.",
+    icon: MapPin,
+    title: "Building an area list takes time",
+    body: "Walking a street or scrolling Maps to copy business details is slow and incomplete.",
+    fix: "Run a Google Maps search by niche and city. You get a sheet with listings, ratings, website audit results, and social presence, scored and ready to work.",
   },
   {
-    num: "02",
-    title: "Leaving Voicemails Manually Wastes 45 Minutes Every Day",
-    body: 'You call 100 numbers. 70 go to voicemail. You spend 45 seconds on each one re-recording the same message — "Hi, my name is [name], I am interested in your property at [address], please call me back." That is 52 minutes of dead time every single day just pressing buttons and waiting for beeps.',
-    fix: "1-click voicemail drop in under 2 seconds. Dialeads detects the voicemail beep and drops a pre-recorded personalized message instantly — with the property address, the prospect's name, and a specific call to action. Move to the next lead immediately. 52 minutes of wasted time becomes 3 minutes.",
+    icon: FileText,
+    title: "Calls sound generic",
+    body: "Prospects hang up on scripts that could apply to anyone in any city.",
+    fix: "Call script templates fill in {name}, {category}, {city}, {rating}, and {evidence}. Add local details to the campaign brief so the AI and your live rebuttals reference the area.",
   },
   {
-    num: "03",
-    title: "Prospects Do Not Call Back From Generic Voicemails",
-    body: '"Hi, this is [name], I am interested in buying properties in your area, please call me back at [number]." Every wholesaler in the market leaves this exact voicemail. Sellers delete it without listening to the end. Callback rates on generic voicemails are under 2%.',
-    fix: "AI dynamic voicemail drops personalized with the prospect's name, the specific property address, a relevant detail about the property, and a clear next step. Callbacks increase 3x compared to generic mass-recorded messages because prospects believe you specifically called them — not blasted a list.",
+    icon: Clock,
+    title: "You are showing homes when you should be calling",
+    body: "Prospecting block time gets eaten by actual client work.",
+    fix: "Switch a campaign to AI mode. The qualifier makes first-touch calls with per-lead context, discloses it is an AI, and returns a score, interest, qualified flag, and next action.",
   },
   {
-    num: "04",
-    title: "Leads Say 'Not Right Now' and Fall Through the Cracks Forever",
-    body: 'A seller says "we are not ready to sell for another 6 months." You note it in a spreadsheet. Six months later the note is buried, the spreadsheet is a mess, and the seller listed with someone else because nobody followed up. This happens dozens of times per month.',
-    fix: "1-click disposition schedules an automatic callback for any future date. Dialeads fires a reminder SMS to the seller 1 week before the scheduled callback date — keeping your name top of mind. The lead never falls through the cracks again.",
-  },
-  {
-    num: "05",
-    title: "New Leads Go Cold in Under 5 Minutes If You Do Not Call Immediately",
-    body: "Internet leads — buyer inquiries, seller form submissions, rental applications — have a 5-minute window. After 5 minutes, the prospect has already filled out 3 more competitor forms and moved on. If you call back 2 hours later, the conversion rate drops by over 80%.",
-    fix: "Speed-to-lead calling via Zapier webhook. The moment a lead submits any form — your website, Zillow, Realtor.com, BatchLeads, or any lead source — Dialeads calls them automatically within 60 seconds. You are always the first voice they hear.",
+    icon: MessageSquare,
+    title: "Follow-up gets forgotten",
+    body: "A promising 'maybe later' turns into silence.",
+    fix: "After connected AI calls, Dialeads can send a follow-up text. Replies come back in two-way SMS and opt-outs are detected automatically.",
   },
 ];
 
 const features = [
   {
+    icon: MapPin,
+    title: "Google Maps lead sourcing",
+    body: "Search by niche and city, for example dentists in a downtown area, and collect business listings in a Google Sheet and CSV.",
+    tag: "Area-based search",
+  },
+  {
+    icon: Filter,
+    title: "Enrichment and scoring",
+    body: "Website audit, Google Ads detection, and Instagram, Facebook, and TikTok presence help you decide who to call first.",
+    tag: "Scored leads",
+  },
+  {
+    icon: Bot,
+    title: "AI qualifier",
+    body: "A Telnyx AI assistant calls with per-lead context, discloses that it is an AI, and records score, interest, qualified, and next action.",
+    tag: "First-touch calls",
+  },
+  {
     icon: Phone,
-    title: "Power Dialer With Local Area Code Matching",
-    body: "Automatically dials your lead queue with local caller ID matching on every call. Prospects in Dallas see a Dallas number. Prospects in Chicago see a Chicago number. Answer rates jump to 85%+ because prospects recognize and trust a local number.",
+    title: "Browser dialer",
+    body: "Call from a Telnyx WebRTC softphone. Press C to call, H to hang up, and 1 to 6 to log outcomes in the sheet.",
+    tag: "No hardware",
   },
   {
-    icon: Voicemail,
-    title: "1-Click Ringless Voicemail Drop — Under 2 Seconds",
-    body: "When a prospect does not pick up, tap one button and a personalized pre-recorded voicemail drops instantly. Dialeads advances to the next lead automatically. No waiting. No re-recording. No wasted time. Drop 100 voicemails in the time it used to take to leave 5 manually.",
-  },
-  {
-    icon: Gauge,
-    title: "Speed-to-Lead Calling — 60 Seconds From Form to Phone",
-    body: "Connect Dialeads to your lead sources via Zapier or webhook. The moment a buyer inquiry, seller form, or rental application comes in — Dialeads calls the prospect automatically within 60 seconds. No manual triggering. No delay. You are always first.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Automatic SMS Follow-Up After Every Call",
-    body: "The moment a call ends Dialeads fires a pre-written SMS — personalized with the prospect's name and property address. If they do not respond, a follow-up SMS goes out automatically on day 2 and day 5. Multi-touch follow-up running entirely on autopilot.",
-  },
-  {
-    icon: Upload,
-    title: "Lead List Import From Any Source",
-    body: "Import leads from PropStream, BatchLeads, ListSource, DealMachine, county records, or any custom CSV. Dialeads auto-validates phone numbers, scrubs against the National DNC Registry, removes disconnected numbers, and queues leads ready to dial — in under 2 minutes per file.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Real Estate Specific Dispositions",
-    body: "One-click disposition system built for real estate workflows — Interested Seller, Not Ready Yet, Wrong Number, Listed With Agent, Already Sold, Call Back in 6 Months, Not Interested. Queue advances automatically. CRM updates in real time.",
-  },
-  {
-    icon: Mic,
-    title: "Call Recordings for Every Conversation",
-    body: "Every call recorded automatically. Review any conversation to understand seller motivation, property condition details, and price expectations before writing an offer. Share recordings with your acquisition team or use them to train new callers.",
-  },
-  {
-    icon: CalendarClock,
-    title: "Callback Scheduling and Future Follow-Up Automation",
-    body: 'When a seller says "call me back in 3 months" — 1-click schedules the exact callback date. Dialeads fires an automatic SMS reminder to the seller 1 week before the date. Your pipeline of future follow-ups runs automatically without a single sticky note.',
-  },
-];
-
-const leadSources = [
-  {
-    letter: "P",
-    name: "PropStream",
-    badge: "Direct CSV Import",
-    body: "Export your PropStream absentee owner, tax delinquent, or pre-foreclosure lists as CSV and import directly into Dialeads. Phone numbers auto-validated, DNC-scrubbed, and queued for dialing in under 2 minutes.",
-  },
-  {
-    letter: "B",
-    name: "BatchLeads",
-    badge: "Mobile Number Priority",
-    body: "Import BatchLeads skip-traced lists with one click. Dialeads maps phone number columns automatically, removes invalid numbers, and prioritizes mobile numbers for higher connect rates.",
-  },
-  {
-    letter: "D",
-    name: "DealMachine",
-    badge: "Local CID Matching",
-    body: "Export your DealMachine driving-for-dollars lists and import into Dialeads campaigns. Local caller ID matching ensures every prospect sees a familiar area code when you call.",
-  },
-  {
-    letter: "L",
-    name: "ListSource",
-    badge: "Carrier Validation",
-    body: "Import ListSource homeowner and absentee owner lists directly. Dialeads validates every number against carrier databases and suppresses disconnected lines before the first dial.",
-  },
-  {
-    letter: "Z",
-    name: "Zillow & Realtor",
-    badge: "60-Second Speed-to-Lead",
-    body: "Connect Zillow Premier Agent or Realtor.com leads via Zapier. New buyer and seller inquiries trigger automatic Dialeads calls within 60 seconds of form submission — every time.",
-  },
-  {
-    letter: "C",
-    name: "County Records",
-    badge: "Data Normalization",
-    body: "Import raw county assessor and tax records pulled as CSV. Dialeads normalizes phone number formats, removes duplicates, and skip-traces missing numbers via integrated data append.",
-  },
-];
-
-const steps = [
-  {
-    num: "01",
-    icon: Upload,
-    title: "Import Your Lead List",
-    body: "Export your leads from PropStream, BatchLeads, or any data source as a CSV. Upload to Dialeads. Phone numbers auto-validated, DNC-scrubbed, duplicates removed, local caller IDs matched. Ready to dial in under 2 minutes.",
-    footer: "Automated clean & map",
-  },
-  {
-    num: "02",
-    icon: PhoneForwarded,
-    title: "Start Dialing",
-    body: "Click Start Campaign. Dialeads power dials your list automatically — dropping personalized voicemails on every missed call, firing SMS follow-ups after every attempt, and flagging interested sellers in your inbox for immediate callback.",
-    footer: "AI voice & auto-voicemail",
-  },
-  {
-    num: "03",
-    icon: Handshake,
-    title: "Close the Deal",
-    body: "Interested sellers land in your Dialeads inbox with their full call history, voicemail drop receipt, and SMS thread in one view. Call them back with full context. Write the offer. Close the deal.",
-    footer: "Unified lead inbox",
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "I was manually calling 60 absentee owners per day and leaving voicemails on 45 of them. Dialeads now contacts 400 leads per day, drops personalized voicemails automatically, and texts everyone who does not pick up. My motivated seller callbacks tripled in the first week.",
-    initials: "RW",
-    role: "Real Estate Wholesaler",
-    detail: "Austin & San Antonio Markets",
-  },
-  {
-    quote:
-      "Expired listings are won by whoever calls first. Dialeads calls every new expired listing within 60 seconds of it hitting the MLS. I have listed 3 properties in the last month that I would never have gotten if I was manually dialing.",
-    initials: "RA",
-    role: "Real Estate Agent",
-    detail: "Top 1% Residential Producer",
-  },
-  {
-    quote:
-      "I run a small property management company. Dialeads contacts every rental inquiry automatically the moment they fill out our form. I stopped losing applicants to competitors who called back faster. Vacancy rates dropped significantly.",
-    initials: "PM",
-    role: "Property Manager",
-    detail: "Managing 450+ Doors",
-  },
-  {
-    quote:
-      "As a land investor calling rural landowners, I was getting through maybe 50 calls per day manually. Dialeads contacts 300+ per day, drops voicemails on every miss, and texts everyone back. I closed 2 land deals last month that came from Dialeads callbacks.",
-    initials: "LI",
-    role: "Land Investor",
-    detail: "Rural Acreage & Infill Lots",
-  },
-];
-
-const complianceItems = [
-  {
-    icon: ShieldCheck,
-    title: "National DNC Scrub",
-    body: "Every number checked before every dial. DNC contacts suppressed automatically.",
-  },
-  {
-    icon: Clock,
-    title: "Time-Zone Calling Windows",
-    body: "8am-9pm local enforcement on every outbound call. No manual scheduling.",
-  },
-  {
-    icon: Shield,
-    title: "STIR/SHAKEN Attestation",
-    body: "A-level caller ID verification on every call. No spam flags.",
-  },
-  {
-    icon: BanIcon,
-    title: "Instant SMS Opt-Out",
-    body: "STOP replies suppressed instantly across all campaigns.",
+    icon: Sparkles,
+    title: "Live AI rebuttals",
+    body: "When an owner says they are not interested or already work with someone, Claude or Gemini suggests a reply using the lead's context.",
+    tag: "In-call support",
   },
   {
     icon: FileText,
-    title: "Consent Timestamp Logging",
-    body: "Full auditable record of every call and SMS for legal protection.",
-    wide: true,
+    title: "Call scripts",
+    body: "Templates with placeholders let you mention the neighborhood, category, rating, and evidence without retyping.",
+    tag: "Local details",
+  },
+  {
+    icon: MessageSquare,
+    title: "Two-way SMS",
+    body: "Follow up by text through Telnyx. You register your own 10DLC brand and campaign.",
+    tag: "$0.03 / SMS",
+  },
+  {
+    icon: FolderKanban,
+    title: "Campaigns",
+    body: "Manual or AI mode, sheet import, per-campaign brief and greeting, retries, and worklist filtering.",
+    tag: "By neighborhood",
+  },
+  {
+    icon: Hash,
+    title: "Number pools",
+    body: "Use more than one number, monitor health, and keep each lead tied to the same caller ID.",
+    tag: "Consistent caller ID",
   },
 ];
 
-const starterFeatures = [
-  "1,000 outbound calling minutes",
-  "1-Click Voicemail Drop",
-  "Basic SMS follow-up trigger",
-  "Local caller ID matching",
+const workflow = [
+  {
+    title: "Pick a niche and area",
+    body: "Choose a category and a city or neighborhood near the listings, the farm area, or the submarket you cover.",
+  },
+  {
+    title: "Review the sheet",
+    body: "Sort by score. Remove businesses that are not a fit, such as national chains.",
+  },
+  {
+    title: "Add local detail to the script",
+    body: "Write the script and brief with specifics about the area, recent sales, or listings you want to mention.",
+  },
+  {
+    title: "Call or let the AI qualify",
+    body: "Call from the browser in manual mode, or run AI mode so the qualifier handles first-touch calls.",
+  },
+  {
+    title: "Text the interested ones",
+    body: "Send a follow-up SMS and keep conversations going in the two-way thread.",
+  },
+  {
+    title: "Retry and log",
+    body: "Outcomes go to your sheet. Retry logic brings back leads that did not answer, within the attempt cap.",
+  },
 ];
 
-const proFeatures = [
-  "Unlimited calling minutes",
-  "Autonomous AI Voice Agent",
-  "High-Speed Power Dialer",
-  "Automated multi-day SMS sequences",
-  "Call recordings & real estate dispositions",
+const scriptPanel = {
+  points: [
+    "Add area details to the campaign brief so the AI qualifier can reference them.",
+    "Use {city} and {category} placeholders and your own local lines around them.",
+    "Live rebuttals consider the lead's data when suggesting a response.",
+    "Follow-up drafts can reference the call before you send the text.",
+  ],
+  template: "Hi {name}, this is Dana with Riverside Realty. I work with {category} owners in {city}, and I noticed {evidence}. I am not selling anything today. I am curious whether you own or lease your space. Do you have a moment?",
+  objection: "I am not looking to sell or move.",
+  rebuttal: "Understood, and I am not suggesting you do. I am introducing myself because I work this neighborhood. If you ever have questions about what your space is worth or what is happening nearby, I am glad to be a resource. May I text you my contact info?",
+};
+
+const outcomes = [
+  {
+    icon: FileSpreadsheet,
+    title: "Outcomes in Sheets",
+    body: "Each call result is logged with the lead so you know who to follow up with.",
+  },
+  {
+    icon: Download,
+    title: "CSV in HubSpot format",
+    body: "Export for use in your own CRM. There is no native CRM sync.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Retries",
+    body: "Missed leads re-enter the queue until the attempt cap.",
+  },
+  {
+    icon: Receipt,
+    title: "Usage ledger",
+    body: "See per-event call and SMS costs.",
+  },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
+const compliance = [
+  {
+    icon: Clock,
+    title: "Calling windows",
+    body: "Calls are held to 8am to 9pm.",
+  },
+  {
+    icon: Ban,
+    title: "Suppression lists",
+    body: "Keep do-not-contact numbers off your worklist, including SMS opt-outs.",
+  },
+  {
+    icon: Repeat,
+    title: "Attempt caps",
+    body: "Limit attempts per lead.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "AI disclosure",
+    body: "The AI qualifier says it is an AI.",
+  },
+];
+
+const pricing = [
+  {
+    label: "Manual calling",
+    price: "$0.02 / min",
+    body: "You dial from the browser softphone and talk to the lead yourself. Billed per minute of call time.",
+  },
+  {
+    label: "AI qualifier calls",
+    price: "$0.25 / min",
+    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+  },
+  {
+    label: "SMS",
+    price: "$0.03 / message",
+    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+  },
+];
+
+const limits = [
+  "No MLS, expired listing, FSBO, or homeowner data. Leads come from Google Maps",
+  "No voicemail drops, including with property addresses",
+  "No instant speed-to-lead triggers from Zapier or other tools",
+  "No call recording",
+  "No native CRM sync. Export CSV in HubSpot format instead",
+  "No power or predictive dialer",
+];
+
+const faqs = [
+  {
+    q: "Does Dialeads give me homeowner or listing data?",
+    a: "No. Dialeads sources leads from Google Maps by niche and city. It is useful for prospecting local businesses and owners, not for pulling MLS, expired listing, or homeowner data.",
+  },
+  {
+    q: "Can the AI know about a property?",
+    a: "The AI qualifier uses the per-lead context and the campaign brief you give it. If you include area or property details in the brief, it can reference them.",
+  },
+  {
+    q: "Will the AI pretend to be a person?",
+    a: "No. The AI qualifier discloses that it is an AI at the start of the call.",
+  },
+  {
+    q: "How do I follow up after a call?",
+    a: "After connected AI calls Dialeads can send a follow-up SMS, and you can text leads yourself in the two-way thread. You need 10DLC registration for SMS.",
+  },
+  {
+    q: "Can I use it with my CRM?",
+    a: "There is no native sync. Your results live in Google Sheets and can be exported as a CSV in HubSpot format.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "$0.02 per minute for manual calls, $0.25 per minute for AI calls, and $0.03 per SMS.",
+  },
+];
+
+const enrichment = [
+  {
+    angle: "RUNS_ADS",
+    title: "Active advertisers",
+    body: "A business spending on ads is growing. Good for expansion, relocation, or additional space conversations.",
+  },
+  {
+    angle: "NO_SITE",
+    title: "No website",
+    body: "A small, owner-run shop with no site is often a long-time local. A friendly opener works better than a pitch.",
+  },
+  {
+    angle: "WEAK_SITE",
+    title: "Weak website",
+    body: "Mention something specific about the business as a conversation starter and move toward real estate topics.",
+  },
+  {
+    angle: "STRONG_SITE",
+    title: "Strong website",
+    body: "Established operators are a good fit for commercial space, lease renewals, and ownership conversations.",
+  },
+];
+
+/* ─── Component ────────────────────────────────────────── */
 
 export default function RealEstatePage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* ── BREADCRUMB ─────────────────────────────────────── */}
-      <section className="w-full bg-white border-b border-[#e5eeff] py-2 px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-[#4a4455] font-medium">
-            <Link href="/use-cases" className="hover:text-[#630ed4] transition-colors">
-              Use Cases
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-[#0b1c30] font-semibold">
-              Real Estate Agents &amp; Wholesalers
-            </span>
-          </div>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#e5eeff] text-[#630ed4] text-[11px] font-bold tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>PropStream &amp; BatchLeads Sync Active</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── HERO ───────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden py-16 lg:py-24 px-4 lg:px-8">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[380px] bg-[#630ed4]/5 rounded-full blur-3xl pointer-events-none -z-10" />
-        <div className="max-w-[75rem] mx-auto flex flex-col items-center text-center">
-          {/* Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-6 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#7C3AED]" />
-            <span>BUILT FOR REAL ESTATE PROFESSIONALS</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[62px] lg:leading-[1.08] font-bold tracking-tight text-[#0b1c30] max-w-5xl mb-6">
-            Contact 500 Real Estate Leads Per Day —{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#630ed4] via-[#7C3AED] to-[#732ee4]">
-              Without Picking Up the Phone Once
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg leading-7 text-[#4a4455] max-w-3xl mb-8">
-            Dialeads lets real estate agents, wholesalers, and property managers
-            dial cold lists at scale, drop personalized voicemails to every
-            missed call, and trigger automatic SMS follow-ups — so motivated
-            sellers and buyers call you back.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-4 w-full sm:w-auto">
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-base shadow-lg shadow-[#630ed4]/25 transition-all"
-            >
-              <span>Start Free Trial</span>
-              <ArrowRight className="w-[18px] h-[18px]" />
-            </Link>
-            <Link
-              href="/import"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0b1c30] font-semibold text-base shadow-sm transition-all"
-            >
-              <Upload className="w-5 h-5 text-[#7C3AED]" />
-              <span>Import Your First Lead List</span>
-            </Link>
-          </div>
-
-          {/* Trust line */}
-          <div className="flex items-center justify-center gap-2 text-[#4a4455] text-sm font-medium mb-12">
-            <BadgeCheck className="w-4 h-4 text-[#7C3AED]" />
-            <span>
-              No credit card · PropStream &amp; BatchLeads compatible · Cancel
-              anytime
-            </span>
-          </div>
-
-          {/* Console Mockup */}
-          <div className="w-full max-w-5xl bg-[#0f0f1a] text-white rounded-2xl p-4 sm:p-8 shadow-2xl relative text-left">
-            {/* Top accent */}
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#630ed4] via-[#7C3AED] to-[#732ee4] rounded-t-2xl" />
-
-            {/* Console header */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 bg-white/5 px-4 py-3 rounded-xl">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
-                <span className="font-bold text-sm tracking-wide text-white">
-                  Active Campaign: Dallas-Fort Worth Absentee Owners (PropStream
-                  CSV)
+    <div className="flex flex-col w-full bg-[#f8f9ff]">
+      {/* ── HERO ── */}
+      <section className="relative w-full overflow-hidden pt-12 pb-16 lg:pb-24">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-[#d2bbff]/30 to-[#d3e4fe]/40 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col items-start">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e3e0f1]/70 shadow-sm mb-6">
+                <hero.icon className="w-[18px] h-[18px] text-[#630ed4]" />
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">
+                  {hero.badge}
                 </span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7C3AED]/20 text-[#ede0ff] text-xs font-semibold">
-                <Zap className="w-3.5 h-3.5" />
-                <span>Power Dialer Running · Speed 480 dials/hr</span>
+              <h1 className="text-[32px] leading-[36px] lg:text-[52px] lg:leading-[58px] font-bold tracking-tight text-[#0b1c30] mb-4">
+                {hero.title}{" "}
+                <span className="text-[#630ed4]">{hero.titleAccent}</span>
+              </h1>
+              <p className="text-lg leading-7 text-[#4a4455] max-w-2xl mb-8">
+                {hero.sub}
+              </p>
+              <div className="flex flex-wrap items-center gap-4 mb-6 w-full sm:w-auto">
+                <Link
+                  href="/pricing"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#7c3aed] text-white font-semibold text-sm shadow-lg shadow-[#630ed4]/25 hover:bg-[#630ed4] transition-all"
+                >
+                  Get Early Access
+                  <ArrowRight className="w-[18px] h-[18px] ml-1" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full bg-white shadow-sm hover:bg-[#eff4ff] text-[#0b1c30] font-semibold text-sm transition-all"
+                >
+                  Book a Demo
+                </Link>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                {hero.checks.map((t) => (
+                  <span key={t} className="inline-flex items-center gap-1 text-[#630ed4] font-medium">
+                    <CheckCircle2 className="w-4 h-4" /> {t}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Active record */}
-            <div className="bg-white/[0.04] p-6 rounded-xl mb-6 space-y-4">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#630ed4] flex items-center justify-center text-white font-bold text-sm">
-                    MS
+            {/* Hero visual: lead card */}
+            <div className="lg:col-span-5 w-full">
+              <div className="bg-white rounded-xl shadow-xl overflow-hidden p-6 flex flex-col gap-4">
+                <div className="flex items-center justify-between pb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-[#7c3aed] animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#0b1c30]">
+                      {hero.card.header}
+                    </span>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-base text-white">
-                        Marcus Sterling
-                      </h4>
-                      <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-[#d3e4fe] font-medium">
-                        Absentee Owner
-                      </span>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#e3e0f1] text-[#4a4455]">
+                    {hero.card.tag}
+                  </span>
+                </div>
+                <div className="p-3 rounded-lg bg-[#eff4ff] flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#630ed4]/10 flex items-center justify-center shrink-0">
+                    <MapPin className="w-[18px] h-[18px] text-[#630ed4]" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-xs font-semibold text-[#4a4455]">{hero.card.sourceLabel}</span>
+                    <span className="text-sm font-semibold text-[#0b1c30]">{hero.card.leadName}</span>
+                    <span className="text-xs text-[#4a4455]">{hero.card.leadMeta}</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {hero.card.chips.map((c) => (
+                    <span key={c} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#eaddff] text-[#630ed4]">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                <div className="p-4 rounded-lg bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Bot className="w-[18px] h-[18px] text-[#d2bbff]" />
+                    <span className="text-xs font-semibold text-white">{hero.card.scriptLabel}</span>
+                  </div>
+                  <p className="text-sm text-[#eaf1ff] italic leading-6">{hero.card.script}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {hero.card.outcomes.map((o) => (
+                    <div key={o} className="px-2 py-2 rounded-lg bg-[#e5eeff] text-xs font-semibold text-[#0b1c30]">
+                      {o}
                     </div>
-                    <p className="text-xs text-[#d3e4fe]/70 font-mono mt-0.5">
-                      Property: 742 Elm St, Dallas TX 75201 · Assessed: $385,000
-                    </p>
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-300 text-xs font-semibold">
-                  <Voicemail className="w-4 h-4" />
-                  <span>Voicemail Dropped in 1.8s (Custom Audio Cloned)</span>
+                  ))}
                 </div>
               </div>
-
-              {/* Transcript & SMS */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                <div className="bg-[#0b1c30]/70 p-3 rounded-lg">
-                  <div className="text-[11px] font-bold text-[#ede0ff] uppercase tracking-wider mb-1 flex items-center gap-1">
-                    <AudioWaveform className="w-3.5 h-3.5" />
-                    Dropped Voicemail Transcript
-                  </div>
-                  <p className="text-xs text-[#d3e4fe]/90 italic leading-relaxed">
-                    &ldquo;Hey Marcus, saw your place over at 742 Elm St. We
-                    have private capital ready for an all-cash as-is closing this
-                    month. Shoot me a call or text back at this
-                    number...&rdquo;
-                  </p>
-                </div>
-                <div className="bg-[#0b1c30]/70 p-3 rounded-lg">
-                  <div className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    SMS Sent (Triggered Instantly)
-                  </div>
-                  <p className="text-xs text-[#d3e4fe]/90 leading-relaxed font-mono">
-                    &ldquo;Hi Marcus, following up regarding 742 Elm St in
-                    Dallas. Just left you a quick message. Would you consider an
-                    off-market offer? Let me know!&rdquo;
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Metric chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { label: "Connect Rate", value: "28.4%", color: "text-emerald-400" },
-                { label: "Callbacks Today", value: "34", color: "text-white" },
-                { label: "Motivated Flagged", value: "8 Deals", color: "text-[#d2bbff]" },
-                { label: "DNC Scrubbed", value: "142 Suppressed", color: "text-[#d3e4fe]" },
-              ].map((m) => (
-                <div key={m.label} className="bg-white/[0.03] p-3 rounded-xl">
-                  <span className="text-[11px] text-[#d3e4fe]/70 uppercase font-semibold block">
-                    {m.label}
-                  </span>
-                  <span className={`font-bold text-xl ${m.color}`}>
-                    {m.value}
-                  </span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STATS BAR ──────────────────────────────────────── */}
-      <section className="w-full bg-white py-12 px-4 lg:px-8 shadow-sm">
-        <div className="max-w-[75rem] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          {stats.map((s) => (
-            <div key={s.value} className="flex flex-col items-center">
-              <span className="text-4xl lg:text-5xl font-bold text-[#7C3AED] tracking-tight mb-1">
-                {s.value}
-              </span>
-              <span className="font-semibold text-[#0b1c30] text-sm sm:text-base max-w-[200px]">
-                {s.label}
-              </span>
+      {/* ── FACTS STRIP ── */}
+      <section className="w-full bg-[#eff4ff] py-12">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {facts.map((f) => (
+            <div key={f.label} className="flex flex-col gap-1">
+              <span className="text-2xl lg:text-3xl font-bold text-[#630ed4]">{f.value}</span>
+              <span className="text-sm text-[#4a4455] leading-5">{f.label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── WHO THIS IS FOR ────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              BUILT FOR REAL ESTATE PROFESSIONALS
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Every Real Estate Professional Who Dials Leads Needs Dialeads
+      {/* ── WHO IT IS FOR ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Where Dialeads fits in a real estate practice"}
             </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Whether you are a solo wholesaler working a 5,000-row absentee
-              owner list or a real estate team following up on buyer inquiries —
-              Dialeads handles the outreach so you handle the deals.
-            </p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Dialeads is a Google Maps-based prospecting tool. It does not supply MLS data or homeowner records. It helps you find and call local businesses and owners."}</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {profiles.map((p) => (
-              <div
-                key={p.title}
-                className={`bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${
-                  p.wide ? "lg:col-span-2" : ""
-                }`}
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-[#e5eeff] text-[#7C3AED] flex items-center justify-center mb-4">
-                    <p.icon className="w-7 h-7" />
-                  </div>
-                  <span className="text-xs font-bold text-[#630ed4] tracking-wide uppercase block mb-1">
-                    {p.tag}
-                  </span>
-                  <h3 className="font-bold text-xl text-[#0b1c30] mb-3">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[#4a4455]">
-                    {p.body}
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 bg-[#eff4ff] px-4 py-2 rounded-lg text-xs font-semibold text-[#0b1c30] flex items-center justify-between">
-                  <span>{p.footer}</span>
-                  {p.footerExtra && (
-                    <span className="text-[#630ed4] font-bold">
-                      {p.footerExtra}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PAIN POINTS ────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              THE REAL ESTATE OUTREACH PROBLEM
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Why Real Estate Professionals Lose Deals to Slow and Inconsistent
-              Follow-Up
-            </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              In real estate, speed and persistence win. Most agents and
-              wholesalers lose deals not because their offer is wrong but because
-              their follow-up is too slow and too inconsistent.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {painPoints.map((pp) => (
-              <div
-                key={pp.num}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col lg:flex-row gap-8 items-stretch"
-              >
-                <div className="lg:w-7/12 flex gap-4">
-                  <span className="font-bold text-3xl lg:text-4xl text-[#630ed4]/30">
-                    {pp.num}
-                  </span>
-                  <div>
-                    <h3 className="font-bold text-xl text-[#0b1c30] mb-2">
-                      {pp.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-[#4a4455]">
-                      {pp.body}
-                    </p>
-                  </div>
-                </div>
-                <div className="lg:w-5/12 bg-[#e3e0f1]/40 p-6 rounded-xl flex flex-col justify-center">
-                  <div className="flex items-center gap-2 text-[#7C3AED] font-bold text-xs uppercase tracking-wider mb-1">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>The Dialeads Fix</span>
-                  </div>
-                  <p className="text-sm text-[#0b1c30] font-medium leading-relaxed">
-                    {pp.fix}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURES ───────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              PURPOSE-BUILT FOR REAL ESTATE OUTREACH
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Every Feature Built for High-Volume Real Estate Lead Follow-Up
-            </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Dialeads is not a generic calling tool. Every feature is optimized
-              for the specific workflows real estate professionals use every day.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#e5eeff] text-[#7C3AED] flex items-center justify-center mb-4">
-                    <f.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-bold text-lg text-[#0b1c30] mb-2">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[#4a4455]">
-                    {f.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── LEAD SOURCES ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              WORKS WITH YOUR LEAD SOURCES
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Compatible With Every Real Estate Lead Source and Data Provider
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {leadSources.map((s) => (
-              <div
-                key={s.letter}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center text-[#630ed4] font-black text-sm">
-                      {s.letter}
-                    </div>
-                    <span className="font-bold text-xl text-[#0b1c30]">
-                      {s.name}
-                    </span>
-                  </div>
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] font-semibold">
-                    {s.badge}
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed text-[#4a4455]">
-                  {s.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              SIMPLE 3-STEP WORKFLOW
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              From Lead List to Motivated Seller Conversation — in Under 15
-              Minutes
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {steps.map((s) => (
-              <div
-                key={s.num}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-bold text-4xl text-[#7C3AED]">
-                      {s.num}
-                    </span>
-                    <div className="w-10 h-10 rounded-full bg-[#e5eeff] flex items-center justify-center text-[#630ed4]">
-                      <s.icon className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-xl text-[#0b1c30] mb-2">
-                    {s.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[#4a4455]">
-                    {s.body}
-                  </p>
-                </div>
-                <div className="mt-6 text-xs font-semibold text-[#630ed4] flex items-center gap-1">
-                  <span>{s.footer}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ───────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              FROM REAL ESTATE PROFESSIONALS
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              What Real Estate Investors and Agents Say After 30 Days
-            </h2>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((t) => (
-              <div
-                key={t.initials}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <p className="text-base leading-relaxed text-[#0b1c30] mb-6 italic">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
+            {profiles.map((p) => (
+              <div key={p.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
+                <div className="w-11 h-11 rounded-lg bg-[#eaddff] flex items-center justify-center">
+                  <p.icon className="w-5 h-5 text-[#630ed4]" />
                 </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-[#e5eeff]">
-                  <div className="w-10 h-10 rounded-full bg-[#7C3AED] text-white flex items-center justify-center font-bold">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm text-[#0b1c30] block">
-                      {t.role}
-                    </span>
-                    <span className="text-xs text-[#4a4455]">{t.detail}</span>
-                  </div>
+                <h3 className="text-lg font-bold text-[#0b1c30]">{p.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4] mt-auto">{p.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROBLEMS ── */}
+      <section className="w-full bg-[#e5eeff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Common prospecting problems"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Real estate prospecting is mostly a lot of calls at inconvenient moments. Dialeads aims to remove the prep and the first-touch grind."}</p>
+          </div>
+          <div className="flex flex-col gap-6">
+            {painPoints.map((p) => (
+              <div key={p.title} className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden">
+                <div className="p-6 lg:p-8 flex flex-col gap-2">
+                  <h3 className="text-lg font-bold text-[#0b1c30]">{p.title}</h3>
+                  <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+                </div>
+                <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
+                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
+                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                  </span>
+                  <p className="text-sm leading-6">{p.fix}</p>
                 </div>
               </div>
             ))}
@@ -760,175 +515,247 @@ export default function RealEstatePage() {
         </div>
       </section>
 
-      {/* ── COMPLIANCE ─────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#f8f9ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              STAY COMPLIANT WHILE YOU SCALE
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              TCPA Compliance Built In — Dial With Confidence
+      {/* ── FEATURES ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Features that help you prospect an area"}
             </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">
-              Real estate cold calling is one of the most heavily scrutinized
-              outbound categories under TCPA. Dialeads protects your business
-              automatically on every dial.
-            </p>
+            <p className="text-base leading-7 text-[#4a4455]">{"A practical set of tools for agents who want to call, not build infrastructure."}</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {complianceItems.map((c) => (
-              <div
-                key={c.title}
-                className={`bg-white p-6 rounded-xl shadow-sm flex items-start gap-4 ${
-                  c.wide ? "lg:col-span-2" : ""
-                }`}
-              >
-                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                  <c.icon className="w-6 h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <div key={f.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
+                <div className="w-11 h-11 rounded-lg bg-[#630ed4] flex items-center justify-center">
+                  <f.icon className="w-5 h-5 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-base text-[#0b1c30] mb-1">
-                    {c.title}
-                  </h3>
-                  <p className="text-sm text-[#4a4455]">{c.body}</p>
-                </div>
+                <h3 className="text-lg font-bold text-[#0b1c30]">{f.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{f.body}</p>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#e3e0f1] text-[#4a4455] self-start mt-auto">
+                  {f.tag}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── PRICING ────────────────────────────────────────── */}
-      <section className="w-full py-16 lg:py-24 bg-[#eff4ff] px-4 lg:px-8">
-        <div className="max-w-[75rem] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#7C3AED] text-xs font-bold uppercase tracking-[0.08em] mb-3">
-              SIMPLE PRICING
-            </div>
-            <h2 className="text-[28px] lg:text-[40px] leading-[32px] lg:leading-[44px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              Start Contacting More Leads Today
+      {/* ── ENRICHMENT / PITCH ANGLES ── */}
+      <section className="w-full bg-[#213145] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white mb-3">
+              {"Read the business before you dial"}
             </h2>
+            <p className="text-base leading-7 text-[#eaf1ff]">{"Pitch angles are designed for sales pitches, and agents can use them as a quick read on the type of business, how established it looks, and how to start the conversation."}</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
-            {/* Starter */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-2xl text-[#0b1c30] mb-3">
-                  Starter
-                </h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-bold text-5xl text-[#0b1c30]">
-                    $29
-                  </span>
-                  <span className="text-[#4a4455] font-medium text-sm">
-                    /mo
-                  </span>
-                </div>
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6">
-                  Solo agents and wholesalers getting started with outbound.
-                  1,000 minutes, click-to-call, voicemail drop, basic SMS
-                  follow-up, local caller ID matching.
-                </p>
-                <div className="space-y-2 mb-8">
-                  {starterFeatures.map((f) => (
-                    <div
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-[#0b1c30]"
-                    >
-                      <Check className="w-[18px] h-[18px] text-[#630ed4]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {enrichment.map((e) => (
+              <div key={e.angle} className="rounded-xl bg-white/10 p-5 flex flex-col gap-2">
+                <span className="text-xs font-bold tracking-[0.08em] text-[#d2bbff]">{e.angle}</span>
+                <h3 className="text-base font-bold text-white">{e.title}</h3>
+                <p className="text-sm leading-6 text-[#eaf1ff]">{e.body}</p>
               </div>
-              <Link
-                href="/pricing"
-                className="w-full inline-flex items-center justify-center py-3 rounded-xl bg-[#e5eeff] hover:bg-[#dce9ff] text-[#0b1c30] font-bold text-sm transition-colors"
-              >
-                Start Free Trial
-              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORKFLOW ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"From a neighborhood to a call list"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"A simple weekly prospecting routine."}</p>
+          </div>
+          <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {workflow.map((s, i) => (
+              <li key={s.title} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-2">
+                <span className="text-sm font-bold text-[#7c3aed]">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="text-lg font-bold text-[#0b1c30]">{s.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── SCRIPT PANEL ── */}
+      <section className="w-full bg-[#eff4ff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"A script that sounds like a neighbor"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455] mb-6">{"Local specifics are what make cold calls feel personal. Templates and briefs carry them."}</p>
+            <ul className="flex flex-col gap-3">
+              {scriptPanel.points.map((p) => (
+                <li key={p} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">
+                  <Check className="w-4 h-4 text-[#630ed4] mt-1 shrink-0" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">Call script template</span>
+              <p className="mt-3 text-sm leading-6 text-[#0b1c30] whitespace-pre-line">{scriptPanel.template}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["{name}", "{category}", "{city}", "{rating}", "{evidence}"].map((ph) => (
+                  <code key={ph} className="text-xs px-2 py-1 rounded bg-[#e3e0f1] text-[#630ed4]">{ph}</code>
+                ))}
+              </div>
             </div>
-
-            {/* Pro */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-between relative ring-2 ring-[#7C3AED]">
-              <div className="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-[#7C3AED] text-white font-bold text-xs shadow">
-                Most Popular for Real Estate
-              </div>
-              <div>
-                <h3 className="font-bold text-2xl text-[#0b1c30] mb-3">Pro</h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-bold text-5xl text-[#7C3AED]">
-                    $49
-                  </span>
-                  <span className="text-[#4a4455] font-medium text-sm">
-                    /mo
-                  </span>
-                </div>
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6">
-                  For agents and wholesalers running high-volume cold outreach.
-                  Unlimited calling, AI voice agent, power dialer, automated SMS
-                  follow-up, call recordings, full disposition tracking.
-                </p>
-                <div className="space-y-2 mb-8">
-                  {proFeatures.map((f) => (
-                    <div
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-[#0b1c30] font-medium"
-                    >
-                      <CheckCircle2 className="w-[18px] h-[18px] text-[#7C3AED]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <Link
-                href="/pricing"
-                className="w-full inline-flex items-center justify-center py-3 rounded-xl bg-[#7C3AED] hover:bg-[#630ed4] text-white font-bold text-sm shadow-md transition-all"
-              >
-                Start 14-Day Free Pro Trial — No Credit Card
-              </Link>
+            <div className="bg-[#213145] rounded-xl p-6 text-[#eaf1ff]">
+              <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">Live AI rebuttal example</span>
+              <p className="mt-3 text-sm leading-6"><span className="font-semibold text-white">Prospect: </span>{scriptPanel.objection}</p>
+              <p className="mt-2 text-sm leading-6"><span className="font-semibold text-white">Suggested reply: </span>{scriptPanel.rebuttal}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── BOTTOM CTA ─────────────────────────────────────── */}
-      <section className="w-full bg-gradient-to-br from-[#630ed4] via-[#7C3AED] to-[#43088a] text-white py-16 lg:py-24 px-4 lg:px-8 relative overflow-hidden text-center">
-        <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-[#ede0ff] text-xs font-bold uppercase tracking-[0.08em] mb-4">
-            READY TO CONTACT MORE LEADS?
+      {/* ── OUTCOMES ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"A record of every conversation"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Notes and results stay in your Google Sheet, not in your head."}</p>
           </div>
-          <h2 className="text-[28px] sm:text-[40px] lg:text-5xl leading-tight font-bold tracking-tight text-white mb-4 max-w-2xl">
-            Stop Leaving Money on the Table With Slow Manual Dialing
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {outcomes.map((o) => (
+              <div key={o.title} className="bg-white rounded-xl shadow-sm p-5 flex flex-col gap-2">
+                <o.icon className="w-5 h-5 text-[#7c3aed]" />
+                <h3 className="text-base font-bold text-[#0b1c30]">{o.title}</h3>
+                <p className="text-sm leading-6 text-[#4a4455]">{o.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMPLIANCE ── */}
+      <section className="w-full bg-[#e5eeff] py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Prospecting rules still apply"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"Real estate professionals are regularly audited on calling and texting rules. These features help."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {compliance.map((c) => (
+              <div key={c.title} className="bg-white rounded-xl shadow-sm p-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center shrink-0">
+                  <c.icon className="w-5 h-5 text-[#630ed4]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0b1c30] mb-1">{c.title}</h3>
+                  <p className="text-sm leading-6 text-[#4a4455]">{c.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
+            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* ── PRICING ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
+              {"Pay for the calls and texts you make"}
+            </h2>
+            <p className="text-base leading-7 text-[#4a4455]">{"There is no big monthly retainer to cover on slow weeks."}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {pricing.map((p) => (
+              <div key={p.label} className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-2">
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#630ed4]">{p.label}</span>
+                <span className="text-3xl font-bold text-[#0b1c30]">{p.price}</span>
+                <p className="text-sm leading-6 text-[#4a4455]">{p.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
+            Every billable event is written to a per-event usage ledger, so you can see exactly what each call and text cost.{" "}
+            <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
+          </p>
+          <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {limits.map((l) => (
+                <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">
+                  <X className="w-4 h-4 text-[#4a4455] mt-1 shrink-0" />
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="w-full bg-[#eff4ff] py-16 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 lg:px-8">
+          <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-8">
+            Frequently asked questions
           </h2>
-          <p className="text-lg leading-7 text-[#ede0ff]/90 max-w-2xl mb-8">
-            Import your first lead list, configure your voicemail drop, and let
-            Dialeads work your list automatically — while you focus on closing
-            deals.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-4 w-full sm:w-auto">
-            <Link
-              href="/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-[#e5eeff] text-[#0f0f1a] font-bold text-base shadow-xl transition-all"
-            >
-              <span>Start Free Trial</span>
-              <ArrowRight className="w-[18px] h-[18px]" />
-            </Link>
-            <Link
-              href="/import"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-base transition-all"
-            >
-              <Upload className="w-[18px] h-[18px]" />
-              <span>Import Your First Lead List</span>
-            </Link>
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => (
+              <div key={f.q} className="bg-white rounded-xl shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
+                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                >
+                  <span className="text-sm font-semibold text-[#0b1c30]">{f.q}</span>
+                  <ChevronDown className={`w-4 h-4 text-[#630ed4] shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === i && (
+                  <p className="px-5 pb-4 text-sm leading-6 text-[#4a4455]">{f.a}</p>
+                )}
+              </div>
+            ))}
           </div>
-          <p className="text-xs text-[#ede0ff]/70">
-            No credit card · PropStream &amp; BatchLeads compatible · Cancel
-            anytime
-          </p>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="w-full py-16 lg:py-24">
+        <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
+          <div className="rounded-2xl bg-[#630ed4] px-6 py-12 lg:px-16 lg:py-16 text-center flex flex-col items-center gap-5">
+            <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white max-w-2xl">
+              {"Start prospecting your farm area"}
+            </h2>
+            <p className="text-base leading-7 text-[#eaddff] max-w-xl">{"Get early access and run your first Maps campaign, or book a demo and we will walk through a neighborhood together."}</p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white text-[#630ed4] font-semibold text-sm hover:bg-[#eaddff] transition-all"
+              >
+                Get Early Access
+                <ArrowRight className="w-[18px] h-[18px] ml-1" />
+              </Link>
+              <Link
+                href="/demo"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#7c3aed] text-white font-semibold text-sm hover:bg-[#213145] transition-all"
+              >
+                Book a Demo
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

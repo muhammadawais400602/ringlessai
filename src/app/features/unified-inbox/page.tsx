@@ -1,938 +1,725 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
-  Inbox,
-  FolderOpen,
-  Search,
-  Phone,
-  PhoneForwarded,
-  Share,
-  Paperclip,
-  Mic,
-  Send,
-  Play,
-  Pause,
-  CheckCircle,
-  CheckCheck,
-  ArrowDown,
-  Zap,
-  Activity,
-  AudioLines,
-  PhoneCall,
-  Sparkles,
-  Brain,
-  ListChecks,
-  RefreshCw,
-  Gauge,
-  Network,
-  Headset,
-  Settings2,
-  MoreHorizontal,
-  EyeOff,
-  BadgeCheck,
-  Voicemail,
-  MessageSquare,
   ArrowRight,
-  ShieldCheck,
-  Cable,
-  AtSign,
-  LockOpen,
-  CalendarPlus,
-  FileText,
+  Ban,
+  BarChart3,
   Bot,
+  Building2,
+  Calendar,
+  Check,
+  CheckCircle,
+  ChevronRight,
+  Flag,
+  Gauge,
+  Hash,
+  Inbox,
+  Info,
+  MessageSquare,
+  MessagesSquare,
+  Minus,
+  Plus,
+  Scale,
+  Send,
+  ShieldCheck,
+  User,
+  Users,
+  X,
+  XCircle,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  Audio Player State Hook                                            */
+/*  Content data                                                      */
 /* ------------------------------------------------------------------ */
 
-function useAudioPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [seconds, setSeconds] = useState(94); // starts at 01:34
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+const heroBadges = [
+  { icon: MessagesSquare, label: "Threaded by phone number" },
+  { icon: User, label: "Lead name resolution" },
+  { icon: Ban, label: "Opt-outs visible" },
+];
 
-  const formatTime = useCallback((s: number) => {
-    const mins = Math.floor(s / 60);
-    const secs = s % 60;
-    return `${mins < 10 ? "0" : ""}${mins}:${secs < 10 ? "0" : ""}${secs}`;
-  }, []);
+const panel = {
+  title: "Conversations",
+  subtitle: "SMS threads by phone number",
+  footnote: "Illustrative layout with made-up example text. Only SMS is shown here.",
+  icon: MessagesSquare,
+};
 
-  const toggle = useCallback(() => {
-    setIsPlaying((prev) => !prev);
-  }, []);
+const panelRows = [
+  {
+    icon: User,
+    label: "Smile Dental Clinic",
+    value: "in: Sure, send me the details",
+  },
+  {
+    icon: User,
+    label: "+971 55 000 0000",
+    value: "out: Thanks for your time earlier today",
+  },
+  {
+    icon: Ban,
+    label: "Roof Pros",
+    value: "in: STOP, contact marked as opted out",
+  },
+  {
+    icon: Inbox,
+    label: "New reply",
+    value: "Unread inbound messages appear at the top",
+  },
+];
 
-  useEffect(() => {
-    if (isPlaying) {
-      intervalRef.current = setInterval(() => {
-        setSeconds((prev) => (prev >= 252 ? 94 : prev + 1));
-      }, 1000);
-    } else if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isPlaying]);
+const glance = [
+  {
+    icon: MessagesSquare,
+    title: "Threading",
+    desc: "Messages are grouped by phone number so each lead has one conversation.",
+  },
+  {
+    icon: Inbox,
+    title: "Inbound and outbound",
+    desc: "See what you sent and what came back in a single timeline.",
+  },
+  {
+    icon: User,
+    title: "Name resolution",
+    desc: "Known numbers show the lead's name rather than only a phone number.",
+  },
+  {
+    icon: Ban,
+    title: "Opt-out aware",
+    desc: "Replies like STOP are detected and the contact is marked do-not-contact.",
+  },
+];
 
-  return { isPlaying, seconds, formatTime, toggle };
-}
+const capabilities: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string; tag?: string; href?: string }[] = [
+  {
+    icon: MessagesSquare,
+    title: "Conversation threads",
+    desc: "One thread per phone number keeps the whole exchange in order, including automatic follow-ups sent after AI calls.",
+  },
+  {
+    icon: Inbox,
+    title: "Inbound messages",
+    desc: "Replies arrive through Telnyx SMS and show up in the thread, ready for you to answer.",
+  },
+  {
+    icon: Send,
+    title: "Outbound messages",
+    desc: "Reply from your organization's numbers. Sends are rate limited.",
+  },
+  {
+    icon: User,
+    title: "Lead name lookup",
+    desc: "Phone numbers are matched to leads from your campaigns, so you see a business name where one is known.",
+  },
+  {
+    icon: Ban,
+    title: "Opt-out detection",
+    desc: "STOP, UNSUBSCRIBE and similar words are detected and the contact is added to the suppression list.",
+  },
+  {
+    icon: Users,
+    title: "Team and numbers",
+    desc: "Organizations with owner, admin and agent roles each have their own numbers, so conversations stay with the right account.",
+  },
+];
+
+const steps = [
+  {
+    icon: Send,
+    title: "Message goes out",
+    desc: "A follow-up SMS is sent manually, or automatically after a connected AI call.",
+  },
+  {
+    icon: Inbox,
+    title: "Reply comes in",
+    desc: "Telnyx delivers the inbound SMS to Dialeads.",
+  },
+  {
+    icon: Hash,
+    title: "Grouped by number",
+    desc: "The message joins the thread for that phone number.",
+  },
+  {
+    icon: User,
+    title: "Name resolved",
+    desc: "If the number belongs to a lead in your campaigns, the thread shows that lead's name.",
+  },
+  {
+    icon: Ban,
+    title: "Opt-outs checked",
+    desc: "Stop keywords add the number to Do Not Contact so it is not messaged again.",
+  },
+];
+
+const dives = [
+  {
+    eyebrow: "Threads",
+    title: "One conversation per contact",
+    desc: "Scattered messages make it easy to double-text someone or miss a reply. Threads by phone number keep the context together.",
+    icon: MessagesSquare,
+    panelTitle: "A thread",
+    panelLines: [
+      "out: Thanks for the chat, here is the summary.",
+      "in: Looks interesting, can you call Thursday?",
+      "out: Yes, I will call Thursday morning.",
+    ],
+    points: [
+      { icon: Hash, title: "Keyed by phone number", desc: "All messages with the same number stay together in one thread." },
+      { icon: Send, title: "Inbound and outbound together", desc: "Read both sides of the exchange in order." },
+      { icon: Bot, title: "Automatic follow-ups included", desc: "Texts sent after AI calls appear in the same thread." },
+    ],
+  },
+  {
+    eyebrow: "Lead names",
+    title: "Know who is texting you",
+    desc: "A reply from an unknown number is not very helpful. Because campaigns hold your lead data, Dialeads can show the business name instead.",
+    icon: User,
+    panelTitle: "Name resolution",
+    panelLines: [
+      "+971 55 000 0000",
+      "matched to campaign lead",
+      "display: Smile Dental Clinic",
+    ],
+    points: [
+      { icon: Building2, title: "Matches your leads", desc: "Numbers imported into campaigns map back to lead names." },
+      { icon: Info, title: "Unknown numbers stay numbers", desc: "If no lead matches, you see the phone number." },
+      { icon: Flag, title: "Campaign context", desc: "You can tell which campaign a conversation belongs to." },
+    ],
+  },
+  {
+    eyebrow: "Safe messaging",
+    title: "Opt-outs and limits built in",
+    desc: "Texting is a regulated channel. Opt-out detection, suppression and rate limits mean the safe path is the default one.",
+    icon: ShieldCheck,
+    panelTitle: "Messaging safeguards",
+    panelLines: [
+      "STOP detected: contact suppressed",
+      "append-only Do Not Contact list",
+      "rate limits on SMS",
+      "10DLC registered through Telnyx",
+    ],
+    points: [
+      { icon: Ban, title: "Stop keywords", desc: "STOP and UNSUBSCRIBE trigger suppression automatically." },
+      { icon: Gauge, title: "Rate limits", desc: "SMS sending is rate limited to avoid accidental floods." },
+      { icon: Scale, title: "10DLC", desc: "You register with Telnyx for US messaging. Dialeads does not file that for you." },
+    ],
+  },
+];
+
+const isList = [
+  "Shows inbound and outbound SMS through Telnyx",
+  "Threads messages by phone number",
+  "Resolves phone numbers to lead names when a lead matches",
+  "Marks opt-outs from STOP and similar keywords",
+  "Works with organization numbers, roles and number pools",
+];
+
+const isNotList = [
+  "Not a call recording or call history inbox",
+  "No transcripts of calls or voicemails",
+  "No WhatsApp inbox: WhatsApp drafts open through wa.me links",
+  "No round-robin assignment of conversations",
+  "No email inbox: email drafts open in your own client",
+];
+
+const faqs = [
+  {
+    q: "Which channels show up here?",
+    a: "SMS only, through Telnyx. WhatsApp and email drafts open in your own apps and are not displayed in Dialeads.",
+  },
+  {
+    q: "How are conversations grouped?",
+    a: "By phone number. Every message to and from that number appears in one thread.",
+  },
+  {
+    q: "Will I see the lead name?",
+    a: "Yes, when the number matches a lead in your campaigns. Otherwise the phone number is shown.",
+  },
+  {
+    q: "Are calls or recordings listed?",
+    a: "No. Dialeads does not provide call recordings or transcripts, and this view is for SMS messages.",
+  },
+  {
+    q: "Can conversations be routed to team members automatically?",
+    a: "No. There is no round-robin or automatic routing. Teams use owner, admin and agent roles with per-org numbers.",
+  },
+  {
+    q: "What happens when someone opts out?",
+    a: "The opt-out keyword is detected, the number is added to the Do Not Contact list, and future sends are skipped.",
+  },
+];
+
+const related = [
+  {
+    icon: MessageSquare,
+    href: "/features/omnichannel",
+    title: "Follow-Up and SMS",
+    desc: "How messages get sent.",
+  },
+  {
+    icon: Bot,
+    href: "/features/ai-calling",
+    title: "AI Qualifier Calls",
+    desc: "Where automatic follow-ups begin.",
+  },
+  {
+    icon: BarChart3,
+    href: "/features/outcome-tracking",
+    title: "Outcome Tracking",
+    desc: "Costs and results.",
+  },
+];
+
 
 /* ------------------------------------------------------------------ */
-/*  Page Component                                                     */
+/*  Page component                                                    */
 /* ------------------------------------------------------------------ */
-
-export default function UnifiedInboxPage() {
-  const { isPlaying, seconds, formatTime, toggle } = useAudioPlayer();
+export default function MessagesConversationsPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* ── Breadcrumb & Live Ticker ── */}
-      <div className="w-full bg-gray-50 px-4 lg:px-8 py-3">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-gray-500 text-xs font-semibold">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2">
-            <Link
-              href="/features"
-              className="hover:text-primary transition-colors flex items-center gap-1"
-            >
-              <FolderOpen className="h-4 w-4" />
+    <div className="flex w-full flex-col bg-[#f8f9ff] text-[#0b1c30]">
+      {/* ============================================================ */}
+      {/* HERO                                                          */}
+      {/* ============================================================ */}
+      <section className="relative w-full overflow-hidden bg-[#f8f9ff] pb-24">
+        <div className="pointer-events-none absolute -top-40 right-1/4 h-[550px] w-[550px] rounded-full bg-[#7c3aed]/10 blur-[130px]" />
+        <div className="pointer-events-none absolute top-1/3 -left-32 h-[450px] w-[450px] rounded-full bg-[#630ed4]/5 blur-[120px]" />
+
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <nav className="flex items-center gap-2 pt-8 text-xs font-semibold tracking-wide text-[#4a4455]">
+            <Link href="/features" className="transition-colors hover:text-[#630ed4]">
               Features
             </Link>
-            <span className="text-gray-300 font-bold">/</span>
-            <span className="text-primary font-semibold">
-              Unified Operator Inbox
-            </span>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="font-semibold text-[#0b1c30]">{"Messages & Conversations"}</span>
           </nav>
-          <div className="hidden sm:flex items-center gap-3">
-            <span className="inline-flex items-center gap-1 bg-primary-light/60 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              TELNYX WEBRTC ACTIVE
-            </span>
-            <span className="text-gray-500 text-sm">
-              Zero Latency Global Gateway
-            </span>
-          </div>
-        </div>
-      </div>
 
-      {/* ── Hero Header Block ── */}
-      <section className="relative w-full bg-white pt-16 pb-24 px-4 lg:px-8 overflow-hidden">
-        {/* Decorative blurs */}
-        <div className="absolute -right-32 top-10 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-        <div className="absolute left-1/4 -bottom-24 w-80 h-80 rounded-full bg-gray-200/40 blur-2xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-6 shadow-sm">
-            <Inbox className="h-4 w-4" />
-            CONSOLIDATED COMMS &amp; CALL HISTORY
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="font-extrabold text-3xl lg:text-[56px] lg:leading-[60px] text-gray-900 tracking-tight max-w-4xl mx-auto mb-6">
-            Unified Operator Inbox. All Calls, Texts, and Notes in One Stream.
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-lg leading-7 text-gray-600 max-w-3xl mx-auto mb-12">
-            Eliminate tab fatigue. Review call recordings with audio scrubbers,
-            read AI-generated transcripts, manage SMS &amp; WhatsApp replies, and
-            view CRM contact details without leaving a single screen.
-          </p>
-
-          {/* Primary Action Row */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
-            <Link
-              href="/free-trial"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all"
-            >
-              Try Unified Inbox
-              <Zap className="h-[18px] w-[18px]" />
-            </Link>
-            <a
-              href="#core-capabilities"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold text-sm transition-colors"
-            >
-              Explore Features
-              <ArrowDown className="h-[18px] w-[18px]" />
-            </a>
-          </div>
-
-          {/* ── High-Fidelity 3-Column Operator Inbox Mockup ── */}
-          <div className="w-full max-w-6xl text-left bg-white rounded-2xl shadow-2xl p-1 sm:p-2">
-            {/* App Window Header Bar */}
-            <div className="w-full bg-gray-100 rounded-t-xl px-4 py-2 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500" />
-                <span className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="ml-3 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                  Operator Station — Session #US-8841-B
+          <div className="grid grid-cols-1 items-center gap-12 pt-12 lg:grid-cols-12">
+            <div className="flex flex-col items-start lg:col-span-7">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1 shadow-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#630ed4]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
+                  {"Messages and conversations"}
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-gray-500">
-                <span className="flex items-center gap-1 text-primary text-xs font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
-                  Live Audio Channel Active
-                </span>
-                <div className="h-4 w-px bg-gray-300" />
-                <Headset className="h-[18px] w-[18px]" />
-                <Settings2 className="h-[18px] w-[18px]" />
+
+              <h1 className="mb-6 text-4xl font-bold leading-[1.08] tracking-tight text-[#0b1c30] sm:text-5xl lg:text-[56px]">
+                {"Every SMS thread,"}{" "}
+                <span className="text-[#630ed4]">{"with the lead's name on it."}</span>
+              </h1>
+
+              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
+                {"Messages and Conversations collects inbound and outbound SMS into threads by phone number, and shows the lead name instead of a bare number when it knows who it is."}
+              </p>
+
+              <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#630ed4] px-8 py-4 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#7c3aed]"
+                >
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e5eeff] px-6 py-4 text-sm font-semibold text-[#0b1c30] shadow-sm transition-all hover:bg-[#e3e0f1]"
+                >
+                  <Calendar className="h-5 w-5 text-[#630ed4]" />
+                  Book a Demo
+                </Link>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-[#4a4455]">
+                {heroBadges.map((b) => (
+                  <div key={b.label} className="flex items-center gap-2">
+                    <b.icon className="h-[18px] w-[18px] text-[#630ed4]" />
+                    <span>{b.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* 3-Column Inner Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-gray-50 rounded-b-xl overflow-hidden min-h-[620px]">
-              {/* Column 1: Queue Stream (Left) */}
-              <div className="lg:col-span-3 bg-white flex flex-col p-3">
-                <div className="flex items-center justify-between mb-3 px-1 pt-1">
-                  <h2 className="font-bold text-xl text-gray-900">
-                    Queue Stream
-                  </h2>
-                  <span className="bg-primary text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">
-                    14 New
-                  </span>
-                </div>
-                {/* Search */}
-                <div className="relative mb-3">
-                  <Search className="absolute left-3 top-2.5 h-[18px] w-[18px] text-gray-400" />
-                  <input
-                    className="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg bg-gray-100 text-gray-900 placeholder:text-gray-400 focus:outline-none"
-                    placeholder="Search accounts, dials..."
-                    readOnly
-                    type="text"
-                  />
-                </div>
-                {/* Thread Items */}
-                <div className="flex flex-col gap-1 overflow-y-auto">
-                  {/* Active Item */}
-                  <div className="p-3 rounded-xl bg-gray-100 shadow-sm cursor-pointer">
-                    <div className="flex items-start justify-between mb-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
-                          LB
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-gray-900 flex items-center gap-1">
-                            Carlos Ortiz
-                            <BadgeCheck className="h-3.5 w-3.5 text-primary" />
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            La Barca Restaurant
-                          </div>
-                        </div>
-                      </div>
-                      <span className="text-gray-500 text-xs font-semibold">
-                        10:42 AM
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="inline-flex items-center gap-1 text-primary text-xs font-semibold bg-primary-light px-2 py-0.5 rounded">
-                        <PhoneCall className="h-3.5 w-3.5" /> 04:12
-                      </span>
-                      <span className="text-gray-500 text-xs truncate">
-                        &ldquo;Interested in zero-commission...&rdquo;
-                      </span>
-                    </div>
-                  </div>
-                  {/* Item 2 */}
-                  <div className="p-3 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
-                    <div className="flex items-start justify-between mb-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-full bg-gray-500 text-white flex items-center justify-center text-sm font-bold">
-                          NW
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-gray-900">
-                            Nadine Wu
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            Apex Capital Corp
-                          </div>
-                        </div>
-                      </div>
-                      <span className="text-gray-500 text-xs font-semibold">
-                        09:18 AM
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="inline-flex items-center gap-1 text-gray-500 text-xs font-semibold">
-                        <MessageSquare className="h-3.5 w-3.5" /> SMS inbound
-                      </span>
-                      <span className="w-2 h-2 rounded-full bg-primary" />
-                    </div>
-                  </div>
-                  {/* Item 3 */}
-                  <div className="p-3 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
-                    <div className="flex items-start justify-between mb-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-sm font-bold">
-                          TK
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-gray-900">
-                            Tariq Khan
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            LogiCore Transport
-                          </div>
-                        </div>
-                      </div>
-                      <span className="text-gray-500 text-xs font-semibold">
-                        Yesterday
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="inline-flex items-center gap-1 text-purple-600 text-xs font-semibold">
-                        <Voicemail className="h-3.5 w-3.5" /> Voicemail 0:48
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                {/* Bottom Dialer Quick Trigger */}
-                <div className="mt-auto pt-3">
-                  <button className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors shadow-sm">
-                    <Phone className="h-[18px] w-[18px]" />
-                    Launch WebRTC Pad
-                  </button>
-                </div>
-              </div>
-
-              {/* Column 2: Active Stream Timeline (Center) */}
-              <div className="lg:col-span-6 bg-gray-50 flex flex-col p-4">
-                {/* Active Thread Bar */}
-                <div className="flex items-center justify-between pb-3 mb-4 bg-white p-3 rounded-xl shadow-sm">
+            {/* Illustrative panel */}
+            <div className="relative lg:col-span-5">
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#630ed4]/20 to-[#eaddff]/40 blur-xl" />
+              <div className="relative overflow-hidden rounded-2xl bg-[#213145] p-6 text-[#eaf1ff] shadow-xl">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#630ed4] to-[#7c3aed]" />
+                <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
-                      CO
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <panel.icon className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <div className="font-bold text-xl text-gray-900 flex items-center gap-2">
-                        Carlos Ortiz — Owner &amp; GM
-                      </div>
-                      <div className="text-gray-500 text-xs flex items-center gap-2">
-                        <Phone className="h-3.5 w-3.5" /> +1 (512) 809-3321
-                        <span>&bull;</span> Austin, TX
-                      </div>
+                      <p className="text-sm font-bold text-white">{panel.title}</p>
+                      <p className="text-xs text-[#d2bbff]">{panel.subtitle}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-primary transition-colors"
-                      title="Trigger Instant WebRTC Call"
-                    >
-                      <PhoneForwarded className="h-5 w-5" />
-                    </button>
-                    <button
-                      className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-500 transition-colors"
-                      title="Export Thread"
-                    >
-                      <Share className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Conversation Stream Log */}
-                <div className="flex-1 space-y-4 overflow-y-auto pr-2">
-                  {/* Call Event Card with Scrubber */}
-                  <div className="bg-white rounded-xl p-4 shadow-sm">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-primary-light text-primary flex items-center justify-center">
-                          <Phone className="h-4 w-4" />
-                        </span>
-                        <span className="text-sm font-semibold text-gray-900">
-                          Completed Inbound Call (Telnyx High-Definition)
-                        </span>
-                      </div>
-                      <span className="text-gray-500 text-xs font-semibold">
-                        10:42 AM
-                      </span>
-                    </div>
-                    {/* Interactive Audio Player Module */}
-                    <div className="bg-gray-100 rounded-lg p-3 my-3">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={toggle}
-                            className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-transform active:scale-95 shadow-sm"
-                          >
-                            {isPlaying ? (
-                              <Pause className="h-[18px] w-[18px]" />
-                            ) : (
-                              <Play className="h-[18px] w-[18px]" />
-                            )}
-                          </button>
-                          <span className="text-xs font-semibold text-gray-900">
-                            {formatTime(seconds)} / 04:12
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <button className="px-2 py-0.5 rounded bg-white text-gray-900 text-[10px] font-bold uppercase hover:bg-primary hover:text-white transition-colors">
-                            1.0x
-                          </button>
-                          <button className="px-2 py-0.5 rounded bg-white text-primary font-bold text-[10px] uppercase">
-                            1.5x
-                          </button>
-                          <button className="px-2 py-0.5 rounded bg-white text-gray-900 text-[10px] font-bold uppercase hover:bg-primary hover:text-white transition-colors">
-                            2.0x
-                          </button>
-                        </div>
-                      </div>
-                      {/* Waveform Bars */}
-                      <div className="w-full flex items-center gap-0.5 py-1">
-                        {[3, 5, 8, 4, 9, 10, 7, 5, 11, 12, 8, 6, 10].map(
-                          (h, i) => (
-                            <div
-                              key={`played-${i}`}
-                              className="w-1 bg-primary rounded-full"
-                              style={{ height: `${h * 3}px` }}
-                            />
-                          )
-                        )}
-                        {/* Current Position */}
-                        <div className="w-1.5 bg-primary-dark rounded-full ring-2 ring-primary/20 h-9" />
-                        {/* Remaining */}
-                        {[8, 6, 11, 7, 4, 9, 5, 8, 3, 6].map((h, i) => (
-                          <div
-                            key={`unplayed-${i}`}
-                            className="w-1 bg-gray-300/60 rounded-full"
-                            style={{ height: `${h * 3}px` }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    {/* Synced Transcript Excerpt */}
-                    <div className="text-xs text-gray-500 space-y-1 pt-1">
-                      <p>
-                        <span className="text-xs font-semibold text-primary">
-                          AI Agent [01:28]:
-                        </span>{" "}
-                        &ldquo;Carlos, our platform bypasses aggregator fees
-                        entirely. You keep 100% of order totals.&rdquo;
-                      </p>
-                      <p className="bg-primary-light/40 p-2 rounded">
-                        <span className="text-xs font-semibold text-gray-900">
-                          Carlos [01:34]:
-                        </span>{" "}
-                        &ldquo;That&apos;s huge for us. We&apos;re spending
-                        $3,400 monthly just in third-party dispatch fees. Send
-                        me the pilot proposal.&rdquo;
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* AI Conversation Summary Card */}
-                  <div className="bg-primary-light/50 rounded-xl p-4 shadow-sm">
-                    <div className="flex items-center gap-2 mb-1 text-primary text-sm font-semibold">
-                      <Sparkles className="h-[18px] w-[18px]" />
-                      AI Executive Takeaway
-                    </div>
-                    <p className="text-xs text-gray-900 mb-2">
-                      Prospect highly motivated by zero-commission model.
-                      Operating 2 dining locations with current commission bleed
-                      of ~$3.4k/mo.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2 text-gray-500 text-xs font-semibold">
-                      <span className="bg-white px-2 py-0.5 rounded shadow-sm text-primary font-semibold">
-                        Action: Send custom deck
-                      </span>
-                      <span className="bg-white px-2 py-0.5 rounded shadow-sm text-gray-900">
-                        Scheduled: Tomorrow @ 10:00 AM CST
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* WhatsApp Chat Bubble */}
-                  <div className="flex flex-col gap-1 items-end">
-                    <div className="bg-primary text-white rounded-2xl rounded-tr-none px-4 py-2 max-w-md shadow-sm">
-                      <p className="text-xs">
-                        Hi Carlos! Just sent the demo link and fee comparisons
-                        to your email. Talk tomorrow at 10 AM!
-                      </p>
-                    </div>
-                    <span className="text-xs text-gray-500 flex items-center gap-1 mr-1">
-                      <CheckCheck className="h-3.5 w-3.5 text-primary" />{" "}
-                      Delivered via WhatsApp &bull; 10:48 AM
-                    </span>
-                  </div>
-                </div>
-
-                {/* Quick Reply Composer */}
-                <div className="mt-4 pt-2 bg-white rounded-xl p-2 shadow-sm flex items-center gap-2">
-                  <button className="p-2 rounded-lg text-gray-400 hover:text-primary transition-colors">
-                    <Paperclip className="h-5 w-5" />
-                  </button>
-                  <button className="p-2 rounded-lg text-gray-400 hover:text-primary transition-colors">
-                    <Mic className="h-5 w-5" />
-                  </button>
-                  <input
-                    className="flex-1 bg-transparent px-2 py-2 text-sm text-gray-900 focus:outline-none"
-                    placeholder="Type SMS, WhatsApp, or internal @whisper note..."
-                    type="text"
-                  />
-                  <button className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-dark transition-colors flex items-center gap-1">
-                    Send
-                    <Send className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Column 3: CRM Profile (Right) */}
-              <div className="lg:col-span-3 bg-white flex flex-col p-4">
-                <div className="flex items-center justify-between pb-3 mb-4">
-                  <h2 className="font-bold text-xl text-gray-900">
-                    CRM Profile
-                  </h2>
-                  <MoreHorizontal className="h-5 w-5 text-gray-400 cursor-pointer" />
-                </div>
-                {/* Profile Overview Card */}
-                <div className="flex flex-col items-center text-center pb-4 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gray-200 text-primary flex items-center justify-center mb-2 text-2xl font-bold shadow-sm">
-                    CO
-                  </div>
-                  <div className="font-bold text-xl text-gray-900">
-                    Carlos Ortiz
-                  </div>
-                  <div className="text-xs text-gray-500 mb-2">
-                    Operating Partner &bull; La Barca LLC
-                  </div>
-                  <span className="bg-primary-light text-primary text-[10px] font-bold uppercase px-3 py-0.5 rounded-full">
-                    Stage: Negotiation ($28k ARR)
+                  <span className="rounded-full bg-[#630ed4]/40 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#d2bbff]">
+                    Illustrative
                   </span>
                 </div>
-                {/* Quick Data Points */}
-                <div className="space-y-3 text-sm mb-4">
-                  <div className="flex justify-between items-center text-gray-500">
-                    <span>Direct Line</span>
-                    <span className="text-gray-900 font-semibold">
-                      +1 (512) 809-3321
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-gray-500">
-                    <span>Email</span>
-                    <span className="text-gray-900 font-semibold truncate max-w-[140px]">
-                      carlos@labarca.io
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-gray-500">
-                    <span>Locations</span>
-                    <span className="text-gray-900 font-semibold">
-                      2 Active Stores
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-gray-500">
-                    <span>Owner Rep</span>
-                    <span className="text-primary font-semibold">
-                      Alex V. (AI Outbound)
-                    </span>
-                  </div>
+
+                <div className="flex flex-col gap-3">
+                  {panelRows.map((r) => (
+                    <div
+                      key={r.label}
+                      className="flex items-start gap-3 rounded-xl bg-white/5 p-3.5"
+                    >
+                      <r.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#d2bbff]" />
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-[#d2bbff]">
+                          {r.label}
+                        </p>
+                        <p className="text-sm leading-snug text-[#eaf1ff]">{r.value}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                {/* Internal Team Whisper Notes */}
-                <div className="bg-gray-100 p-3 rounded-xl">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-bold uppercase text-primary flex items-center gap-1 tracking-widest">
-                      <EyeOff className="h-3.5 w-3.5" /> Whisper Note
-                    </span>
-                    <span className="text-gray-500 text-xs font-semibold">
-                      Just now
-                    </span>
+
+                <p className="mt-5 text-[11px] leading-relaxed text-[#d2bbff]/80">
+                  {panel.footnote}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* AT A GLANCE                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-12 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"At a glance"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"A focused SMS conversation view"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {glance.map((g) => (
+              <div key={g.title} className="rounded-2xl bg-white p-6 shadow-sm">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <g.icon className="h-5 w-5 text-[#630ed4]" />
+                </div>
+                <h3 className="mb-2 text-base font-bold text-[#0b1c30]">{g.title}</h3>
+                <p className="text-sm leading-relaxed text-[#4a4455]">{g.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* CAPABILITIES                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-14 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"Capabilities"}
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"What you can do in Messages"}
+            </h2>
+            <p className="text-base leading-relaxed text-[#4a4455]">
+              {"It is an SMS view. It does not try to be a shared inbox for every channel."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((cap) => {
+              const inner = (
+                <>
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <cap.icon className="h-6 w-6 text-white" />
+                    </div>
+                    {cap.tag ? (
+                      <span className="rounded-full bg-[#eaddff] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+                        {cap.tag}
+                      </span>
+                    ) : null}
                   </div>
-                  <p className="text-xs text-gray-500">
-                    <strong className="text-gray-900">@sarah</strong> Carlos is
-                    looking for POS hardware compatibility. Make sure to attach
-                    the Clover and Toast specs before the 10 AM touchpoint
-                    tomorrow.
+                  <h3 className="mb-2 text-lg font-bold text-[#0b1c30]">{cap.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{cap.desc}</p>
+                  {cap.href ? (
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#630ed4] transition-all group-hover:gap-2.5">
+                      Explore
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  ) : null}
+                </>
+              );
+              return cap.href ? (
+                <Link
+                  key={cap.title}
+                  href={cap.href}
+                  className="group flex flex-col rounded-2xl bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <div key={cap.title} className="flex flex-col rounded-2xl bg-white p-7 shadow-sm">
+                  {inner}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* HOW IT WORKS                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#213145] py-24 text-[#eaf1ff]">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-14 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+              {"How it works"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              {"From text to thread"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <div key={s.title} className="relative rounded-2xl bg-white/5 p-6">
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#630ed4]">
+                    <s.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-3xl font-bold text-[#d2bbff]/30">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mb-2 text-base font-bold text-white">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-[#eaf1ff]/80">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* DEEP DIVES                                                    */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-24 px-6 sm:px-8">
+          {dives.map((d, idx) => (
+            <div
+              key={d.title}
+              className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12"
+            >
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+                  {d.eyebrow}
+                </span>
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30]">
+                  {d.title}
+                </h2>
+                <p className="mb-8 text-base leading-relaxed text-[#4a4455]">{d.desc}</p>
+                <ul className="flex flex-col gap-5">
+                  {d.points.map((p) => (
+                    <li key={p.title} className="flex items-start gap-4">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#eaddff]">
+                        <p.icon className="h-4 w-4 text-[#630ed4]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-[#0b1c30]">{p.title}</p>
+                        <p className="text-sm leading-relaxed text-[#4a4455]">{p.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                <div className="rounded-2xl bg-[#e5eeff] p-6 shadow-sm">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#7c3aed]">
+                      <d.icon className="h-5 w-5 text-white" />
+                    </div>
+                    <p className="text-sm font-bold text-[#0b1c30]">{d.panelTitle}</p>
+                  </div>
+                  <div className="flex flex-col gap-2.5 rounded-xl bg-[#213145] p-5 font-mono text-[13px] leading-relaxed text-[#eaf1ff]">
+                    {d.panelLines.map((l) => (
+                      <p key={l} className="break-words">
+                        {l}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-[11px] text-[#4a4455]">
+                    Illustrative example for explanation only.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ── Impact Metrics Bar ── */}
-      <section className="w-full bg-gray-100 py-16 px-4 lg:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-          <div className="bg-white p-8 rounded-2xl shadow-sm">
-            <div className="text-[56px] leading-[60px] text-primary font-bold mb-1">
-              70%
-            </div>
-            <div className="font-bold text-xl text-gray-900 mb-1">
-              Context Switch Reduction
-            </div>
-            <p className="text-sm text-gray-500">
-              Sales teams save an average of 1.6 hours daily by consolidating
-              dials, SMS, and notes onto a zero-hop operator desk.
-            </p>
-          </div>
-          <div className="bg-white p-8 rounded-2xl shadow-sm">
-            <div className="text-[56px] leading-[60px] text-primary font-bold mb-1">
-              100%
-            </div>
-            <div className="font-bold text-xl text-gray-900 mb-1">
-              Conversation Capture Rate
-            </div>
-            <p className="text-sm text-gray-500">
-              Every call recording, voicemail payload, and messaging exchange
-              auto-indexes into your CRM with zero manual data entry.
-            </p>
-          </div>
-          <div className="bg-white p-8 rounded-2xl shadow-sm">
-            <div className="text-[56px] leading-[60px] text-primary font-bold mb-1">
-              0
-            </div>
-            <div className="font-bold text-xl text-gray-900 mb-1">
-              Missed Callbacks
-            </div>
-            <p className="text-sm text-gray-500">
-              Intelligent queue monitoring flags unanswered inbound touches and
-              triggers automated multi-channel follow-up sequences.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Core Features Bento Grid ── */}
-      <section
-        className="w-full bg-white py-24 px-4 lg:px-8"
-        id="core-capabilities"
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-3">
-              Engineered for Extreme Velocity
-            </div>
-            <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-3">
-              Three Architectural Pillars of the Operator Inbox
-            </h2>
-            <p className="text-lg text-gray-600">
-              Everything an SDR or enterprise closer needs to navigate 500+
-              daily contact touchpoints without breaking stride.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow border border-gray-100">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-sm">
-                  <Activity className="h-6 w-6" />
-                </div>
-                <h3 className="font-extrabold text-2xl text-gray-900 mb-3">
-                  Consolidated 360-Degree Conversation Timeline
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Seamlessly alternates between high-fidelity voice calls, AI
-                  voicemail drops, SMS messages, and verified WhatsApp chats in
-                  true chronological sequence.
-                </p>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-                  <RefreshCw className="h-4 w-4" />
-                  Continuous Synchronisation
-                </div>
-                <p className="text-xs text-gray-500">
-                  No asynchronous silos. If a customer texts during a live call,
-                  the bubble updates on your screen in real time.
-                </p>
-              </div>
-            </div>
-            {/* Feature 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow border border-gray-100">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-sm">
-                  <AudioLines className="h-6 w-6" />
-                </div>
-                <h3 className="font-extrabold text-2xl text-gray-900 mb-3">
-                  Integrated Audio Player &amp; Scrubbers
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Listen to recordings at 1.0x, 1.5x, or 2.0x speeds. Real-time
-                  audio scrubbers allow clicking any phrase in the transcript to
-                  jump right to that exact millisecond.
-                </p>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-                  <Gauge className="h-4 w-4" />
-                  Awaiting Transcript Sync
-                </div>
-                <p className="text-xs text-gray-500">
-                  Audio waveforms synchronize with natural language processing
-                  models to highlight dialogue as it streams.
-                </p>
-              </div>
-            </div>
-            {/* Feature 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow border border-gray-100">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-sm">
-                  <PhoneCall className="h-6 w-6" />
-                </div>
-                <h3 className="font-extrabold text-2xl text-gray-900 mb-3">
-                  Telnyx WebRTC Dialer Integration
-                </h3>
-                <p className="text-base text-gray-600 mb-6">
-                  Click any phone number, CRM field, or conversation header to
-                  instantly initiate crystal-clear WebRTC voice sessions directly
-                  within your browser window.
-                </p>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-                  <Network className="h-4 w-4" />
-                  Global PSTN Routing
-                </div>
-                <p className="text-xs text-gray-500">
-                  Automated caller ID localization and zero carrier relay keeps industry-leading content and pickup metrics.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── AI Productivity Tools & Action Automation ── */}
-      <section className="w-full bg-gray-50 py-24 px-4 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Visual Presentation Mockup */}
-            <div className="relative">
-              <div className="bg-white rounded-2xl p-8 shadow-xl">
-                <div className="flex items-center justify-between pb-3 mb-4">
-                  <div className="flex items-center gap-2">
-                    <Bot className="h-[22px] w-[22px] text-primary" />
-                    <span className="font-bold text-xl text-gray-900">
-                      Dialeads Cognitive Summarizer
-                    </span>
-                  </div>
-                  <span className="bg-primary text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">
-                    Automated
-                  </span>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-gray-50">
-                    <div className="text-sm font-semibold text-gray-900 mb-1 flex items-center gap-1">
-                      <Brain className="h-4 w-4 text-primary" />
-                      Detected Intent &amp; Objection Analysis
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      &ldquo;Pricing sensitivity overcome via guaranteed ROI
-                      clause. Carlos expressed willingness to execute 12-month
-                      annual contract upon reviewing legal disclosure.&rdquo;
-                    </p>
-                  </div>
-                  {/* Suggested Next Actions Box */}
-                  <div className="p-4 rounded-xl bg-white shadow-sm">
-                    <div className="text-[10px] font-bold uppercase text-primary tracking-widest mb-2 flex items-center gap-1">
-                      <ListChecks className="h-4 w-4" /> Suggested Next Actions
-                    </div>
-                    <ul className="space-y-2 text-xs text-gray-900">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="h-[18px] w-[18px] text-primary flex-shrink-0" />
-                        Create Salesforce Opportunity: &ldquo;La Barca — 2
-                        Locations&rdquo;
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="h-[18px] w-[18px] text-primary flex-shrink-0" />
-                        Lock Calendar Invites for Demo walkthrough tomorrow at
-                        10:00 AM
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="h-[18px] w-[18px] text-primary flex-shrink-0" />
-                        Dispatch custom zero-commission onboarding PDF through
-                        WhatsApp
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Explanatory Narrative */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
-                Intelligent Workflow Streams
-              </div>
-              <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-4">
-                Zero Notes Taken. Total Accuracy Guaranteed.
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Operators should be building pipeline and closing revenue, not
-                manually typing notes into CRM fields. Dialeads actively structures conversation payloads so you never miss a detail.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary text-white flex-shrink-0 flex items-center justify-center shadow-sm">
-                    <FileText className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xl text-gray-900 mb-1">
-                      AI Conversation Summaries
-                    </h4>
-                    <p className="text-base text-gray-600">
-                      Get concise, structured bullet takeaways immediately upon
-                      call wrap-up. Key agreements, competitor mentions, and
-                      pricing points are tagged and indexed.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary-dark text-white flex-shrink-0 flex items-center justify-center shadow-sm">
-                    <CalendarPlus className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xl text-gray-900 mb-1">
-                      Suggested Actions &amp; Task Automation
-                    </h4>
-                    <p className="text-base text-gray-600">
-                      One-click or automated creation of calendar invites, CRM
-                      opportunity status transitions, and follow-up reminders
-                      right from your active stream.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Collaboration & Team Handoffs ── */}
-      <section className="w-full bg-white py-24 px-4 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-3">
-              Dialeads Team Aggregate
-            </div>
-            <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-3">
-              Close Deals Together Without Leaving the Stream
-            </h2>
-            <p className="text-lg text-gray-600">
-              Empower managers, SDRs, and Account Executives to collaborate with
-              zero lead friction.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Collab Point 1 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-              <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-4">
-                <Inbox className="h-6 w-6" />
-              </div>
-              <h3 className="font-bold text-xl text-gray-900 mb-2">
-                Shared Inboxes
-              </h3>
-              <p className="text-base text-gray-600">
-                Route team phone numbers and inbound queues to round-robin
-                squads. Claim, reassign, or monitor thread ownership with
-                absolute clarity.
-              </p>
-            </div>
-            {/* Collab Point 2 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-              <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-4">
-                <AtSign className="h-6 w-6" />
-              </div>
-              <h3 className="font-bold text-xl text-gray-900 mb-2">
-                Team Mentions (@rep)
-              </h3>
-              <p className="text-base text-gray-600">
-                Tag technical leads, sales engineers, or enterprise VPs straight
-                in the call stream for immediate input on contract nuances or
-                objections.
-              </p>
-            </div>
-            {/* Collab Point 3 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-              <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-4">
-                <LockOpen className="h-6 w-6" />
-              </div>
-              <h3 className="font-bold text-xl text-gray-900 mb-2">
-                Private Whisper Notes
-              </h3>
-              <p className="text-base text-gray-600">
-                Store internal conversation notes and coaching feedback inside
-                the active timeline without exposing them to prospect-facing
-                channels.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA Section ── */}
-      <section className="w-full bg-white py-24 px-4 lg:px-8">
-        <div className="max-w-5xl mx-auto bg-gray-100 rounded-3xl p-8 lg:p-16 shadow-xl flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="max-w-lg">
-            <span className="text-primary text-[10px] font-bold uppercase tracking-widest block mb-2">
-              Ready for Operator Supercharge
+      {/* ============================================================ */}
+      {/* IS / IS NOT                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              Straight answers
             </span>
-            <h2 className="font-extrabold text-3xl lg:text-[40px] lg:leading-[44px] text-gray-900 mb-4">
-              Bring Clarity to Your Sales Communication.
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"What Messages & Conversations is, and is not"}
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Get your revenue team set up on the Unified Operator Inbox today.
-              Connect your existing Telnyx numbers or spin up new localized DIDs
-              in seconds.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/free-trial"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-semibold text-sm shadow-md transition-all"
-              >
-                Start Free 16-Day Trial
-                <ArrowRight className="h-[18px] w-[18px]" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white hover:bg-gray-200 text-gray-900 font-semibold text-sm transition-colors"
-              >
-                Book Live Operator Demo
-              </Link>
+            <p className="text-base leading-relaxed text-[#4a4455]">{"SMS threads for cold calling follow-up, nothing more elaborate."}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <CheckCircle className="h-5 w-5 text-[#630ed4]" />
+                What it does
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#630ed4]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <XCircle className="h-5 w-5 text-[#4a4455]" />
+                What it does not do
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isNotList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-[#4a4455]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          {/* Visual Feature Badge Card */}
-          <div className="w-full md:w-auto flex-shrink-0 bg-white p-8 rounded-2xl shadow-md flex flex-col gap-4 max-w-xs">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center font-bold">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="font-bold text-xl text-gray-900">
-                  100% TCPA
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* FAQ                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-3xl px-6 sm:px-8">
+          <div className="mb-10 text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              FAQ
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Questions about messages"}
+            </h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={f.q} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                  <button
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  >
+                    <span className="text-sm font-bold text-[#0b1c30]">{f.q}</span>
+                    {open ? (
+                      <Minus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    ) : (
+                      <Plus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    )}
+                  </button>
+                  {open ? (
+                    <div className="px-6 pb-5 text-sm leading-relaxed text-[#4a4455]">{f.a}</div>
+                  ) : null}
                 </div>
-                <div className="text-xs text-gray-500">
-                  Carrier-level insurance
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* RELATED                                                       */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <h2 className="mb-8 text-2xl font-bold tracking-tight text-[#0b1c30]">
+            Related features
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {related.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group flex items-start gap-4 rounded-2xl bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <r.icon className="h-5 w-5 text-[#630ed4]" />
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center font-bold">
-                <Gauge className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="font-bold text-xl text-gray-900">
-                  &lt; 150ms
+                <div>
+                  <h3 className="mb-1 flex items-center gap-1.5 text-base font-bold text-[#0b1c30]">
+                    {r.title}
+                    <ArrowRight className="h-4 w-4 text-[#630ed4] transition-transform group-hover:translate-x-1" />
+                  </h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{r.desc}</p>
                 </div>
-                <div className="text-xs text-gray-500">
-                  Global Audio Latency
-                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* CTA                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-[#630ed4] p-10 text-white shadow-xl md:p-20">
+            <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative z-10 max-w-3xl">
+              <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+                {"Early access"}
+              </span>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+                {"See every reply in one place"}
+              </h2>
+              <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
+                {"Connect Telnyx, register for 10DLC, and keep your SMS conversations tidy."}
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#0b1c30] shadow-md transition-all hover:bg-[#eaddff]"
+                >
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#7c3aed] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[#213145]"
+                >
+                  <Calendar className="h-[18px] w-[18px]" />
+                  Book a Demo
+                </Link>
               </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center font-bold">
-                <Cable className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="font-bold text-xl text-gray-900">
-                  Native Sync
-                </div>
-                <div className="text-xs text-gray-500">
-                  Salesforce, HubSpot &amp; Zoho
-                </div>
-              </div>
+              <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
+                <Info className="h-4 w-4 shrink-0" />
+                {"SMS only. 10DLC registration with Telnyx is required for US messaging."}
+              </p>
             </div>
           </div>
         </div>

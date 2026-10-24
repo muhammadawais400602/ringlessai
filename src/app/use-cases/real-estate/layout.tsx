@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Calling for Real Estate Agents & Wholesalers – Dialeads",
+  title: "AI Cold Calling for Real Estate Agents – Dialeads",
   description:
-    "Dialeads lets real estate agents, wholesalers, and property managers dial cold lists at scale, drop personalized voicemails to every missed call, and trigger automatic SMS follow-ups — so motivated sellers and buyers call you back.",
+    "Prospect local business owners with Google Maps lead sourcing, AI qualifier calls with area context, local call scripts, and SMS follow-up.",
+  openGraph: {
+    title: "AI Cold Calling for Real Estate Agents – Dialeads",
+    description:
+      "Prospect local business owners with Google Maps lead sourcing, AI qualifier calls with area context, local call scripts, and SMS follow-up.",
+    type: "website",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

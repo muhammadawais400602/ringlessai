@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dialeads Pricing – AI Calling & Voicemail Drop Plans for Every Team",
+  title: "Dialeads Pricing – Usage-Based AI Cold Calling, Pay Per Use",
   description:
-    "Dialeads pricing starts at $29/mo for solo users. Get unlimited AI calls, voicemail drops, and power dialing on Pro. Enterprise plans with custom SIP trunks available.",
+    "Dialeads uses simple usage-based pricing: $0.02/min manual calling, $0.25/min AI calling, and $0.03 per SMS part. No monthly minimums, no contracts, free to start in early access.",
 };
 
 export default function PricingLayout({

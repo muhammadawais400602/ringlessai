@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Calling & Voicemail Drop – Dialeads",
+  title: "AI Qualifier Calls – Telnyx AI Assistant – Dialeads",
   description:
-    "Dialeads runs autonomous AI cold calls and drops ringless voicemails instantly. Sub-500ms voice synthesis, auto answering machine detection, and 1-click voicemail drop.",
+    "Dialeads uses a Telnyx AI assistant to place qualifier calls with per-lead context, AI disclosure in the first sentence, lead scoring from 1 to 10, and an automatic follow-up SMS after connected calls.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

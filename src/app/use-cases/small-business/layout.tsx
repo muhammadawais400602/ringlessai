@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Calling for Small Business – Dialeads",
+  title: "Cold Calling for Small Business – Dialeads",
   description:
-    "Dialeads works for solo founders and small business owners who need to contact hundreds of leads per week without spending every hour on the phone. Set up in 15 minutes. No tech skills required.",
+    "Find local leads on Google Maps, call from your browser, and let an AI qualifier handle first-touch calls. Usage-based pricing with SMS follow-up built in.",
+  openGraph: {
+    title: "Cold Calling for Small Business – Dialeads",
+    description:
+      "Find local leads on Google Maps, call from your browser, and let an AI qualifier handle first-touch calls. Usage-based pricing with SMS follow-up built in.",
+    type: "website",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

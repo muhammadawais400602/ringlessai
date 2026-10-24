@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "TCPA Compliance – How Dialeads Keeps Your Outbound Legal",
+  title: "Dialeads Compliance – Suppression, Calling Windows & Attempt Caps",
   description:
-    "Dialeads is built with TCPA, FCC, and A2P 10DLC compliance at its core. Automatic DNC scrubbing, time-zone call windows, STIR/SHAKEN attestation, and opt-out handling — all built in.",
+    "How Dialeads helps you stay on the right side of TCPA rules: suppression lists with STOP detection, calling window enforcement, attempt caps, upfront AI disclosure, and server-side checks. Not legal advice.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
