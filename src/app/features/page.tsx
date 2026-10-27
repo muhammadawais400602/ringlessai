@@ -46,9 +46,9 @@ const heroBadges = [
 ];
 
 const panel = {
-  title: "The Dialeads workflow",
+  title: "The Xovra workflow",
   subtitle: "Five steps from search to follow-up",
-  footnote: "Dialeads is built on Telnyx for voice, SMS and AI, with Claude or Gemini for live help.",
+  footnote: "Xovra is built on Telnyx for voice, SMS and AI, with Claude or Gemini for live help.",
   icon: Layers,
 };
 
@@ -175,7 +175,7 @@ const dives = [
   {
     eyebrow: "Calling",
     title: "Human first, AI where it helps",
-    desc: "Dialeads supports two ways to reach a lead. Operators call manually from the browser, and an AI assistant can qualify leads before a human spends time on them.",
+    desc: "Xovra supports two ways to reach a lead. Operators call manually from the browser, and an AI assistant can qualify leads before a human spends time on them.",
     icon: Phone,
     panelTitle: "Two calling modes",
     panelLines: [
@@ -209,7 +209,7 @@ const dives = [
   {
     eyebrow: "Compliance and teams",
     title: "Guardrails and collaboration",
-    desc: "Cold calling comes with rules. Dialeads includes the controls that make following them easier, and roles for teams that work together.",
+    desc: "Cold calling comes with rules. Xovra includes the controls that make following them easier, and roles for teams that work together.",
     icon: ShieldCheck,
     panelTitle: "Controls",
     panelLines: [
@@ -245,7 +245,7 @@ const isNotList = [
 
 const faqs = [
   {
-    q: "What is Dialeads?",
+    q: "What is Xovra?",
     a: "An AI-powered cold calling platform. It sources leads from Google Maps, provides a browser dialer, runs AI qualifier calls, offers live AI rebuttals and manages SMS follow-up.",
   },
   {
@@ -336,7 +336,7 @@ export default function FeaturesPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Dialeads is an AI-powered cold calling platform. It finds businesses on Google Maps, calls them from your browser or with an AI qualifier, helps you handle objections live, and keeps SMS follow-up and outcomes organized."}
+                {"Xovra is an AI-powered cold calling platform. It finds businesses on Google Maps, calls them from your browser or with an AI qualifier, helps you handle objections live, and keeps SMS follow-up and outcomes organized."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
@@ -419,7 +419,7 @@ export default function FeaturesPage() {
         <div className="mx-auto max-w-7xl px-6 sm:px-8">
           <div className="mb-12 max-w-2xl">
             <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
-              {"What Dialeads is"}
+              {"What Xovra is"}
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
               {"Focused on cold calling, not on everything"}
@@ -508,7 +508,7 @@ export default function FeaturesPage() {
               {"How it fits together"}
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              {"A day in the Dialeads workflow"}
+              {"A day in the Xovra workflow"}
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
@@ -598,7 +598,7 @@ export default function FeaturesPage() {
               Straight answers
             </span>
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
-              {"What Dialeads is, and is not"}
+              {"What Xovra is, and is not"}
             </h2>
             <p className="text-base leading-relaxed text-[#4a4455]">{"Clear boundaries up front, so you can decide if it fits."}</p>
           </div>

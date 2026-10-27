@@ -107,40 +107,40 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <a href="mailto:sales@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                  <a href="mailto:sales@xovra.ai" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
                         <Zap className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm font-semibold text-[#0b1c30]">Sales &amp; Enterprise</span>
-                        <span className="text-sm text-[#5e5d6b]">sales@dialeads.io</span>
+                        <span className="text-sm text-[#5e5d6b]">sales@xovra.ai</span>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
                   </a>
 
-                  <a href="mailto:support@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                  <a href="mailto:support@xovra.ai" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
                         <Phone className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm font-semibold text-[#0b1c30]">Technical Support &amp; 10DLC</span>
-                        <span className="text-sm text-[#5e5d6b]">support@dialeads.io</span>
+                        <span className="text-sm text-[#5e5d6b]">support@xovra.ai</span>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
                   </a>
 
-                  <a href="mailto:press@dialeads.io" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
+                  <a href="mailto:press@xovra.ai" className="group flex items-center justify-between p-3 rounded-lg bg-[#eff4ff]/70 hover:bg-[#e5eeff] transition-all">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#eaddff] flex items-center justify-center text-[#630ed4] group-hover:scale-105 transition-transform">
                         <Megaphone className="h-5 w-5" />
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm font-semibold text-[#0b1c30]">Press &amp; Partnerships</span>
-                        <span className="text-sm text-[#5e5d6b]">press@dialeads.io</span>
+                        <span className="text-sm text-[#5e5d6b]">press@xovra.ai</span>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 text-[#5e5d6b] group-hover:text-[#630ed4] group-hover:translate-x-1 transition-all" />
@@ -392,7 +392,7 @@ export default function ContactPage() {
                 <div className="mt-6 pt-4 flex items-center gap-2 text-[#5e5d6b] justify-center sm:justify-start">
                   <Lock className="h-[18px] w-[18px] text-[#630ed4] shrink-0" />
                   <p className="text-sm leading-tight text-[#5e5d6b]">
-                    SOC2 Type II Certified &middot; GDPR Compliant &middot; No spam, ever.
+                    Your data stays private &middot; No spam, ever.
                   </p>
                 </div>
               </div>
@@ -402,22 +402,22 @@ export default function ContactPage() {
                 <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
                   <Gauge className="h-5 w-5 text-[#630ed4]" />
                   <div className="flex flex-col">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Sub-500ms</span>
-                    <span className="text-[12px] text-[#5e5d6b]">Turnaround Latency</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Usage-Based</span>
+                    <span className="text-[12px] text-[#5e5d6b]">Pay only for what you use</span>
                   </div>
                 </div>
                 <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
                   <ShieldCheck className="h-5 w-5 text-[#630ed4]" />
                   <div className="flex flex-col">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Stir/Shaken</span>
-                    <span className="text-[12px] text-[#5e5d6b]">A-Level Attestation</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Compliant</span>
+                    <span className="text-[12px] text-[#5e5d6b]">Suppression &amp; calling windows</span>
                   </div>
                 </div>
                 <div className="p-4 bg-white rounded-xl shadow-sm flex items-center gap-2">
                   <Network className="h-5 w-5 text-[#630ed4]" />
                   <div className="flex flex-col">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Direct REST</span>
-                    <span className="text-[12px] text-[#5e5d6b]">HubSpot &amp; SFDC Sync</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-[#0b1c30]">Exports</span>
+                    <span className="text-[12px] text-[#5e5d6b]">Google Sheets &amp; CSV</span>
                   </div>
                 </div>
               </div>

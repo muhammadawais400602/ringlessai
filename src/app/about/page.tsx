@@ -55,7 +55,7 @@ const workflow = [
     step: "01",
     icon: MapPin,
     title: "Scrape",
-    body: "Pick a niche and a city. Dialeads pulls matching businesses from Google Maps so you start with a real list instead of a blank sheet.",
+    body: "Pick a niche and a city. Xovra pulls matching businesses from Google Maps so you start with a real list instead of a blank sheet.",
   },
   {
     step: "02",
@@ -191,14 +191,14 @@ export default function AboutPage() {
       <section className="max-w-5xl mx-auto px-6 pt-20 pb-14 text-center">
         <span className="inline-flex items-center gap-2 bg-[#eaddff] text-[#630ed4] text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">
           <Sparkles className="w-3.5 h-3.5" />
-          About Dialeads
+          About Xovra
         </span>
         <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight">
           Smarter outbound calling,
           <span className="block text-[#630ed4]">built on data and AI.</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455] leading-relaxed">
-          Dialeads is an AI-powered cold calling platform. It finds local
+          Xovra is an AI-powered cold calling platform. It finds local
           business leads, works out who is worth calling and why, and helps you
           call, text, and track the results from one place.
         </p>
@@ -334,7 +334,7 @@ export default function AboutPage() {
       <section className="bg-[#e5eeff] py-20">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold">Who Dialeads is for</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Who Xovra is for</h2>
             <p className="mt-3 text-[#4a4455]">
               We are a small team building tools for sales teams and agencies.
             </p>
@@ -374,7 +374,7 @@ export default function AboutPage() {
         <div className="bg-white border border-[#e3e0f1] rounded-3xl p-8 md:p-10">
           <div className="flex items-center gap-3">
             <Gauge className="w-6 h-6 text-[#630ed4]" />
-            <h2 className="text-2xl font-bold">What Dialeads does not do yet</h2>
+            <h2 className="text-2xl font-bold">What Xovra does not do yet</h2>
           </div>
           <p className="mt-3 text-sm text-[#4a4455]">
             We would rather you know the limits before you sign up.

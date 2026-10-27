@@ -239,7 +239,7 @@ const faqs = [
   },
   {
     q: "Do I need 10DLC registration to send texts?",
-    a: "For application-to-person SMS to US numbers, carriers require 10DLC registration. You register your brand and campaign directly with Telnyx. Dialeads does not manage that registration for you and does not have a registration wizard, so plan for it before you rely on SMS. Voice calling does not require 10DLC.",
+    a: "For application-to-person SMS to US numbers, carriers require 10DLC registration. You register your brand and campaign directly with Telnyx. Xovra does not manage that registration for you and does not have a registration wizard, so plan for it before you rely on SMS. Voice calling does not require 10DLC.",
   },
   {
     q: "Who provides the phone service?",
@@ -255,7 +255,7 @@ const faqs = [
   },
   {
     q: "Are my calls recorded?",
-    a: "No. Dialeads does not record calls or produce transcripts.",
+    a: "No. Xovra does not record calls or produce transcripts.",
   },
   {
     q: "Will pricing change?",
@@ -287,7 +287,7 @@ export default function PricingPage() {
           <span className="block text-[#630ed4]">Pay Only for What You Use.</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455]">
-          Dialeads has no subscription tiers. You pay a small per-minute rate for
+          Xovra has no subscription tiers. You pay a small per-minute rate for
           calling and a per-message rate for texting. No monthly minimums, no
           contracts, and no hidden fees.
         </p>
@@ -394,7 +394,7 @@ export default function PricingPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold">Simple on purpose</h2>
             <p className="mt-3 text-[#4a4455]">
-              We would rather you spend a few dollars finding out if Dialeads
+              We would rather you spend a few dollars finding out if Xovra
               works for you than sign a contract to find out.
             </p>
           </div>
@@ -420,7 +420,7 @@ export default function PricingPage() {
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold">How to get started</h2>
           <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
-            There is one way to use Dialeads today, and a Teams option we are
+            There is one way to use Xovra today, and a Teams option we are
             still shaping.
           </p>
         </div>
@@ -514,14 +514,14 @@ export default function PricingPage() {
               See every charge as it happens
             </h2>
             <p className="mt-4 text-[#4a4455] leading-relaxed">
-              Usage-based pricing only works if you can see the usage. Dialeads
+              Usage-based pricing only works if you can see the usage. Xovra
               keeps an event-by-event ledger and shows your spend in the
               dashboard.
             </p>
             <div className="mt-8 bg-[#e5eeff] rounded-2xl p-6 flex gap-4">
               <Info className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />
               <p className="text-sm text-[#4a4455] leading-relaxed">
-                Carrier-side costs outside Dialeads, such as 10DLC registration
+                Carrier-side costs outside Xovra, such as 10DLC registration
                 fees charged by Telnyx, are billed by Telnyx and not included in
                 the rates on this page.
               </p>

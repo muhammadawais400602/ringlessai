@@ -97,7 +97,7 @@ const capabilities: { icon: React.ComponentType<{ className?: string }>; title: 
   {
     icon: MapPin,
     title: "Google Maps by niche and city",
-    desc: "Define a niche and a city and Dialeads collects matching Google Maps listings with their contact details.",
+    desc: "Define a niche and a city and Xovra collects matching Google Maps listings with their contact details.",
   },
   {
     icon: Globe,
@@ -135,7 +135,7 @@ const steps = [
   {
     icon: MapPin,
     title: "Scrape listings",
-    desc: "Dialeads collects Google Maps listings that match the search.",
+    desc: "Xovra collects Google Maps listings that match the search.",
   },
   {
     icon: Search,
@@ -254,8 +254,8 @@ const faqs = [
     a: "The campaign worklist can be filtered, for example to leads with no website or leads that have social profiles.",
   },
   {
-    q: "Does Dialeads check the Do Not Call registry?",
-    a: "No. Dialeads provides an append-only suppression list for your own Do Not Contact numbers. Checking registries is your responsibility.",
+    q: "Does Xovra check the Do Not Call registry?",
+    a: "No. Xovra provides an append-only suppression list for your own Do Not Contact numbers. Checking registries is your responsibility.",
   },
 ];
 
@@ -320,7 +320,7 @@ export default function LeadManagementPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Dialeads scrapes Google Maps by niche and city, audits each business website, checks for Google Ads and social presence, scores every lead and gives it a pitch angle. The result lands in a Google Sheet and a CSV."}
+                {"Xovra scrapes Google Maps by niche and city, audits each business website, checks for Google Ads and social presence, scores every lead and gives it a pitch angle. The result lands in a Google Sheet and a CSV."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
@@ -584,7 +584,7 @@ export default function LeadManagementPage() {
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
               {"What lead sourcing covers"}
             </h2>
-            <p className="text-base leading-relaxed text-[#4a4455]">{"Dialeads sources and organizes leads for calling. It does not try to be your CRM."}</p>
+            <p className="text-base leading-relaxed text-[#4a4455]">{"Xovra sources and organizes leads for calling. It does not try to be your CRM."}</p>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="rounded-2xl bg-white p-8 shadow-sm">

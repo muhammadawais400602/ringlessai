@@ -24,10 +24,10 @@ const useCaseLinks = [
 ];
 
 const compareLinks = [
-  { href: "/compare/dialeads-vs-drop-cowboy", label: "vs Drop Cowboy" },
-  { href: "/compare/dialeads-vs-mojo-dialer", label: "vs Mojo Dialer" },
-  { href: "/compare/dialeads-vs-calltools", label: "vs CallTools" },
-  { href: "/compare/dialeads-vs-slybroadcast", label: "vs Slybroadcast" },
+  { href: "/compare/xovra-vs-drop-cowboy", label: "vs Drop Cowboy" },
+  { href: "/compare/xovra-vs-mojo-dialer", label: "vs Mojo Dialer" },
+  { href: "/compare/xovra-vs-calltools", label: "vs CallTools" },
+  { href: "/compare/xovra-vs-slybroadcast", label: "vs Slybroadcast" },
 ];
 
 const navLinks = [
@@ -114,7 +114,7 @@ export default function Navbar() {
             <Activity className="w-[22px] h-[22px] text-white" />
           </div>
           <span className="text-[20px] font-bold tracking-tight text-[#0b1c30]">
-            Dialeads
+            Xovra
           </span>
         </Link>
 

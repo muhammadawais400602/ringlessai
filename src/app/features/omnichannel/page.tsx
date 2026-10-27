@@ -102,7 +102,7 @@ const capabilities: { icon: React.ComponentType<{ className?: string }>; title: 
   {
     icon: Inbox,
     title: "Receive replies",
-    desc: "Inbound messages come back into Dialeads and are grouped into a thread for that phone number.",
+    desc: "Inbound messages come back into Xovra and are grouped into a thread for that phone number.",
   },
   {
     icon: Ban,
@@ -175,7 +175,7 @@ const dives = [
   {
     eyebrow: "Opt-outs and compliance",
     title: "Stopping means stopping",
-    desc: "SMS is regulated, and customers expect an opt-out to work. Dialeads recognizes common stop keywords and puts those numbers on your suppression list.",
+    desc: "SMS is regulated, and customers expect an opt-out to work. Xovra recognizes common stop keywords and puts those numbers on your suppression list.",
     icon: Scale,
     panelTitle: "Opt-out flow",
     panelLines: [
@@ -187,13 +187,13 @@ const dives = [
     points: [
       { icon: Ban, title: "Keyword detection", desc: "STOP, UNSUBSCRIBE and similar replies are treated as opt-outs." },
       { icon: ShieldCheck, title: "Append-only suppression", desc: "The Do Not Contact list only grows, so numbers do not quietly drop off it." },
-      { icon: Info, title: "10DLC registration", desc: "US application-to-person messaging needs 10DLC. You register with Telnyx, and Dialeads does not do that for you." },
+      { icon: Info, title: "10DLC registration", desc: "US application-to-person messaging needs 10DLC. You register with Telnyx, and Xovra does not do that for you." },
     ],
   },
   {
     eyebrow: "Drafts for email and WhatsApp",
     title: "Use the apps you already have",
-    desc: "Rather than pretend to be an omnichannel platform, Dialeads prepares a draft and hands it to the app you already use.",
+    desc: "Rather than pretend to be an omnichannel platform, Xovra prepares a draft and hands it to the app you already use.",
     icon: Share2,
     panelTitle: "How drafts are opened",
     panelLines: [
@@ -223,7 +223,7 @@ const isNotList = [
   "Not a WhatsApp Business API integration",
   "Not an omnichannel platform: email and WhatsApp open in your own apps",
   "Not a replacement for 10DLC registration, which you do with Telnyx",
-  "No email sending from Dialeads servers",
+  "No email sending from Xovra servers",
 ];
 
 const faqs = [
@@ -233,7 +233,7 @@ const faqs = [
   },
   {
     q: "Do I need to register for 10DLC?",
-    a: "Yes, for US messaging. You register your brand and campaign with Telnyx. Dialeads does not handle that registration.",
+    a: "Yes, for US messaging. You register your brand and campaign with Telnyx. Xovra does not handle that registration.",
   },
   {
     q: "What happens if someone replies STOP?",
@@ -241,11 +241,11 @@ const faqs = [
   },
   {
     q: "Does it send WhatsApp messages?",
-    a: "Not through an API. Dialeads creates a wa.me link that opens WhatsApp with your message prefilled, and you send it.",
+    a: "Not through an API. Xovra creates a wa.me link that opens WhatsApp with your message prefilled, and you send it.",
   },
   {
     q: "Does it send emails?",
-    a: "Dialeads builds a mailto: link that opens a draft in your own email client. You review and send it.",
+    a: "Xovra builds a mailto: link that opens a draft in your own email client. You review and send it.",
   },
   {
     q: "Can I build automated sequences?",
@@ -318,7 +318,7 @@ export default function FollowUpSmsPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Dialeads sends and receives two-way SMS through Telnyx, threads replies by phone number, and honors STOP requests. For email and WhatsApp it prepares drafts that open in your own apps."}
+                {"Xovra sends and receives two-way SMS through Telnyx, threads replies by phone number, and honors STOP requests. For email and WhatsApp it prepares drafts that open in your own apps."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
@@ -431,7 +431,7 @@ export default function FollowUpSmsPage() {
               {"Capabilities"}
             </span>
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
-              {"What follow-up looks like in Dialeads"}
+              {"What follow-up looks like in Xovra"}
             </h2>
             <p className="text-base leading-relaxed text-[#4a4455]">
               {"SMS is built in. Email and WhatsApp are drafted for you and sent from your own accounts."}
@@ -703,7 +703,7 @@ export default function FollowUpSmsPage() {
                 {"Follow up the same day, without the busywork"}
               </h2>
               <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
-                {"Connect Telnyx, register for 10DLC, and let Dialeads handle drafts, threading and opt-outs."}
+                {"Connect Telnyx, register for 10DLC, and let Xovra handle drafts, threading and opt-outs."}
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link

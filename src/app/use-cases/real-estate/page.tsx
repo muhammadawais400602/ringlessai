@@ -39,7 +39,7 @@ const hero = {
   badge: "Built for real estate agents and teams",
   title: "Prospect local business owners and property contacts",
   titleAccent: "with context about the area.",
-  sub: "Dialeads scrapes Google Maps for businesses around the neighborhoods and properties you work, enriches each listing, and lets you call from the browser or have an AI qualifier make the first touch. Texts follow connected calls.",
+  sub: "Xovra scrapes Google Maps for businesses around the neighborhoods and properties you work, enriches each listing, and lets you call from the browser or have an AI qualifier make the first touch. Texts follow connected calls.",
   checks: [
     "Maps-based area search",
     "AI discloses itself",
@@ -127,7 +127,7 @@ const painPoints = [
     icon: MessageSquare,
     title: "Follow-up gets forgotten",
     body: "A promising 'maybe later' turns into silence.",
-    fix: "After connected AI calls, Dialeads can send a follow-up text. Replies come back in two-way SMS and opt-outs are detected automatically.",
+    fix: "After connected AI calls, Xovra can send a follow-up text. Replies come back in two-way SMS and opt-outs are detected automatically.",
   },
 ];
 
@@ -302,8 +302,8 @@ const limits = [
 
 const faqs = [
   {
-    q: "Does Dialeads give me homeowner or listing data?",
-    a: "No. Dialeads sources leads from Google Maps by niche and city. It is useful for prospecting local businesses and owners, not for pulling MLS, expired listing, or homeowner data.",
+    q: "Does Xovra give me homeowner or listing data?",
+    a: "No. Xovra sources leads from Google Maps by niche and city. It is useful for prospecting local businesses and owners, not for pulling MLS, expired listing, or homeowner data.",
   },
   {
     q: "Can the AI know about a property?",
@@ -315,7 +315,7 @@ const faqs = [
   },
   {
     q: "How do I follow up after a call?",
-    a: "After connected AI calls Dialeads can send a follow-up SMS, and you can text leads yourself in the two-way thread. You need 10DLC registration for SMS.",
+    a: "After connected AI calls Xovra can send a follow-up SMS, and you can text leads yourself in the two-way thread. You need 10DLC registration for SMS.",
   },
   {
     q: "Can I use it with my CRM?",
@@ -468,9 +468,9 @@ export default function RealEstatePage() {
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              {"Where Dialeads fits in a real estate practice"}
+              {"Where Xovra fits in a real estate practice"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"Dialeads is a Google Maps-based prospecting tool. It does not supply MLS data or homeowner records. It helps you find and call local businesses and owners."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Xovra is a Google Maps-based prospecting tool. It does not supply MLS data or homeowner records. It helps you find and call local businesses and owners."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {profiles.map((p) => (
@@ -494,7 +494,7 @@ export default function RealEstatePage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
               {"Common prospecting problems"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"Real estate prospecting is mostly a lot of calls at inconvenient moments. Dialeads aims to remove the prep and the first-touch grind."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Real estate prospecting is mostly a lot of calls at inconvenient moments. Xovra aims to remove the prep and the first-touch grind."}</p>
           </div>
           <div className="flex flex-col gap-6">
             {painPoints.map((p) => (
@@ -505,7 +505,7 @@ export default function RealEstatePage() {
                 </div>
                 <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
-                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                    <p.icon className="w-4 h-4" /> How Xovra helps
                   </span>
                   <p className="text-sm leading-6">{p.fix}</p>
                 </div>
@@ -663,7 +663,7 @@ export default function RealEstatePage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
-            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            Xovra provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
             <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
           </p>
         </div>
@@ -692,7 +692,7 @@ export default function RealEstatePage() {
             <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
           </p>
           <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Xovra does not do</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {limits.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">

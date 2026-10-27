@@ -114,7 +114,7 @@ const painPoints = [
     icon: MapPin,
     title: "Sourcing leads for new niches takes days",
     body: "Every new client in a new vertical means starting a list from scratch.",
-    fix: "Enter any niche and city. Dialeads scrapes Google Maps and enriches each lead with a website audit, ad detection, and social presence, then scores it.",
+    fix: "Enter any niche and city. Xovra scrapes Google Maps and enriches each lead with a website audit, ad detection, and social presence, then scores it.",
   },
   {
     icon: FileText,
@@ -306,15 +306,15 @@ const faqs = [
   },
   {
     q: "Can I scrape leads for any industry?",
-    a: "Dialeads scrapes Google Maps by niche and city, so any category with listings on Maps can be sourced.",
+    a: "Xovra scrapes Google Maps by niche and city, so any category with listings on Maps can be sourced.",
   },
   {
     q: "Do clients need to register for 10DLC?",
-    a: "If you send SMS at volume in the US, the brand and campaign must be registered with the carrier. That is done by you or the client, not by Dialeads.",
+    a: "If you send SMS at volume in the US, the brand and campaign must be registered with the carrier. That is done by you or the client, not by Xovra.",
   },
   {
     q: "Can I white-label this?",
-    a: "No. Dialeads is not white-label.",
+    a: "No. Xovra is not white-label.",
   },
   {
     q: "How do I report to clients?",
@@ -469,7 +469,7 @@ export default function LeadGenAgenciesPage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
               {"Agencies that make calls on behalf of clients"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"If your deliverable is booked appointments or qualified leads, Dialeads covers sourcing, qualifying, and calling in one tool."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"If your deliverable is booked appointments or qualified leads, Xovra covers sourcing, qualifying, and calling in one tool."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {profiles.map((p) => (
@@ -504,7 +504,7 @@ export default function LeadGenAgenciesPage() {
                 </div>
                 <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
-                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                    <p.icon className="w-4 h-4" /> How Xovra helps
                   </span>
                   <p className="text-sm leading-6">{p.fix}</p>
                 </div>
@@ -662,7 +662,7 @@ export default function LeadGenAgenciesPage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
-            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            Xovra provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
             <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
           </p>
         </div>
@@ -691,7 +691,7 @@ export default function LeadGenAgenciesPage() {
             <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
           </p>
           <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Xovra does not do</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {limits.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">
@@ -736,7 +736,7 @@ export default function LeadGenAgenciesPage() {
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
           <div className="rounded-2xl bg-[#630ed4] px-6 py-12 lg:px-16 lg:py-16 text-center flex flex-col items-center gap-5">
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white max-w-2xl">
-              {"Run your next client campaign on Dialeads"}
+              {"Run your next client campaign on Xovra"}
             </h2>
             <p className="text-base leading-7 text-[#eaddff] max-w-xl">{"Get early access, or book a demo and we will build a sample client org around one of your verticals."}</p>
             <div className="flex flex-wrap items-center justify-center gap-4">

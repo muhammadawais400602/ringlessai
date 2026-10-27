@@ -135,7 +135,7 @@ const steps = [
   {
     icon: Inbox,
     title: "Reply comes in",
-    desc: "Telnyx delivers the inbound SMS to Dialeads.",
+    desc: "Telnyx delivers the inbound SMS to Xovra.",
   },
   {
     icon: Hash,
@@ -175,7 +175,7 @@ const dives = [
   {
     eyebrow: "Lead names",
     title: "Know who is texting you",
-    desc: "A reply from an unknown number is not very helpful. Because campaigns hold your lead data, Dialeads can show the business name instead.",
+    desc: "A reply from an unknown number is not very helpful. Because campaigns hold your lead data, Xovra can show the business name instead.",
     icon: User,
     panelTitle: "Name resolution",
     panelLines: [
@@ -204,7 +204,7 @@ const dives = [
     points: [
       { icon: Ban, title: "Stop keywords", desc: "STOP and UNSUBSCRIBE trigger suppression automatically." },
       { icon: Gauge, title: "Rate limits", desc: "SMS sending is rate limited to avoid accidental floods." },
-      { icon: Scale, title: "10DLC", desc: "You register with Telnyx for US messaging. Dialeads does not file that for you." },
+      { icon: Scale, title: "10DLC", desc: "You register with Telnyx for US messaging. Xovra does not file that for you." },
     ],
   },
 ];
@@ -228,7 +228,7 @@ const isNotList = [
 const faqs = [
   {
     q: "Which channels show up here?",
-    a: "SMS only, through Telnyx. WhatsApp and email drafts open in your own apps and are not displayed in Dialeads.",
+    a: "SMS only, through Telnyx. WhatsApp and email drafts open in your own apps and are not displayed in Xovra.",
   },
   {
     q: "How are conversations grouped?",
@@ -240,7 +240,7 @@ const faqs = [
   },
   {
     q: "Are calls or recordings listed?",
-    a: "No. Dialeads does not provide call recordings or transcripts, and this view is for SMS messages.",
+    a: "No. Xovra does not provide call recordings or transcripts, and this view is for SMS messages.",
   },
   {
     q: "Can conversations be routed to team members automatically?",

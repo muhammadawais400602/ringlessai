@@ -39,7 +39,7 @@ const hero = {
   badge: "Built for solo operators and small teams",
   title: "Find local leads, call from your browser,",
   titleAccent: "and let AI handle the first touch.",
-  sub: "Dialeads scrapes Google Maps for businesses in your niche and city, enriches and scores each one, then lets you call from a browser softphone or hand the first conversation to an AI qualifier. No headset hardware, no big monthly commitment, just usage-based pricing.",
+  sub: "Xovra scrapes Google Maps for businesses in your niche and city, enriches and scores each one, then lets you call from a browser softphone or hand the first conversation to an AI qualifier. No headset hardware, no big monthly commitment, just usage-based pricing.",
   checks: [
     "Usage-based pricing",
     "Call from any browser",
@@ -109,7 +109,7 @@ const painPoints = [
     icon: MapPin,
     title: "Building a lead list takes longer than calling it",
     body: "Copying names and numbers out of Google Maps by hand eats an afternoon, and the list has no information about which businesses are worth a call.",
-    fix: "Enter a niche and a city. Dialeads scrapes Google Maps, enriches each result with a website audit, Google Ads detection, and Instagram, Facebook, and TikTok presence, then scores the lead. You get a Google Sheet and a CSV.",
+    fix: "Enter a niche and a city. Xovra scrapes Google Maps, enriches each result with a website audit, Google Ads detection, and Instagram, Facebook, and TikTok presence, then scores the lead. You get a Google Sheet and a CSV.",
   },
   {
     icon: Headphones,
@@ -127,7 +127,7 @@ const painPoints = [
     icon: MessageSquare,
     title: "Follow-up falls through the cracks",
     body: "You talk to a promising lead, get pulled into a job, and never send the follow-up.",
-    fix: "After a connected AI call, Dialeads can send a follow-up SMS. Replies land in two-way SMS, and opt-outs such as STOP are detected so you do not text people who asked you not to.",
+    fix: "After a connected AI call, Xovra can send a follow-up SMS. Replies land in two-way SMS, and opt-outs such as STOP are detected so you do not text people who asked you not to.",
   },
 ];
 
@@ -135,7 +135,7 @@ const features = [
   {
     icon: MapPin,
     title: "Google Maps lead sourcing",
-    body: "Search by niche and city. Dialeads collects the business listings and gives you a clean sheet to work from.",
+    body: "Search by niche and city. Xovra collects the business listings and gives you a clean sheet to work from.",
     tag: "Niche + city",
   },
   {
@@ -191,7 +191,7 @@ const features = [
 const workflow = [
   {
     title: "Pick a niche and a city",
-    body: "Say, dentists in Denver or restaurants in Austin. Dialeads scrapes Google Maps and builds the lead list.",
+    body: "Say, dentists in Denver or restaurants in Austin. Xovra scrapes Google Maps and builds the lead list.",
   },
   {
     title: "Review the scored sheet",
@@ -311,11 +311,11 @@ const faqs = [
   },
   {
     q: "Where do my leads and results live?",
-    a: "In a Google Sheet that you own, with a CSV export available in HubSpot format. Dialeads does not sync natively to any CRM.",
+    a: "In a Google Sheet that you own, with a CSV export available in HubSpot format. Xovra does not sync natively to any CRM.",
   },
   {
     q: "Do I need to register for SMS?",
-    a: "Yes. US business texting requires 10DLC registration, and you register your own brand and campaign with your carrier. Dialeads does not do that for you.",
+    a: "Yes. US business texting requires 10DLC registration, and you register your own brand and campaign with your carrier. Xovra does not do that for you.",
   },
   {
     q: "Is there a monthly plan?",
@@ -323,7 +323,7 @@ const faqs = [
   },
   {
     q: "Does it record my calls?",
-    a: "No. Dialeads does not record calls. Outcomes and notes are logged to your sheet.",
+    a: "No. Xovra does not record calls. Outcomes and notes are logged to your sheet.",
   },
 ];
 
@@ -470,7 +470,7 @@ export default function SmallBusinessPage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
               {"Made for people who do their own outbound"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"If you are the owner, the salesperson, and the person answering email, you need a lead source, a way to call, and a way to keep track. Dialeads puts all three in one place."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"If you are the owner, the salesperson, and the person answering email, you need a lead source, a way to call, and a way to keep track. Xovra puts all three in one place."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {profiles.map((p) => (
@@ -505,7 +505,7 @@ export default function SmallBusinessPage() {
                 </div>
                 <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
-                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                    <p.icon className="w-4 h-4" /> How Xovra helps
                   </span>
                   <p className="text-sm leading-6">{p.fix}</p>
                 </div>
@@ -548,7 +548,7 @@ export default function SmallBusinessPage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-white mb-3">
               {"Four pitch angles, so every call opens with a reason"}
             </h2>
-            <p className="text-base leading-7 text-[#eaf1ff]">{"Dialeads tags each lead with the angle that fits what it found. You decide what to sell. The tag tells you what to say first."}</p>
+            <p className="text-base leading-7 text-[#eaf1ff]">{"Xovra tags each lead with the angle that fits what it found. You decide what to sell. The tag tells you what to say first."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {enrichment.map((e) => (
@@ -663,7 +663,7 @@ export default function SmallBusinessPage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
-            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            Xovra provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
             <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
           </p>
         </div>
@@ -692,7 +692,7 @@ export default function SmallBusinessPage() {
             <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
           </p>
           <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Xovra does not do</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {limits.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">

@@ -7,30 +7,23 @@ import {
   ArrowDown,
   CheckCircle2,
   ChevronRight,
-  ChevronLeft,
   ChevronDown,
   Home,
-  Verified,
   Bot,
-  AudioLines,
   PhoneIncoming,
-  Voicemail,
-  FileUp,
-  RefreshCw,
+  MapPin,
+  MessageSquare,
   ClipboardCheck,
   Users,
   Building2,
   Rocket,
   UserCheck,
-  ArrowLeftRight,
-  Lock,
-  Headset,
-  Zap,
-  Globe,
-  Table,
-  Code2,
+  Search,
   BrainCircuit,
   CalendarCheck,
+  Phone,
+  Target,
+  FileSpreadsheet,
 } from "lucide-react";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -38,93 +31,93 @@ import {
 const demoSteps = [
   {
     num: "01",
-    icon: PhoneIncoming,
-    title: "Live AI Cold Call — Right in Front of You",
-    body: "We dial a real number from your industry using a Dialeads AI voice agent. You watch the call happen in real time — live answer detection, conversation flow, and objection handling. You hear exactly what your prospects will hear.",
-    tag: "Real acoustic testing",
-    tagIcon: AudioLines,
+    icon: MapPin,
+    title: "Live Google Maps Scrape",
+    body: "Pick a niche and a city. We run the scraper in front of you and watch leads populate — business name, phone, website, rating, review count. Then we show how enrichment scores each lead and assigns a pitch angle like NO_SITE or WEAK_SITE.",
+    tag: "Real leads, real-time",
+    tagIcon: Search,
   },
   {
     num: "02",
-    icon: Voicemail,
-    title: "Voicemail Drop Demonstrated Live",
-    body: "Watch Dialeads detect a voicemail beep and drop a personalized pre-recorded message in under 2 seconds. We show standard pre-recorded drops vs AI dynamic voicemail drops side by side so you can hear the difference immediately.",
-    tag: "Sub-2s Beep Detection",
-    tagIcon: Zap,
+    icon: PhoneIncoming,
+    title: "Manual Call from the Browser",
+    body: "We place a real call using the in-browser WebRTC softphone powered by Telnyx. You hear the audio, see the lead card with all context, and watch the live AI rebuttal panel suggest responses as the conversation unfolds.",
+    tag: "Browser-based, no downloads",
+    tagIcon: Phone,
   },
   {
     num: "03",
-    icon: FileUp,
-    title: "Your Lead List — Imported Live",
-    body: "Bring a CSV of 50–100 leads from your industry. We import it live, run automatic DNC scrubbing, match local caller IDs, and show your queue ready to dial — in under 3 minutes. You leave the demo with your list already inside the platform.",
-    tag: "Auto DNC + Local Match",
-    tagIcon: Verified,
+    icon: Bot,
+    title: "AI Qualifier Call",
+    body: "We switch to AI mode and let the Telnyx AI assistant call a lead. It discloses it is AI upfront, introduces the pitch using the lead's context, scores interest, and logs the outcome — all hands-free.",
+    tag: "Full AI disclosure built in",
+    tagIcon: BrainCircuit,
   },
   {
     num: "04",
-    icon: RefreshCw,
-    title: "CRM Integration Connected on the Call",
-    body: "We connect Dialeads to your HubSpot, Salesforce, Close CRM, or GoHighLevel account live and show every call outcome syncing automatically. You see your own CRM update in real time as we log a disposition.",
-    tag: "Instant Disposition Sync",
-    tagIcon: RefreshCw,
+    icon: MessageSquare,
+    title: "Two-Way SMS Follow-Up",
+    body: "After a connected call, we send a follow-up SMS and show the conversation thread. You see opt-out detection (STOP/UNSUBSCRIBE) and how replies flow back into the lead's timeline.",
+    tag: "10DLC compliant",
+    tagIcon: Target,
   },
 ];
 
 const demoStepFull = {
   num: "05",
   icon: ClipboardCheck,
-  title: "Your Custom Setup Plan",
-  body: "Based on your team size, dial volume, campaign type, and industry — we build a custom Dialeads setup plan on the call. You leave knowing exactly which plan fits, which integrations to connect first, and how long onboarding takes.",
-  tag: "Ready-to-execute onboarding blueprint",
+  title: "Your Campaign Setup",
+  body: "We set up a campaign together — choose manual or AI mode, write a brief and greeting, configure calling windows and suppression rules. You leave the demo with a working campaign ready to go.",
+  tag: "Walk out ready to dial",
 };
 
 const audienceCards = [
   {
     icon: Users,
-    title: "Sales Managers & Team Leads",
-    body: "Evaluating a power dialer or AI calling tool to increase rep productivity and pipeline volume. Want to see real dials, real answer rates, and real CRM sync before committing.",
-    goal: "Maximize Rep Repetition",
+    title: "Solo Operators & Small Teams",
+    body: "Doing your own prospecting and need to find and call leads without spending all day on it. Want to see how the scraper-to-call workflow actually works.",
+    goal: "Save hours on prospecting",
   },
   {
     icon: Building2,
     title: "Agency Owners",
-    body: "Running outbound campaigns for multiple clients and need a platform that handles compliance, multi-campaign management, and client-level reporting in one dashboard.",
-    goal: "Sub-Account Compliance",
+    body: "Running outbound for multiple clients and need per-org separation, dedicated numbers, and campaign-level control. Want to see multi-tenant features.",
+    goal: "Per-client org isolation",
   },
   {
     icon: Rocket,
-    title: "Solo Founders & Small Business Owners",
-    body: "Doing their own outbound sales and need to contact hundreds of leads per week without spending all day on the phone. Want to see how fast the setup really is.",
-    goal: "Instant 5x Pipeline Leverage",
+    title: "Founders Testing Outbound",
+    body: "Exploring whether AI-assisted cold calling works for your market. Want to see a real call happen before committing any budget.",
+    goal: "Validate before investing",
   },
   {
     icon: UserCheck,
-    title: "SDR Team Leads",
-    body: "Looking to increase dials per rep per day, reduce new hire ramp time, and give reps live objection rebuttals during calls. Want to see the AI copilot in action.",
-    goal: "Slash SDR Ramp Time",
+    title: "Sales Team Leads",
+    body: "Looking to give reps better lead context and live AI rebuttals during calls. Want to see the rebuttal panel and lead scoring in action.",
+    goal: "Better conversations, faster",
   },
 ];
 
 const prepSteps = [
   {
     num: "01",
-    title: "Bring a Lead List",
-    body: "Export 50–100 leads from your CRM or lead source as a CSV. We'll import it live and show your actual leads ready to dial inside Dialeads before the session ends.",
-    tag: "Formatted as CSV or Excel",
-    tagIcon: Table,
+    title: "Pick a Niche and City",
+    body: "Think about what type of businesses you want to reach — dentists in Miami, roofers in Dallas, gyms in Chicago. We'll scrape leads live during the demo.",
+    tag: "Any Google Maps business category",
+    tagIcon: MapPin,
   },
   {
     num: "02",
-    title: "Know Your Stack",
-    body: "Know which CRM you use (HubSpot, Salesforce, Close, GoHighLevel, Pipedrive). We'll connect it live on the call and show your data syncing in real time.",
-    tag: "API credentials or Admin login",
-    tagIcon: Code2,
+    title: "Bring a Lead List (Optional)",
+    body: "If you already have leads, export them as a CSV or Google Sheet. We can import them and show you enrichment and scoring on your own data.",
+    tag: "CSV or Google Sheets",
+    tagIcon: FileSpreadsheet,
   },
   {
     num: "03",
-    title: "Have Your Biggest Objection Ready",
-    body: "What's the one thing that would stop you from switching to Dialeads? Bring it. We'll address it directly during the session — not after with a follow-up email.",
-    tag: "Direct, transparent technical answers",
+    title: "Have Your Questions Ready",
+    body: "Compliance rules, AI calling costs, SMS setup, multi-tenant orgs — bring whatever matters most. We answer directly during the session.",
+    tag: "Direct, transparent answers",
     tagIcon: BrainCircuit,
   },
 ];
@@ -132,48 +125,48 @@ const prepSteps = [
 const faqs = [
   {
     q: "How long is the demo?",
-    a: "20 minutes. We respect your time — we move fast and show, not tell. If you want to go deeper on any feature, we can extend or schedule a follow-up technical session.",
+    a: "20 minutes. We show the platform live — scraping, calling, AI qualifier, SMS. If you want to go deeper on any feature, we can extend or schedule a follow-up.",
   },
   {
     q: "Is this a sales call?",
-    a: "We'll show you the platform and give you honest answers about whether Dialeads fits your use case. If it doesn't, we'll tell you that directly. No pressure, no follow-up spam.",
+    a: "We show the platform and give honest answers about whether Xovra fits your use case. If it doesn't, we'll say so. No pressure, no follow-up spam.",
   },
   {
     q: "Do I need to prepare anything?",
-    a: "Nothing required. Optionally, bring a CSV of 50–100 leads from your industry so we can demo with your real data. Having your CRM login handy also speeds things up.",
+    a: "Nothing required. Optionally, pick a niche and city so we can scrape leads live, or bring a CSV of existing leads for us to import and score.",
   },
   {
-    q: "Can I start a free trial right after the demo?",
-    a: "Yes. Your 14-day Pro trial activates immediately after the demo with your lead list already imported and your CRM already connected — so you can start dialing the same day.",
+    q: "What does it cost after the demo?",
+    a: "Usage-based pricing: $0.02/min for manual calls, $0.25/min for AI qualifier calls, $0.03 per SMS part. No subscriptions, no minimums, no contracts.",
   },
   {
-    q: "What if I just want to try it myself first?",
-    a: "Go to the pricing page and start the 14-day Pro trial directly. No credit card required. You'll have access to every feature including the AI voice agent and live objection copilot.",
+    q: "Do you integrate with my CRM?",
+    a: "Currently Xovra exports to Google Sheets and HubSpot-format CSV. Native CRM integrations are on the roadmap but not available yet.",
   },
   {
-    q: "Can I bring my whole team to the demo?",
-    a: "Absolutely. Send the calendar invite to whoever needs to see it — sales managers, IT, operations. We'll tailor the session to cover everyone's questions.",
+    q: "Can I bring my team to the demo?",
+    a: "Yes. Send the calendar invite to anyone who needs to see it — we'll cover everyone's questions in the session.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "I booked the demo expecting a standard vendor pitch. Instead they dialed one of my actual leads live on the call. I signed up before the session was over.",
+      "They scraped leads for my niche live on the call and placed a real AI qualifier call. I could hear exactly what my prospects would hear.",
+    name: "Agency Owner",
+    company: "Digital Marketing Agency",
+  },
+  {
+    quote:
+      "I came in skeptical about AI calling. Hearing the AI disclose itself upfront and still have a natural conversation sold me on the approach.",
     name: "Sales Manager",
-    company: "B2B SaaS Company",
+    company: "B2B Services Company",
   },
   {
     quote:
-      "The 20 minutes was enough to see exactly how it works. They imported my lead list, connected my HubSpot, and showed me a live AI call. Setup was done before I even left the demo.",
-    name: "Founder",
-    company: "Lead Generation Agency",
-  },
-  {
-    quote:
-      "I came in skeptical about AI calling sounding robotic. After hearing a live call during the demo, I couldn't tell it wasn't a human. Signed up that day.",
-    name: "SDR Team Lead",
-    company: "Insurance Agency",
+      "The usage-based pricing was the hook. No monthly minimums, just pay for what I use. The demo showed me it actually works that way.",
+    name: "Solo Founder",
+    company: "Local Services Business",
   },
 ];
 
@@ -216,135 +209,146 @@ export default function DemoPage() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-[#f8f9ff] py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-8">
-          {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-[#4a4455] mb-6">
             <Link
               href="/"
-              className="hover:text-[#7C3AED] transition-colors flex items-center gap-1"
+              className="hover:text-[#7c3aed] transition-colors flex items-center gap-1"
             >
               <Home className="w-4 h-4" />
               Home
             </Link>
             <ChevronRight className="w-4 h-4 text-[#ccc3d8]" />
-            <span className="text-[#7C3AED] font-medium">Book a Demo</span>
+            <span className="text-[#7c3aed] font-medium">Book a Demo</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left pitch */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#7C3AED] animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7c3aed] text-xs font-bold uppercase tracking-wider mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#7c3aed] animate-pulse" />
                 Live Platform Demo
               </div>
               <h1 className="text-4xl lg:text-[56px] lg:leading-[60px] tracking-tight text-[#0b1c30] mb-4 font-bold leading-[1.08]">
-                See Dialeads Dial a Real Lead —{" "}
-                <span className="text-[#7C3AED]">Live, In Front of You</span>
+                See Xovra Find and Call a Real Lead —{" "}
+                <span className="text-[#7c3aed]">Live, In Front of You</span>
               </h1>
               <p className="text-lg text-[#4a4455] mb-8 max-w-2xl leading-relaxed">
-                In 20 minutes, we&apos;ll show you exactly how Dialeads runs AI
-                cold calls, drops voicemails instantly, handles live objections,
-                and follows up automatically — using your actual lead list if you
-                bring one.
+                In 20 minutes, we&apos;ll scrape leads from Google Maps, enrich
+                and score them, place a manual call from the browser, run an AI
+                qualifier call, and send a follow-up SMS — all live.
               </p>
               <div className="flex flex-wrap items-center gap-4 mb-6 w-full sm:w-auto">
                 <a
                   href="#scheduler"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#7C3AED] hover:bg-[#630ed4] text-white font-semibold shadow-lg hover:shadow-xl transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#7c3aed] hover:bg-[#630ed4] text-white font-semibold shadow-lg hover:shadow-xl transition-all"
                 >
                   Book Your Demo Below
                   <ArrowDown className="w-[18px] h-[18px]" />
                 </a>
                 <Link
                   href="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white hover:bg-[#e5eeff] text-[#0b1c30] font-semibold shadow-sm transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-[#e3e0f1] text-[#0b1c30] font-semibold hover:bg-[#eff4ff] transition-all"
                 >
-                  Start Free Trial Instead
+                  Have a Question First?
                 </Link>
               </div>
-              <div className="flex items-center gap-2 text-[#4a4455] text-sm">
-                <Verified className="w-[18px] h-[18px] text-[#7C3AED]" />
-                No sales pressure · 20 minutes · We&apos;ll do live dials
-                during the call
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[#4a4455]">
+                {[
+                  "20-minute live walkthrough",
+                  "No slides, no pitch deck",
+                  "Your leads, your niche",
+                ].map((t) => (
+                  <span key={t} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#630ed4]" />
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Right: Live Demo Simulation */}
-            <div className="lg:col-span-5 relative">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#630ed4]/10 via-[#7C3AED]/5 to-transparent rounded-3xl blur-2xl pointer-events-none" />
-              <div className="relative bg-[#213145] rounded-2xl p-6 text-[#eaf1ff] shadow-2xl overflow-hidden">
-                {/* Terminal header */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-3 w-3 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
-                    </span>
-                    <span className="text-xs uppercase tracking-widest text-white font-bold">
-                      Active Simulation
-                    </span>
-                  </div>
-                  <div className="inline-flex items-center gap-1 bg-[#7C3AED]/20 px-2 py-1 rounded-md text-[#eaddff] text-xs font-semibold">
-                    <Verified className="w-3.5 h-3.5" />
-                    Telnyx STIR/SHAKEN A-Level
-                  </div>
+            {/* Calendar mock */}
+            <div className="lg:col-span-5">
+              <div className="bg-white rounded-2xl shadow-xl border border-[#e3e0f1]/60 overflow-hidden">
+                <div className="bg-[#630ed4] p-6 text-white">
+                  <h2 className="text-lg font-bold mb-1">
+                    Pick a Time That Works
+                  </h2>
+                  <p className="text-sm text-[#d2bbff]">
+                    20-minute live demo • No commitment
+                  </p>
                 </div>
-
-                {/* Specs */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between items-center bg-[#213145]/60 p-3 rounded-xl">
-                    <span className="text-[#d3e4fe]/70 text-sm">
-                      Target Company
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-semibold text-[#0b1c30]">
+                      October 2026
                     </span>
-                    <span className="font-bold text-white">
-                      Austin Solar Group
-                    </span>
+                    <div className="flex gap-1">
+                      <button className="p-1.5 rounded-lg hover:bg-[#eff4ff] text-[#4a4455]">
+                        <ArrowRight className="w-4 h-4 rotate-180" />
+                      </button>
+                      <button className="p-1.5 rounded-lg hover:bg-[#eff4ff] text-[#4a4455]">
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center bg-[#213145]/60 p-3 rounded-xl">
-                    <span className="text-[#d3e4fe]/70 text-sm">
-                      Active Voice Model
-                    </span>
-                    <span className="inline-flex items-center gap-1 font-bold text-[#d2bbff] text-sm">
-                      <Bot className="w-4 h-4" /> Alex (Voice Synthetic v2)
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center bg-[#213145]/60 p-3 rounded-xl">
-                    <span className="text-[#d3e4fe]/70 text-sm">Status</span>
-                    <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-semibold">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                      In-Call (00:48) — Handling Objection
-                    </span>
-                  </div>
-                </div>
-
-                {/* Waveform */}
-                <div className="bg-black/30 rounded-xl p-4 mb-4">
-                  <div className="flex items-center justify-between text-[#d3e4fe]/70 text-xs font-semibold mb-2">
-                    <span>Sub-350ms Synthetic Stream</span>
-                    <span className="text-emerald-400 font-mono">
-                      LATENCY: 294ms
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-center gap-1 h-12">
-                    {[12, 24, 18, 32, 28, 14, 26, 8, 20].map((h, i) => (
-                      <span
-                        key={i}
-                        className={`w-1.5 rounded-full ${i % 2 === 0 ? "bg-[#7C3AED]" : "bg-[#d2bbff]"}`}
-                        style={{
-                          height: `${h}px`,
-                          animation: `pulse 1.2s ease-in-out ${i * 0.1}s infinite alternate`,
-                        }}
-                      />
+                  <div className="grid grid-cols-7 gap-1 text-center text-xs text-[#4a4455] mb-2">
+                    {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+                      <span key={i} className="py-1 font-medium">
+                        {d}
+                      </span>
                     ))}
                   </div>
-                </div>
-
-                {/* Transcript */}
-                <div className="bg-white/5 rounded-xl p-3 text-[#d3e4fe]/90 text-sm">
-                  <p className="italic text-white">
-                    &quot;I understand budget cycles reset in Q1, Marcus. Would
-                    it be premature to lock in our guaranteed Tier-1 pilot rates
-                    before Thursday?&quot;
+                  <div className="grid grid-cols-7 gap-1 text-center text-sm mb-4">
+                    {calendarDays.map((d) => (
+                      <button
+                        key={d.day}
+                        disabled={d.disabled}
+                        onClick={() => setSelectedDay(d.day)}
+                        className={`py-2 rounded-lg font-medium transition-all ${
+                          d.disabled
+                            ? "text-[#ccc3d8] cursor-not-allowed"
+                            : selectedDay === d.day
+                              ? "bg-[#630ed4] text-white shadow"
+                              : "text-[#0b1c30] hover:bg-[#eff4ff]"
+                        }`}
+                      >
+                        {d.day}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-[#4a4455] mb-2 font-medium">
+                    Available times (EST)
                   </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {timeSlots.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => setSelectedSlot(s)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                          selectedSlot === s
+                            ? "bg-[#630ed4] text-white shadow"
+                            : "bg-[#eff4ff] text-[#630ed4] hover:bg-[#eaddff]"
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => setConfirmed(true)}
+                    className="w-full py-3 rounded-xl bg-[#630ed4] hover:bg-[#7c3aed] text-white font-bold transition-all flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    {confirmed ? (
+                      <>
+                        <CheckCircle2 className="w-5 h-5" />
+                        Demo Booked — Check Your Email
+                      </>
+                    ) : (
+                      <>
+                        <CalendarCheck className="w-5 h-5" />
+                        Confirm {selectedSlot} on Oct {selectedDay}
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
@@ -352,204 +356,104 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* CALENDLY SECTION */}
-      <section className="w-full py-24 bg-[#eff4ff]" id="scheduler">
+      {/* WHAT WE SHOW YOU */}
+      <section className="w-full bg-white py-24">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Direct Booking
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              Pick a Time That Works for You
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] mb-3 block">
+              The 20-Minute Agenda
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0b1c30] mb-4">
+              What We Show You — Live
             </h2>
-            <p className="text-lg text-[#4a4455]">
-              All demo slots are 20 minutes. A real person from our team runs
-              every session — no pre-recorded videos, no slides-only
-              presentations.
+            <p className="text-base text-[#4a4455] max-w-2xl mx-auto">
+              No slides. No pre-recorded videos. Every step runs against real
+              data in real time.
             </p>
           </div>
 
-          {/* Calendar mockup */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto">
-            {/* Calendly embed goes here — paste your Calendly script */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
-              {/* Left info panel */}
-              <div className="lg:col-span-5 p-8 bg-[#f8f9ff] flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-[#7C3AED] flex items-center justify-center text-white shadow-sm">
-                      <Headset className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-[#0b1c30]">
-                        Dialeads Solutions Team
-                      </h4>
-                      <p className="text-sm text-[#4a4455]">
-                        Hosted by Alex Rivera & Sarah Chen
-                      </p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {demoSteps.map((s) => (
+              <div
+                key={s.num}
+                className="relative bg-[#f8f9ff] rounded-2xl p-8 border border-[#e3e0f1]/60"
+              >
+                <span className="absolute top-6 right-6 text-5xl font-black text-[#630ed4]/10">
+                  {s.num}
+                </span>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#630ed4] flex items-center justify-center">
+                    <s.icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl text-[#0b1c30] font-bold mb-3">
-                    Dialeads AI Calling & Voicemail Drop Deep Dive
-                  </h3>
-                  <div className="flex items-center gap-2 text-[#4a4455] text-sm mb-4">
-                    <CalendarCheck className="w-[18px] h-[18px] text-[#7C3AED]" />
-                    <span className="font-semibold text-[#0b1c30]">
-                      20 Min Video Meeting
-                    </span>
-                    <span>·</span>
-                    <span>Google Meet / Zoom</span>
-                  </div>
-                  <p className="text-sm text-[#4a4455] mb-6 leading-relaxed">
-                    We will conduct real-time dials, test objection handling with
-                    custom scenarios, and hook up your target data sources during
-                    this working session.
-                  </p>
-                  <div className="space-y-2">
-                    {[
-                      "Live dial to a phone number of your choice",
-                      "Direct CRM pipeline writeback demonstration",
-                      "Immediate custom onboarding blueprint generation",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-start gap-2 text-sm text-[#0b1c30]"
-                      >
-                        <CheckCircle2 className="w-[18px] h-[18px] text-[#7C3AED] mt-0.5" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaddff]/50 text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+                    <s.tagIcon className="w-3 h-3" />
+                    {s.tag}
                   </div>
                 </div>
-                <div className="mt-6 pt-4 border-t border-[#e5eeff] flex items-center gap-2 text-[#4a4455] text-xs font-semibold">
-                  <Globe className="w-4 h-4" />
-                  Timezone: Central Time - US & Canada (CST)
-                </div>
+                <h3 className="text-xl font-bold text-[#0b1c30] mb-2">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed">
+                  {s.body}
+                </p>
               </div>
-
-              {/* Right calendar panel */}
-              <div className="lg:col-span-7 p-8 flex flex-col">
-                <div className="flex items-center justify-between mb-6">
-                  <h4 className="text-xl text-[#0b1c30] font-bold">
-                    Select Date & Time
-                  </h4>
-                  <div className="flex items-center gap-1">
-                    <button className="w-8 h-8 rounded-full hover:bg-[#e5eeff] flex items-center justify-center text-[#4a4455] transition-colors">
-                      <ChevronLeft className="w-[18px] h-[18px]" />
-                    </button>
-                    <span className="font-bold text-base text-[#0b1c30] px-2">
-                      October 2025
-                    </span>
-                    <button className="w-8 h-8 rounded-full hover:bg-[#e5eeff] flex items-center justify-center text-[#4a4455] transition-colors">
-                      <ChevronRight className="w-[18px] h-[18px]" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Day headers */}
-                <div className="grid grid-cols-7 gap-2 text-center mb-4">
-                  {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-                    <span
-                      key={d + i}
-                      className={`text-xs font-semibold ${i >= 5 ? "text-[#4a4455]/40" : "text-[#4a4455]"}`}
-                    >
-                      {d}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Calendar grid */}
-                <div className="grid grid-cols-7 gap-2 text-center mb-6">
-                  {calendarDays.map((cd) => (
-                    <button
-                      key={`${cd.day}-${cd.disabled}`}
-                      onClick={() => !cd.disabled && setSelectedDay(cd.day)}
-                      className={`py-2 text-sm rounded-lg transition-colors ${
-                        cd.disabled
-                          ? "text-[#4a4455]/40 cursor-default"
-                          : cd.day === selectedDay
-                            ? "bg-[#7C3AED] text-white font-bold shadow-sm"
-                            : "text-[#0b1c30] cursor-pointer hover:bg-[#e5eeff]"
-                      }`}
-                    >
-                      {cd.day}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Time slots */}
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-bold text-base text-[#0b1c30]">
-                      Thursday, Oct {selectedDay} — Open Slots
-                    </span>
-                    <span className="text-[#7C3AED] text-xs font-semibold">
-                      6 slots remaining
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {timeSlots.map((slot) => (
-                      <button
-                        key={slot}
-                        onClick={() => {
-                          setSelectedSlot(slot);
-                          setConfirmed(false);
-                        }}
-                        className={`py-3 px-2 rounded-xl text-sm font-semibold transition-all shadow-sm ${
-                          slot === selectedSlot
-                            ? "bg-[#7C3AED] text-white"
-                            : "bg-[#f8f9ff] hover:bg-[#7C3AED] hover:text-white text-[#0b1c30]"
-                        }`}
-                      >
-                        {slot}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Confirmation */}
-                  <div className="mt-6 p-4 rounded-xl bg-[#e5eeff] flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <CalendarCheck className="w-5 h-5 text-[#7C3AED]" />
-                      <span className="text-sm text-[#0b1c30] font-medium">
-                        Oct {selectedDay} at {selectedSlot} (CST)
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => setConfirmed(true)}
-                      className={`w-full sm:w-auto px-6 py-2 rounded-full font-semibold text-sm shadow-sm transition-all ${
-                        confirmed
-                          ? "bg-emerald-600 text-white"
-                          : "bg-[#7C3AED] hover:bg-[#630ed4] text-white"
-                      }`}
-                    >
-                      {confirmed ? "Slot Reserved!" : "Confirm This Slot"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Trust signals */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8 text-center">
-            {[
-              {
-                icon: Lock,
-                text: "Your information is never shared or sold",
-              },
-              { icon: Headset, text: "Real team member — not a bot" },
-              {
-                icon: Zap,
-                text: "Instant confirmation with prep checklist",
-              },
-            ].map((t) => (
+          {/* Step 5 full-width */}
+          <div className="bg-[#213145] rounded-2xl p-8 sm:p-12 flex flex-col sm:flex-row items-start gap-6">
+            <div className="w-14 h-14 rounded-xl bg-[#630ed4] flex items-center justify-center shrink-0">
+              <demoStepFull.icon className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-xs font-bold text-[#d2bbff] uppercase tracking-wider">
+                  Step {demoStepFull.num}
+                </span>
+                <span className="px-3 py-0.5 rounded-full bg-[#eaddff]/20 text-[10px] font-bold uppercase tracking-wider text-[#d2bbff]">
+                  {demoStepFull.tag}
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                {demoStepFull.title}
+              </h3>
+              <p className="text-sm text-[#eaf1ff] leading-relaxed max-w-2xl">
+                {demoStepFull.body}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHO THIS IS FOR */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] mb-3 block">
+              Is This Demo for You?
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0b1c30] mb-4">
+              Who Books a Demo
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {audienceCards.map((c) => (
               <div
-                key={t.text}
-                className="flex items-center justify-center gap-2 p-3 rounded-xl bg-white shadow-sm"
+                key={c.title}
+                className="bg-white rounded-2xl p-6 border border-[#e3e0f1]/60 flex flex-col"
               >
-                <t.icon className="w-5 h-5 text-[#7C3AED]" />
-                <span className="text-sm text-[#0b1c30] font-medium">
-                  {t.text}
+                <div className="w-12 h-12 rounded-xl bg-[#630ed4] flex items-center justify-center mb-4">
+                  <c.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-[#0b1c30] mb-2">
+                  {c.title}
+                </h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed mb-4 flex-1">
+                  {c.body}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#630ed4] bg-[#eaddff]/40 px-3 py-1.5 rounded-full self-start">
+                  <Target className="w-3 h-3" />
+                  {c.goal}
                 </span>
               </div>
             ))}
@@ -557,175 +461,69 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* WHAT WE COVER */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
+      {/* PREP STEPS */}
+      <section className="w-full bg-white py-24">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              What to Expect
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              Exactly What Happens in Your 20-Minute Demo
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] mb-3 block">
+              Get More Out of Your Demo
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0b1c30] mb-4">
+              How to Prepare
             </h2>
-            <p className="text-lg text-[#4a4455]">
-              We move fast. Every minute is a live demonstration — no fluff, no
-              slides, no vendor pitch decks.
+            <p className="text-base text-[#4a4455] max-w-xl mx-auto">
+              Nothing is required, but these make the demo more relevant to your
+              business.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {demoSteps.map((s) => (
-              <div
-                key={s.num}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-[32px] leading-[36px] text-[#d2bbff] font-bold">
-                      {s.num}
-                    </span>
-                    <div className="w-10 h-10 rounded-xl bg-[#eaddff]/30 flex items-center justify-center text-[#7C3AED]">
-                      <s.icon className="w-[22px] h-[22px]" />
-                    </div>
-                  </div>
-                  <h3 className="text-xl text-[#0b1c30] font-bold mb-3">
-                    {s.title}
-                  </h3>
-                  <p className="text-base text-[#4a4455] leading-relaxed">
-                    {s.body}
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-[#e5eeff] text-[#630ed4] text-xs font-semibold flex items-center gap-1">
-                  <s.tagIcon className="w-4 h-4" /> {s.tag}
-                </div>
-              </div>
-            ))}
-
-            {/* Step 05 — full span */}
-            <div className="lg:col-span-2 bg-gradient-to-br from-white to-[#eff4ff] p-8 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-[32px] leading-[36px] text-[#7C3AED] font-bold">
-                    {demoStepFull.num}
-                  </span>
-                  <div className="w-10 h-10 rounded-xl bg-[#7C3AED] text-white flex items-center justify-center shadow-sm">
-                    <demoStepFull.icon className="w-[22px] h-[22px]" />
-                  </div>
-                </div>
-                <h3 className="text-xl text-[#0b1c30] font-bold mb-3">
-                  {demoStepFull.title}
-                </h3>
-                <p className="text-base text-[#4a4455] leading-relaxed max-w-2xl">
-                  {demoStepFull.body}
-                </p>
-              </div>
-              <div className="mt-6 pt-3 border-t border-[#e5eeff] text-[#630ed4] text-xs font-semibold flex items-center gap-1">
-                <ClipboardCheck className="w-4 h-4" /> {demoStepFull.tag}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHO THIS DEMO IS FOR */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Is This Demo Right for You?
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              This Demo Is Built for People Who Are Ready to Dial
-            </h2>
-            <p className="text-lg text-[#4a4455]">
-              We respect your time. This session is for teams actively
-              evaluating an outbound calling platform — not casual browsers.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {audienceCards.map((c) => (
-              <div
-                key={c.title}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#e5eeff] flex items-center justify-center text-[#7C3AED] mb-4">
-                    <c.icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-xl text-[#0b1c30] font-bold mb-2">
-                    {c.title}
-                  </h3>
-                  <p className="text-base text-[#4a4455] leading-relaxed">
-                    {c.body}
-                  </p>
-                </div>
-                <div className="mt-4 pt-3 border-t border-[#e5eeff] text-xs font-semibold text-[#4a4455]">
-                  Goal: {c.goal}
-                </div>
-              </div>
-            ))}
-
-            {/* Switchers — highlighted full span */}
-            <div className="lg:col-span-2 bg-[#7C3AED] text-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white mb-4">
-                  <ArrowLeftRight className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl text-white font-bold mb-2">
-                  Switchers
-                </h3>
-                <p className="text-base text-[#ede0ff] leading-relaxed max-w-xl">
-                  Currently using Mojo Dialer, Sly Broadcast, Drop Cowboy,
-                  CallTools, or a manual dialing process and actively comparing
-                  alternatives before making a switch.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-white/20 text-xs font-semibold text-[#ede0ff] flex items-center gap-1">
-                <ArrowLeftRight className="w-4 h-4" /> Live 1:1 Side-by-Side
-                Comparison Available
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BEFORE YOUR DEMO */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="max-w-3xl mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Come Prepared
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              Three Things That Make Your Demo 10x More Valuable
-            </h2>
-            <p className="text-lg text-[#4a4455]">
-              None of these are required — but each one makes the session more
-              useful for you.
-            </p>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {prepSteps.map((s) => (
               <div
                 key={s.num}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between"
+                className="bg-[#f8f9ff] rounded-2xl p-8 border border-[#e3e0f1]/60 relative"
               >
-                <div>
-                  <div className="flex items-center gap-2 mb-4 text-[#7C3AED] font-bold text-xl">
-                    <span className="w-8 h-8 rounded-full bg-[#eaddff]/40 flex items-center justify-center text-sm font-bold">
-                      {s.num}
-                    </span>
-                    <span>{s.title}</span>
-                  </div>
-                  <p className="text-base text-[#4a4455] leading-relaxed mb-4">
-                    {s.body}
-                  </p>
-                </div>
-                <div className="bg-[#eff4ff] p-3 rounded-xl text-xs font-semibold text-[#0b1c30] flex items-center gap-2">
-                  <s.tagIcon className="w-[18px] h-[18px] text-[#7C3AED]" />
+                <span className="absolute top-6 right-6 text-5xl font-black text-[#630ed4]/10">
+                  {s.num}
+                </span>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaddff]/50 text-[10px] font-bold uppercase tracking-wider text-[#630ed4] w-fit mb-4">
+                  <s.tagIcon className="w-3 h-3" />
                   {s.tag}
+                </div>
+                <h3 className="text-lg font-bold text-[#0b1c30] mb-2">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-[#4a4455] leading-relaxed">
+                  {s.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#630ed4] mb-3 block">
+              After the Demo
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0b1c30] mb-4">
+              What People Say
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-8 border border-[#e3e0f1]/60"
+              >
+                <p className="text-sm text-[#4a4455] leading-relaxed mb-6 italic">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div>
+                  <p className="font-bold text-[#0b1c30] text-sm">{t.name}</p>
+                  <p className="text-xs text-[#4a4455]">{t.company}</p>
                 </div>
               </div>
             ))}
@@ -734,37 +532,37 @@ export default function DemoPage() {
       </section>
 
       {/* FAQ */}
-      <section className="w-full py-24 bg-[#eff4ff]">
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Common Questions
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              Questions About the Demo
+      <section className="w-full bg-white py-24">
+        <div className="max-w-3xl mx-auto px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0b1c30] mb-4">
+              Demo FAQ
             </h2>
           </div>
-
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => (
               <div
-                key={faq.q}
-                className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all"
+                key={i}
+                className="bg-[#f8f9ff] rounded-xl border border-[#e3e0f1]/60 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full px-8 py-6 text-left flex items-center justify-between cursor-pointer"
+                  className="w-full flex items-center justify-between px-6 py-4 text-left"
                 >
-                  <h4 className="text-xl text-[#0b1c30] font-bold">
-                    {faq.q}
-                  </h4>
+                  <span className="font-semibold text-[#0b1c30] text-sm">
+                    {f.q}
+                  </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#7C3AED] transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 text-[#630ed4] transition-transform ${
+                      openFaq === i ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {openFaq === i && (
-                  <div className="px-8 pb-6 text-[#4a4455] text-base">
-                    {faq.a}
+                  <div className="px-6 pb-5">
+                    <p className="text-sm text-[#4a4455] leading-relaxed">
+                      {f.a}
+                    </p>
                   </div>
                 )}
               </div>
@@ -773,79 +571,34 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff]/40 text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Trusted by Sales Teams
-            </div>
-            <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-[#0b1c30] mb-2 font-bold tracking-tight">
-              What People Say After Their First Demo
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="bg-white p-8 rounded-2xl shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <blockquote className="text-lg text-[#0b1c30] leading-relaxed mb-6">
-                    &quot;{t.quote}&quot;
-                  </blockquote>
-                </div>
-                <div className="pt-4 border-t border-[#e5eeff]">
-                  <div className="font-bold text-base text-[#0b1c30]">
-                    {t.name}
-                  </div>
-                  <div className="text-sm text-[#4a4455]">{t.company}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* BOTTOM CTA */}
-      <section className="w-full py-24 bg-[#f8f9ff]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="bg-[#7C3AED] text-white rounded-3xl p-12 lg:p-24 shadow-2xl relative overflow-hidden text-center">
-            <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#630ed4] opacity-40 blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#d2bbff] opacity-20 blur-3xl pointer-events-none" />
-            <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-md">
-                Ready to See It Live?
-              </div>
-              <h2 className="text-[40px] leading-[44px] lg:text-[56px] lg:leading-[60px] text-white mb-4 font-bold tracking-tight leading-tight">
-                Book Your 20-Minute Demo Now
-              </h2>
-              <p className="text-lg text-[#ede0ff] mb-8 max-w-2xl leading-relaxed">
-                Pick any available slot above. Instant confirmation. Real team
-                member. Live dials. Your questions answered directly — no
-                follow-up email required.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-6 w-full sm:w-auto">
-                <a
-                  href="#scheduler"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-[#f8f9ff] text-[#0b1c30] font-bold shadow-lg hover:shadow-xl transition-all"
-                >
-                  Book a Demo Slot
-                  <CalendarCheck className="w-[18px] h-[18px]" />
-                </a>
-                <Link
-                  href="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold backdrop-blur-md transition-colors"
-                >
-                  Start Free Trial Instead
-                </Link>
-              </div>
-              <p className="text-[#ede0ff] text-sm">
-                No credit card for trial · No sales pressure in demo · Cancel
-                anytime
-              </p>
-            </div>
+      {/* CTA */}
+      <section
+        id="scheduler"
+        className="w-full bg-[#213145] py-24"
+      >
+        <div className="max-w-3xl mx-auto px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Ready to See It Live?
+          </h2>
+          <p className="text-base text-[#eaf1ff] mb-8 max-w-xl mx-auto">
+            20 minutes. Real leads. Real calls. No slides. Book a time that
+            works, or get early access to start on your own.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#630ed4] hover:bg-[#7c3aed] text-white font-semibold shadow-lg transition-all"
+            >
+              Book a Demo
+              <ArrowRight className="w-[18px] h-[18px]" />
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-[#eaf1ff]/30 text-[#eaf1ff] font-semibold hover:bg-white/10 transition-all"
+            >
+              Get Early Access
+              <ArrowRight className="w-[18px] h-[18px]" />
+            </Link>
           </div>
         </div>
       </section>

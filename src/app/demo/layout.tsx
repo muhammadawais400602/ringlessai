@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book a Demo – Dialeads",
+  title: "Book a Demo – Xovra",
   description:
-    "See Dialeads dial a real lead live in front of you. Book a 20-minute demo — live AI cold calls, voicemail drops, objection handling, and CRM sync. No slides, no fluff.",
+    "Book a 20-minute Xovra demo. See the Google Maps scraper, AI qualifier calls, live rebuttals, and two-way SMS in action with your own leads.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

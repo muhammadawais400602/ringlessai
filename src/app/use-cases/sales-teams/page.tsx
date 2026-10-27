@@ -38,7 +38,7 @@ const hero = {
   badge: "Built for sales teams running outbound",
   title: "Organized cold calling campaigns,",
   titleAccent: "manual or AI, with every rep on the same page.",
-  sub: "Dialeads gives your team shared campaigns, per-campaign scripts, role-based access, and a usage ledger for every call and text. Reps call from the browser with keyboard shortcuts, and number pools protect your caller ID reputation.",
+  sub: "Xovra gives your team shared campaigns, per-campaign scripts, role-based access, and a usage ledger for every call and text. Reps call from the browser with keyboard shortcuts, and number pools protect your caller ID reputation.",
   checks: [
     "Owner, admin, and agent roles",
     "Per-org phone numbers",
@@ -114,7 +114,7 @@ const painPoints = [
     icon: Keyboard,
     title: "Manual calling is slow when every action needs a click",
     body: "Dialing, hanging up, and logging outcomes across several screens costs minutes per hour.",
-    fix: "The browser dialer is built around keyboard shortcuts: C to call, H to hang up, and 1 to 6 to record the outcome. It is still one lead at a time. Dialeads has no power or predictive dialer.",
+    fix: "The browser dialer is built around keyboard shortcuts: C to call, H to hang up, and 1 to 6 to record the outcome. It is still one lead at a time. Xovra has no power or predictive dialer.",
   },
   {
     icon: Hash,
@@ -314,7 +314,7 @@ const faqs = [
   },
   {
     q: "How do I see what each rep did?",
-    a: "Call outcomes are written to the Google Sheet, and the usage ledger shows billable calls and texts. Dialeads does not include analytics dashboards or leaderboards.",
+    a: "Call outcomes are written to the Google Sheet, and the usage ledger shows billable calls and texts. Xovra does not include analytics dashboards or leaderboards.",
   },
   {
     q: "Can I connect it to our CRM?",
@@ -322,7 +322,7 @@ const faqs = [
   },
   {
     q: "Do you record calls for coaching?",
-    a: "No. Dialeads does not record calls.",
+    a: "No. Xovra does not record calls.",
   },
 ];
 
@@ -467,7 +467,7 @@ export default function SalesTeamsPage() {
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              {"Who runs outbound on Dialeads"}
+              {"Who runs outbound on Xovra"}
             </h2>
             <p className="text-base leading-7 text-[#4a4455]">{"Teams that want structure around cold calling, without adding a heavy sales stack."}</p>
           </div>
@@ -504,7 +504,7 @@ export default function SalesTeamsPage() {
                 </div>
                 <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
-                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                    <p.icon className="w-4 h-4" /> How Xovra helps
                   </span>
                   <p className="text-sm leading-6">{p.fix}</p>
                 </div>
@@ -625,7 +625,7 @@ export default function SalesTeamsPage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
               {"Tracking without a dashboard"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"Dialeads is honest about what it tracks. Results go to your Google Sheet, and spend goes to the usage ledger."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Xovra is honest about what it tracks. Results go to your Google Sheet, and spend goes to the usage ledger."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {outcomes.map((o) => (
@@ -662,7 +662,7 @@ export default function SalesTeamsPage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
-            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            Xovra provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
             <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
           </p>
         </div>
@@ -691,7 +691,7 @@ export default function SalesTeamsPage() {
             <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
           </p>
           <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Xovra does not do</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {limits.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Dialeads – AI-Powered Cold Calling for Sales Teams",
+  title: "About Xovra – AI-Powered Cold Calling for Sales Teams",
   description:
-    "Dialeads is an AI-powered cold calling platform. Find leads on Google Maps, enrich and score them, then call, text, and track outcomes from one workspace.",
+    "Xovra is an AI-powered cold calling platform. Find leads on Google Maps, enrich and score them, then call, text, and track outcomes from one workspace.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

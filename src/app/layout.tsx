@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dialeads – AI Calling & Voicemail Drop Software for Sales Teams",
-  description: "Dialeads lets sales teams and agencies run AI-powered outbound calls and ringless voicemail drops at scale. Book more meetings, fewer manual dials. Start free.",
+  title: "Xovra – AI-Powered Cold Calling Platform",
+  description: "Xovra scrapes leads from Google Maps, enriches and scores them, then lets you call with a browser-based softphone or AI qualifier. Usage-based pricing, no contracts.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

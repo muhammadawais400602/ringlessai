@@ -134,7 +134,7 @@ const steps = [
   {
     icon: MessageSquare,
     title: "Request a rebuttal",
-    desc: "Dialeads sends the objection plus lead context and your campaign brief to the model.",
+    desc: "Xovra sends the objection plus lead context and your campaign brief to the model.",
   },
   {
     icon: Sparkles,
@@ -157,7 +157,7 @@ const dives = [
   {
     eyebrow: "Context",
     title: "Specific beats generic",
-    desc: "A generic rebuttal sounds like a script, and prospects can tell. Because Dialeads sources and enriches its own leads, the model has real facts to work with.",
+    desc: "A generic rebuttal sounds like a script, and prospects can tell. Because Xovra sources and enriches its own leads, the model has real facts to work with.",
     icon: Database,
     panelTitle: "Inputs to each rebuttal",
     panelLines: [
@@ -175,7 +175,7 @@ const dives = [
   {
     eyebrow: "Generated, not stored",
     title: "No battlecard maintenance",
-    desc: "Libraries of canned answers go stale, and nobody updates them. Dialeads does not keep one. The model writes each response when you ask.",
+    desc: "Libraries of canned answers go stale, and nobody updates them. Xovra does not keep one. The model writes each response when you ask.",
     icon: RefreshCw,
     panelTitle: "What this means for you",
     panelLines: [
@@ -220,7 +220,7 @@ const isList = [
 const isNotList = [
   "Not a stored rebuttal library or set of battlecards",
   "No objection heatmaps or analytics on which objections win",
-  "No audio transcription: Dialeads does not listen to or transcribe the call",
+  "No audio transcription: Xovra does not listen to or transcribe the call",
   "Not a WhatsApp Business API integration",
   "Not an auto-send tool: you review drafts before they go out",
 ];
@@ -228,11 +228,11 @@ const isNotList = [
 const faqs = [
   {
     q: "Which AI models are used?",
-    a: "Claude or Gemini. They generate objection responses and follow-up drafts from the context Dialeads passes in.",
+    a: "Claude or Gemini. They generate objection responses and follow-up drafts from the context Xovra passes in.",
   },
   {
     q: "Does it listen to my call?",
-    a: "No. Dialeads does not transcribe call audio. You describe or select the objection and the model responds using lead data and your brief.",
+    a: "No. Xovra does not transcribe call audio. You describe or select the objection and the model responds using lead data and your brief.",
   },
   {
     q: "Is there a library of rebuttals I can edit?",
@@ -313,7 +313,7 @@ export default function ObjectionRebuttalsPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"When a prospect says not interested or we already have someone, Dialeads asks Claude or Gemini for a response using what you know about that specific business. No stored library, no canned answers."}
+                {"When a prospect says not interested or we already have someone, Xovra asks Claude or Gemini for a response using what you know about that specific business. No stored library, no canned answers."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">

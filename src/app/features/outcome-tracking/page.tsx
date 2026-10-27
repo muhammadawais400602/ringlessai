@@ -228,11 +228,11 @@ const isNotList = [
 const faqs = [
   {
     q: "Where are outcomes stored?",
-    a: "Call outcomes are written to your Google Sheet. AI call results and usage ledger entries are also kept in Dialeads.",
+    a: "Call outcomes are written to your Google Sheet. AI call results and usage ledger entries are also kept in Xovra.",
   },
   {
     q: "Are there dashboards or charts?",
-    a: "No. Dialeads shows outcomes, balance and spend, but it does not include analytics dashboards or charts. Use your Sheet if you want to chart the data.",
+    a: "No. Xovra shows outcomes, balance and spend, but it does not include analytics dashboards or charts. Use your Sheet if you want to chart the data.",
   },
   {
     q: "What does the usage ledger track?",
@@ -429,7 +429,7 @@ export default function OutcomeTrackingPage() {
               {"Outcomes, scores and spend in one place"}
             </h2>
             <p className="text-base leading-relaxed text-[#4a4455]">
-              {"Dialeads records what matters after each call and keeps costs transparent. It is not a charting product."}
+              {"Xovra records what matters after each call and keeps costs transparent. It is not a charting product."}
             </p>
           </div>
 

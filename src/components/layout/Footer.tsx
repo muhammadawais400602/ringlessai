@@ -17,10 +17,10 @@ const useCaseLinks = [
 ];
 
 const compareLinks = [
-  { label: "vs Drop Cowboy", href: "/compare/dialeads-vs-drop-cowboy" },
-  { label: "vs Mojo Dialer", href: "/compare/dialeads-vs-mojo-dialer" },
-  { label: "vs CallTools", href: "/compare/dialeads-vs-calltools" },
-  { label: "vs Slybroadcast", href: "/compare/dialeads-vs-slybroadcast" },
+  { label: "vs Drop Cowboy", href: "/compare/xovra-vs-drop-cowboy" },
+  { label: "vs Mojo Dialer", href: "/compare/xovra-vs-mojo-dialer" },
+  { label: "vs CallTools", href: "/compare/xovra-vs-calltools" },
+  { label: "vs Slybroadcast", href: "/compare/xovra-vs-slybroadcast" },
 ];
 
 const companyLinks = [
@@ -47,7 +47,7 @@ export default function Footer() {
                 <Activity className="w-5 h-5 text-white" />
               </div>
               <span className="text-[20px] font-bold tracking-tight text-white">
-                Dialeads
+                Xovra
               </span>
             </Link>
             <p className="text-base text-[#cbdbf5] mb-6 max-w-sm leading-relaxed">
@@ -119,7 +119,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t border-[#676577]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#cbdbf5]">© 2025 Dialeads.io. All rights reserved. Built for closers. Powered by AI.</p>
+          <p className="text-sm text-[#cbdbf5]">© 2025 Xovra. All rights reserved.</p>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#676577]/30">
             <span className="w-2 h-2 rounded-full bg-[#d2bbff] animate-pulse" />
             <span className="text-xs font-semibold text-[#eaddff]">All systems operational</span>

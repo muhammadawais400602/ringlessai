@@ -27,7 +27,7 @@ type Status = "yes" | "partial" | "no" | "na";
 type TableRow = {
   category: string;
   feature: string;
-  dialeads: string;
+  xovra: string;
   dialStatus: Status;
   rival: string;
   rivalStatus: Status;
@@ -54,52 +54,52 @@ type Hero = {
 
 /* ─── Data ─────────────────────────────────────────────── */
 
-const RIVAL = "Mojo Dialer";
-const RIVAL_INITIALS = "MD";
+const RIVAL = "Drop Cowboy";
+const RIVAL_INITIALS = "DC";
 
 const hero: Hero = {
   badge: "Honest comparison",
-  titleLead: "Mojo dials fast.",
-  titleAccent: "Dialeads dials smart.",
+  titleLead: "Drop Cowboy sends voicemails.",
+  titleAccent: "Xovra has live conversations.",
   subtitle:
-    "Mojo Dialer is a multi-line power dialer built for high-volume calling, especially in real estate. Dialeads is a manual, browser-based dialer with AI on top: it sources and enriches its own leads, runs AI qualifier calls and suggests rebuttals live. Mojo gives you more dials per hour. Dialeads gives you more context per dial.",
+    "Drop Cowboy is built around ringless voicemail delivery. Xovra is an AI-powered cold calling platform: it finds leads on Google Maps, enriches them, and puts you or an AI assistant on a real call. These are different approaches to outbound, and this page explains which one fits which team.",
   note: "Usage-based pricing from $0.02/min. No subscription tiers.",
-  rivalTag: "Power dialer",
-  rivalPill: "Throughput-first",
+  rivalTag: "Ringless voicemail",
+  rivalPill: "Voicemail-first",
   rivalRows: [
     {
-      label: "Dialing style",
-      value: "Multi-line power dialing",
+      label: "Core product",
+      value: "Voicemail drops",
       status: "yes",
     },
     {
-      label: "Dials per hour",
-      value: "Higher than Dialeads",
-      status: "yes",
+      label: "Live phone calls",
+      value: "Not the focus",
+      status: "no",
     },
     {
       label: "Lead sourcing",
-      value: "Bring or buy your list",
-      status: "na",
+      value: "Bring your own list",
+      status: "no",
     },
     {
-      label: "AI qualifier calls",
-      value: "Not a focus",
-      status: "no",
+      label: "Pricing",
+      value: "See vendor",
+      status: "na",
     },
   ],
   dialTag: "AI cold calling",
-  dialPill: "Context-first",
+  dialPill: "Conversation-first",
   dialRows: [
     {
-      label: "Dialing style",
-      value: "One at a time, manual",
-      status: "partial",
+      label: "Core product",
+      value: "Calls + AI qualifier",
+      status: "yes",
     },
     {
-      label: "Dials per hour",
-      value: "Lower than Mojo",
-      status: "no",
+      label: "Live phone calls",
+      value: "Browser softphone",
+      status: "yes",
     },
     {
       label: "Lead sourcing",
@@ -107,156 +107,156 @@ const hero: Hero = {
       status: "yes",
     },
     {
-      label: "AI qualifier calls",
-      value: "Yes, AI disclosed",
-      status: "yes",
+      label: "Voicemail drops",
+      value: "Not offered",
+      status: "no",
     },
   ],
-  diffIntro: "Mojo and Dialeads both help you make outbound calls, but they optimize for different things.",
-  ctaHeading: "Would you rather call better-informed leads?",
+  diffIntro: "Five places where the two products take genuinely different approaches to reaching a prospect.",
+  ctaHeading: "Want conversations instead of one-way messages?",
   ctaBody:
-    "Dialeads is in early access. Join the list, or book a demo and we will show you how a lead goes from a Google Maps scrape to a scored, enriched call.",
+    "Xovra is in early access. Join the list, or book a demo and we will walk you through scraping a niche, enriching the leads and placing the first call.",
 };
 
 const shortAnswer = {
-  heading: "Speed of dialing vs quality of each call",
+  heading: "Different tools for different outbound strategies",
   intro:
-    "If your constraint is raw contact volume, one of these wins clearly. If your constraint is knowing who you are calling, the other does.",
-  rivalLabel: "Multi-line power dialing",
+    "This is not a like-for-like feature race. One tool delivers a message without ringing the phone. The other is for talking to the prospect.",
+  rivalLabel: "Ringless voicemail delivery",
   rivalBody:
-    "Reps who live on the phone and need to cycle through a lot of numbers quickly. Mojo's multi-line approach is designed to reduce the time spent waiting on rings, voicemails and dead numbers, and it has a long track record with real estate teams.",
-  rivalBest: "Best when the list is ready and the goal is dials per hour.",
-  dialLabel: "AI-powered cold calling",
+    "Teams that want to push a recorded message to a large list without ringing the phone, and are happy for the prospect to respond on their own time. If your strategy is broadcast-style voicemail, that is exactly what Drop Cowboy is built for.",
+  rivalBest: "Best when the goal is reach and a callback, not a live conversation.",
+  dialLabel: "AI-powered cold calling platform",
   dialBody:
-    "Reps and small teams who sell to local businesses and want the research done before the call. Dialeads scrapes Google Maps, audits websites, detects ads, finds social profiles and scores each lead, then lets you call from the browser or hand first-pass qualifying to an AI assistant.",
-  dialBest: "Best when each conversation is worth preparing for.",
+    "Teams that want to talk to prospects. Xovra sources local-business leads from Google Maps, enriches them with website and social data, scores them with a pitch angle, then lets a rep call from the browser or an AI qualifier call on their behalf.",
+  dialBest: "Best when the goal is a real conversation with context about the lead.",
 };
 
 const comparisonRows: TableRow[] = [
   {
-    category: "Dialing",
-    feature: "Multi-line / power dialing",
-    dialeads: "Not offered",
+    category: "Core model",
+    feature: "Primary channel",
+    xovra: "Live calls and SMS",
+    dialStatus: "yes",
+    rival: "Ringless voicemail",
+    rivalStatus: "yes",
+  },
+  {
+    category: "Core model",
+    feature: "Voicemail drop / ringless voicemail",
+    xovra: "Not offered",
     dialStatus: "no",
     rival: "Core feature",
     rivalStatus: "yes",
   },
   {
-    category: "Dialing",
-    feature: "Manual one-at-a-time calling",
-    dialeads: "Yes, browser WebRTC softphone via Telnyx",
+    category: "Core model",
+    feature: "Live outbound phone calls",
+    xovra: "Yes, browser WebRTC softphone via Telnyx",
     dialStatus: "yes",
-    rival: "Available alongside power dialing",
-    rivalStatus: "na",
-  },
-  {
-    category: "Dialing",
-    feature: "Predictive dialer",
-    dialeads: "Not offered",
-    dialStatus: "no",
-    rival: "Confirm with vendor",
-    rivalStatus: "na",
-  },
-  {
-    category: "Dialing",
-    feature: "Dialing throughput",
-    dialeads: "Lower, one call at a time",
-    dialStatus: "partial",
-    rival: "Higher, designed for volume",
-    rivalStatus: "yes",
-  },
-  {
-    category: "Dialing",
-    feature: "Runs in the browser",
-    dialeads: "Yes, no install",
-    dialStatus: "yes",
-    rival: "Confirm with vendor",
-    rivalStatus: "na",
-  },
-  {
-    category: "AI",
-    feature: "AI qualifier calls",
-    dialeads: "Yes, Telnyx AI assistant that discloses it is AI",
-    dialStatus: "yes",
-    rival: "Not a focus of the product",
+    rival: "Not the focus of the product",
     rivalStatus: "no",
   },
   {
-    category: "AI",
-    feature: "Live AI rebuttals during calls",
-    dialeads: "Yes, Claude / Gemini",
-    dialStatus: "yes",
-    rival: "No",
-    rivalStatus: "no",
-  },
-  {
-    category: "Lead data",
+    category: "Lead sourcing",
     feature: "Google Maps lead scraper (niche + city)",
-    dialeads: "Built in",
+    xovra: "Built in",
     dialStatus: "yes",
-    rival: "No",
+    rival: "No, bring your own list",
     rivalStatus: "no",
   },
   {
-    category: "Lead data",
+    category: "Lead sourcing",
     feature: "Website audit and Google Ads detection",
-    dialeads: "Built in",
+    xovra: "Built in",
     dialStatus: "yes",
     rival: "No",
     rivalStatus: "no",
   },
   {
-    category: "Lead data",
+    category: "Lead sourcing",
     feature: "Instagram / Facebook / TikTok presence",
-    dialeads: "Built in",
+    xovra: "Built in",
     dialStatus: "yes",
     rival: "No",
     rivalStatus: "no",
   },
   {
-    category: "Lead data",
+    category: "Lead sourcing",
     feature: "Lead scoring with pitch angles",
-    dialeads: "RUNS_ADS, NO_SITE, WEAK_SITE, STRONG_SITE",
+    xovra: "RUNS_ADS, NO_SITE, WEAK_SITE, STRONG_SITE",
     dialStatus: "yes",
     rival: "No",
     rivalStatus: "no",
   },
   {
-    category: "Lead data",
-    feature: "Real estate list sources",
-    dialeads: "Not specific to real estate",
+    category: "Calling",
+    feature: "Manual one-at-a-time calling",
+    xovra: "Yes, with lead context on screen",
+    dialStatus: "yes",
+    rival: "N/A",
+    rivalStatus: "na",
+  },
+  {
+    category: "Calling",
+    feature: "AI qualifier calls",
+    xovra: "Yes, Telnyx AI assistant that discloses it is AI",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Live AI rebuttals during calls",
+    xovra: "Yes, Claude / Gemini",
+    dialStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Power or predictive dialer",
+    xovra: "No, manual and AI modes only",
     dialStatus: "no",
-    rival: "Strong real estate orientation",
-    rivalStatus: "yes",
+    rival: "No",
+    rivalStatus: "no",
+  },
+  {
+    category: "Calling",
+    feature: "Call recording",
+    xovra: "Not currently offered",
+    dialStatus: "no",
+    rival: "Confirm with vendor",
+    rivalStatus: "na",
   },
   {
     category: "Messaging",
     feature: "Two-way SMS",
-    dialeads: "Yes, via Telnyx",
+    xovra: "Yes, via Telnyx",
     dialStatus: "yes",
-    rival: "Confirm current texting options",
+    rival: "Text options available; confirm current features",
     rivalStatus: "na",
   },
   {
     category: "Workflow",
     feature: "Campaign management",
-    dialeads: "Manual and AI modes",
+    xovra: "Manual and AI modes",
     dialStatus: "yes",
-    rival: "Call lists and queues",
+    rival: "Voicemail campaigns",
     rivalStatus: "yes",
   },
   {
     category: "Workflow",
     feature: "Call scripts with per-lead placeholders",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
-    rival: "Confirm with vendor",
-    rivalStatus: "na",
+    rival: "Message audio, not scripts",
+    rivalStatus: "partial",
   },
   {
     category: "Workflow",
     feature: "Google Sheet integration",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -264,15 +264,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Workflow",
     feature: "CRM integrations",
-    dialeads: "Not currently offered",
-    dialStatus: "no",
-    rival: "Confirm with vendor",
-    rivalStatus: "na",
-  },
-  {
-    category: "Workflow",
-    feature: "Call recording",
-    dialeads: "Not currently offered",
+    xovra: "Not currently offered",
     dialStatus: "no",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -280,7 +272,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Compliance",
     feature: "Suppression list",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -288,7 +280,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Compliance",
     feature: "Calling windows (8am to 9pm) and attempt caps",
-    dialeads: "Yes, enforced in campaigns",
+    xovra: "Yes, enforced in campaigns",
     dialStatus: "yes",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -296,7 +288,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Compliance",
     feature: "AI disclosure on AI calls",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
     rival: "N/A",
     rivalStatus: "na",
@@ -304,7 +296,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Teams",
     feature: "Multi-tenant orgs, roles and invites",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -312,17 +304,17 @@ const comparisonRows: TableRow[] = [
   {
     category: "Teams",
     feature: "Number pools with health monitoring",
-    dialeads: "Yes",
+    xovra: "Yes",
     dialStatus: "yes",
-    rival: "Confirm with vendor",
+    rival: "N/A",
     rivalStatus: "na",
   },
   {
     category: "Pricing",
     feature: "Pricing model",
-    dialeads: "Usage-based: $0.02/min manual, $0.25/min AI, $0.03/SMS",
+    xovra: "Usage-based: $0.02/min manual, $0.25/min AI, $0.03/SMS",
     dialStatus: "yes",
-    rival: "See Mojo for current pricing",
+    rival: "See Drop Cowboy for current pricing",
     rivalStatus: "na",
   },
 ];
@@ -330,116 +322,117 @@ const comparisonRows: TableRow[] = [
 const differences = [
   {
     num: "01",
-    title: "Lines per rep: throughput vs context",
+    title: "One-way message vs two-way conversation",
     rival:
-      "Mojo dials several lines at once and connects you to whoever answers first. For a rep working a big list, that removes a lot of dead time and is the whole reason power dialers exist.",
-    dialeads:
-      "Dialeads calls one lead at a time from a browser softphone. You make fewer dials per hour, and each one starts with the lead's website audit, ad status, social presence and pitch angle in front of you. The trade is volume for preparation.",
+      "A ringless voicemail lands in the prospect's mailbox without ringing the phone. The prospect decides whether to listen and whether to call back. You find out about interest only if they respond.",
+    xovra:
+      "Xovra is built around the call itself. A rep dials from the browser with the lead's details on screen, or an AI qualifier calls and asks your qualifying questions. You hear the answer, handle the objection and book the next step in the same moment.",
   },
   {
     num: "02",
-    title: "Where the leads come from",
+    title: "Where the list comes from",
     rival:
-      "Mojo is a calling tool. You supply the list, whether from your own research, a purchased list or a real estate data source, and Mojo works through it.",
-    dialeads:
-      "Dialeads sources leads itself. Give it a niche and a city and the Google Maps scraper builds the list, then enrichment and scoring run on it. If your leads are local businesses, that removes a separate research step. If your leads are homeowners, it is not the right source.",
+      "Voicemail platforms generally expect you to arrive with a contact list. Sourcing, cleaning and researching that list happens somewhere else.",
+    xovra:
+      "Xovra includes a Google Maps scraper. Enter a niche and a city, and it pulls local businesses into your lead list. Because the sourcing is inside the product, you can go from an idea to a callable list without exporting and importing spreadsheets.",
   },
   {
     num: "03",
-    title: "AI doing the first conversation",
+    title: "Context on each lead",
     rival:
-      "Mojo is built so a human rep handles the connected call. The dialer's job is to get a person on the line faster.",
-    dialeads:
-      "In AI mode, a Telnyx AI assistant calls and qualifies the lead against your script, and it discloses that it is AI. A rep then follows up on the leads that qualified. This is a different model: the AI does the first pass instead of the dialer speeding up the rep.",
+      "A voicemail drop is typically the same recording sent to everyone on the list. Personalization is limited by what a pre-recorded message can do.",
+    xovra:
+      "Every Xovra lead is enriched: website audit, Google Ads detection, and Instagram, Facebook and TikTok presence. Leads get a pitch angle (RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE) and your call script fills per-lead placeholders, so the opener fits the business you are calling.",
   },
   {
     num: "04",
-    title: "Help when the prospect objects",
-    rival: "Mojo does not generate rebuttals. Rep skill, scripts and training handle objections.",
-    dialeads:
-      "During a live call, Dialeads can suggest rebuttals using Claude or Gemini. It is useful for newer reps and for objections you do not hear every day. It does not replace practice and it will not be right every time.",
+    title: "Handling objections",
+    rival:
+      "There is no live moment in a voicemail drop, so there is nothing to rebut. The message either earns a callback or it does not.",
+    xovra:
+      "During a live call, Xovra can surface AI-generated rebuttal suggestions using Claude or Gemini, so a newer rep has something to say when a prospect pushes back. It is assistance for the rep, not a replacement for judgment.",
   },
   {
     num: "05",
-    title: "Industry fit",
+    title: "Follow-up after the touch",
     rival:
-      "Mojo has a strong real estate following. Its workflow and positioning are shaped by investors and agents calling homeowner lists.",
-    dialeads:
-      "Dialeads is not specific to real estate. Its lead sourcing is aimed at local businesses found on Google Maps, such as agencies selling websites, ads or marketing services to them. Different buyer, different tool.",
+      "After a drop, follow-up depends on what you set up around it, and on the prospect calling you back.",
+    xovra:
+      "Two-way SMS over Telnyx sits in the same lead record as the call history. You can text after a call and read replies without switching tools. Campaign attempt caps and 8am to 9pm calling windows keep follow-up inside the guardrails.",
   },
 ];
 
 const rivalStrengths = {
-  intro: "Mojo has real advantages over Dialeads, and for some teams they decide the question.",
+  intro: "If voicemail drops are the strategy, Drop Cowboy does the thing Xovra deliberately does not do.",
   items: [
     {
-      title: "Multi-line dialing throughput",
-      body: "Dialeads has no power or predictive dialer. If you need to maximize live connects per hour from a large list, Mojo's multi-line approach will get you there faster than one-at-a-time calling.",
+      title: "Ringless voicemail is its core product",
+      body: "Xovra has no voicemail drop feature at all. If your campaign depends on delivering a recorded message without ringing the phone, Drop Cowboy is the relevant tool and Xovra is not a substitute.",
     },
     {
-      title: "Real estate focus",
-      body: "Mojo has a long record with real estate investors and agents. If you call homeowner lists, you will find more of your peers, workflows and list sources around Mojo than around Dialeads.",
+      title: "Reach without rep time",
+      body: "A voicemail drop does not need a rep on the line, or an AI minute. For pure message delivery to a large list, one-way delivery can be a lighter lift than running calls.",
     },
     {
-      title: "Maturity",
-      body: "Mojo has been used by high-volume callers for years. Dialeads is newer and in early access, so expect a narrower and still-growing feature set.",
+      title: "Simple to understand",
+      body: "Upload audio, pick a list, send. A narrow product can be easier to evaluate and to run than a platform with lead sourcing, enrichment, scoring, calling and SMS.",
     },
     {
-      title: "Built for the dial-all-day rep",
-      body: "If a rep's day is almost entirely on the phone with a prepared list, a tool tuned for that rhythm can feel better than a platform that also does sourcing, enrichment and AI.",
+      title: "Established in its category",
+      body: "Voicemail delivery is what Drop Cowboy does every day. If that is the single capability you need, a focused vendor is a reasonable choice.",
     },
   ],
 };
 
 const workflowSteps = {
-  heading: "What a Dialeads calling session looks like",
+  heading: "What a Xovra workflow looks like",
   intro:
-    "A typical Dialeads session is slower per dial and heavier on preparation. Here is what happens, using only features that exist today.",
+    "Xovra takes you from nothing to a conversation inside one product. Here is the sequence, using only what the product does today.",
   items: [
     {
       tag: "Source",
-      title: "Build a list from Google Maps",
-      body: "Choose a niche and city and let the scraper pull local businesses into a lead list. Or connect a Google Sheet you already maintain.",
+      title: "Scrape leads from Google Maps",
+      body: "Pick a niche, such as roofers or dentists, and a city. Xovra pulls matching local businesses into a lead list. You can also connect a Google Sheet.",
     },
     {
       tag: "Enrich",
-      title: "Audit before you dial",
-      body: "Website audit, Google Ads detection and Instagram, Facebook and TikTok presence are attached to each lead.",
+      title: "Audit the website and socials",
+      body: "Each lead gets a website audit, Google Ads detection, and Instagram, Facebook and TikTok presence, so you are not calling cold in the literal sense.",
     },
     {
       tag: "Score",
-      title: "Sort by pitch angle",
-      body: "Leads are labeled RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE, so you can work the group that matches your offer first.",
+      title: "Get a pitch angle",
+      body: "Leads are tagged RUNS_ADS, NO_SITE, WEAK_SITE or STRONG_SITE. The tag tells you which opener fits the business.",
+    },
+    {
+      tag: "Script",
+      title: "Write a script with placeholders",
+      body: "Call scripts support per-lead placeholders, so the business name and enrichment details drop into the script automatically.",
     },
     {
       tag: "Call",
-      title: "Dial from the browser",
-      body: "Place calls through the WebRTC softphone, one lead at a time, with the script and enrichment visible while you talk.",
+      title: "Dial manually or hand off to AI",
+      body: "Call from the browser softphone one lead at a time, or run a campaign in AI mode where a Telnyx AI assistant qualifies the lead and discloses that it is AI.",
     },
     {
-      tag: "Assist",
-      title: "Use live rebuttals",
-      body: "When the prospect objects, Claude or Gemini can suggest a response during the call.",
-    },
-    {
-      tag: "Delegate",
-      title: "Let AI qualify the rest",
-      body: "Run a campaign in AI mode so the Telnyx AI assistant makes first-pass qualifier calls, with AI disclosure, within your calling window and attempt cap.",
+      tag: "Follow up",
+      title: "Text and track",
+      body: "Send and receive SMS from the same lead record. Suppression, calling windows and attempt caps are applied through the campaign.",
     },
   ],
 };
 
 const rivalPricing = {
-  title: "Priced as a dialer subscription",
-  body: "Dialers like Mojo are typically sold as a subscription, with options that vary by plan and by the number of lines. We are not quoting Mojo's current prices because they change and we would rather send you to the source.",
+  title: "Priced around message delivery",
+  body: "Voicemail platforms typically price around delivery volume. We are not going to quote Drop Cowboy's numbers because plans and rates change, and a stale figure on a comparison page helps nobody.",
   points: [
-    "Check Mojo's own pricing page for current plans.",
-    "Pricing varies by plan and features.",
-    "List costs are separate from the dialer.",
+    "Check Drop Cowboy's own pricing page for current rates.",
+    "Pricing varies by volume and features you use.",
+    "Your lead list is a separate cost and a separate task.",
   ],
 };
 
-const dialeadsRates = [
+const xovraRates = [
   {
     label: "Manual calling",
     price: "$0.02",
@@ -462,151 +455,152 @@ const dialeadsRates = [
 
 const useCases = [
   {
-    title: "Calling large homeowner lists all day",
-    winner: "Mojo Dialer",
+    title: "You want to broadcast a voicemail to a large list",
+    winner: "Drop Cowboy",
     rival:
-      "This is the core use case. Multi-line dialing and a real estate-oriented workflow are the reason to choose it.",
-    dialeads:
-      "Not the right fit. One-at-a-time calling is slower, and Dialeads has no homeowner list sourcing.",
+      "Purpose-built for exactly this: a recorded message delivered to many numbers without ringing the phone.",
+    xovra:
+      "Not a fit. Xovra has no voicemail drop feature, and we would rather say so than imply otherwise.",
   },
   {
-    title: "Selling websites, ads or marketing to local businesses",
-    winner: "Dialeads",
-    rival: "You would bring your own list and research each business separately before or during the call.",
-    dialeads:
-      "Scrape the niche and city, see who runs ads or has a weak site, and open with that angle. The sourcing and research are part of the product.",
-  },
-  {
-    title: "A newer rep who needs support on calls",
-    winner: "Dialeads",
-    rival: "A dialer gets the rep on more calls, which is good practice but offers no in-call help.",
-    dialeads:
-      "Per-lead context on screen, a script with placeholders and live AI rebuttal suggestions give a newer rep something to lean on.",
-  },
-  {
-    title: "Offloading first-pass qualifying",
-    winner: "Dialeads",
-    rival: "Rep time is the constraint. A faster dialer helps but a human is still on each call.",
-    dialeads:
-      "AI qualifier calls handle first-pass questions, disclosed as AI, so reps spend time on leads that already responded.",
-  },
-  {
-    title: "You need a CRM sync or call recording today",
-    winner: "Mojo Dialer",
+    title: "Selling services to local businesses",
+    winner: "Xovra",
     rival:
-      "Confirm the exact CRM and recording options with the vendor, but a mature dialer is more likely to cover them.",
-    dialeads:
-      "Neither CRM integrations nor call recording is currently offered. Google Sheets is the available integration.",
+      "You would need to source and research the businesses elsewhere, then deliver a message that cannot adapt to what each business is doing.",
+    xovra:
+      "Scrape the niche and city, see who runs ads or has a weak site, and open the call with a relevant angle. This is the use case the product is designed around.",
+  },
+  {
+    title: "Small team, no dedicated SDRs",
+    winner: "Xovra",
+    rival:
+      "Low rep effort per contact, but also no conversation. Interest is only visible if someone calls back.",
+    xovra:
+      "AI qualifier calls can do first-pass qualification, with the AI disclosed, so a human only picks up leads that responded. Manual calling stays available when you want to take the call yourself.",
+  },
+  {
+    title: "You need a call recording archive",
+    winner: "Either",
+    rival: "Confirm current recording options with the vendor.",
+    xovra:
+      "Call recording is not currently offered. If recording is a hard requirement, factor that in before choosing.",
+  },
+  {
+    title: "Testing outbound on a tight budget",
+    winner: "Either",
+    rival: "Review the vendor's current pricing and any minimums.",
+    xovra:
+      "There are no subscription tiers, so you can start with a small number of minutes. Manual calls are $0.02/min, AI calls $0.25/min and SMS $0.03/message.",
   },
 ];
 
 const switchingSteps = {
-  heading: "Trying Dialeads alongside Mojo",
+  heading: "Can you use both?",
   intro:
-    "You do not have to choose one forever. Many teams would test a new approach on a segment of their calling before changing anything.",
+    "Nothing about Xovra conflicts with a voicemail tool. Some teams run both channels, and the practical steps below cover starting with Xovra.",
   items: [
     {
-      title: "Pick one segment to test",
-      body: "Choose a niche and city where context matters, such as local service businesses, rather than your largest homeowner list.",
+      title: "Decide what you want from each touch",
+      body: "If you want a conversation, Xovra is the right side. If a campaign relies on a ringless drop, keep that in a voicemail tool. They do different jobs.",
     },
     {
-      title: "Scrape and enrich it in Dialeads",
-      body: "Let the Google Maps scraper and enrichment build the list, then look at the pitch angles assigned to each lead.",
+      title: "Bring your list or build one",
+      body: "You can scrape a fresh list from Google Maps by niche and city, or connect a Google Sheet that already holds your contacts.",
     },
     {
-      title: "Call a few manually",
-      body: "Use the browser softphone and your script. Notice whether the enrichment changes how the first thirty seconds go.",
+      title: "Let enrichment and scoring run",
+      body: "Xovra audits the website, checks for Google Ads and finds social profiles, then assigns a pitch angle to each lead.",
     },
     {
-      title: "Try AI mode on a small batch",
-      body: "Run a limited AI qualifier campaign, review how it handled the conversations and adjust the script.",
+      title: "Set up a campaign and a script",
+      body: "Choose manual or AI mode, write a script with per-lead placeholders and set your calling window and attempt cap.",
     },
     {
-      title: "Compare outcomes, not dial counts",
-      body: "Mojo will win on dials per hour. The fair question is how many qualified conversations you got for the time and money spent.",
+      title: "Start with a few calls",
+      body: "Because pricing is usage-based, you can start with a handful of minutes and judge the conversations before scaling up.",
     },
   ],
 };
 
 const chooseRival = [
-  "Dials per hour is the metric you are trying to move",
-  "You call prepared lists, especially real estate lists, all day",
-  "You want multi-line dialing",
-  "You need a mature product with a long track record",
-  "You do not need lead sourcing or AI qualifier calls",
+  "Your strategy is ringless voicemail delivery to a list",
+  "You do not need live calls, AI qualifying or lead sourcing",
+  "You already have a clean list and a way to handle callbacks",
+  "You want a narrow tool that does one thing",
+  "You need voicemail features Xovra does not offer",
 ];
 
-const chooseDialeads = [
-  "You sell to local businesses and want Google Maps sourcing built in",
-  "You want website, ads and social context before each call",
+const chooseXovra = [
+  "You want live conversations with prospects, not one-way messages",
+  "You sell to local businesses and want Google Maps lead sourcing built in",
+  "You want website, ads and social context on a lead before you dial",
   "You want AI qualifier calls with clear AI disclosure",
-  "You want live rebuttal suggestions for your reps",
-  "You prefer usage-based pricing without subscription tiers",
-  "You are fine trading some dialing volume for better-prepared calls",
+  "You prefer usage-based pricing over a subscription tier",
+  "You want calling, SMS and lead data in one place",
 ];
 
 const faqItems = [
   {
-    question: "Does Dialeads have a power dialer like Mojo?",
+    question: "Does Xovra do ringless voicemail drops?",
     answer:
-      "No. Dialeads has manual one-at-a-time calling from a browser softphone and an AI mode for qualifier calls. There is no power, triple-line or predictive dialer. If multi-line throughput is a requirement, Mojo is the stronger choice.",
+      "No. Xovra does not offer ringless voicemail or voicemail drops. It is an AI-powered cold calling platform: manual calls from a browser softphone, AI qualifier calls, and two-way SMS. If voicemail drops are essential to your campaign, Drop Cowboy is the relevant tool.",
   },
   {
-    question: "Is Dialeads good for real estate?",
+    question: "Is Xovra a replacement for Drop Cowboy?",
     answer:
-      "It is not built specifically for real estate. Its lead sourcing is the Google Maps scraper, which finds local businesses. Teams calling homeowner lists will likely be better served by a real estate-oriented dialer.",
+      "Only if you are changing strategy. Drop Cowboy delivers voicemails; Xovra helps you find leads and talk to them. Teams who want conversations often move to Xovra. Teams who specifically want voicemail delivery should stay with a voicemail tool.",
   },
   {
-    question: "Can I import my existing lists?",
+    question: "How much does Xovra cost compared with Drop Cowboy?",
     answer:
-      "Dialeads supports a Google Sheet integration, so you can bring leads in from a sheet. You can also scrape new leads from Google Maps.",
+      "Xovra is usage-based: $0.02 per minute for manual calling, $0.25 per minute for AI calls and $0.03 per SMS, with no subscription tiers. For Drop Cowboy, check their pricing page for current rates. We do not publish a savings figure because the products are not doing the same job.",
   },
   {
-    question: "How does Dialeads pricing compare with Mojo?",
+    question: "Can Xovra find leads for me?",
     answer:
-      "Dialeads is usage-based: $0.02 per minute for manual calls, $0.25 per minute for AI calls and $0.03 per SMS, with no subscription tiers. For Mojo, check their pricing page for current plans. We do not publish a savings figure.",
+      "Yes. The Google Maps scraper pulls local businesses by niche and city. Leads are then enriched with a website audit, Google Ads detection and Instagram, Facebook and TikTok presence, and scored with a pitch angle.",
   },
   {
-    question: "Does the AI caller disclose that it is AI?",
+    question: "Does the AI caller pretend to be human?",
     answer:
-      "Yes. AI qualifier calls run on a Telnyx AI assistant and disclose that the caller is AI. AI disclosure is part of the compliance guardrails in campaigns.",
+      "No. AI qualifier calls run on a Telnyx AI assistant and disclose that the caller is AI. AI disclosure is one of the compliance guardrails built into campaigns.",
   },
   {
-    question: "What compliance controls does Dialeads have?",
+    question: "Does Xovra have a power dialer?",
     answer:
-      "A suppression list, calling windows between 8am and 9pm, attempt caps and AI disclosure. These are guardrails, not legal advice, and you remain responsible for how you use any calling tool.",
+      "No. Calling is manual, one lead at a time from the browser, or AI mode for qualifier calls. There is no power or predictive dialer.",
   },
   {
-    question: "Can multiple people use one Dialeads account?",
+    question: "Does Xovra integrate with my CRM?",
     answer:
-      "Yes. Dialeads is multi-tenant, with organizations, roles and invites, and number pools with health monitoring.",
+      "Not currently. There are no CRM integrations. Xovra does connect to Google Sheets, so you can move lead data in and out that way.",
   },
   {
     question: "How do I get started?",
     answer:
-      "Dialeads is in early access. Use the Get Early Access button, or book a demo and we will walk through a Google Maps scrape and a first call.",
+      "Xovra is in early access. Use the Get Early Access button to join, or book a demo and we will walk through scraping a niche, enriching the leads and placing a call.",
   },
 ];
 
 const relatedComparisons = [
   {
-    href: "/compare/dialeads-vs-calltools",
-    label: "Dialeads vs CallTools",
+    href: "/compare/xovra-vs-slybroadcast",
+    label: "Xovra vs Slybroadcast",
+    blurb: "Another ringless voicemail service, compared to live AI calling.",
+  },
+  {
+    href: "/compare/xovra-vs-mojo-dialer",
+    label: "Xovra vs Mojo Dialer",
+    blurb: "Multi-line power dialing vs AI-assisted calling with lead sourcing.",
+  },
+  {
+    href: "/compare/xovra-vs-calltools",
+    label: "Xovra vs CallTools",
     blurb: "Call center software vs a lightweight browser-based platform.",
-  },
-  {
-    href: "/compare/dialeads-vs-drop-cowboy",
-    label: "Dialeads vs Drop Cowboy",
-    blurb: "Voicemail drops vs live conversations.",
-  },
-  {
-    href: "/compare/dialeads-vs-slybroadcast",
-    label: "Dialeads vs Slybroadcast",
-    blurb: "Voicemail-only service vs AI cold calling.",
   },
 ];
 
-const dialeadsPillars = [
+const xovraPillars = [
   {
     icon: MapPin,
     title: "Built-in lead sourcing",
@@ -658,7 +652,7 @@ function StatusIcon({ status, className }: { status: Status; className?: string 
 
 /* ─── Component ────────────────────────────────────────── */
 
-export default function DialeadsVsMojoDialerPage() {
+export default function XovraVsDropCowboyPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [category, setCategory] = useState<string>("All");
 
@@ -677,7 +671,7 @@ export default function DialeadsVsMojoDialerPage() {
           <ChevronRight className="w-3 h-3" />
           <span>Comparisons</span>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-[#0b1c30] font-medium">Dialeads vs {RIVAL}</span>
+          <span className="text-[#0b1c30] font-medium">Xovra vs {RIVAL}</span>
         </nav>
       </div>
 
@@ -753,7 +747,7 @@ export default function DialeadsVsMojoDialerPage() {
                   <span className="text-xs font-semibold text-[#d2bbff] uppercase tracking-wider">
                     {hero.dialTag}
                   </span>
-                  <h3 className="text-xl font-bold text-white">Dialeads</h3>
+                  <h3 className="text-xl font-bold text-white">Xovra</h3>
                 </div>
                 <span className="text-xs bg-[#630ed4] text-white px-2.5 py-1 rounded font-medium">
                   {hero.dialPill}
@@ -827,7 +821,7 @@ export default function DialeadsVsMojoDialerPage() {
                     DL
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-[#0b1c30]">Dialeads is for</h3>
+                    <h3 className="text-xl font-bold text-[#0b1c30]">Xovra is for</h3>
                     <span className="text-xs text-[#630ed4] font-semibold">{shortAnswer.dialLabel}</span>
                   </div>
                 </div>
@@ -842,20 +836,20 @@ export default function DialeadsVsMojoDialerPage() {
         </div>
       </section>
 
-      {/* WHAT DIALEADS ACTUALLY INCLUDES */}
+      {/* WHAT XOVRA ACTUALLY INCLUDES */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
-              What Dialeads actually includes
+              What Xovra actually includes
             </h2>
             <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
-              Dialeads is an AI-powered cold calling platform. Here is the product, stated plainly, so the
+              Xovra is an AI-powered cold calling platform. Here is the product, stated plainly, so the
               comparison below has something concrete to measure against.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {dialeadsPillars.map((p) => {
+            {xovraPillars.map((p) => {
               const Icon = p.icon;
               return (
                 <div key={p.title} className="p-6 rounded-2xl bg-white border border-[#e3e0f1] shadow-sm">
@@ -890,7 +884,7 @@ export default function DialeadsVsMojoDialerPage() {
               Feature-by-feature comparison
             </h2>
             <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
-              Including the rows where Dialeads says no. A comparison that only lists wins is not much use.
+              Including the rows where Xovra says no. A comparison that only lists wins is not much use.
             </p>
           </div>
 
@@ -917,7 +911,7 @@ export default function DialeadsVsMojoDialerPage() {
               <thead>
                 <tr className="bg-[#213145] text-[#eaf1ff]">
                   <th className="px-5 py-4 font-semibold w-[34%]">Feature</th>
-                  <th className="px-5 py-4 font-semibold w-[33%] text-[#d2bbff]">Dialeads</th>
+                  <th className="px-5 py-4 font-semibold w-[33%] text-[#d2bbff]">Xovra</th>
                   <th className="px-5 py-4 font-semibold w-[33%]">{RIVAL}</th>
                 </tr>
               </thead>
@@ -936,7 +930,7 @@ export default function DialeadsVsMojoDialerPage() {
                     <td className="px-5 py-3.5">
                       <span className={"flex items-start gap-2 " + statusMeta[row.dialStatus].cls}>
                         <StatusIcon status={row.dialStatus} className="w-4 h-4 mt-0.5 shrink-0" />
-                        <span className="text-[#0b1c30]">{row.dialeads}</span>
+                        <span className="text-[#0b1c30]">{row.xovra}</span>
                       </span>
                     </td>
                     <td className="px-5 py-3.5">
@@ -1000,9 +994,9 @@ export default function DialeadsVsMojoDialerPage() {
                   </div>
                   <div className="p-6 bg-[#f8f9ff]">
                     <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-2">
-                      Dialeads
+                      Xovra
                     </div>
-                    <p className="text-[#0b1c30] leading-relaxed">{d.dialeads}</p>
+                    <p className="text-[#0b1c30] leading-relaxed">{d.xovra}</p>
                   </div>
                 </div>
               </div>
@@ -1095,14 +1089,14 @@ export default function DialeadsVsMojoDialerPage() {
             </div>
 
             <div className="lg:col-span-3 p-6 rounded-2xl bg-[#213145] text-[#eaf1ff]">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-1">Dialeads</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] mb-1">Xovra</div>
               <h3 className="text-xl font-bold text-white mb-1">Usage-based, no subscription tiers</h3>
               <p className="text-sm text-[#eaf1ff]/80 mb-5">
                 You pay for the minutes and messages you use. Nothing else is bundled into a plan you have to
                 size up front.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {dialeadsRates.map((r) => (
+                {xovraRates.map((r) => (
                   <div key={r.label} className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <div className="text-xs font-semibold text-[#d2bbff] mb-1">{r.label}</div>
                     <div className="text-3xl font-extrabold text-white leading-none">{r.price}</div>
@@ -1139,7 +1133,7 @@ export default function DialeadsVsMojoDialerPage() {
                   <span
                     className={
                       "text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full " +
-                      (u.winner === "Dialeads"
+                      (u.winner === "Xovra"
                         ? "bg-[#eaddff] text-[#630ed4]"
                         : u.winner === RIVAL
                           ? "bg-[#213145] text-[#eaf1ff]"
@@ -1158,9 +1152,9 @@ export default function DialeadsVsMojoDialerPage() {
                   </div>
                   <div className="p-4 rounded-xl bg-[#eaddff]/40">
                     <div className="text-xs font-bold uppercase tracking-wider text-[#630ed4] mb-1.5">
-                      Dialeads
+                      Xovra
                     </div>
-                    <p className="text-[#0b1c30] leading-relaxed">{u.dialeads}</p>
+                    <p className="text-[#0b1c30] leading-relaxed">{u.xovra}</p>
                   </div>
                 </div>
               </div>
@@ -1215,9 +1209,9 @@ export default function DialeadsVsMojoDialerPage() {
               </ul>
             </div>
             <div className="p-7 rounded-2xl bg-[#eaddff]/40 border border-[#d2bbff] shadow-sm">
-              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose Dialeads if</h3>
+              <h3 className="text-xl font-bold text-[#0b1c30] mb-4">Choose Xovra if</h3>
               <ul className="space-y-3">
-                {chooseDialeads.map((c) => (
+                {chooseXovra.map((c) => (
                   <li key={c} className="flex items-start gap-2.5 text-sm text-[#0b1c30] leading-relaxed">
                     <Check className="w-4 h-4 text-[#630ed4] mt-0.5 shrink-0" />
                     {c}
@@ -1234,7 +1228,7 @@ export default function DialeadsVsMojoDialerPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0b1c30]">
-              Dialeads vs {RIVAL}: common questions
+              Xovra vs {RIVAL}: common questions
             </h2>
           </div>
           <div className="space-y-3">

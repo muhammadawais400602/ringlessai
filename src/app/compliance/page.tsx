@@ -126,7 +126,7 @@ const tcpaFacts = [
   {
     icon: ListChecks,
     title: "Registries are your job",
-    body: "National and state Do Not Call registries may apply to your list. Dialeads does not check those registries for you, so scrub your lists before you import them.",
+    body: "National and state Do Not Call registries may apply to your list. Xovra does not check those registries for you, so scrub your lists before you import them.",
   },
 ];
 
@@ -137,7 +137,7 @@ const tenDlc = [
   },
   {
     title: "Who does it",
-    body: "You do. Registration is done directly with Telnyx under your own brand and campaign. Dialeads does not handle it and has no registration wizard.",
+    body: "You do. Registration is done directly with Telnyx under your own brand and campaign. Xovra does not handle it and has no registration wizard.",
   },
   {
     title: "When you need it",
@@ -150,7 +150,7 @@ const tenDlc = [
 ];
 
 const responsibilities = [
-  { who: "Dialeads", items: [
+  { who: "Xovra", items: [
     "Enforces suppression, calling window, and attempt cap on the server",
     "Detects STOP and UNSUBSCRIBE replies and suppresses the number",
     "Has the AI state it is an AI at the start of every AI call",
@@ -176,8 +176,8 @@ const notProvided = [
 
 const faqs = [
   {
-    q: "Does Dialeads make my outreach TCPA compliant?",
-    a: "No tool can do that on its own. Dialeads enforces some guardrails, namely suppression, calling windows, and attempt caps, and has AI calls disclose themselves. Whether your outreach is lawful also depends on your lists, your consent, and your content. Talk to a lawyer about your situation.",
+    q: "Does Xovra make my outreach TCPA compliant?",
+    a: "No tool can do that on its own. Xovra enforces some guardrails, namely suppression, calling windows, and attempt caps, and has AI calls disclose themselves. Whether your outreach is lawful also depends on your lists, your consent, and your content. Talk to a lawyer about your situation.",
   },
   {
     q: "What happens when someone replies STOP?",
@@ -192,12 +192,12 @@ const faqs = [
     a: "The cap is configurable and the default is 6. Higher caps increase the chance of harassing a contact, so think about it carefully.",
   },
   {
-    q: "Does Dialeads check the Do Not Call registry?",
+    q: "Does Xovra check the Do Not Call registry?",
     a: "No. There is no DNC registry lookup. If DNC rules apply to your list, scrub it before importing.",
   },
   {
     q: "Is 10DLC registration included?",
-    a: "No. You register with Telnyx yourself. Dialeads has no registration wizard and does not manage your campaign status.",
+    a: "No. You register with Telnyx yourself. Xovra has no registration wizard and does not manage your campaign status.",
   },
   {
     q: "Do AI calls say they are AI?",
@@ -225,7 +225,7 @@ export default function CompliancePage() {
           <span className="block text-[#630ed4]">every outbound attempt.</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455] leading-relaxed">
-          Dialeads checks suppression, calling hours, and attempt limits on the
+          Xovra checks suppression, calling hours, and attempt limits on the
           server before any call or text goes out. Here is exactly what exists,
           and what is still your responsibility.
         </p>
@@ -262,7 +262,7 @@ export default function CompliancePage() {
       {/* Features */}
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold">What Dialeads enforces</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">What Xovra enforces</h2>
           <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
             These are the compliance features that exist in the product today.
           </p>
@@ -412,7 +412,7 @@ export default function CompliancePage() {
         <div className="bg-white border border-[#e3e0f1] rounded-3xl p-8 md:p-10">
           <div className="flex items-center gap-3">
             <FileText className="w-6 h-6 text-[#630ed4]" />
-            <h2 className="text-2xl font-bold">What Dialeads does not provide</h2>
+            <h2 className="text-2xl font-bold">What Xovra does not provide</h2>
           </div>
           <p className="mt-3 text-sm text-[#4a4455]">
             Listed plainly so you can plan around it.

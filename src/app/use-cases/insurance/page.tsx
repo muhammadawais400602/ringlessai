@@ -39,7 +39,7 @@ const hero = {
   badge: "Built for insurance agents and IMOs",
   title: "Find business owners who need coverage,",
   titleAccent: "pre-screen interest with AI, and stay inside the rules.",
-  sub: "Dialeads scrapes Google Maps for businesses in your target area, enriches each with website and social data, and lets an AI qualifier or your agents make the call. Calling windows, suppression lists, and attempt caps are built in.",
+  sub: "Xovra scrapes Google Maps for businesses in your target area, enriches each with website and social data, and lets an AI qualifier or your agents make the call. Calling windows, suppression lists, and attempt caps are built in.",
   checks: [
     "Calling windows enforced",
     "Suppression lists",
@@ -195,7 +195,7 @@ const workflow = [
   },
   {
     title: "Scrape and review",
-    body: "Dialeads builds the enriched, scored sheet. Remove businesses you do not write.",
+    body: "Xovra builds the enriched, scored sheet. Remove businesses you do not write.",
   },
   {
     title: "Create the campaign",
@@ -302,7 +302,7 @@ const limits = [
 
 const faqs = [
   {
-    q: "Does Dialeads include consumer insurance leads?",
+    q: "Does Xovra include consumer insurance leads?",
     a: "No. Leads come from Google Maps, so it fits commercial and small-business prospecting. It does not sell or supply lead lists for Medicare, ACA, or final expense.",
   },
   {
@@ -311,14 +311,14 @@ const faqs = [
   },
   {
     q: "How do I handle do-not-call requests?",
-    a: "Add numbers to a suppression list. Dialeads also detects opt-outs in SMS replies. You remain responsible for honoring all applicable do-not-call rules.",
+    a: "Add numbers to a suppression list. Xovra also detects opt-outs in SMS replies. You remain responsible for honoring all applicable do-not-call rules.",
   },
   {
     q: "Can I run separate campaigns for each product line?",
     a: "Yes. Each campaign has its own brief, greeting, script, and lead sheet, and can run in manual or AI mode.",
   },
   {
-    q: "Is Dialeads compliant for me?",
+    q: "Is Xovra compliant for me?",
     a: "It provides compliance tools such as calling windows, suppression, attempt caps, and AI disclosure. Compliance with the law depends on how you use them and your own consent practices.",
   },
   {
@@ -468,9 +468,9 @@ export default function InsurancePage() {
         <div className="max-w-[75rem] mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-[28px] leading-[34px] lg:text-[40px] lg:leading-[46px] font-bold tracking-tight text-[#0b1c30] mb-3">
-              {"Who uses Dialeads in insurance"}
+              {"Who uses Xovra in insurance"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"Dialeads is built for prospecting business owners found on Google Maps, not for purchased consumer lead lists."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Xovra is built for prospecting business owners found on Google Maps, not for purchased consumer lead lists."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {profiles.map((p) => (
@@ -505,7 +505,7 @@ export default function InsurancePage() {
                 </div>
                 <div className="p-6 lg:p-8 bg-[#213145] text-[#eaf1ff] flex flex-col gap-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d2bbff]">
-                    <p.icon className="w-4 h-4" /> How Dialeads helps
+                    <p.icon className="w-4 h-4" /> How Xovra helps
                   </span>
                   <p className="text-sm leading-6">{p.fix}</p>
                 </div>
@@ -647,7 +647,7 @@ export default function InsurancePage() {
             <h2 className="text-[28px] leading-[34px] lg:text-[36px] lg:leading-[42px] font-bold tracking-tight text-[#0b1c30] mb-3">
               {"Built-in guardrails for regulated outreach"}
             </h2>
-            <p className="text-base leading-7 text-[#4a4455]">{"Insurance calling is regulated at federal and state levels. Dialeads gives you controls, and you remain responsible for following the law."}</p>
+            <p className="text-base leading-7 text-[#4a4455]">{"Insurance calling is regulated at federal and state levels. Xovra gives you controls, and you remain responsible for following the law."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {compliance.map((c) => (
@@ -663,7 +663,7 @@ export default function InsurancePage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-6 text-[#4a4455] max-w-3xl">
-            Dialeads provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
+            Xovra provides the tools. You remain responsible for complying with applicable calling, texting, and consent laws, and for registering your own 10DLC brand and campaign with your carrier before sending SMS at volume.{" "}
             <Link href="/compliance" className="text-[#630ed4] font-semibold underline">Read the compliance overview</Link>.
           </p>
         </div>
@@ -692,7 +692,7 @@ export default function InsurancePage() {
             <Link href="/pricing" className="text-[#630ed4] font-semibold underline">See full pricing</Link>.
           </p>
           <div className="mt-10 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Dialeads does not do</h3>
+            <h3 className="text-base font-bold text-[#0b1c30] mb-4">What Xovra does not do</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {limits.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-sm leading-6 text-[#4a4455]">

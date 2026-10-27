@@ -120,7 +120,7 @@ const howItFits = [
     step: "1",
     icon: Table,
     title: "Leads arrive",
-    body: "Scrape Google Maps inside Dialeads, or bring leads from a Google Sheet.",
+    body: "Scrape Google Maps inside Xovra, or bring leads from a Google Sheet.",
   },
   {
     step: "2",
@@ -151,7 +151,7 @@ const comingSoon = [
   {
     icon: Zap,
     title: "Zapier",
-    body: "A way to connect Dialeads events to the other tools you use.",
+    body: "A way to connect Xovra events to the other tools you use.",
   },
   {
     icon: Workflow,
@@ -162,7 +162,7 @@ const comingSoon = [
 
 const faqItems = [
   {
-    q: "Does Dialeads integrate with Salesforce, Pipedrive, Close, or GoHighLevel?",
+    q: "Does Xovra integrate with Salesforce, Pipedrive, Close, or GoHighLevel?",
     a: "Not today. The only CRM-facing feature is the HubSpot-compatible CSV export. CRM sync is on our list of things we may build, but there is no date.",
   },
   {
@@ -171,7 +171,7 @@ const faqItems = [
   },
   {
     q: "Can I use my own telephony provider?",
-    a: "Dialeads is built on Telnyx for voice, SMS, and AI assistants. There is no option to swap in a different carrier.",
+    a: "Xovra is built on Telnyx for voice, SMS, and AI assistants. There is no option to swap in a different carrier.",
   },
   {
     q: "Which AI model should I pick, Claude or Gemini?",
@@ -204,7 +204,7 @@ export default function IntegrationsPage() {
           <span className="block text-[#630ed4]">honestly described.</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455] leading-relaxed">
-          Dialeads connects to Telnyx, Google Sheets, Claude, Gemini, and a
+          Xovra connects to Telnyx, Google Sheets, Claude, Gemini, and a
           HubSpot-compatible CSV export. That is the full list today.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
@@ -277,7 +277,7 @@ export default function IntegrationsPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-[#4a4455]">
-                    What it does in Dialeads
+                    What it does in Xovra
                   </h3>
                   <ul className="mt-3 space-y-2.5">
                     {i.does.map((d) => (
@@ -363,7 +363,7 @@ export default function IntegrationsPage() {
           })}
         </div>
         <p className="mt-6 text-center text-sm text-[#4a4455]">
-          Need one of these to adopt Dialeads?{" "}
+          Need one of these to adopt Xovra?{" "}
           <Link href="/contact" className="text-[#630ed4] font-semibold underline">
             Tell us
           </Link>{" "}
@@ -417,7 +417,7 @@ export default function IntegrationsPage() {
             Connect Telnyx and start calling
           </h2>
           <p className="mt-3 max-w-xl mx-auto text-[#eaddff]">
-            Bring your Telnyx account, point Dialeads at your leads, and make
+            Bring your Telnyx account, point Xovra at your leads, and make
             your first call from the browser.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">

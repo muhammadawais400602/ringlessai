@@ -51,7 +51,7 @@ const steps = [
     icon: MapPin,
     title: "Scrape leads from Google Maps",
     description:
-      "Enter a niche and a city. Dialeads pulls business listings from Google Maps so you have a fresh, local call list without buying a database.",
+      "Enter a niche and a city. Xovra pulls business listings from Google Maps so you have a fresh, local call list without buying a database.",
   },
   {
     number: "02",
@@ -105,7 +105,7 @@ const features = [
     icon: Zap,
     title: "Live AI Rebuttals",
     description:
-      "Claude or Gemini drafts objection handling during a call, using what Dialeads already knows about the lead.",
+      "Claude or Gemini drafts objection handling during a call, using what Xovra already knows about the lead.",
     href: "/features/objection-rebuttals",
     linkText: "See rebuttals",
   },
@@ -318,7 +318,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg text-[#4a4455] max-w-[680px] mx-auto mb-8 leading-relaxed">
-            Dialeads finds leads on Google Maps, lets you call them from your
+            Xovra finds leads on Google Maps, lets you call them from your
             browser, and can send an AI assistant to qualify prospects for you.
             Outcomes go straight back to your Google Sheet.
           </p>
@@ -596,7 +596,7 @@ export default function Home() {
                 Know the pitch before you dial
               </h2>
               <p className="text-lg text-[#4a4455] mb-6 leading-relaxed">
-                Search Google Maps by niche and city, and Dialeads builds the
+                Search Google Maps by niche and city, and Xovra builds the
                 list. Every business is checked for the things that shape a
                 cold call: how good its website is, whether it runs Google Ads,
                 and where it shows up on social media.
@@ -847,7 +847,7 @@ export default function Home() {
               </h3>
             </div>
             <p className="text-base text-[#4a4455] leading-relaxed max-w-3xl">
-              Add several phone numbers to an organization and Dialeads tracks
+              Add several phone numbers to an organization and Xovra tracks
               the answer rate on each one. A lead always gets called from the
               same number, so the prospect sees a consistent caller ID.
             </p>
@@ -945,7 +945,7 @@ export default function Home() {
                 Compliance is partly yours
               </h3>
               <p className="text-base text-[#4a4455] leading-relaxed">
-                Dialeads enforces calling windows, attempt caps, suppression
+                Xovra enforces calling windows, attempt caps, suppression
                 lists, and AI disclosure. Registering your numbers for SMS
                 (10DLC) and following the rules for your market remain your
                 responsibility.
@@ -970,7 +970,7 @@ export default function Home() {
             <div className="pointer-events-none absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/10 blur-2xl" />
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
               <span className="text-xs font-bold uppercase tracking-widest text-[#eaddff] mb-3">
-                Dialeads
+                Xovra
               </span>
               <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl sm:leading-[56px] mb-4">
                 Get Early Access

@@ -59,7 +59,7 @@ const panelRows = [
   {
     icon: Mic,
     label: "Opening",
-    value: "Hi, this is an AI assistant calling on behalf of the team at Dialeads...",
+    value: "Hi, this is an AI assistant calling on behalf of the team at Xovra...",
   },
   {
     icon: Gauge,
@@ -161,7 +161,7 @@ const dives = [
   {
     eyebrow: "Per-lead context",
     title: "The assistant already knows who it is calling",
-    desc: "Because Dialeads sources and enriches leads itself, the assistant does not start from a blank script. It receives the facts you gathered about the business before the call is placed.",
+    desc: "Because Xovra sources and enriches leads itself, the assistant does not start from a blank script. It receives the facts you gathered about the business before the call is placed.",
     icon: Database,
     panelTitle: "Dynamic variables for one call",
     panelLines: [
@@ -197,7 +197,7 @@ const dives = [
   {
     eyebrow: "Responsible by design",
     title: "Built around disclosure and limits",
-    desc: "AI calling carries real obligations. Dialeads bakes the basics into the product so they are on by default rather than something you have to remember.",
+    desc: "AI calling carries real obligations. Xovra bakes the basics into the product so they are on by default rather than something you have to remember.",
     icon: Scale,
     panelTitle: "Guardrails on AI calls",
     panelLines: [
@@ -259,8 +259,8 @@ const faqs = [
     a: "Voice, SMS and the AI assistant run on Telnyx. SMS in the US requires 10DLC registration, which you complete with Telnyx.",
   },
   {
-    q: "Does Dialeads record or transcribe the calls?",
-    a: "No. Dialeads records outcomes, not audio, and does not provide call recordings or transcripts.",
+    q: "Does Xovra record or transcribe the calls?",
+    a: "No. Xovra records outcomes, not audio, and does not provide call recordings or transcripts.",
   },
 ];
 
@@ -325,7 +325,7 @@ export default function AiCallingPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Dialeads connects a Telnyx AI assistant to your lead list. It places a qualifier call, opens by disclosing that it is an AI, uses what you already know about the business, and hands you a score, an interest level, and a next action."}
+                {"Xovra connects a Telnyx AI assistant to your lead list. It places a qualifier call, opens by disclosing that it is an AI, uses what you already know about the business, and hands you a score, an interest level, and a next action."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
