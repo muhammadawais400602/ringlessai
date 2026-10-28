@@ -1,648 +1,636 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
-  Check,
-  Minus,
-  ChevronDown,
-  Zap,
   ArrowRight,
-  Shield,
   BadgeCheck,
+  Bot,
+  CalendarX,
+  Check,
   CheckCircle2,
-  Radio,
-  Gauge,
-  Ear,
-  Lock,
+  ChevronDown,
+  CircleDollarSign,
+  EyeOff,
+  FileSignature,
+  Headphones,
+  Info,
+  MessageSquare,
+  PhoneCall,
+  Rocket,
   ShieldCheck,
+  Users,
+  Wallet,
+  Receipt,
+  Gauge,
+  Calculator,
+  Clock,
+  Sparkles,
 } from "lucide-react";
 
-const plans = [
+type Rate = {
+  id: string;
+  icon: typeof PhoneCall;
+  title: string;
+  price: string;
+  unit: string;
+  description: string;
+  includes: string[];
+  accent: string;
+  highlighted: boolean;
+};
+
+const rates: Rate[] = [
   {
-    name: "Starter",
-    badge: "Solo / Early-Stage",
-    badgeColor: "bg-[#e5eeff] text-[#4a4455]",
-    monthlyPrice: 29,
-    annualPrice: 23,
-    subtitle:
-      "For solo founders, small agencies, and SDRs testing outbound campaigns.",
-    annualBillingNote: "billed $276 annually",
-    monthlyBillingNote: "billed month-to-month",
-    features: [
-      "1,000 outbound minutes included",
-      "Manual click-to-call with WebRTC softphone",
-      "Up to 500 active leads",
-      "1-click pre-recorded voicemail drop",
-      "Basic SMS and email follow-up templates",
-      "Local caller ID matching",
-      "Email support (24h response)",
+    id: "manual",
+    icon: Headphones,
+    title: "Manual Calling",
+    price: "$0.02",
+    unit: "per minute",
+    description:
+      "One-at-a-time calling from the browser softphone. You decide who to call, and you do the talking.",
+    includes: [
+      "Browser WebRTC softphone over Telnyx",
+      "Per-lead call scripts with placeholders",
+      "Pitch-angle labels on every lead",
+      "Outcome tracking back to your sheet",
     ],
-    icon: "check" as const,
-    cta: "Get Started with Starter",
-    ctaStyle: "surface" as const,
+    accent: "bg-[#e5eeff] text-[#630ed4]",
     highlighted: false,
   },
   {
-    name: "Pro Cadence",
-    badge: "Most Popular",
-    badgeColor: "bg-[#e3e0f1] text-[#630ed4]",
-    monthlyPrice: 49,
-    annualPrice: 39,
-    subtitle:
-      "For growing sales teams and agencies running high-volume outbound campaigns.",
-    annualBillingNote: "billed $468 annually",
-    monthlyBillingNote: "billed month-to-month",
-    features: [
-      "Unlimited outbound calling + voicemail drops",
-      "AI voice agent for autonomous first-touch calls",
-      "Power dialer with local presence (85%+ answer rate)",
-      "Live objection rebuttals (AI Copilot)",
-      "1-click call dispositions + outcome tracking",
-      "Unified inbox with SMS, call recordings, and AI transcripts",
-      "Automated follow-up via SMS, email, and WhatsApp",
-      "10DLC guided campaign registration",
-      "Priority support (Slack + phone)",
+    id: "ai",
+    icon: Bot,
+    title: "AI Qualifier Calling",
+    price: "$0.25",
+    unit: "per minute",
+    description:
+      "An AI assistant places a qualifier call and discloses that it is an AI in the first sentence.",
+    includes: [
+      "Telnyx AI assistant makes the call",
+      "AI disclosure in the opening line",
+      "Live rebuttals via Claude or Gemini",
+      "Server-side suppression, window, and cap checks",
     ],
-    icon: "verified" as const,
-    cta: "Start 14-Day Free Pro Trial",
-    ctaStyle: "primary" as const,
+    accent: "bg-[#eaddff] text-[#630ed4]",
     highlighted: true,
   },
   {
-    name: "Enterprise",
-    badge: "High Capacity",
-    badgeColor: "bg-[#e5eeff] text-[#0b1c30]",
-    monthlyPrice: null,
-    annualPrice: null,
-    subtitle:
-      "For large call centers, multi-team agencies, and high-volume lead generation operations.",
-    annualBillingNote: null,
-    monthlyBillingNote: null,
-    pricingSubtitle: "Tiered volume discounts & multi-seat pools",
-    features: [
-      "Everything in Pro with no volume limits",
-      "Custom AI voice cloning for your brand",
-      "Dedicated SIP trunks and private carrier routes",
-      "Full A2P 10DLC setup and compliance management",
-      "White-label branding and custom domain",
-      "Salesforce, HubSpot, and Close.io bi-directional sync",
-      "Dedicated account manager",
-      "99.99% uptime SLA",
+    id: "sms",
+    icon: MessageSquare,
+    title: "Two-Way SMS",
+    price: "$0.03",
+    unit: "per message part",
+    description:
+      "Send and receive texts through Telnyx. Long messages are billed per part, the same way carriers count them.",
+    includes: [
+      "Outbound billed per message part",
+      "STOP and UNSUBSCRIBE detection",
+      "Replies land in the same inbox",
+      "Rate limited to protect your balance",
     ],
-    icon: "shield" as const,
-    cta: "Contact Sales / Custom Plan",
-    ctaStyle: "dark" as const,
+    accent: "bg-[#e5eeff] text-[#630ed4]",
     highlighted: false,
   },
 ];
 
-const comparisonRows: {
-  label: string;
-  starter: string | boolean;
-  pro: string | boolean;
-  enterprise: string | boolean;
-}[] = [
+const principles = [
   {
-    label: "Monthly Outbound Minutes",
-    starter: "1,000 Included",
-    pro: "Unlimited (Fair Use)",
-    enterprise: "Custom Pool Volume",
+    icon: CalendarX,
+    title: "No monthly minimums",
+    body: "There is no platform fee to keep your account open. If you do not call, you do not pay.",
   },
   {
-    label: "Overage Cost / Minute",
-    starter: "$0.018/min",
-    pro: "$0.012/min",
-    enterprise: "Volume Negotiated",
+    icon: FileSignature,
+    title: "No contracts",
+    body: "No annual commitments and no cancellation penalties. Stop whenever you like.",
   },
   {
-    label: "Autonomous AI Voice Calling",
-    starter: false,
-    pro: true,
-    enterprise: true,
+    icon: EyeOff,
+    title: "No hidden fees",
+    body: "The three rates on this page are the rates in the product. Usage is recorded per event so you can see exactly what you were charged for.",
   },
   {
-    label: "Voicemail Drops (Automated & 1-Click)",
-    starter: "1-Click Pre-recorded",
-    pro: "Automated AI Drops & Detection",
-    enterprise: "Custom AI Cloned Voice Drops",
+    icon: Wallet,
+    title: "Prepaid-style balance",
+    body: "Your dashboard shows balance, today's spend, and month-to-date spend so there are no surprises.",
+  },
+];
+
+const plans = [
+  {
+    name: "Early Access",
+    badge: "Available now",
+    badgeColor: "bg-[#eaddff] text-[#630ed4]",
+    price: "Free to start",
+    priceNote: "Then pay per use at the rates above",
+    subtitle:
+      "Everything in the product today, with no subscription. Built for solo callers, small agencies, and teams who want to test an outbound workflow.",
+    features: [
+      "Google Maps lead scraping by niche and city",
+      "Lead enrichment and pitch-angle scoring",
+      "Browser softphone for manual calling",
+      "AI qualifier calls with upfront AI disclosure",
+      "Live AI rebuttals (Claude or Gemini)",
+      "Two-way SMS",
+      "Campaigns in manual or AI mode",
+      "Google Sheet sync and HubSpot-format CSV export",
+      "Suppression list, calling windows, and attempt caps",
+    ],
+    cta: "Get Early Access",
+    href: "/contact",
+    style: "primary" as const,
+    highlighted: true,
+    disabled: false,
   },
   {
-    label: "Real-time Objection Rebuttals",
-    starter: false,
-    pro: true,
-    enterprise: true,
+    name: "Teams",
+    badge: "Coming soon",
+    badgeColor: "bg-[#e5eeff] text-[#4a4455]",
+    price: "To be announced",
+    priceNote: "No pricing has been set yet",
+    subtitle:
+      "For agencies and sales teams that need shared workspaces. Organizations, roles, and invites already exist in the product; we are still deciding how to package them.",
+    features: [
+      "Organizations with owner, admin, and agent roles",
+      "Team invites from settings",
+      "Per-organization phone numbers and AI assistants",
+      "Number pools with health monitoring",
+      "Talk to us about what your team needs",
+    ],
+    cta: "Contact Us",
+    href: "/contact",
+    style: "surface" as const,
+    highlighted: false,
+    disabled: false,
+  },
+];
+
+const examples = [
+  {
+    scenario: "Solo caller, light week",
+    lines: [
+      { label: "5 hours of manual calling", value: "$6.00" },
+      { label: "100 SMS parts", value: "$3.00" },
+    ],
+    total: "$9.00",
   },
   {
-    label: "Concurrent Outbound Channels",
-    starter: "1 Line",
-    pro: "3 Lines / Seat",
-    enterprise: "Up to 20 Lines / Seat",
+    scenario: "Agency testing AI qualifiers",
+    lines: [
+      { label: "10 hours of manual calling", value: "$12.00" },
+      { label: "3 hours of AI qualifier calls", value: "$45.00" },
+      { label: "400 SMS parts", value: "$12.00" },
+    ],
+    total: "$69.00",
   },
   {
-    label: "Dedicated SIP Trunks",
-    starter: "Shared WebRTC",
-    pro: "Telnyx Premium Pooled",
-    enterprise: "Private Dedicated Trunks",
+    scenario: "Manual-only outreach month",
+    lines: [
+      { label: "40 hours of manual calling", value: "$48.00" },
+      { label: "No AI or SMS", value: "$0.00" },
+    ],
+    total: "$48.00",
+  },
+];
+
+const tracking = [
+  {
+    icon: Receipt,
+    title: "Per-event usage ledger",
+    body: "Each call and each text is written as its own usage event rather than rolled into a running total, so charges can be traced back to what happened.",
   },
   {
-    label: "A2P 10DLC Campaign Concierge",
-    starter: "Self-Service Portal",
-    pro: "Guided Fast-Track",
-    enterprise: "Fully Managed Legal Setup",
+    icon: Gauge,
+    title: "Balance at a glance",
+    body: "See your current balance, what you spent today, and month-to-date spend without leaving the dashboard.",
   },
   {
-    label: "Call Recording & Transcript Storage",
-    starter: "30 Days",
-    pro: "1 Year",
-    enterprise: "Unlimited Vault (HIPAA/SOC2)",
+    icon: Clock,
+    title: "Voice minutes and SMS costs",
+    body: "Manual voice minutes, AI voice minutes, and SMS costs are tracked separately so you can see which channel is driving spend.",
   },
   {
-    label: "REST API & Webhook Triggers",
-    starter: "Zapier Only",
-    pro: true,
-    enterprise: true,
+    icon: ShieldCheck,
+    title: "Rate limits on spending routes",
+    body: "AI calls are limited to 20 per 60 seconds and SMS to 60 per 60 seconds, which caps how fast a mistake can cost you.",
   },
+];
+
+const notIncluded = [
+  "Telnyx carrier charges for phone numbers or 10DLC registration fees you pay to Telnyx directly",
+  "Legal review of your scripts, lists, or consent practices",
+  "Call recording or transcripts (not offered)",
+  "Native CRM sync (CSV export only for now)",
 ];
 
 const faqs = [
   {
-    q: "Do I need a registered business to start?",
-    a: "No. For outbound voice calls, you can start immediately as an individual. If you plan to send SMS campaigns under your brand name, FCC regulations require an EIN for A2P 10DLC registration. Dialeads walks you through this in under 3 minutes inside your account settings.",
+    q: "How does billing work?",
+    a: "Billing is usage-based. Manual calling is $0.02 per minute, AI calling is $0.25 per minute, and outbound SMS is $0.03 per message part. Every call and text is recorded as its own event in a usage ledger, and your dashboard shows balance, today's spend, and month-to-date spend.",
   },
   {
-    q: "What powers the voice calls?",
-    a: "Dialeads uses Telnyx carrier-grade infrastructure with Opus HD voice over WebRTC, delivering sub-25ms latency with global points of presence. Every call sounds crystal clear.",
+    q: "Is there a subscription?",
+    a: "No. There are no subscription tiers today, no monthly minimums, and no contracts. Early Access is free to start and you pay only for what you use. A Teams package may come later, but no pricing has been set.",
   },
   {
-    q: "Is there a free trial?",
-    a: "Yes. The Pro plan includes a full 14-day free trial with 250 calling minutes and complete access to the AI voice agent and live objection copilot. No credit card required.",
+    q: "Is there a free trial or a money-back guarantee?",
+    a: "We do not offer a time-limited trial or a refund guarantee. Because there is no subscription, the closest equivalent is that you can start for free and spend as little as you want. Contact us if you have a billing question about a specific charge.",
   },
   {
-    q: "How does CSV lead import work?",
-    a: "Import up to 250,000 leads per file. Dialeads auto-formats phone numbers, scrubs against DNC databases, and maps custom columns like Prospect Title or Target Pain Point. Ready to dial in minutes.",
+    q: "Do I need 10DLC registration to send texts?",
+    a: "For application-to-person SMS to US numbers, carriers require 10DLC registration. You register your brand and campaign directly with Telnyx. Xovra does not manage that registration for you and does not have a registration wizard, so plan for it before you rely on SMS. Voice calling does not require 10DLC.",
   },
   {
-    q: "What happens if I go over my included minutes?",
-    a: "You'll never get cut off. Overages bill at a flat rate — $0.018/min on Starter, $0.012/min on Pro. You can set a hard spending cap inside your billing dashboard.",
+    q: "Who provides the phone service?",
+    a: "Telnyx. Voice, SMS, and the AI assistant run on Telnyx. Numbers and AI assistants are set up per organization.",
   },
   {
-    q: "How does Dialeads handle TCPA compliance?",
-    a: "Built-in compliance tools include: time-zone-based calling windows (8am–9pm local), instant SMS opt-out handling, automatic DNC suppression, and STIR/SHAKEN A-level caller ID signing.",
+    q: "Why does AI calling cost more than manual calling?",
+    a: "An AI call includes the AI assistant running for the whole conversation, plus live rebuttal generation when it is used. A manual call only uses the softphone and carrier minutes, so it costs less.",
+  },
+  {
+    q: "Can I set a spending limit?",
+    a: "Outbound AI calls and SMS are rate limited in the server, and your dashboard shows your running balance. If you need a hard cap tailored to your account, contact us and tell us what you are trying to protect.",
+  },
+  {
+    q: "Are my calls recorded?",
+    a: "No. Xovra does not record calls or produce transcripts.",
+  },
+  {
+    q: "Will pricing change?",
+    a: "These are the current rates. We are in early access, so rates and packaging may change as we learn. We will not apply changes retroactively to usage that has already happened.",
   },
 ];
 
-function FeatureIcon({ type }: { type: "check" | "verified" | "shield" }) {
-  if (type === "verified")
-    return <BadgeCheck className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />;
-  if (type === "shield")
-    return <Shield className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />;
-  return <CheckCircle2 className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />;
-}
-
-function CellValue({ value }: { value: string | boolean }) {
-  if (value === true)
-    return (
-      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#eaddff]">
-        <Check className="w-4 h-4 text-[#630ed4]" />
-      </span>
-    );
-  if (value === false)
-    return <Minus className="w-4 h-4 text-[#ccc3d8] mx-auto" />;
-  return <span className="text-sm text-[#0b1c30]">{value}</span>;
-}
-
-const waveHeights = [
-  "h-4",
-  "h-8",
-  "h-12",
-  "h-6",
-  "h-10",
-  "h-14",
-  "h-8",
-  "h-5",
-  "h-11",
-  "h-7",
-  "h-3",
-  "h-9",
-];
-const waveColors = [
-  "bg-[#d2bbff]",
-  "bg-[#7c3aed]",
-  "bg-[#630ed4]",
-  "bg-[#d2bbff]",
-  "bg-[#7c3aed]",
-  "bg-[#630ed4]",
-  "bg-[#7c3aed]",
-  "bg-[#d2bbff]",
-  "bg-[#630ed4]",
-  "bg-[#7c3aed]",
-  "bg-[#d2bbff]",
-  "bg-[#630ed4]",
+const comparison = [
+  { label: "Platform fee", value: "None" },
+  { label: "Contract length", value: "None" },
+  { label: "Manual calling", value: "$0.02 / min" },
+  { label: "AI calling", value: "$0.25 / min" },
+  { label: "Outbound SMS", value: "$0.03 / part" },
 ];
 
 export default function PricingPage() {
-  const [annual, setAnnual] = useState(false);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff]">
+    <main className="bg-[#f8f9ff] text-[#0b1c30] min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#f8f9ff]">
-        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[22rem] bg-[#7c3aed]/10 rounded-full blur-[90px] -z-10" />
-        <div className="max-w-5xl mx-auto px-6 pt-28 pb-16 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#e3e0f1] text-[#630ed4] text-xs font-bold tracking-[0.08em] uppercase mb-6 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-ping" />
-            <span>Transparent Pricing. No Surprises.</span>
-          </div>
-
-          <h1 className="text-4xl md:text-[72px] md:leading-[76px] font-bold tracking-tight text-[#0b1c30] mb-4 max-w-4xl mx-auto">
-            Pick the Plan That Matches Your{" "}
-            <span className="text-[#630ed4]">Dial Volume</span>
-          </h1>
-
-          <p className="text-[#4a4455] max-w-2xl mx-auto mb-10 text-lg leading-7">
-            Whether you&apos;re a solo agency owner or running a 50-seat call
-            center — Dialeads has a plan that scales with your outbound volume.
-          </p>
-
-          {/* Billing Toggle */}
-          <div className="inline-flex items-center p-1.5 rounded-full bg-[#dce9ff] shadow-inner select-none">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
-                !annual
-                  ? "bg-white text-[#0b1c30] shadow-sm"
-                  : "text-[#4a4455] hover:text-[#0b1c30]"
-              }`}
-            >
-              Monthly Billing
-            </button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 ${
-                annual
-                  ? "bg-white text-[#0b1c30] shadow-sm"
-                  : "text-[#4a4455] hover:text-[#0b1c30]"
-              }`}
-            >
-              <span>Annual Billing</span>
-              <span className="px-2 py-0.5 rounded-full bg-[#630ed4] text-white text-[11px] font-bold tracking-wide shadow-sm">
-                Save 20% + 2 Mo Free
-              </span>
-            </button>
-          </div>
+      <section className="max-w-6xl mx-auto px-6 pt-20 pb-12 text-center">
+        <span className="inline-flex items-center gap-2 bg-[#eaddff] text-[#630ed4] text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">
+          <Sparkles className="w-3.5 h-3.5" />
+          Early Access Pricing
+        </span>
+        <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight">
+          Usage-Based Pricing.
+          <span className="block text-[#630ed4]">Pay Only for What You Use.</span>
+        </h1>
+        <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455]">
+          Xovra has no subscription tiers. You pay a small per-minute rate for
+          calling and a per-message rate for texting. No monthly minimums, no
+          contracts, and no hidden fees.
+        </p>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 bg-[#630ed4] hover:bg-[#7c3aed] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors"
+          >
+            Get Early Access
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 bg-[#e3e0f1] text-[#630ed4] font-semibold px-7 py-3.5 rounded-xl hover:bg-[#eaddff] transition-colors"
+          >
+            Book a Demo
+          </Link>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="max-w-[75rem] mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {plans.map((plan) => (
+      {/* Quick strip */}
+      <section className="max-w-6xl mx-auto px-6 pb-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {comparison.map((c) => (
             <div
-              key={plan.name}
-              className={`relative flex flex-col justify-between rounded-2xl p-8 transition-all ${
-                plan.highlighted
-                  ? "bg-white shadow-[0_12px_40px_rgba(99,14,212,0.14)] lg:-translate-y-2"
-                  : "bg-white shadow-sm hover:shadow-md"
-              }`}
+              key={c.label}
+              className="bg-[#eff4ff] rounded-xl px-4 py-4 text-center"
             >
-              {/* Most Popular label */}
-              {plan.highlighted && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#630ed4] text-white text-[11px] font-bold tracking-[0.08em] uppercase px-4 py-1 rounded-full flex items-center gap-1 shadow-md whitespace-nowrap">
-                  <Zap className="w-4 h-4" />
-                  <span>MOST POPULAR / BEST VALUE</span>
-                </div>
-              )}
+              <p className="text-xs uppercase tracking-wide text-[#4a4455]">
+                {c.label}
+              </p>
+              <p className="mt-1 text-lg font-bold text-[#0b1c30]">{c.value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-              <div>
-                {/* Name & badge */}
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-[#0b1c30]">
-                    {plan.name}
-                  </h3>
-                  {plan.badge && (
-                    <span
-                      className={`text-[11px] font-semibold px-3 py-0.5 rounded-full ${plan.badgeColor}`}
-                    >
-                      {plan.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Subtitle */}
-                <p className="text-sm text-[#4a4455] leading-relaxed mb-6 min-h-[40px]">
-                  {plan.subtitle}
-                </p>
-
-                {/* Price */}
+      {/* Rates */}
+      <section className="max-w-6xl mx-auto px-6 py-14">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold">Three rates. That is the whole list.</h2>
+          <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+            Each rate maps to something you can do in the product today.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {rates.map((r) => {
+            const Icon = r.icon;
+            return (
+              <div
+                key={r.id}
+                className={`rounded-2xl p-7 flex flex-col ${
+                  r.highlighted
+                    ? "bg-[#213145] text-[#eaf1ff] shadow-xl md:-translate-y-2"
+                    : "bg-white border border-[#e3e0f1]"
+                }`}
+              >
                 <div
-                  className={`mb-6 pb-6 ${
-                    plan.highlighted
-                      ? "bg-[#eff4ff] p-4 rounded-xl"
-                      : ""
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                    r.highlighted ? "bg-[#630ed4] text-white" : r.accent
                   }`}
                 >
-                  {plan.monthlyPrice !== null ? (
-                    <>
-                      <div className="flex items-baseline gap-1">
-                        <span
-                          className={`text-5xl font-bold ${
-                            plan.highlighted
-                              ? "text-[#630ed4]"
-                              : "text-[#0b1c30]"
-                          }`}
-                        >
-                          ${annual ? plan.annualPrice : plan.monthlyPrice}
-                        </span>
-                        <span className="text-sm font-semibold text-[#4a4455]">
-                          / month
-                        </span>
-                      </div>
-                      <p className="text-xs text-[#4f4d5e] mt-1">
-                        {annual
-                          ? plan.annualBillingNote
-                          : plan.monthlyBillingNote}
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-5xl font-bold text-[#0b1c30]">
-                        Custom
-                      </span>
-                      {"pricingSubtitle" in plan && (
-                        <p className="text-xs text-[#4f4d5e] mt-1">
-                          {plan.pricingSubtitle}
-                        </p>
-                      )}
-                    </>
-                  )}
+                  <Icon className="w-6 h-6" />
                 </div>
-
-                {/* Features */}
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <FeatureIcon type={plan.icon} />
-                      <span className="text-sm text-[#0b1c30]">{f}</span>
+                <h3 className="mt-5 text-xl font-bold">{r.title}</h3>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="text-5xl font-bold tracking-tight">{r.price}</span>
+                  <span
+                    className={`text-sm ${
+                      r.highlighted ? "text-[#d2bbff]" : "text-[#4a4455]"
+                    }`}
+                  >
+                    {r.unit}
+                  </span>
+                </div>
+                <p
+                  className={`mt-4 text-sm leading-relaxed ${
+                    r.highlighted ? "text-[#eaf1ff]" : "text-[#4a4455]"
+                  }`}
+                >
+                  {r.description}
+                </p>
+                <ul className="mt-6 space-y-3 flex-1">
+                  {r.includes.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm">
+                      <CheckCircle2
+                        className={`w-5 h-5 shrink-0 ${
+                          r.highlighted ? "text-[#d2bbff]" : "text-[#630ed4]"
+                        }`}
+                      />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-
-              {/* CTA */}
-              {plan.ctaStyle === "primary" ? (
-                <button className="w-full py-3 px-6 rounded-xl bg-[#630ed4] text-white font-semibold text-sm shadow-[0_6px_20px_rgba(99,14,212,0.35)] hover:bg-[#7c3aed] transition-all flex items-center justify-center gap-1 cursor-pointer">
-                  <span>{plan.cta}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              ) : plan.ctaStyle === "dark" ? (
-                <button className="w-full py-3 px-6 rounded-xl bg-[#213145] text-[#eaf1ff] font-semibold text-sm hover:bg-[#0b1c30] transition-all cursor-pointer">
-                  {plan.cta}
-                </button>
-              ) : (
-                <button className="w-full py-3 px-6 rounded-xl bg-[#eff4ff] text-[#630ed4] font-semibold text-sm hover:bg-[#e3e0f1] transition-all cursor-pointer">
-                  {plan.cta}
-                </button>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Live Audio Dialer Demo */}
-      <section className="max-w-[75rem] mx-auto px-6 pb-24">
-        <div className="relative overflow-hidden bg-[#213145] text-[#eaf1ff] rounded-2xl p-8 lg:p-12 shadow-xl">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#630ed4] via-[#7c3aed] to-[#d2bbff]" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left */}
-            <div className="lg:col-span-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#676577]/40 text-[#d2bbff] text-[11px] font-bold tracking-[0.08em] uppercase mb-4">
-                <Radio className="w-4 h-4" />
-                <span>REAL-TIME STREAMING TELEPHONY</span>
-              </div>
-
-              <h2 className="text-2xl md:text-[40px] md:leading-[44px] font-bold text-white mb-4">
-                Experience the Opus HD Voice Engine
-              </h2>
-
-              <p className="text-[#cbdbf5] text-base leading-relaxed mb-8">
-                Sub-25ms latency enables true human interruption detection. Our
-                carrier integrations filter voicemail, IVR switches, and
-                gatekeepers automatically.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-6">
-                <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                  <Gauge className="w-5 h-5 text-[#d2bbff]" />
-                  <span>&lt;25ms Response</span>
+      {/* Principles */}
+      <section className="bg-[#eff4ff] py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold">Simple on purpose</h2>
+            <p className="mt-3 text-[#4a4455]">
+              We would rather you spend a few dollars finding out if Xovra
+              works for you than sign a contract to find out.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {principles.map((p) => {
+              const Icon = p.icon;
+              return (
+                <div key={p.title} className="bg-white rounded-2xl p-6">
+                  <div className="w-11 h-11 rounded-lg bg-[#eaddff] text-[#630ed4] flex items-center justify-center">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="mt-4 font-semibold text-lg">{p.title}</h3>
+                  <p className="mt-2 text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
                 </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                  <Ear className="w-5 h-5 text-[#d2bbff]" />
-                  <span>99.4% Voicemail Detection</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                  <Lock className="w-5 h-5 text-[#d2bbff]" />
-                  <span>STIR/SHAKEN A-Attestation</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right - Live call demo */}
-            <div className="lg:col-span-6 bg-[#1a2636] rounded-xl p-6 shadow-inner">
-              <div className="flex items-center justify-between pb-3 mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#ba1a1a] animate-pulse" />
-                  <span className="text-[11px] font-semibold tracking-wide text-[#cbdbf5]">
-                    LIVE CALL DEMO &bull; 00:42
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded bg-[#676577]/30 text-white text-[11px] font-mono">
-                  10DLC VERIFIED
-                </span>
-              </div>
-
-              {/* Waveform */}
-              <div className="flex items-center justify-between h-14 gap-1 px-2 mb-4 bg-[#213145]/60 rounded-lg">
-                {waveHeights.map((h, i) => (
-                  <div
-                    key={i}
-                    className={`w-1.5 ${waveColors[i]} rounded-full ${h} animate-pulse`}
-                  />
-                ))}
-              </div>
-
-              {/* Transcript */}
-              <div className="bg-[#213145]/40 p-4 rounded-lg space-y-2 text-sm">
-                <p className="text-[#cbdbf5]">
-                  <strong className="text-[#d2bbff]">Prospect:</strong>{" "}
-                  &ldquo;We already use a dialer, what makes your AI integration
-                  different?&rdquo;
-                </p>
-                <p className="text-white">
-                  <strong className="text-[#7c3aed]">Dialeads Bot:</strong>{" "}
-                  &ldquo;Great question. Most dialers still require manual
-                  qualification. Dialeads handles the full first touch, navigates
-                  the gatekeeper, and books the calendar link autonomously.&rdquo;
-                </p>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Feature Comparison Table */}
-      <section className="max-w-[75rem] mx-auto px-6 pb-24">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold tracking-[0.08em] uppercase text-[#630ed4]">
-            Deep Feature Matrix
-          </span>
-          <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold text-[#0b1c30] mt-1 mb-3">
-            Compare Platform Capabilities
-          </h2>
-          <p className="text-base text-[#4a4455]">
-            Review all technical allowances, carrier connections, and compliance
-            tooling across each tier.
+      {/* Plans */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold">How to get started</h2>
+          <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+            There is one way to use Xovra today, and a Teams option we are
+            still shaping.
           </p>
         </div>
-
-        {/* Desktop table */}
-        <div className="hidden md:block overflow-x-auto bg-white rounded-2xl shadow-sm p-4">
-          <table className="w-full text-left text-[#0b1c30]">
-            <thead>
-              <tr className="bg-[#eff4ff]">
-                <th className="py-4 px-6 text-sm font-bold">
-                  Core Capabilities
-                </th>
-                <th className="py-4 px-4 text-sm font-bold text-center">
-                  Starter
-                </th>
-                <th className="py-4 px-4 text-sm font-bold text-center text-[#630ed4]">
-                  Pro
-                </th>
-                <th className="py-4 px-4 text-sm font-bold text-center">
-                  Enterprise
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row, i) => (
-                <tr
-                  key={row.label}
-                  className={i % 2 === 1 ? "bg-[#eff4ff]/40" : ""}
-                >
-                  <td className="py-4 px-6 text-sm font-bold">{row.label}</td>
-                  <td className="py-4 px-4 text-center text-[#4a4455]">
-                    <CellValue value={row.starter} />
-                  </td>
-                  <td className="py-4 px-4 text-center bg-[#630ed4]/5 font-bold text-[#630ed4]">
-                    <CellValue value={row.pro} />
-                  </td>
-                  <td className="py-4 px-4 text-center">
-                    <CellValue value={row.enterprise} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile stacked cards */}
-        <div className="md:hidden space-y-4">
-          {comparisonRows.map((row) => (
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {plans.map((plan) => (
             <div
-              key={row.label}
-              className="bg-white rounded-xl shadow-sm p-4"
+              key={plan.name}
+              className={`rounded-2xl p-8 flex flex-col ${
+                plan.highlighted
+                  ? "bg-white border-2 border-[#630ed4] shadow-lg"
+                  : "bg-white border border-[#e3e0f1]"
+              }`}
             >
-              <h4 className="text-sm font-bold text-[#0b1c30] mb-3">
-                {row.label}
-              </h4>
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#4a4455] block mb-1">
-                    Starter
-                  </span>
-                  <CellValue value={row.starter} />
-                </div>
-                <div className="bg-[#630ed4]/5 rounded-lg py-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#630ed4] block mb-1">
-                    Pro
-                  </span>
-                  <span className="font-bold text-[#630ed4]">
-                    <CellValue value={row.pro} />
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-[#4a4455] block mb-1">
-                    Enterprise
-                  </span>
-                  <CellValue value={row.enterprise} />
-                </div>
-              </div>
+              <span
+                className={`self-start text-xs font-semibold px-3 py-1 rounded-full ${plan.badgeColor}`}
+              >
+                {plan.badge}
+              </span>
+              <h3 className="mt-4 text-2xl font-bold">{plan.name}</h3>
+              <p className="mt-2 text-3xl font-bold text-[#630ed4]">{plan.price}</p>
+              <p className="text-sm text-[#4a4455]">{plan.priceNote}</p>
+              <p className="mt-4 text-sm text-[#4a4455] leading-relaxed">{plan.subtitle}</p>
+              <ul className="mt-6 space-y-3 flex-1">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex gap-3 text-sm">
+                    <Check className="w-5 h-5 text-[#630ed4] shrink-0" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={plan.href}
+                className={`mt-8 inline-flex items-center justify-center gap-2 font-semibold px-6 py-3.5 rounded-xl transition-colors ${
+                  plan.style === "primary"
+                    ? "bg-[#630ed4] hover:bg-[#7c3aed] text-white"
+                    : "bg-[#e3e0f1] text-[#630ed4] hover:bg-[#eaddff]"
+                }`}
+              >
+                {plan.cta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Examples */}
+      <section className="bg-[#eff4ff] py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 text-[#630ed4] font-semibold text-sm">
+              <Calculator className="w-4 h-4" />
+              Illustrative math
+            </span>
+            <h2 className="mt-2 text-3xl font-bold">What usage might look like</h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              These examples are arithmetic on the published rates, not
+              customer data or predictions.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {examples.map((ex) => (
+              <div key={ex.scenario} className="bg-white rounded-2xl p-6">
+                <h3 className="font-semibold text-lg">{ex.scenario}</h3>
+                <ul className="mt-4 space-y-2">
+                  {ex.lines.map((l) => (
+                    <li
+                      key={l.label}
+                      className="flex justify-between text-sm text-[#4a4455]"
+                    >
+                      <span>{l.label}</span>
+                      <span className="font-medium text-[#0b1c30]">{l.value}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 pt-4 border-t border-[#e3e0f1] flex justify-between items-baseline">
+                  <span className="text-sm text-[#4a4455]">Total</span>
+                  <span className="text-2xl font-bold text-[#630ed4]">{ex.total}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tracking */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              See every charge as it happens
+            </h2>
+            <p className="mt-4 text-[#4a4455] leading-relaxed">
+              Usage-based pricing only works if you can see the usage. Xovra
+              keeps an event-by-event ledger and shows your spend in the
+              dashboard.
+            </p>
+            <div className="mt-8 bg-[#e5eeff] rounded-2xl p-6 flex gap-4">
+              <Info className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />
+              <p className="text-sm text-[#4a4455] leading-relaxed">
+                Carrier-side costs outside Xovra, such as 10DLC registration
+                fees charged by Telnyx, are billed by Telnyx and not included in
+                the rates on this page.
+              </p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {tracking.map((t) => {
+              const Icon = t.icon;
+              return (
+                <div key={t.title} className="bg-white border border-[#e3e0f1] rounded-2xl p-5">
+                  <Icon className="w-6 h-6 text-[#630ed4]" />
+                  <h3 className="mt-3 font-semibold">{t.title}</h3>
+                  <p className="mt-1.5 text-sm text-[#4a4455] leading-relaxed">{t.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Not included */}
+      <section className="max-w-4xl mx-auto px-6 pb-16">
+        <div className="bg-[#213145] text-[#eaf1ff] rounded-3xl p-8 md:p-10">
+          <div className="flex items-center gap-3">
+            <CircleDollarSign className="w-6 h-6 text-[#d2bbff]" />
+            <h2 className="text-2xl font-bold">What the rates do not cover</h2>
+          </div>
+          <p className="mt-3 text-sm text-[#d2bbff]">
+            So there are no surprises, here is what sits outside the three
+            per-use rates.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {notIncluded.map((n) => (
+              <li key={n} className="flex gap-3 text-sm">
+                <Check className="w-5 h-5 text-[#d2bbff] shrink-0" />
+                <span>{n}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="max-w-[56rem] mx-auto px-6 pb-24">
-        <div className="text-center mb-12">
-          <span className="text-xs font-bold tracking-[0.08em] uppercase text-[#630ed4]">
-            Got Questions?
-          </span>
-          <h2 className="text-3xl md:text-[40px] md:leading-[44px] font-bold text-[#0b1c30] mt-1 mb-2">
-            Frequently Asked Questions
+      <section className="max-w-3xl mx-auto px-6 pb-20">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold">Pricing questions, answered plainly</h2>
+        </div>
+        <div className="space-y-3">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={f.q} className="bg-white border border-[#e3e0f1] rounded-xl overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold hover:bg-[#f8f9ff]"
+                >
+                  <span>{f.q}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 shrink-0 text-[#630ed4] transition-transform ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-5 pb-5 text-sm text-[#4a4455] leading-relaxed">
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <div className="bg-[#630ed4] text-white rounded-3xl px-8 py-14 text-center">
+          <Rocket className="w-10 h-10 mx-auto text-[#d2bbff]" />
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold">
+            Start free. Pay as you call.
           </h2>
-          <p className="text-base text-[#4a4455]">
-            Everything you need to know about billing, carrier lines, and
-            regulatory compliance.
+          <p className="mt-3 max-w-xl mx-auto text-[#eaddff]">
+            Join early access, find leads, make your first calls, and watch the
+            ledger to see exactly what it costs.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#630ed4] font-semibold px-7 py-3.5 rounded-xl hover:bg-[#eaddff] transition-colors"
+            >
+              Get Early Access
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 border border-[#d2bbff] text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-[#7c3aed] transition-colors"
+            >
+              <Users className="w-4 h-4" />
+              Book a Demo
+            </Link>
+          </div>
+          <p className="mt-6 text-xs text-[#d2bbff] inline-flex items-center gap-2">
+            <BadgeCheck className="w-4 h-4" />
+            No contracts. No monthly minimums.
           </p>
         </div>
-
-        <div className="space-y-4">
-          {faqs.map((faq) => (
-            <details
-              key={faq.q}
-              className="group bg-white rounded-xl shadow-sm p-4 cursor-pointer transition-all"
-            >
-              <summary className="flex items-center justify-between text-lg font-bold text-[#0b1c30] [&::-webkit-details-marker]:hidden list-none">
-                <span className="pr-4">{faq.q}</span>
-                <ChevronDown className="w-5 h-5 text-[#4a4455] shrink-0 transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="text-base text-[#4a4455] mt-3 pt-1 leading-relaxed">
-                {faq.a}
-              </p>
-            </details>
-          ))}
-        </div>
       </section>
-
-      {/* Bottom Reassurance */}
-      <section className="bg-[#eff4ff] py-12">
-        <div className="max-w-[75rem] mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#630ed4]/10 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-7 h-7 text-[#630ed4]" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-[#0b1c30]">
-                  Risk-free. Cancel anytime. 14-day money-back guarantee.
-                </h3>
-                <p className="text-sm text-[#4a4455]">
-                  SOC-2 Type II certified. No hidden fees. No long-term
-                  contracts.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <button className="inline-flex items-center gap-1 px-8 py-3 rounded-full bg-[#630ed4] text-white font-semibold text-sm shadow-md hover:bg-[#7c3aed] transition-all cursor-pointer">
-                <span>Start Free Trial</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }

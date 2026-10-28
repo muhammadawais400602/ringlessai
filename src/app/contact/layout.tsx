@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Dialeads – Sales, Support & Enterprise Inquiries",
+  title: "Contact Xovra – Sales, Support & Enterprise Inquiries",
   description:
-    "Get in touch with the Dialeads team for enterprise demos, telephony setup, 10DLC compliance, or API integration questions.",
+    "Get in touch with the Xovra team for enterprise demos, telephony setup, 10DLC compliance, or API integration questions.",
 };
 
 export default function ContactLayout({

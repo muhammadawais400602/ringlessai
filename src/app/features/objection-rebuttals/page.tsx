@@ -3,759 +3,727 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  ChevronRight,
-  Zap,
-  BookOpen,
-  Ear,
-  Activity,
-  SlidersHorizontal,
-  Brain,
-  BarChart3,
-  TrendingUp,
-  Copy,
-  Check,
-  Megaphone,
-  Mic,
-  Bot,
-  PlayCircle,
   ArrowRight,
-  BadgeCheck,
-  GitBranch,
-  Timer,
+  Bot,
+  Brain,
+  Building2,
+  Calendar,
+  Check,
+  CheckCircle,
+  ChevronRight,
+  Database,
+  FileText,
+  Info,
+  ListChecks,
+  Mail,
+  MessageSquare,
+  Minus,
+  Phone,
+  Plus,
+  RefreshCw,
+  Search,
+  Send,
+  Sparkles,
+  X,
+  XCircle,
+  Zap,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  Battlecard data                                                    */
+/*  Content data                                                      */
 /* ------------------------------------------------------------------ */
 
-interface Battlecard {
-  title: string;
-  rate: string;
-  ack: string;
-  reframe: string;
-  ask: string;
-  tone: string;
-}
+const heroBadges = [
+  { icon: Sparkles, label: "Claude or Gemini" },
+  { icon: Database, label: "Uses the lead's own data" },
+  { icon: RefreshCw, label: "Generated fresh each time" },
+];
 
-const battlecards: Record<string, Battlecard> = {
-  expensive: {
-    title: 'Pricing Pushback ("Too expensive / No budget")',
-    rate: "68.2%",
-    ack: "“Totally hear you on keeping budgets tight right now—honestly wouldn’t expect you to have line-item budget set aside for something you haven’t seen in action yet.”",
-    reframe:
-      "“We usually don’t replace active systems right away; we sit beside them to eliminate 14 hours of dead dial time per rep each week, which typically self-funds inside 45 days.”",
-    ask: "“Could I send you a 90-second teardown showing how a 12-person SDR org did that? If it doesn’t make sense, we part ways—fair enough?”",
-    tone: "Deliver at 0.95x speed. Keep inflection level and collaborative; avoid defensive upward pitch.",
-  },
-  email: {
-    title: 'Brush-Off Pushback ("Just send me an email")',
-    rate: "74.5%",
-    ack: "“I can certainly do that! My inbox gets inundated as well, so I don’t want to spam you with generic brochures that miss the mark.”",
-    reframe:
-      "“Usually folks ask for an email because they’re slammed, or because they assume this is just another generic dialer tool.”",
-    ask: "“Which one was it for you? If it’s timing, when can I give you a 2-minute call, or would you prefer a 30-second Loom over Slack?”",
-    tone: "Lighthearted, disarming tone. Smile while speaking to reduce combative resistance.",
-  },
-  vendor: {
-    title: 'Existing Incumbent ("We already work with [Competitor]")',
-    rate: "69.0%",
-    ack: "“They’re a solid company! Many of our enterprise clients were using them for their base dialer architecture before testing our real-time copilot layer.”",
-    reframe:
-      "“We don’t ask teams to rip-and-replace. We integrate directly into their audio pipeline to provide real-time coaching triggers that their native platform doesn’t offer.”",
-    ask: "“Are you completely locked in, or is your team open to running a 1-week pilot alongside your current setup to benchmark booked pipeline?”",
-    tone: "Complimentary towards competitor. Respectful validation eliminates adversarial stance.",
-  },
-  "not-interested": {
-    title: 'Immediate Rejection ("Not interested, take me off list")',
-    rate: "54.8%",
-    ack: "“Fair enough, I appreciate you being upfront with me right away.”",
-    reframe:
-      "“Just out of curiosity—is it that pipeline generation isn’t a priority for your team this quarter, or did I just catch you at a terrible moment walking into a meeting?”",
-    ask: "“If it’s simply bad timing, can I try you back tomorrow at 10 AM, or should I take a hint and walk?”",
-    tone: "Completely unbothered, radically honest. Detach from outcome to trigger respect.",
-  },
-  "next-quarter": {
-    title: 'Timing Stall ("Reach back out next quarter")',
-    rate: "81.4%",
-    ack: "“Happy to put a note in my calendar for October 1st, no problem at all.”",
-    reframe:
-      "“Usually when people tell me next quarter, it means their team is overwhelmed rolling out current initiatives, rather than lacking demand for outbound results.”",
-    ask: "“What specific milestone needs to happen on your end before this would become a priority worth a 15-minute sync?”",
-    tone: "Consultative and exploratory. Gently uncovers hidden gating priorities.",
-  },
+const panel = {
+  title: "Live rebuttal",
+  subtitle: "Generated during the call",
+  footnote: "Example for explanation only. Output varies with the lead data, your brief and the model you choose.",
+  icon: Sparkles,
 };
 
-const tabKeys = [
-  { key: "expensive", label: "Too Expensive" },
-  { key: "email", label: "Send Me An Email" },
-  { key: "vendor", label: "We Have a Vendor" },
-  { key: "not-interested", label: "Not Interested" },
-  { key: "next-quarter", label: "Call Me Next Quarter" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Progress bar data                                                  */
-/* ------------------------------------------------------------------ */
-
-const frequencyData = [
+const panelRows = [
   {
-    label: '1. "Just send an email" (42% volume)',
-    rate: "74% Pivot Success",
-    width: 74,
+    icon: MessageSquare,
+    label: "Objection",
+    value: "We already have a web guy.",
   },
   {
-    label: '2. "Already working with competitor" (28% volume)',
-    rate: "69% Pivot Success",
-    width: 69,
+    icon: Database,
+    label: "Context used",
+    value: "category: dentist, city: Dubai, pitch_angle: WEAK_SITE, evidence: no HTTPS",
   },
   {
-    label: '3. "No budget / Too pricey" (18% volume)',
-    rate: "63% Pivot Success",
-    width: 63,
+    icon: Sparkles,
+    label: "Suggested reply",
+    value: "Totally fair. I only noticed your site loads without HTTPS, so I wanted to flag it...",
   },
   {
-    label: '4. "Reach back out next quarter" (12% volume)',
-    rate: "81% Pivot Success",
-    width: 81,
+    icon: Mail,
+    label: "Follow-up draft",
+    value: "Short email or SMS summarizing the point, ready to review and send",
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Hero script text                                                   */
-/* ------------------------------------------------------------------ */
+const glance = [
+  {
+    icon: Sparkles,
+    title: "Claude or Gemini",
+    desc: "Choose the model that generates your objection responses.",
+  },
+  {
+    icon: Database,
+    title: "Context-aware",
+    desc: "Responses draw on lead data such as category, city, rating and evidence from enrichment.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Fresh every time",
+    desc: "There is no stored library. Each rebuttal is generated for the moment it is needed.",
+  },
+  {
+    icon: Send,
+    title: "Follow-up drafts",
+    desc: "Draft an email, SMS or WhatsApp message after the call, ready for you to review.",
+  },
+];
 
-const heroScriptText =
-  "“Totally understand, Marcus! Most teams we partner with actually kept their in-house reps solely focused on closing deals, using Vocalis to feed them warmed meetings on autopilot. Can I show you how in 3 minutes?”";
+const capabilities: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string; tag?: string; href?: string }[] = [
+  {
+    icon: Sparkles,
+    title: "Live objection handling",
+    desc: "Ask for a response while the call is in progress and get wording you can use straight away.",
+  },
+  {
+    icon: Brain,
+    title: "Claude or Gemini",
+    desc: "Generation runs on Claude or Gemini. You pick which model powers your rebuttals.",
+  },
+  {
+    icon: Database,
+    title: "Lead-aware",
+    desc: "The model sees the business name, category, city, rating and the evidence gathered during enrichment.",
+  },
+  {
+    icon: FileText,
+    title: "Campaign brief",
+    desc: "What you are offering and how you want to sound comes from your campaign brief, so replies stay on message.",
+  },
+  {
+    icon: Mail,
+    title: "Email draft",
+    desc: "Generate a short follow-up email and open it in your own mail client through a mailto: link.",
+  },
+  {
+    icon: MessageSquare,
+    title: "SMS and WhatsApp drafts",
+    desc: "Draft SMS text, or a WhatsApp message that opens through a wa.me link, without any WhatsApp Business API.",
+  },
+];
+
+const steps = [
+  {
+    icon: Phone,
+    title: "Call in progress",
+    desc: "You are on a call from the browser dialer and the lead raises an objection.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Request a rebuttal",
+    desc: "Xovra sends the objection plus lead context and your campaign brief to the model.",
+  },
+  {
+    icon: Sparkles,
+    title: "Read the suggestion",
+    desc: "Claude or Gemini returns wording you can adapt to your own voice.",
+  },
+  {
+    icon: ListChecks,
+    title: "Log the outcome",
+    desc: "Use a keyboard shortcut to record the call result when it ends.",
+  },
+  {
+    icon: Send,
+    title: "Draft the follow-up",
+    desc: "Generate a follow-up draft and send it by email, SMS or WhatsApp link.",
+  },
+];
+
+const dives = [
+  {
+    eyebrow: "Context",
+    title: "Specific beats generic",
+    desc: "A generic rebuttal sounds like a script, and prospects can tell. Because Xovra sources and enriches its own leads, the model has real facts to work with.",
+    icon: Database,
+    panelTitle: "Inputs to each rebuttal",
+    panelLines: [
+      "objection: \"Send me an email\"",
+      "lead: name, category, city, rating",
+      "evidence: audit and ads findings",
+      "brief: what you offer and tone",
+    ],
+    points: [
+      { icon: Building2, title: "The business", desc: "Name, category, city and rating are passed along, so the reply refers to the right kind of business." },
+      { icon: Search, title: "The evidence", desc: "Findings such as no HTTPS or an old copyright year give you something concrete to mention." },
+      { icon: FileText, title: "Your brief", desc: "The campaign brief keeps the suggestion aligned with what you actually sell." },
+    ],
+  },
+  {
+    eyebrow: "Generated, not stored",
+    title: "No battlecard maintenance",
+    desc: "Libraries of canned answers go stale, and nobody updates them. Xovra does not keep one. The model writes each response when you ask.",
+    icon: RefreshCw,
+    panelTitle: "What this means for you",
+    panelLines: [
+      "no library to build",
+      "no cards to keep current",
+      "same lead, same brief, new wording each time",
+    ],
+    points: [
+      { icon: Zap, title: "Nothing to set up", desc: "Start with your campaign brief and lead data. There is no playbook to write first." },
+      { icon: Brain, title: "Choice of model", desc: "Switch between Claude and Gemini depending on what works for you." },
+      { icon: Info, title: "You stay in charge", desc: "Suggestions are starting points. You decide what to say." },
+    ],
+  },
+  {
+    eyebrow: "After the call",
+    title: "Follow-up drafts you review before sending",
+    desc: "Once the call ends, the same context can produce a follow-up message. Nothing is sent without you opening it.",
+    icon: Send,
+    panelTitle: "Draft channels",
+    panelLines: [
+      "email: mailto: link opens your mail client",
+      "sms: sent through Telnyx",
+      "whatsapp: wa.me link opens WhatsApp",
+    ],
+    points: [
+      { icon: Mail, title: "Email via mailto:", desc: "The draft opens in your own email client, so it sends from your own address." },
+      { icon: MessageSquare, title: "WhatsApp via wa.me", desc: "A link opens WhatsApp with the message prefilled. No WhatsApp Business API is involved." },
+      { icon: Send, title: "SMS via Telnyx", desc: "SMS goes through two-way Telnyx messaging with opt-out detection." },
+    ],
+  },
+];
+
+const isList = [
+  "Generates objection responses live with Claude or Gemini",
+  "Uses lead data and your campaign brief for context",
+  "Creates a fresh response each time rather than retrieving a saved one",
+  "Drafts follow-ups for email, SMS and WhatsApp",
+  "Opens email through mailto: and WhatsApp through wa.me links",
+  "Works alongside the manual browser dialer",
+];
+
+const isNotList = [
+  "Not a stored rebuttal library or set of battlecards",
+  "No objection heatmaps or analytics on which objections win",
+  "No audio transcription: Xovra does not listen to or transcribe the call",
+  "Not a WhatsApp Business API integration",
+  "Not an auto-send tool: you review drafts before they go out",
+];
+
+const faqs = [
+  {
+    q: "Which AI models are used?",
+    a: "Claude or Gemini. They generate objection responses and follow-up drafts from the context Xovra passes in.",
+  },
+  {
+    q: "Does it listen to my call?",
+    a: "No. Xovra does not transcribe call audio. You describe or select the objection and the model responds using lead data and your brief.",
+  },
+  {
+    q: "Is there a library of rebuttals I can edit?",
+    a: "No. Responses are generated fresh every time. That means nothing to maintain, but also no fixed library to browse.",
+  },
+  {
+    q: "How does WhatsApp work?",
+    a: "Follow-up drafts can open through wa.me links, which launch WhatsApp with a prefilled message. There is no WhatsApp Business API connection.",
+  },
+  {
+    q: "How do email drafts get sent?",
+    a: "Drafts open through a mailto: link in your own email client. You review and send them yourself.",
+  },
+  {
+    q: "Can I use this with AI calls?",
+    a: "Rebuttals are aimed at human operators on the browser dialer. AI qualifier calls are covered separately.",
+  },
+];
+
+const related = [
+  {
+    icon: Bot,
+    href: "/features/ai-calling",
+    title: "AI Qualifier Calls",
+    desc: "Let the assistant qualify first.",
+  },
+  {
+    icon: MessageSquare,
+    href: "/features/omnichannel",
+    title: "Follow-Up and SMS",
+    desc: "Send and receive messages.",
+  },
+  {
+    icon: Search,
+    href: "/features/lead-management",
+    title: "Lead Sourcing",
+    desc: "The data behind each rebuttal.",
+  },
+];
+
 
 /* ------------------------------------------------------------------ */
-/*  Component                                                          */
+/*  Page component                                                    */
 /* ------------------------------------------------------------------ */
-
 export default function ObjectionRebuttalsPage() {
-  const [activeTab, setActiveTab] = useState("expensive");
-  const [copied, setCopied] = useState(false);
-
-  const card = battlecards[activeTab];
-
-  function handleCopy() {
-    navigator.clipboard.writeText(heroScriptText).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <>
-      {/* ===== HERO ===== */}
-      <section className="relative w-full overflow-hidden bg-gray-50 py-16 md:py-32">
-        {/* dot pattern */}
-        <div
-          className="absolute inset-0 opacity-40 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(#7c3aed 0.75px, transparent 0.75px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-        {/* glow */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="flex w-full flex-col bg-[#f8f9ff] text-[#0b1c30]">
+      {/* ============================================================ */}
+      {/* HERO                                                          */}
+      {/* ============================================================ */}
+      <section className="relative w-full overflow-hidden bg-[#f8f9ff] pb-24">
+        <div className="pointer-events-none absolute -top-40 right-1/4 h-[550px] w-[550px] rounded-full bg-[#7c3aed]/10 blur-[130px]" />
+        <div className="pointer-events-none absolute top-1/3 -left-32 h-[450px] w-[450px] rounded-full bg-[#630ed4]/5 blur-[120px]" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          {/* breadcrumb */}
-          <nav className="flex items-center gap-2 mb-8 text-xs font-semibold uppercase tracking-wider text-gray-500">
-            <Link
-              href="/features"
-              className="hover:text-primary transition-colors"
-            >
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <nav className="flex items-center gap-2 pt-8 text-xs font-semibold tracking-wide text-[#4a4455]">
+            <Link href="/features" className="transition-colors hover:text-[#630ed4]">
               Features
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-primary font-semibold">
-              Live Objection Rebuttals
-            </span>
+            <span className="font-semibold text-[#0b1c30]">{"Live AI Rebuttals"}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left column */}
-            <div className="lg:col-span-6 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary-light text-primary text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                Real-Time Sales Copilot
+          <div className="grid grid-cols-1 items-center gap-12 pt-12 lg:grid-cols-12">
+            <div className="flex flex-col items-start lg:col-span-7">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#eaddff] px-4 py-1 shadow-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#630ed4]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
+                  {"Live AI rebuttals"}
+                </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-                Live Objection Rebuttals.{" "}
-                <br className="hidden sm:inline" />
-                <span className="text-primary">Never Freeze</span> on a Call
-                Again.
+              <h1 className="mb-6 text-4xl font-bold leading-[1.08] tracking-tight text-[#0b1c30] sm:text-5xl lg:text-[56px]">
+                {"Objection handling written for this lead,"}{" "}
+                <span className="text-[#630ed4]">{"at the moment they say it."}</span>
               </h1>
 
-              <p className="text-lg text-gray-500 mb-8 max-w-xl">
-                As soon as a prospect pushes back with price, competitor, or
-                timing objections, our sub-200ms real-time audio copilot flashes
-                battle-tested pivot scripts right before your eyes.
+              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
+                {"When a prospect says not interested or we already have someone, Xovra asks Claude or Gemini for a response using what you know about that specific business. No stored library, no canned answers."}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+              <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
                 <Link
-                  href="/live-demo"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-primary hover:bg-primary-dark text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#630ed4] px-8 py-4 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#7c3aed]"
                 >
-                  Try Live Copilot Demo
-                  <Zap className="h-4 w-4" />
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
                 </Link>
-                <a
-                  href="#battlecards-library"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white hover:bg-gray-100 text-gray-900 text-sm font-semibold transition-all border border-gray-200"
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e5eeff] px-6 py-4 text-sm font-semibold text-[#0b1c30] shadow-sm transition-all hover:bg-[#e3e0f1]"
                 >
-                  <BookOpen className="h-4 w-4" />
-                  View Battlecard Library
-                </a>
+                  <Calendar className="h-5 w-5 text-[#630ed4]" />
+                  Book a Demo
+                </Link>
               </div>
 
-              <div className="flex items-center gap-4 mt-10">
-                <div className="flex -space-x-2 overflow-hidden">
-                  <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary text-xs font-bold">
-                    JD
+              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-[#4a4455]">
+                {heroBadges.map((b) => (
+                  <div key={b.label} className="flex items-center gap-2">
+                    <b.icon className="h-[18px] w-[18px] text-[#630ed4]" />
+                    <span>{b.label}</span>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-bold">
-                    SK
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 text-xs font-bold">
-                    AL
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Trusted by{" "}
-                  <span className="font-semibold text-gray-900">
-                    2,400+ SDRs
-                  </span>{" "}
-                  running over 180k objection turns daily.
-                </p>
+                ))}
               </div>
             </div>
 
-            {/* Right column - Live call mockup */}
-            <div className="lg:col-span-6 relative">
-              <div className="bg-[#131025] text-white rounded-xl shadow-xl overflow-hidden border border-white/10">
-                {/* gradient bar */}
-                <div className="h-1 bg-gradient-to-r from-primary via-purple-300 to-primary" />
-
-                {/* call header */}
-                <div className="p-4 lg:p-6 flex items-center justify-between bg-[#131025]/90">
+            {/* Illustrative panel */}
+            <div className="relative lg:col-span-5">
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#630ed4]/20 to-[#eaddff]/40 blur-xl" />
+              <div className="relative overflow-hidden rounded-2xl bg-[#213145] p-6 text-[#eaf1ff] shadow-xl">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#630ed4] to-[#7c3aed]" />
+                <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
-                    </span>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <panel.icon className="h-5 w-5 text-white" />
+                    </div>
                     <div>
-                      <span className="text-sm font-semibold text-white">
-                        Outbound Call: Marcus Vance
-                      </span>
-                      <span className="block text-xs text-zinc-400">
-                        VP Sales Operations @ CloudStack
-                      </span>
+                      <p className="text-sm font-bold text-white">{panel.title}</p>
+                      <p className="text-xs text-[#d2bbff]">{panel.subtitle}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 bg-white/5 px-3 py-1 rounded-full text-purple-300 text-xs font-semibold">
-                    <Timer className="h-3.5 w-3.5" />
-                    164ms Latency
-                  </div>
-                </div>
-
-                {/* detected phrase */}
-                <div className="px-4 lg:px-6 py-3 bg-white/[0.03] flex flex-col gap-1.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase text-zinc-400 flex items-center gap-1">
-                      <Ear className="h-3.5 w-3.5" /> Detected Prospect Phrase
-                    </span>
-                    <span className="text-xs text-emerald-400 font-medium">
-                      98.4% Confidence
-                    </span>
-                  </div>
-                  <p className="text-sm text-white italic pl-3 bg-white/5 py-2 rounded-lg">
-                    &ldquo;We already have an in-house team for this, not really
-                    looking outside right now.&rdquo;
-                  </p>
-                  {/* waveform */}
-                  <div className="flex items-center gap-1.5 h-4 px-1">
-                    <span className="w-1 bg-primary h-3 animate-pulse rounded-full" />
-                    <span className="w-1 bg-primary h-4 animate-pulse rounded-full" />
-                    <span className="w-1 bg-primary h-2 rounded-full" />
-                    <span className="w-1 bg-primary h-3.5 animate-pulse rounded-full" />
-                    <span className="w-1 bg-primary h-1 rounded-full" />
-                    <span className="w-1 bg-purple-300 h-4 animate-pulse rounded-full" />
-                    <span className="w-1 bg-purple-300 h-2.5 rounded-full" />
-                    <span className="w-1 bg-purple-300 h-3 animate-pulse rounded-full" />
-                    <span className="text-zinc-500 text-[10px] ml-2">
-                      Audio Stream Analyzed
-                    </span>
-                  </div>
-                </div>
-
-                {/* battlecard */}
-                <div className="p-4 lg:p-6 bg-white text-gray-900 m-4 rounded-xl shadow-md">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded bg-primary-light text-primary text-[10px] font-bold uppercase">
-                        Battlecard
-                      </span>
-                      <span className="text-lg font-bold text-gray-900">
-                        In-House Team Pivot
-                      </span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full text-xs font-semibold">
-                      <TrendingUp className="h-3.5 w-3.5" /> 73% Win
-                    </span>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg mb-4">
-                    <div className="text-xs text-primary font-bold uppercase mb-1">
-                      Recommended Response Script
-                    </div>
-                    <p className="text-sm text-gray-900 leading-relaxed">
-                      {heroScriptText}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-2 text-gray-500 text-xs">
-                      <Mic className="h-4 w-4 text-primary" />
-                      Audio Whisper Mode:{" "}
-                      <strong className="text-gray-900">Armed</strong>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handleCopy}
-                        className="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-900 text-xs font-semibold inline-flex items-center gap-1 transition-all"
-                      >
-                        {copied ? (
-                          <>
-                            <Check className="h-4 w-4" /> Copied!
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="h-4 w-4" /> Copy
-                          </>
-                        )}
-                      </button>
-                      <button className="px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-dark text-white text-xs font-semibold inline-flex items-center gap-1 shadow-sm transition-all">
-                        <Megaphone className="h-4 w-4" />
-                        Whisper to Rep
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* footer */}
-                <div className="px-4 lg:px-6 pb-4 flex items-center justify-between text-xs text-zinc-500">
-                  <span>
-                    Next alternate: <em>Cost-per-pipeline reframe</em>
-                  </span>
-                  <span className="flex items-center gap-1 text-white cursor-pointer hover:text-purple-300">
-                    Switch variant{" "}
-                    <GitBranch className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== ENGINE ARCHITECTURE ===== */}
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
-            <div>
-              <span className="section-label">Engine Architecture</span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mt-1">
-                Engineered for the Split-Second Sales Cycle
-              </h2>
-            </div>
-            <p className="text-base text-gray-500 max-w-md mt-4 md:mt-0">
-              Objection handling is won or lost in half a second. Here is how
-              Vocalis orchestrates sub-second intelligence.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1 */}
-            <div className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all shadow-sm flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center mb-6 shadow-sm">
-                <SlidersHorizontal className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Instant Transcription &amp; Sentiment
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                Zero-lag streaming speech-to-text with tone and cadence
-                evaluation. Captures intent before the prospect finishes their
-                sentence.
-              </p>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-between text-gray-500 text-xs font-semibold">
-                <span>Average STT speed</span>
-                <span className="font-bold text-primary">120ms</span>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all shadow-sm flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center mb-6 shadow-sm">
-                <Activity className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Smart Playbook Engine
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                Build bespoke battlecards mapped across industries, pricing
-                models, product tiers, and named tier-1 competitors.
-              </p>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-between text-gray-500 text-xs font-semibold">
-                <span>Configurable triggers</span>
-                <span className="font-bold text-primary">Unlimited</span>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all shadow-sm flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-6 shadow-sm">
-                <Brain className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Dynamic AI Script Adaptation
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                No robotic recitations. Rebuttals dynamically re-anchor around
-                specific context cues like company size, previous remarks, and
-                vocal state.
-              </p>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-between text-gray-500 text-xs font-semibold">
-                <span>Personalization depth</span>
-                <span className="font-bold text-primary">Real-Time LLM</span>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all shadow-sm flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-hero-bg text-white flex items-center justify-center mb-6 shadow-sm">
-                <BarChart3 className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Team Objection Heatmaps
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                Aggregate frequency dashboards identifying where deals choke,
-                which objections are trending, and which reps master the turn.
-              </p>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-between text-gray-500 text-xs font-semibold">
-                <span>Reporting cadence</span>
-                <span className="font-bold text-primary">Continuous</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== INTERACTIVE OBJECTION PLAYBOOK ===== */}
-      <section className="w-full py-24 bg-gray-50" id="battlecards-library">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="section-label">Battlecard Matrix</span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 mb-3">
-              Interactive Objection Playbook
-            </h2>
-            <p className="text-base text-gray-500">
-              Explore how Vocalis structures objection pivots into a proven
-              3-phase progression:{" "}
-              <span className="text-gray-900 font-medium">Acknowledge</span>,{" "}
-              <span className="text-gray-900 font-medium">Reframe</span>, and{" "}
-              <span className="text-gray-900 font-medium">
-                Low-Friction Ask
-              </span>
-              .
-            </p>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-            {tabKeys.map((t) => (
-              <button
-                key={t.key}
-                onClick={() => setActiveTab(t.key)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                  activeTab === t.key
-                    ? "bg-primary text-white shadow-sm"
-                    : "bg-white hover:bg-gray-100 text-gray-500 border border-gray-200"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Card content */}
-          <div className="bg-white rounded-xl p-6 md:p-10 shadow-lg relative">
-            <div className="flex flex-col gap-8">
-              {/* Header row */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 bg-gray-50 p-4 rounded-lg">
-                <div>
-                  <span className="text-[10px] font-bold uppercase text-primary tracking-wider">
-                    Objection Category
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {card.title}
-                  </h3>
-                </div>
-                <div className="flex items-center gap-3 mt-3 md:mt-0">
-                  <span className="text-xs text-gray-500 font-semibold">
-                    Historical Reversal Rate:
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-primary-light text-primary text-sm font-bold">
-                    {card.rate}
-                  </span>
-                </div>
-              </div>
-
-              {/* 3-phase cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-gray-50 p-6 rounded-xl flex flex-col">
-                  <div className="flex items-center gap-2 mb-3 text-primary">
-                    <span className="w-7 h-7 rounded-full bg-primary-light flex items-center justify-center font-bold text-xs">
-                      1
-                    </span>
-                    <span className="text-lg font-bold">Acknowledge</span>
-                  </div>
-                  <p className="text-[10px] font-bold uppercase text-gray-500 tracking-wider mb-2">
-                    De-escalate tension
-                  </p>
-                  <p className="text-sm text-gray-900 flex-1">{card.ack}</p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-xl flex flex-col">
-                  <div className="flex items-center gap-2 mb-3 text-primary">
-                    <span className="w-7 h-7 rounded-full bg-primary-light flex items-center justify-center font-bold text-xs">
-                      2
-                    </span>
-                    <span className="text-lg font-bold">Reframe</span>
-                  </div>
-                  <p className="text-[10px] font-bold uppercase text-gray-500 tracking-wider mb-2">
-                    Shift perceived cost
-                  </p>
-                  <p className="text-sm text-gray-900 flex-1">
-                    {card.reframe}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-xl flex flex-col">
-                  <div className="flex items-center gap-2 mb-3 text-primary">
-                    <span className="w-7 h-7 rounded-full bg-primary-light flex items-center justify-center font-bold text-xs">
-                      3
-                    </span>
-                    <span className="text-lg font-bold">Low-Friction Ask</span>
-                  </div>
-                  <p className="text-[10px] font-bold uppercase text-gray-500 tracking-wider mb-2">
-                    Zero-risk micro commitment
-                  </p>
-                  <p className="text-sm text-gray-900 flex-1">{card.ask}</p>
-                </div>
-              </div>
-
-              {/* AI tone bar */}
-              <div className="p-4 rounded-xl bg-[#131025] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white">
-                    <Bot className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <span className="text-sm font-semibold text-white">
-                      Voice AI Tone Recommendation
-                    </span>
-                    <span className="block text-xs text-zinc-400">
-                      {card.tone}
-                    </span>
-                  </div>
-                </div>
-                <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold inline-flex items-center gap-1 transition-all whitespace-nowrap">
-                  <PlayCircle className="h-4 w-4" />
-                  Listen to Pro Rep Delivery
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== IMPACT TELEMETRY ===== */}
-      <section className="w-full py-24 bg-gray-100 relative">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left column */}
-            <div className="lg:col-span-5">
-              <span className="section-label">Quantified Impact</span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 mb-4">
-                Telemetry Built for Revenue Leaders
-              </h2>
-              <p className="text-base text-gray-500 mb-8">
-                Vocalis monitors rep behavioral responses in real time, scoring
-                objection turnaround velocity and turning your mid-tier sales
-                reps into quota crushers.
-              </p>
-
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white shadow-sm flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary-light text-primary flex items-center justify-center text-xl font-bold shrink-0">
-                    +41%
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900">
-                      Higher Objection Win-Rate
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      Across audited calls in SaaS, FinTech, and Logistics
-                      outbound motions.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white shadow-sm flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold shrink-0">
-                    65%
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900">
-                      Faster Ramp Time for SDRs
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      New hires hit full quota within 18 days instead of the
-                      standard 52-day window.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white shadow-sm flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-gray-200 text-gray-900 flex items-center justify-center text-xl font-bold shrink-0">
-                    10k+
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900">
-                      Battle-Tested Dial Prompts
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      Pre-indexed heuristics curated from over 5,000,000 cold
-                      call transcripts.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right column - chart */}
-            <div className="lg:col-span-7">
-              <div className="bg-white rounded-xl p-6 lg:p-8 shadow-lg">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">
-                      Live Team Objection Frequency &amp; Win-Matrix
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Real-time team analytics for outbound SDR org
-                    </p>
-                  </div>
-                  <span className="px-3 py-1 rounded bg-primary-light text-primary text-xs font-semibold">
-                    Past 30 Days
+                  <span className="rounded-full bg-[#630ed4]/40 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#d2bbff]">
+                    Illustrative
                   </span>
                 </div>
 
-                <div className="space-y-4">
-                  {frequencyData.map((item, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between text-xs font-semibold mb-1">
-                        <span className="text-gray-900">{item.label}</span>
-                        <span className="text-primary font-bold">
-                          {item.rate}
-                        </span>
-                      </div>
-                      <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-primary rounded-full transition-all duration-500"
-                          style={{ width: `${item.width}%` }}
-                        />
+                <div className="flex flex-col gap-3">
+                  {panelRows.map((r) => (
+                    <div
+                      key={r.label}
+                      className="flex items-start gap-3 rounded-xl bg-white/5 p-3.5"
+                    >
+                      <r.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#d2bbff]" />
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-[#d2bbff]">
+                          {r.label}
+                        </p>
+                        <p className="text-sm leading-snug text-[#eaf1ff]">{r.value}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-8 p-4 rounded-lg bg-gray-50 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <BadgeCheck className="h-6 w-6 text-primary" />
-                    <div>
-                      <span className="text-sm font-semibold text-gray-900">
-                        Automated CRM Tagging
-                      </span>
-                      <p className="text-sm text-gray-500">
-                        Every pushback automatically logged to HubSpot &amp;
-                        Salesforce opportunities.
-                      </p>
-                    </div>
-                  </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400" />
-                </div>
+                <p className="mt-5 text-[11px] leading-relaxed text-[#d2bbff]/80">
+                  {panel.footnote}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
-      <section className="w-full py-32 bg-hero-bg text-white relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(#d2bbff 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-purple-300 text-[10px] font-bold uppercase tracking-wider mb-4">
-            Deploy in 5 Minutes
+      {/* ============================================================ */}
+      {/* AT A GLANCE                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-12 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"At a glance"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Help that is written for the call you are on"}
+            </h2>
           </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
-            Turn Tough Pushbacks into Booked Meetings with AI Copilot
-          </h2>
-
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto mb-10">
-            Arm every sales representative with conversational reflexes powered
-            by millions of winning cold call data points. Plug into Zoom,
-            Outreach, or dial directly.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/free-trial"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-primary hover:bg-primary-dark text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all"
-            >
-              Start Free 14-Day Copilot Trial
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-semibold transition-all"
-            >
-              Schedule Leadership Demo
-            </Link>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {glance.map((g) => (
+              <div key={g.title} className="rounded-2xl bg-white p-6 shadow-sm">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <g.icon className="h-5 w-5 text-[#630ed4]" />
+                </div>
+                <h3 className="mb-2 text-base font-bold text-[#0b1c30]">{g.title}</h3>
+                <p className="text-sm leading-relaxed text-[#4a4455]">{g.desc}</p>
+              </div>
+            ))}
           </div>
-
-          <p className="text-xs text-zinc-500 mt-6">
-            SOC2 Type II Certified &bull; TCPA &amp; 10DLC Compliant &bull; No
-            browser extension required
-          </p>
         </div>
       </section>
-    </>
+
+      {/* ============================================================ */}
+      {/* CAPABILITIES                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-14 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              {"Capabilities"}
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"A calling assistant, not a script library"}
+            </h2>
+            <p className="text-base leading-relaxed text-[#4a4455]">
+              {"Rebuttals are produced on demand from the information you already have about the lead and your campaign."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((cap) => {
+              const inner = (
+                <>
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#630ed4]">
+                      <cap.icon className="h-6 w-6 text-white" />
+                    </div>
+                    {cap.tag ? (
+                      <span className="rounded-full bg-[#eaddff] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#630ed4]">
+                        {cap.tag}
+                      </span>
+                    ) : null}
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold text-[#0b1c30]">{cap.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{cap.desc}</p>
+                  {cap.href ? (
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#630ed4] transition-all group-hover:gap-2.5">
+                      Explore
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  ) : null}
+                </>
+              );
+              return cap.href ? (
+                <Link
+                  key={cap.title}
+                  href={cap.href}
+                  className="group flex flex-col rounded-2xl bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <div key={cap.title} className="flex flex-col rounded-2xl bg-white p-7 shadow-sm">
+                  {inner}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* HOW IT WORKS                                                  */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#213145] py-24 text-[#eaf1ff]">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-14 max-w-2xl">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+              {"How it works"}
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              {"From objection to next step"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <div key={s.title} className="relative rounded-2xl bg-white/5 p-6">
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#630ed4]">
+                    <s.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-3xl font-bold text-[#d2bbff]/30">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mb-2 text-base font-bold text-white">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-[#eaf1ff]/80">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* DEEP DIVES                                                    */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-24 px-6 sm:px-8">
+          {dives.map((d, idx) => (
+            <div
+              key={d.title}
+              className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12"
+            >
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+                  {d.eyebrow}
+                </span>
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30]">
+                  {d.title}
+                </h2>
+                <p className="mb-8 text-base leading-relaxed text-[#4a4455]">{d.desc}</p>
+                <ul className="flex flex-col gap-5">
+                  {d.points.map((p) => (
+                    <li key={p.title} className="flex items-start gap-4">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#eaddff]">
+                        <p.icon className="h-4 w-4 text-[#630ed4]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-[#0b1c30]">{p.title}</p>
+                        <p className="text-sm leading-relaxed text-[#4a4455]">{p.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                <div className="rounded-2xl bg-[#e5eeff] p-6 shadow-sm">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#7c3aed]">
+                      <d.icon className="h-5 w-5 text-white" />
+                    </div>
+                    <p className="text-sm font-bold text-[#0b1c30]">{d.panelTitle}</p>
+                  </div>
+                  <div className="flex flex-col gap-2.5 rounded-xl bg-[#213145] p-5 font-mono text-[13px] leading-relaxed text-[#eaf1ff]">
+                    {d.panelLines.map((l) => (
+                      <p key={l} className="break-words">
+                        {l}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-[11px] text-[#4a4455]">
+                    Illustrative example for explanation only.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* IS / IS NOT                                                   */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              Straight answers
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"What live rebuttals are, and are not"}
+            </h2>
+            <p className="text-base leading-relaxed text-[#4a4455]">{"A fast assistant for the call you are on, without extra systems to maintain."}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <CheckCircle className="h-5 w-5 text-[#630ed4]" />
+                What it does
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#630ed4]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-5 flex items-center gap-2 text-lg font-bold text-[#0b1c30]">
+                <XCircle className="h-5 w-5 text-[#4a4455]" />
+                What it does not do
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {isNotList.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-[#4a4455]">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-[#4a4455]" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* FAQ                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-3xl px-6 sm:px-8">
+          <div className="mb-10 text-center">
+            <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#630ed4]">
+              FAQ
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0b1c30] sm:text-4xl">
+              {"Questions about live rebuttals"}
+            </h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {faqs.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={f.q} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                  <button
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  >
+                    <span className="text-sm font-bold text-[#0b1c30]">{f.q}</span>
+                    {open ? (
+                      <Minus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    ) : (
+                      <Plus className="h-4 w-4 shrink-0 text-[#630ed4]" />
+                    )}
+                  </button>
+                  {open ? (
+                    <div className="px-6 pb-5 text-sm leading-relaxed text-[#4a4455]">{f.a}</div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* RELATED                                                       */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#eff4ff] py-20">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <h2 className="mb-8 text-2xl font-bold tracking-tight text-[#0b1c30]">
+            Related features
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {related.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="group flex items-start gap-4 rounded-2xl bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eaddff]">
+                  <r.icon className="h-5 w-5 text-[#630ed4]" />
+                </div>
+                <div>
+                  <h3 className="mb-1 flex items-center gap-1.5 text-base font-bold text-[#0b1c30]">
+                    {r.title}
+                    <ArrowRight className="h-4 w-4 text-[#630ed4] transition-transform group-hover:translate-x-1" />
+                  </h3>
+                  <p className="text-sm leading-relaxed text-[#4a4455]">{r.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* CTA                                                           */}
+      {/* ============================================================ */}
+      <section className="w-full bg-[#f8f9ff] py-24">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-[#630ed4] p-10 text-white shadow-xl md:p-20">
+            <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative z-10 max-w-3xl">
+              <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#d2bbff]">
+                {"Early access"}
+              </span>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+                {"Never freeze on an objection again"}
+              </h2>
+              <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
+                {"See how a context-aware rebuttal reads for your own niche and offer."}
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#0b1c30] shadow-md transition-all hover:bg-[#eaddff]"
+                >
+                  Get Early Access
+                  <ArrowRight className="h-[18px] w-[18px]" />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#7c3aed] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[#213145]"
+                >
+                  <Calendar className="h-[18px] w-[18px]" />
+                  Book a Demo
+                </Link>
+              </div>
+              <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
+                <Info className="h-4 w-4 shrink-0" />
+                {"Powered by Claude or Gemini. Suggestions are drafts for you to adapt, not scripts that play automatically."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

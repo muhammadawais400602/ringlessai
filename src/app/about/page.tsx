@@ -1,307 +1,275 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import {
   ArrowRight,
-  Zap,
-  Layers,
-  ShieldCheck,
-  Target,
-  MapPin,
-  Flag,
-  Users,
-  Globe,
-  PhoneCall,
-  TrendingUp,
-  Quote,
-  Briefcase,
-  Terminal,
+  Bot,
   Brain,
-  Link2,
-  Share2,
-  Code,
-  GraduationCap,
+  Clock,
+  FileSpreadsheet,
+  Gauge,
+  Headphones,
+  Layers,
+  ListChecks,
+  MapPin,
+  MessageSquare,
+  PhoneCall,
+  Scale,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Users,
+  Wrench,
+  Heart,
+  Eye,
+  Handshake,
+  Download,
 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "About Dialeads – AI Calling Platform Built for Sales Teams",
-  description:
-    "Dialeads is an AI-powered calling and voicemail drop platform built to help sales teams, agencies, and businesses book more meetings without manual dialing.",
-};
-
-const stats = [
+const problems = [
   {
-    icon: Flag,
-    tag: "Origin",
-    value: "2022",
-    label: "Founded in San Francisco & New York",
+    icon: Search,
+    title: "Finding leads takes hours",
+    body: "Building a list of local businesses usually means searching maps by hand, copying names and numbers into a spreadsheet, and hoping nothing is out of date.",
+  },
+  {
+    icon: ListChecks,
+    title: "Nobody knows who to call first",
+    body: "A raw list does not tell you which business is running ads, which has no website, and which has a site worth pitching on. Reps guess, or call top to bottom.",
+  },
+  {
+    icon: Clock,
+    title: "Calling is slow, repetitive work",
+    body: "Dialing, reading the same opener, logging the result, and sending the follow-up text are all manual steps that eat the day.",
+  },
+  {
+    icon: Scale,
+    title: "Compliance is easy to forget",
+    body: "Calling windows, opt-outs, and how many times you have already tried a contact are details that slip when you are moving fast.",
+  },
+];
+
+const workflow = [
+  {
+    step: "01",
+    icon: MapPin,
+    title: "Scrape",
+    body: "Pick a niche and a city. Xovra pulls matching businesses from Google Maps so you start with a real list instead of a blank sheet.",
+  },
+  {
+    step: "02",
+    icon: Layers,
+    title: "Enrich",
+    body: "Each lead gets a website audit, Google Ads detection, and a look at social presence, so you know what the business already has.",
+  },
+  {
+    step: "03",
+    icon: Target,
+    title: "Score",
+    body: "Leads are tagged with a pitch angle: RUNS_ADS, NO_SITE, WEAK_SITE, or STRONG_SITE. That tells you what to lead with before you dial.",
+  },
+  {
+    step: "04",
+    icon: PhoneCall,
+    title: "Call",
+    body: "Call one lead at a time from your browser, or let an AI assistant run the qualifier call. Use per-lead scripts, and text them afterward.",
+  },
+  {
+    step: "05",
+    icon: FileSpreadsheet,
+    title: "Track",
+    body: "Outcomes flow back to a Google Sheet, and you can export leads as a HubSpot-compatible CSV when it is time to move them into your CRM.",
+  },
+];
+
+const capabilities = [
+  {
+    icon: Headphones,
+    title: "Browser softphone",
+    body: "A WebRTC softphone over Telnyx for manual, one-at-a-time calling. No desk phone or separate dialer app.",
+  },
+  {
+    icon: Bot,
+    title: "AI qualifier calls",
+    body: "A Telnyx AI assistant can place qualifier calls. It says it is an AI in the first sentence of every call.",
+  },
+  {
+    icon: Brain,
+    title: "Live AI rebuttals",
+    body: "During a call, Claude or Gemini can suggest rebuttals so you are not stuck when a prospect pushes back.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Two-way SMS",
+    body: "Send follow-up texts and read replies in the same place, with STOP and UNSUBSCRIBE handled automatically.",
   },
   {
     icon: Users,
-    tag: "Talent",
-    value: "42",
-    label: "Engineers, Ex-SDRs, & Telecom Specialists",
-  },
-  {
-    icon: Globe,
-    tag: "Footprint",
-    value: "18",
-    label: "Countries with Active Dialing Infrastructure",
-  },
-  {
-    icon: PhoneCall,
-    tag: "Volume",
-    value: "14.8M",
-    label: "Cold Calls Successfully Dispatched",
-    highlight: true,
-  },
-];
-
-const values = [
-  {
-    icon: Zap,
-    title: "Speed First",
-    desc: "Every millisecond matters in cold outreach. From sub-25ms call latency to 1-click dispositions, every workflow is optimized for sales velocity.",
-    footnote: "Benchmarked daily against Tier-1 SIP carriers",
-  },
-  {
-    icon: Layers,
-    title: "Radical Simplicity",
-    desc: "No bloated dashboards. No 20-field forms. Dialeads shows reps exactly what they need — lead info, live rebuttals, and one-tap follow-up — nothing else.",
-    footnote: "Zero context-switching design",
+    title: "Teams and organizations",
+    body: "Owner, admin, and agent roles, team invites, per-organization numbers and AI assistants, and number pools with health monitoring.",
   },
   {
     icon: ShieldCheck,
-    title: "Full Transparency",
-    desc: "Straightforward pricing. No hidden carrier markups. Clear compliance tooling. What you see is what you get.",
-    footnote: "Direct-to-SIP bypass without markups",
-  },
-  {
-    icon: Target,
-    title: "Results Only",
-    desc: "We measure success one way: booked meetings and closed revenue for our customers. Not time-on-platform. Not feature usage. Pipeline.",
-    footnote: "Measured strictly in booked pipeline ($ARR)",
+    title: "Guardrails on outbound",
+    body: "Suppression lists, calling windows, and attempt caps are checked on the server before anything goes out.",
   },
 ];
 
-const nodes = [
+const principles = [
   {
-    id: "01",
-    title: "Telnyx SIP Trunking",
-    desc: "Carrier-grade SIP trunking with global points of presence for crystal-clear audio.",
-    metric: "Sub-25ms latency",
+    icon: Eye,
+    title: "Say what it is",
+    body: "AI calls announce themselves. Our own pages describe what the product does today and nothing it does not.",
   },
   {
-    id: "02",
-    title: "Platform Uptime",
-    desc: "Redundant infrastructure with automatic failover across multiple regions.",
-    metric: "99.98% uptime",
+    icon: Wrench,
+    title: "Practical over flashy",
+    body: "We build for the person who has a list and a phone and wants to get through it faster, not for a demo reel.",
   },
   {
-    id: "03",
-    title: "Caller ID Verification",
-    desc: "STIR/SHAKEN A-level attestation on all outbound caller IDs to prevent spam flags.",
-    metric: "A-attestation",
+    icon: Handshake,
+    title: "Fair, usage-based pricing",
+    body: "You pay per minute and per message. No contracts, and no platform fee for the privilege of having an account.",
   },
   {
-    id: "04",
-    title: "Security & Compliance",
-    desc: "SOC2 Type II certified with DNC scrubbing on every number before it dials.",
-    metric: "SOC2 Type II",
+    icon: Heart,
+    title: "Respect the person on the line",
+    body: "Honoring opt-outs, calling hours, and contact limits is good practice, not just a legal checkbox.",
   },
 ];
 
-const leaders = [
+const audiences = [
   {
-    initials: "CF",
-    name: "Co-Founder",
-    role: "Operations & Strategy",
-    prevIcon: Briefcase,
-    prev: "Background in outbound sales and revenue operations",
-    desc: "Background in outbound sales and revenue operations.",
-    location: "Remote",
-    links: [
-      { icon: Share2, label: "LinkedIn" },
-      { icon: Link2, label: "Personal site" },
-    ],
-    gradient: "from-[#630ed4] to-[#7c3aed]",
+    title: "Agencies",
+    body: "Web, marketing, and ads agencies that prospect local businesses and want to open with the right angle.",
   },
   {
-    initials: "CF",
-    name: "Co-Founder",
-    role: "Engineering & Infrastructure",
-    prevIcon: Terminal,
-    prev: "Background in enterprise telephony and WebRTC",
-    desc: "Background in enterprise telephony and WebRTC.",
-    location: "Remote",
-    links: [
-      { icon: Code, label: "GitHub" },
-      { icon: Share2, label: "Network" },
-    ],
-    gradient: "from-[#7c3aed] to-[#d2bbff]",
+    title: "Sales teams",
+    body: "Small outbound teams who want shared workspaces, roles, and numbers without stitching tools together.",
   },
   {
-    initials: "CF",
-    name: "Co-Founder",
-    role: "Product & AI",
-    prevIcon: Brain,
-    prev: "Background in AI engineering and voice systems",
-    desc: "Background in AI engineering and voice systems.",
-    location: "Remote",
-    links: [
-      { icon: GraduationCap, label: "Research" },
-      { icon: Share2, label: "Network" },
-    ],
-    gradient: "from-[#630ed4] to-[#25005a]",
+    title: "Solo operators",
+    body: "Freelancers and founders who do their own prospecting and need to move quickly through a list.",
   },
+];
+
+const statusItems = [
+  {
+    label: "Stage",
+    value: "Early access",
+    note: "The product is live and we are working closely with the first users.",
+  },
+  {
+    label: "Team",
+    value: "Small",
+    note: "A small team building tools for sales teams and agencies.",
+  },
+  {
+    label: "Pricing",
+    value: "Usage-based",
+    note: "$0.02/min manual, $0.25/min AI, $0.03 per SMS part.",
+  },
+  {
+    label: "Telephony",
+    value: "Telnyx",
+    note: "Voice, SMS, and AI assistants run on Telnyx.",
+  },
+];
+
+const notYet = [
+  "Native CRM sync. Today you export a HubSpot-compatible CSV.",
+  "Call recording and transcripts.",
+  "A power or predictive dialer. Manual calling is one lead at a time.",
+  "Subscription plans and a billing dashboard. Pricing is usage-based.",
 ];
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col">
-      {/* Ambient Glows */}
-      <div className="relative w-full overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[48rem] h-96 bg-[#630ed4]/10 rounded-full blur-3xl pointer-events-none -z-10" />
-        <div className="absolute top-72 right-10 w-80 h-80 bg-[#7c3aed]/10 rounded-full blur-2xl pointer-events-none -z-10" />
-
-        {/* ── Hero ── */}
-        <section className="max-w-[75rem] mx-auto px-4 lg:px-8 pt-16 lg:pt-24 pb-12 flex flex-col items-center text-center">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#eaddff] text-[#25005a] shadow-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#630ed4] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#630ed4]">
-              Our Story
-            </span>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl lg:text-[72px] lg:leading-[76px] font-extrabold tracking-tight text-[#0b1c30] max-w-4xl mx-auto mb-6">
-            Built to Replace the Manual Work{" "}
-            <br className="hidden sm:inline" />
-            <span className="text-[#7c3aed]">That Kills Sales Momentum</span>
-          </h1>
-
-          <p className="text-lg text-[#4a4455] max-w-2xl mx-auto mb-12">
-            Every hour a sales rep spends dialing busy signals, leaving
-            voicemails manually, or forgetting to follow up is an hour not spent
-            closing. Dialeads was built to fix that.
-          </p>
-
-          {/* Visual Collage */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-4 max-w-5xl mx-auto mt-4">
-            {/* Large image */}
-            <div className="md:col-span-8 rounded-xl overflow-hidden shadow-md relative h-72 md:h-96 bg-[#213145] group">
-              <img
-                src="https://res.cloudinary.com/fgjqafs0/image/upload/v1789031026/Overlay_Shadow.png"
-                alt="Mission Control: SF Outbound Floor"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b1c30]/80 via-transparent to-transparent flex items-end p-6">
-                <div className="flex items-center gap-3 text-white">
-                  <PhoneCall className="h-6 w-6 text-[#d2bbff]" />
-                  <span className="text-sm font-bold tracking-tight">
-                    Mission Control: SF Outbound Floor
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="md:col-span-4 flex flex-col gap-4">
-              {/* Small image */}
-              <div className="rounded-xl overflow-hidden shadow-md flex-1 relative min-h-[10rem] bg-[#213145]">
-                <img
-                  src="https://res.cloudinary.com/fgjqafs0/image/upload/v1789031159/about_us_image.png"
-                  alt="Voice Latency Lab"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1c30]/80 via-transparent to-transparent flex items-end p-4">
-                  <span className="text-xs text-white font-medium">
-                    &lt;25ms Voice Latency Lab
-                  </span>
-                </div>
-              </div>
-
-              {/* Stat card */}
-              <div className="rounded-xl bg-[#eff4ff] p-6 shadow-sm flex flex-col justify-between">
-                <div className="flex items-center justify-between text-[#630ed4]">
-                  <TrendingUp className="h-7 w-7" />
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    Real-Time
-                  </span>
-                </div>
-                <div className="mt-3">
-                  <div className="text-4xl font-bold text-[#0b1c30]">99.98%</div>
-                  <div className="text-sm text-[#4a4455]">
-                    SIP Carrier Route Uptime
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* ── Mission Quote ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-12 w-full">
-        <div className="relative bg-[#eff4ff] rounded-xl p-8 lg:p-16 shadow-sm overflow-hidden">
-          {/* Decorative quote mark */}
-          <div className="absolute -right-8 -bottom-10 opacity-10 select-none pointer-events-none text-[#630ed4]">
-            <Quote className="w-60 h-60" />
-          </div>
-          <div className="relative max-w-4xl mx-auto flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-full bg-[#630ed4]/10 flex items-center justify-center text-[#630ed4] mb-6">
-              <Quote className="h-7 w-7" />
-            </div>
-            <blockquote className="text-2xl lg:text-[32px] lg:leading-[38px] font-extrabold text-[#0b1c30] tracking-tight leading-snug mb-8">
-              &ldquo;Sales teams have had the same problem for 20 years — too
-              many leads, not enough time, and tools that make reps do the grunt
-              work instead of eliminating it. CRMs don&rsquo;t dial. Auto-dialers
-              don&rsquo;t handle objections. Voicemail drop tools don&rsquo;t
-              follow up. Dialeads combines everything into one platform: AI
-              calling, ringless voicemail drop, live objection rebuttals, and
-              automated follow-up — so reps spend 100% of their time on
-              conversations that matter.&rdquo;
-            </blockquote>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#630ed4] to-[#7c3aed] text-white flex items-center justify-center font-bold text-sm shadow-md">
-                AV
-              </div>
-              <div className="text-left">
-                <div className="text-sm font-bold text-[#0b1c30]">
-                  Alex Vance
-                </div>
-                <div className="text-sm text-[#4a4455]">
-                  Co-Founder &amp; CEO, Dialeads
-                </div>
-              </div>
-            </div>
-          </div>
+    <main className="bg-[#f8f9ff] text-[#0b1c30] min-h-screen">
+      {/* Hero */}
+      <section className="max-w-5xl mx-auto px-6 pt-20 pb-14 text-center">
+        <span className="inline-flex items-center gap-2 bg-[#eaddff] text-[#630ed4] text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">
+          <Sparkles className="w-3.5 h-3.5" />
+          About Xovra
+        </span>
+        <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight">
+          Smarter outbound calling,
+          <span className="block text-[#630ed4]">built on data and AI.</span>
+        </h1>
+        <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455] leading-relaxed">
+          Xovra is an AI-powered cold calling platform. It finds local
+          business leads, works out who is worth calling and why, and helps you
+          call, text, and track the results from one place.
+        </p>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 bg-[#630ed4] hover:bg-[#7c3aed] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors"
+          >
+            Get Early Access
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 bg-[#e3e0f1] text-[#630ed4] font-semibold px-7 py-3.5 rounded-xl hover:bg-[#eaddff] transition-colors"
+          >
+            Book a Demo
+          </Link>
         </div>
       </section>
 
-      {/* ── Stats Row ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-12 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((s) => {
-            const Icon = s.icon;
+      {/* Status */}
+      <section className="max-w-5xl mx-auto px-6 pb-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {statusItems.map((s) => (
+            <div key={s.label} className="bg-[#eff4ff] rounded-2xl p-5">
+              <p className="text-xs uppercase tracking-wide text-[#4a4455]">{s.label}</p>
+              <p className="mt-1 text-2xl font-bold text-[#630ed4]">{s.value}</p>
+              <p className="mt-2 text-xs text-[#4a4455] leading-relaxed">{s.note}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="bg-[#213145] text-[#eaf1ff] py-16">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <span className="text-[#d2bbff] text-sm font-semibold uppercase tracking-wider">
+            Our mission
+          </span>
+          <h2 className="mt-3 text-3xl md:text-4xl font-bold leading-tight">
+            Make outbound calling smarter with AI and data.
+          </h2>
+          <p className="mt-5 text-[#d2bbff] leading-relaxed max-w-2xl mx-auto">
+            Cold calling still works for local businesses, but most of the time
+            goes into everything around the call. We want people to spend that
+            time talking to the right prospects with the right opener, not
+            copying rows between tabs.
+          </p>
+        </div>
+      </section>
+
+      {/* Problem */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold">The problem we are solving</h2>
+          <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+            Finding and calling leads is manual, tedious work. Most of it
+            happens before and after the actual conversation.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {problems.map((p) => {
+            const Icon = p.icon;
             return (
-              <div
-                key={s.tag}
-                className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <span className="w-10 h-10 rounded-full bg-[#eaddff] flex items-center justify-center text-[#25005a]">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#7c3aed]">
-                    {s.tag}
-                  </span>
+              <div key={p.title} className="bg-white border border-[#e3e0f1] rounded-2xl p-6 flex gap-4">
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-[#eaddff] text-[#630ed4] flex items-center justify-center">
+                  <Icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <div
-                    className={`text-[56px] leading-[60px] font-black tracking-tight mb-2 ${s.highlight ? "text-[#7c3aed]" : "text-[#0b1c30]"}`}
-                  >
-                    {s.value}
-                  </div>
-                  <p className="text-base text-[#4a4455]">{s.label}</p>
+                  <h3 className="font-semibold text-lg">{p.title}</h3>
+                  <p className="mt-1.5 text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
                 </div>
               </div>
             );
@@ -309,219 +277,155 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Core Values ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-16 lg:py-24 w-full">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#7c3aed] block mb-2">
-              Engineering Standard
-            </span>
-            <h2 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold text-[#0b1c30] tracking-tight">
-              How We Build
+      {/* Workflow */}
+      <section className="bg-[#eff4ff] py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              How it works: scrape, enrich, score, call, track
             </h2>
+            <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+              One workflow from an empty search to a logged outcome.
+            </p>
           </div>
-          <p className="text-base text-[#4a4455] max-w-md">
-            How we make architectural decisions, design real-time telephony state
-            machines, and support outbound sales engines globally.
+          <div className="grid md:grid-cols-5 gap-4">
+            {workflow.map((w) => {
+              const Icon = w.icon;
+              return (
+                <div key={w.step} className="bg-white rounded-2xl p-5 relative">
+                  <span className="text-xs font-bold text-[#7c3aed]">{w.step}</span>
+                  <div className="mt-2 w-11 h-11 rounded-lg bg-[#e3e0f1] text-[#630ed4] flex items-center justify-center">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="mt-3 font-semibold text-lg">{w.title}</h3>
+                  <p className="mt-1.5 text-sm text-[#4a4455] leading-relaxed">{w.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold">What is in the product today</h2>
+          <p className="mt-3 text-[#4a4455] max-w-2xl mx-auto">
+            A focused set of tools, all connected to the same lead list.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {values.map((v) => {
-            const Icon = v.icon;
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {capabilities.map((c) => {
+            const Icon = c.icon;
             return (
-              <div
-                key={v.title}
-                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-[#eff4ff] flex items-center justify-center text-[#630ed4] group-hover:bg-[#630ed4] group-hover:text-white transition-colors mb-6">
-                    <Icon className="h-7 w-7" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#0b1c30] tracking-tight mb-3">
-                    {v.title}
-                  </h3>
-                  <p className="text-base text-[#4a4455] leading-relaxed mb-6">
-                    {v.desc}
-                  </p>
+              <div key={c.title} className="bg-white border border-[#e3e0f1] rounded-2xl p-6">
+                <div className="w-11 h-11 rounded-lg bg-[#e5eeff] text-[#630ed4] flex items-center justify-center">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <div className="pt-4 flex items-center gap-2 text-[#630ed4] text-sm font-semibold">
-                  <span>{v.footnote}</span>
-                </div>
+                <h3 className="mt-4 font-semibold text-lg">{c.title}</h3>
+                <p className="mt-1.5 text-sm text-[#4a4455] leading-relaxed">{c.body}</p>
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* ── Telephony Pipeline ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-8 w-full">
-        <div className="bg-[#0b1c30] text-white rounded-xl p-8 lg:p-12 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-[#7c3aed]" />
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#d2bbff] block mb-1">
-                Internal Infrastructure
-              </span>
-              <h3 className="text-[32px] leading-[38px] font-bold">
-                Enterprise Infrastructure. Startup Simplicity.
-              </h3>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#d2bbff] animate-ping" />
-              <span className="text-xs text-[#d2bbff]">
-                Global POPs Active • 19 Edge Nodes
-              </span>
-            </div>
+      {/* Who */}
+      <section className="bg-[#e5eeff] py-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold">Who Xovra is for</h2>
+            <p className="mt-3 text-[#4a4455]">
+              We are a small team building tools for sales teams and agencies.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-[#cbdbf5]">
-            {nodes.map((n) => (
-              <div
-                key={n.id}
-                className="bg-white/5 rounded-lg p-4 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="text-xs font-bold uppercase text-[#d2bbff] mb-2">
-                    Node {n.id}
-                  </div>
-                  <div className="text-xl font-semibold text-white mb-1">
-                    {n.title}
-                  </div>
-                  <p className="text-sm">{n.desc}</p>
-                </div>
-                <div className="mt-4 text-xs font-mono text-[#d2bbff]">
-                  {n.metric}
-                </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {audiences.map((a) => (
+              <div key={a.title} className="bg-white rounded-2xl p-6">
+                <h3 className="font-semibold text-xl text-[#630ed4]">{a.title}</h3>
+                <p className="mt-2 text-sm text-[#4a4455] leading-relaxed">{a.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Leadership Team ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-16 lg:py-24 w-full">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#7c3aed] block mb-2">
-            Executive Leadership
-          </span>
-          <h2 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold text-[#0b1c30] tracking-tight mb-3">
-            Built by Operators Who&apos;ve Been in the Trenches
-          </h2>
-          <p className="text-base text-[#4a4455]">
-            Our founding team brings experience from enterprise telephony,
-            outbound sales, and AI engineering.
-          </p>
+      {/* Principles */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold">How we think about building this</h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {leaders.map((m) => {
-            const PrevIcon = m.prevIcon;
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {principles.map((p) => {
+            const Icon = p.icon;
             return (
-              <div
-                key={m.initials}
-                className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-tr ${m.gradient} text-white flex items-center justify-center font-bold text-2xl shadow-md`}
-                    >
-                      {m.initials}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-[#0b1c30]">
-                        {m.name}
-                      </h3>
-                      <p className="text-xs font-semibold text-[#7c3aed]">
-                        {m.role}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#e3e0f1] text-[#1b1a26] text-xs font-medium mb-4">
-                    <PrevIcon className="h-4 w-4" />
-                    <span>{m.prev}</span>
-                  </div>
-                  <p className="text-base text-[#4a4455] leading-relaxed">
-                    {m.desc}
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 flex items-center justify-between text-[#4a4455]">
-                  <span className="text-sm font-medium flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5" />
-                    {m.location}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    {m.links.map((link) => {
-                      const LinkIcon = link.icon;
-                      return (
-                        <a
-                          key={link.label}
-                          href="#"
-                          aria-label={link.label}
-                          className="hover:text-[#630ed4] transition-colors p-1"
-                        >
-                          <LinkIcon className="h-5 w-5" />
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
+              <div key={p.title} className="bg-white border border-[#e3e0f1] rounded-2xl p-6">
+                <Icon className="w-7 h-7 text-[#630ed4]" />
+                <h3 className="mt-4 font-semibold text-lg">{p.title}</h3>
+                <p className="mt-1.5 text-sm text-[#4a4455] leading-relaxed">{p.body}</p>
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* ── Investors + Hiring CTA ── */}
-      <section className="max-w-[75rem] mx-auto px-4 lg:px-8 py-16 mb-24 w-full">
-        {/* Investors */}
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#4a4455] block mb-6">
-            Backed by investors who believe in the future of AI-powered sales.
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16 opacity-80">
-            <div className="flex items-center gap-2 text-xl font-bold text-[#0b1c30]">
-              Seed-funded. Building for the long term.
-            </div>
+      {/* Honest limits */}
+      <section className="max-w-4xl mx-auto px-6 pb-20">
+        <div className="bg-white border border-[#e3e0f1] rounded-3xl p-8 md:p-10">
+          <div className="flex items-center gap-3">
+            <Gauge className="w-6 h-6 text-[#630ed4]" />
+            <h2 className="text-2xl font-bold">What Xovra does not do yet</h2>
           </div>
+          <p className="mt-3 text-sm text-[#4a4455]">
+            We would rather you know the limits before you sign up.
+          </p>
+          <ul className="mt-5 space-y-3">
+            {notYet.map((n) => (
+              <li key={n} className="flex gap-3 text-sm text-[#4a4455]">
+                <Download className="w-4 h-4 text-[#7c3aed] shrink-0 mt-0.5 rotate-180" />
+                <span>{n}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-[#4a4455]">
+            See the{" "}
+            <Link href="/integrations" className="text-[#630ed4] font-semibold underline">
+              integrations
+            </Link>{" "}
+            and{" "}
+            <Link href="/compliance" className="text-[#630ed4] font-semibold underline">
+              compliance
+            </Link>{" "}
+            pages for the details.
+          </p>
         </div>
+      </section>
 
-        {/* Hiring Banner */}
-        <div className="relative bg-gradient-to-br from-[#630ed4] via-[#630ed4] to-[#25005a] text-white rounded-xl p-8 lg:p-16 shadow-xl overflow-hidden">
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-dot-pattern opacity-10 pointer-events-none" />
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold mb-4">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                14 Open Roles in Engineering, Design, &amp; Sales
-              </div>
-              <h3 className="text-3xl lg:text-[56px] lg:leading-[60px] font-extrabold tracking-tight leading-tight mb-3">
-                Start Calling Smarter Today
-              </h3>
-              <p className="text-lg text-[#eaddff] max-w-xl">
-                No long onboarding. No sales calls required. Load your first
-                lead list and launch a campaign in 15 minutes.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0">
-              <Link
-                href="#"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white text-[#630ed4] text-sm font-bold shadow-lg hover:bg-[#eff4ff] transition-all"
-              >
-                View Open Positions
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/15 hover:bg-white/25 text-white text-sm font-semibold transition-all"
-              >
-                Talk to Founders
-              </Link>
-            </div>
+      {/* CTA */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <div className="bg-[#630ed4] text-white rounded-3xl px-8 py-14 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold">See it on your own leads</h2>
+          <p className="mt-3 max-w-xl mx-auto text-[#eaddff]">
+            Pick a niche and a city, and watch the list turn into scored,
+            call-ready leads.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#630ed4] font-semibold px-7 py-3.5 rounded-xl hover:bg-[#eaddff] transition-colors"
+            >
+              Get Early Access
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 border border-[#d2bbff] text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-[#7c3aed] transition-colors"
+            >
+              Book a Demo
+            </Link>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
