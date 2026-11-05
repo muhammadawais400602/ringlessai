@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import "@fontsource-variable/dm-sans";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import "./xovra.css";
+import Header from "@/components/xovra/Header";
+import Footer from "@/components/xovra/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
-
-const inter = Inter({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Xovra – AI-Powered Cold Calling Platform",
@@ -17,10 +13,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <Navbar />
+          <Header />
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>

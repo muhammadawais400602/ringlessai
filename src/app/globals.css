@@ -44,7 +44,7 @@
   --color-secondary-container: var(--secondary-container);
   --color-inverse-surface: var(--inverse-surface);
   --color-inverse-on-surface: var(--inverse-on-surface);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
