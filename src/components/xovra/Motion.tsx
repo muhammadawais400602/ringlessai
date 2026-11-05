@@ -155,7 +155,10 @@ export default function Motion() {
       document.querySelectorAll<HTMLElement>('[data-zoom]').forEach((sec) => {
         const media = sec.querySelector<HTMLElement>('.zoom-media');
         const marquee = sec.querySelector<HTMLElement>('.zoom-marquee');
-        const play = sec.querySelector<HTMLElement>('.zoom-play');
+        const logo = sec.querySelector<HTMLElement>('.zoom-logo');
+        const logoMark = sec.querySelector<HTMLElement>('.zoom-logo-mark');
+        const logoWord = sec.querySelector<HTMLElement>('.zoom-logo-word');
+        const logoText = sec.querySelector<HTMLElement>('.zoom-logo-word > span');
         const caption = sec.querySelector<HTMLElement>('.zoom-caption');
         if (!media) return;
         const tl = gsap.timeline({
@@ -177,8 +180,12 @@ export default function Motion() {
         )
           .fromTo(media.querySelector('img'), { scale: 1.25 }, { scale: 1, duration: 1, ease: 'none' }, 0)
           .fromTo(marquee, { opacity: 1 }, { opacity: 0, duration: 0.6, ease: 'none' }, 0)
-          .fromTo(play, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: 'none' }, 0.78)
-          .fromTo(caption, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.25, ease: 'none' }, 0.8);
+          // Logo: pill pops in, mark spins into place, then the wordmark slides out.
+          .fromTo(logo, { opacity: 0, scale: 0.4, yPercent: 30 }, { opacity: 1, scale: 1, yPercent: 0, duration: 0.18, ease: 'back.out(1.6)' }, 0.7)
+          .fromTo(logoMark, { rotate: -120 }, { rotate: 0, duration: 0.18, ease: 'power3.out' }, 0.7)
+          .fromTo(logoWord, { width: 0 }, { width: 'auto', duration: 0.16, ease: 'power3.out' }, 0.82)
+          .fromTo(logoText, { yPercent: 110 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 0.86)
+          .fromTo(caption, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.2, ease: 'none' }, 0.92);
       });
 
       // Horizontal gallery.

@@ -258,9 +258,9 @@ export const images = {
   stage: '/images/xovra/ribbon-dark.png',
   steps: [
     '/images/xovra/pins-dark.png',
-    '/images/xovra/knot-light.png',
+    '/images/xovra/step-2-enrich.png',
     '/images/xovra/wave-light.png',
-    '/images/xovra/rings-dark.png',
+    '/images/xovra/step-4-sheets.png',
   ],
   features: [
     '/images/xovra/pins-dark.png',

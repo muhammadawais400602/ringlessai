@@ -377,8 +377,13 @@ export default function Home() {
         <div className="zoom-media">
           <Image src={images.zoom} alt="" width={1600} height={1600} sizes="100vw" />
         </div>
-        <span className="zoom-play" aria-hidden>
-          <Activity />
+        <span className="zoom-logo" aria-hidden>
+          <span className="zoom-logo-mark">
+            <Activity />
+          </span>
+          <span className="zoom-logo-word">
+            <span>Xovra</span>
+          </span>
         </span>
         <div className="zoom-caption">
           <div>
