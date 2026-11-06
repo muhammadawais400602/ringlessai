@@ -197,13 +197,13 @@ const dives = [
     panelTitle: "Draft channels",
     panelLines: [
       "email: mailto: link opens your mail client",
-      "sms: sent through Telnyx",
+      "sms: sent through Xovra",
       "whatsapp: wa.me link opens WhatsApp",
     ],
     points: [
       { icon: Mail, title: "Email via mailto:", desc: "The draft opens in your own email client, so it sends from your own address." },
       { icon: MessageSquare, title: "WhatsApp via wa.me", desc: "A link opens WhatsApp with the message prefilled. No WhatsApp Business API is involved." },
-      { icon: Send, title: "SMS via Telnyx", desc: "SMS goes through two-way Telnyx messaging with opt-out detection." },
+      { icon: Send, title: "SMS via Xovra", desc: "SMS goes through two-way Xovra messaging with opt-out detection." },
     ],
   },
 ];

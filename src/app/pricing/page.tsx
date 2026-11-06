@@ -50,7 +50,7 @@ const rates: Rate[] = [
     description:
       "One-at-a-time calling from the browser softphone. You decide who to call, and you do the talking.",
     includes: [
-      "Browser WebRTC softphone over Telnyx",
+      "Browser WebRTC softphone over Xovra",
       "Per-lead call scripts with placeholders",
       "Pitch-angle labels on every lead",
       "Outcome tracking back to your sheet",
@@ -67,7 +67,7 @@ const rates: Rate[] = [
     description:
       "An AI assistant places a qualifier call and discloses that it is an AI in the first sentence.",
     includes: [
-      "Telnyx AI assistant makes the call",
+      "Xovra AI assistant makes the call",
       "AI disclosure in the opening line",
       "Live rebuttals via Claude or Gemini",
       "Server-side suppression, window, and cap checks",
@@ -82,7 +82,7 @@ const rates: Rate[] = [
     price: "$0.03",
     unit: "per message part",
     description:
-      "Send and receive texts through Telnyx. Long messages are billed per part, the same way carriers count them.",
+      "Send and receive texts through Xovra. Long messages are billed per part, the same way carriers count them.",
     includes: [
       "Outbound billed per message part",
       "STOP and UNSUBSCRIBE detection",
@@ -218,7 +218,7 @@ const tracking = [
 ];
 
 const notIncluded = [
-  "Telnyx carrier charges for phone numbers or 10DLC registration fees you pay to Telnyx directly",
+  "Carrier charges for phone numbers or 10DLC registration fees you pay to Xovra directly",
   "Legal review of your scripts, lists, or consent practices",
   "Call recording or transcripts (not offered)",
   "Native CRM sync (CSV export only for now)",
@@ -239,11 +239,11 @@ const faqs = [
   },
   {
     q: "Do I need 10DLC registration to send texts?",
-    a: "For application-to-person SMS to US numbers, carriers require 10DLC registration. You register your brand and campaign directly with Telnyx. Xovra does not manage that registration for you and does not have a registration wizard, so plan for it before you rely on SMS. Voice calling does not require 10DLC.",
+    a: "For application-to-person SMS to US numbers, carriers require 10DLC registration. You register your brand and campaign directly. Xovra does not manage that registration for you and does not have a registration wizard, so plan for it before you rely on SMS. Voice calling does not require 10DLC.",
   },
   {
     q: "Who provides the phone service?",
-    a: "Telnyx. Voice, SMS, and the AI assistant run on Telnyx. Numbers and AI assistants are set up per organization.",
+    a: "Xovra. Voice, SMS, and the AI assistant run on Xovra. Numbers and AI assistants are set up per organization.",
   },
   {
     q: "Why does AI calling cost more than manual calling?",
@@ -522,7 +522,7 @@ export default function PricingPage() {
               <Info className="w-5 h-5 text-[#630ed4] shrink-0 mt-0.5" />
               <p className="text-sm text-[#4a4455] leading-relaxed">
                 Carrier-side costs outside Xovra, such as 10DLC registration
-                fees charged by Telnyx, are billed by Telnyx and not included in
+                fees charged by Xovra, are billed by Xovra and not included in
                 the rates on this page.
               </p>
             </div>

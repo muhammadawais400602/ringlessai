@@ -76,8 +76,8 @@ const panelRows = [
 const glance = [
   {
     icon: Bot,
-    title: "Telnyx AI assistant",
-    desc: "Calls run on a Telnyx AI assistant that belongs to your organization, with its own phone number.",
+    title: "Xovra AI assistant",
+    desc: "Calls run on a Xovra AI assistant that belongs to your organization, with its own phone number.",
   },
   {
     icon: ShieldCheck,
@@ -99,8 +99,8 @@ const glance = [
 const capabilities: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string; tag?: string; href?: string }[] = [
   {
     icon: Bot,
-    title: "Telnyx AI assistant",
-    desc: "A configurable AI assistant places qualifier calls through Telnyx. Each organization has its own assistant and its own numbers.",
+    title: "Xovra AI assistant",
+    desc: "A configurable AI assistant places qualifier calls through Xovra. Each organization has its own assistant and its own numbers.",
   },
   {
     icon: ShieldCheck,
@@ -143,7 +143,7 @@ const steps = [
   {
     icon: PhoneCall,
     title: "Assistant calls",
-    desc: "The Telnyx assistant dials, opens by disclosing it is an AI, and uses the lead variables in conversation.",
+    desc: "The Xovra assistant dials, opens by disclosing it is an AI, and uses the lead variables in conversation.",
   },
   {
     icon: Gauge,
@@ -215,7 +215,7 @@ const dives = [
 ];
 
 const isList = [
-  "Places qualifier calls through a Telnyx AI assistant tied to your organization",
+  "Places qualifier calls through a Xovra AI assistant tied to your organization",
   "Discloses that it is an AI in the first sentence of the call",
   "Uses per-lead dynamic variables: name, category, reasons and pitch_angle",
   "Records lead_score, interest, qualified and next_action for each AI call",
@@ -230,7 +230,7 @@ const isNotList = [
   "Not a voicemail drop or ringless voicemail tool",
   "No call recording or transcripts are provided",
   "No answering machine detection is included",
-  "Not a substitute for 10DLC registration, which you complete with Telnyx",
+  "Not a substitute for 10DLC registration, which you complete yourself",
 ];
 
 const faqs = [
@@ -248,15 +248,15 @@ const faqs = [
   },
   {
     q: "Is there a follow-up message?",
-    a: "Yes. After a connected call, a follow-up SMS is sent automatically through Telnyx SMS. Opt-outs such as STOP are detected and respected.",
+    a: "Yes. After a connected call, a follow-up SMS is sent automatically through Xovra. Opt-outs such as STOP are detected and respected.",
   },
   {
     q: "Can I control what the assistant says?",
     a: "Yes. Each campaign has its own brief, greeting and qualification criteria, and AI can be toggled on or off per campaign.",
   },
   {
-    q: "Do I need my own Telnyx account?",
-    a: "Voice, SMS and the AI assistant run on Telnyx. SMS in the US requires 10DLC registration, which you complete with Telnyx.",
+    q: "Do I need my own Xovra account?",
+    a: "Voice, SMS and the AI assistant run on Xovra. SMS in the US requires 10DLC registration, which you complete yourself.",
   },
   {
     q: "Does Xovra record or transcribe the calls?",
@@ -325,7 +325,7 @@ export default function AiCallingPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Xovra connects a Telnyx AI assistant to your lead list. It places a qualifier call, opens by disclosing that it is an AI, uses what you already know about the business, and hands you a score, an interest level, and a next action."}
+                {"Xovra connects a Xovra AI assistant to your lead list. It places a qualifier call, opens by disclosing that it is an AI, uses what you already know about the business, and hands you a score, an interest level, and a next action."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
@@ -710,7 +710,7 @@ export default function AiCallingPage() {
                 {"Qualify more leads before a human picks up the phone"}
               </h2>
               <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
-                {"Bring your Telnyx account and a campaign. We will help you set up the assistant, the brief and the greeting."}
+                {"Bring your Xovra account and a campaign. We will help you set up the assistant, the brief and the greeting."}
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
@@ -730,7 +730,7 @@ export default function AiCallingPage() {
               </div>
               <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
                 <Info className="h-4 w-4 shrink-0" />
-                {"AI disclosure, calling windows and suppression lists are on by default. SMS requires 10DLC registration with Telnyx."}
+                {"AI disclosure, calling windows and suppression lists are on by default. SMS requires 10DLC registration."}
               </p>
             </div>
           </div>

@@ -144,7 +144,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Dialing",
     feature: "Manual one-at-a-time calling",
-    xovra: "Yes, browser WebRTC softphone via Telnyx",
+    xovra: "Yes, browser WebRTC softphone via Xovra",
     dialStatus: "yes",
     rival: "Available alongside power dialing",
     rivalStatus: "na",
@@ -176,7 +176,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "AI",
     feature: "AI qualifier calls",
-    xovra: "Yes, Telnyx AI assistant that discloses it is AI",
+    xovra: "Yes, Xovra AI assistant that discloses it is AI",
     dialStatus: "yes",
     rival: "Not a focus of the product",
     rivalStatus: "no",
@@ -232,7 +232,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Messaging",
     feature: "Two-way SMS",
-    xovra: "Yes, via Telnyx",
+    xovra: "Yes, via Xovra",
     dialStatus: "yes",
     rival: "Confirm current texting options",
     rivalStatus: "na",
@@ -350,7 +350,7 @@ const differences = [
     rival:
       "Mojo is built so a human rep handles the connected call. The dialer's job is to get a person on the line faster.",
     xovra:
-      "In AI mode, a Telnyx AI assistant calls and qualifies the lead against your script, and it discloses that it is AI. A rep then follows up on the leads that qualified. This is a different model: the AI does the first pass instead of the dialer speeding up the rep.",
+      "In AI mode, a Xovra AI assistant calls and qualifies the lead against your script, and it discloses that it is AI. A rep then follows up on the leads that qualified. This is a different model: the AI does the first pass instead of the dialer speeding up the rep.",
   },
   {
     num: "04",
@@ -424,7 +424,7 @@ const workflowSteps = {
     {
       tag: "Delegate",
       title: "Let AI qualify the rest",
-      body: "Run a campaign in AI mode so the Telnyx AI assistant makes first-pass qualifier calls, with AI disclosure, within your calling window and attempt cap.",
+      body: "Run a campaign in AI mode so the Xovra AI assistant makes first-pass qualifier calls, with AI disclosure, within your calling window and attempt cap.",
     },
   ],
 };
@@ -444,19 +444,19 @@ const xovraRates = [
     label: "Manual calling",
     price: "$0.02",
     unit: "per minute",
-    body: "Browser softphone calls placed one at a time over Telnyx, with the lead's enrichment data on screen.",
+    body: "Browser softphone calls placed one at a time over Xovra, with the lead's enrichment data on screen.",
   },
   {
     label: "AI qualifier calls",
     price: "$0.25",
     unit: "per minute",
-    body: "Telnyx AI assistant calls that disclose they are AI and qualify the lead against your script.",
+    body: "Xovra AI assistant calls that disclose they are AI and qualify the lead against your script.",
   },
   {
     label: "SMS",
     price: "$0.03",
     unit: "per message",
-    body: "Two-way SMS over Telnyx for follow-up and replies, inside the same lead record.",
+    body: "Two-way SMS over Xovra for follow-up and replies, inside the same lead record.",
   },
 ];
 
@@ -569,7 +569,7 @@ const faqItems = [
   {
     question: "Does the AI caller disclose that it is AI?",
     answer:
-      "Yes. AI qualifier calls run on a Telnyx AI assistant and disclose that the caller is AI. AI disclosure is part of the compliance guardrails in campaigns.",
+      "Yes. AI qualifier calls run on a Xovra AI assistant and disclose that the caller is AI. AI disclosure is part of the compliance guardrails in campaigns.",
   },
   {
     question: "What compliance controls does Xovra have?",
@@ -625,12 +625,12 @@ const xovraPillars = [
   {
     icon: Phone,
     title: "Browser WebRTC softphone",
-    body: "Manual one-at-a-time calling in the browser through Telnyx. No hardware, no install.",
+    body: "Manual one-at-a-time calling in the browser through Xovra. No hardware, no install.",
   },
   {
     icon: Sparkles,
     title: "AI qualifier and live rebuttals",
-    body: "A Telnyx AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
+    body: "A Xovra AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
   },
   {
     icon: ShieldCheck,

@@ -102,7 +102,7 @@ const capabilities: { icon: React.ComponentType<{ className?: string }>; title: 
   {
     icon: Inbox,
     title: "Inbound messages",
-    desc: "Replies arrive through Telnyx SMS and show up in the thread, ready for you to answer.",
+    desc: "Replies arrive through Xovra and show up in the thread, ready for you to answer.",
   },
   {
     icon: Send,
@@ -135,7 +135,7 @@ const steps = [
   {
     icon: Inbox,
     title: "Reply comes in",
-    desc: "Telnyx delivers the inbound SMS to Xovra.",
+    desc: "Xovra delivers the inbound SMS to Xovra.",
   },
   {
     icon: Hash,
@@ -199,18 +199,18 @@ const dives = [
       "STOP detected: contact suppressed",
       "append-only Do Not Contact list",
       "rate limits on SMS",
-      "10DLC registered through Telnyx",
+      "10DLC registered through Xovra",
     ],
     points: [
       { icon: Ban, title: "Stop keywords", desc: "STOP and UNSUBSCRIBE trigger suppression automatically." },
       { icon: Gauge, title: "Rate limits", desc: "SMS sending is rate limited to avoid accidental floods." },
-      { icon: Scale, title: "10DLC", desc: "You register with Telnyx for US messaging. Xovra does not file that for you." },
+      { icon: Scale, title: "10DLC", desc: "You register for 10DLC for US messaging. Xovra does not file that for you." },
     ],
   },
 ];
 
 const isList = [
-  "Shows inbound and outbound SMS through Telnyx",
+  "Shows inbound and outbound SMS through Xovra",
   "Threads messages by phone number",
   "Resolves phone numbers to lead names when a lead matches",
   "Marks opt-outs from STOP and similar keywords",
@@ -228,7 +228,7 @@ const isNotList = [
 const faqs = [
   {
     q: "Which channels show up here?",
-    a: "SMS only, through Telnyx. WhatsApp and email drafts open in your own apps and are not displayed in Xovra.",
+    a: "SMS only, through Xovra. WhatsApp and email drafts open in your own apps and are not displayed in Xovra.",
   },
   {
     q: "How are conversations grouped?",
@@ -698,7 +698,7 @@ export default function MessagesConversationsPage() {
                 {"See every reply in one place"}
               </h2>
               <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
-                {"Connect Telnyx, register for 10DLC, and keep your SMS conversations tidy."}
+                {"Connect Xovra, register for 10DLC, and keep your SMS conversations tidy."}
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
@@ -718,7 +718,7 @@ export default function MessagesConversationsPage() {
               </div>
               <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
                 <Info className="h-4 w-4 shrink-0" />
-                {"SMS only. 10DLC registration with Telnyx is required for US messaging."}
+                {"SMS only. 10DLC registration is required for US messaging."}
               </p>
             </div>
           </div>

@@ -147,13 +147,13 @@ const features = [
   {
     icon: Bot,
     title: "AI qualifier",
-    body: "A Telnyx AI assistant calls with per-lead context, discloses that it is an AI, and records score, interest, qualified, and next action.",
+    body: "A Xovra AI assistant calls with per-lead context, discloses that it is an AI, and records score, interest, qualified, and next action.",
     tag: "First-touch calls",
   },
   {
     icon: Phone,
     title: "Browser dialer",
-    body: "Call from a Telnyx WebRTC softphone. Press C to call, H to hang up, and 1 to 6 to log outcomes in the sheet.",
+    body: "Call from a Xovra softphone. Press C to call, H to hang up, and 1 to 6 to log outcomes in the sheet.",
     tag: "No hardware",
   },
   {
@@ -171,7 +171,7 @@ const features = [
   {
     icon: MessageSquare,
     title: "Two-way SMS",
-    body: "Follow up by text through Telnyx. You register your own 10DLC brand and campaign.",
+    body: "Follow up by text through Xovra. You register your own 10DLC brand and campaign.",
     tag: "$0.03 / SMS",
   },
   {
@@ -282,12 +282,12 @@ const pricing = [
   {
     label: "AI qualifier calls",
     price: "$0.25 / min",
-    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+    body: "The Xovra AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
   },
   {
     label: "SMS",
     price: "$0.03 / message",
-    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+    body: "Two-way texting through Xovra, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
   },
 ];
 

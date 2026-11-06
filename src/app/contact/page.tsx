@@ -176,7 +176,7 @@ export default function ContactPage() {
                     Direct Engineering Walkthrough
                   </div>
                   <h3 className="text-2xl font-bold text-[#0b1c30] tracking-tight leading-tight">
-                    Want a live walkthrough of the AI rebuttal engine and Telnyx setup?
+                    Want a live walkthrough of the AI rebuttal engine and Xovra setup?
                   </h3>
                   <p className="text-base text-[#5e5d6b] mt-2 leading-relaxed">
                     Pick a 15-minute slot with our Head of Solutions. We&apos;ll run mock cold calls live against your toughest sales objections.

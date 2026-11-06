@@ -35,7 +35,7 @@ import {
 /* ------------------------------------------------------------------ */
 
 const heroBadges = [
-  { icon: MessageSquare, label: "Two-way Telnyx SMS" },
+  { icon: MessageSquare, label: "Two-way Xovra SMS" },
   { icon: Ban, label: "STOP and UNSUBSCRIBE detection" },
   { icon: Mail, label: "mailto: and wa.me drafts" },
 ];
@@ -43,7 +43,7 @@ const heroBadges = [
 const panel = {
   title: "After the call",
   subtitle: "Pick a follow-up channel",
-  footnote: "Illustrative layout. SMS requires a 10DLC registration completed by you with Telnyx. Email and WhatsApp open in your own apps.",
+  footnote: "Illustrative layout. SMS requires a 10DLC registration completed by you. Email and WhatsApp open in your own apps.",
   icon: MessageSquare,
 };
 
@@ -51,7 +51,7 @@ const panelRows = [
   {
     icon: Send,
     label: "SMS",
-    value: "Sent through Telnyx from your organization's number",
+    value: "Sent through Xovra from your organization's number",
   },
   {
     icon: Mail,
@@ -74,7 +74,7 @@ const glance = [
   {
     icon: MessageSquare,
     title: "Two-way SMS",
-    desc: "Send and receive text messages through Telnyx, with replies kept in conversation.",
+    desc: "Send and receive text messages through Xovra, with replies kept in conversation.",
   },
   {
     icon: Ban,
@@ -97,7 +97,7 @@ const capabilities: { icon: React.ComponentType<{ className?: string }>; title: 
   {
     icon: Send,
     title: "Send SMS",
-    desc: "Send text messages to leads through Telnyx SMS from the numbers assigned to your organization.",
+    desc: "Send text messages to leads through Xovra from the numbers assigned to your organization.",
   },
   {
     icon: Inbox,
@@ -140,7 +140,7 @@ const steps = [
   {
     icon: Send,
     title: "Choose the channel",
-    desc: "Send SMS through Telnyx, or open an email or WhatsApp draft.",
+    desc: "Send SMS through Xovra, or open an email or WhatsApp draft.",
   },
   {
     icon: Inbox,
@@ -158,7 +158,7 @@ const dives = [
   {
     eyebrow: "Two-way SMS",
     title: "Text the lead, read the answer",
-    desc: "SMS runs on Telnyx, so messages leave from numbers that belong to your organization and replies arrive in the same place.",
+    desc: "SMS runs on Xovra, so messages leave from numbers that belong to your organization and replies arrive in the same place.",
     icon: MessageSquare,
     panelTitle: "A simple SMS thread",
     panelLines: [
@@ -167,7 +167,7 @@ const dives = [
       "out: Here is a short summary and a link...",
     ],
     points: [
-      { icon: Send, title: "Outbound", desc: "Messages send through your Telnyx account and numbers." },
+      { icon: Send, title: "Outbound", desc: "Messages send through your Xovra account and numbers." },
       { icon: Inbox, title: "Inbound", desc: "Replies are received and stored so you can respond in context." },
       { icon: Hash, title: "Per-number threads", desc: "Messages are grouped by phone number, one thread per contact." },
     ],
@@ -187,7 +187,7 @@ const dives = [
     points: [
       { icon: Ban, title: "Keyword detection", desc: "STOP, UNSUBSCRIBE and similar replies are treated as opt-outs." },
       { icon: ShieldCheck, title: "Append-only suppression", desc: "The Do Not Contact list only grows, so numbers do not quietly drop off it." },
-      { icon: Info, title: "10DLC registration", desc: "US application-to-person messaging needs 10DLC. You register with Telnyx, and Xovra does not do that for you." },
+      { icon: Info, title: "10DLC registration", desc: "US application-to-person messaging needs 10DLC. You register for 10DLC, and Xovra does not do that for you." },
     ],
   },
   {
@@ -210,7 +210,7 @@ const dives = [
 ];
 
 const isList = [
-  "Sends and receives SMS through Telnyx",
+  "Sends and receives SMS through Xovra",
   "Threads messages by phone number",
   "Detects STOP, UNSUBSCRIBE and other opt-out keywords",
   "Sends a follow-up SMS automatically after connected AI calls",
@@ -222,18 +222,18 @@ const isNotList = [
   "Not automated multi-step sequences or drip campaigns",
   "Not a WhatsApp Business API integration",
   "Not an omnichannel platform: email and WhatsApp open in your own apps",
-  "Not a replacement for 10DLC registration, which you do with Telnyx",
+  "Not a replacement for 10DLC registration, which you do with Xovra",
   "No email sending from Xovra servers",
 ];
 
 const faqs = [
   {
     q: "Which carrier sends the SMS?",
-    a: "Telnyx. You connect your Telnyx account, and messages go out from the numbers assigned to your organization.",
+    a: "Xovra. You connect your Xovra account, and messages go out from the numbers assigned to your organization.",
   },
   {
     q: "Do I need to register for 10DLC?",
-    a: "Yes, for US messaging. You register your brand and campaign with Telnyx. Xovra does not handle that registration.",
+    a: "Yes, for US messaging. You register your brand and campaign with Xovra. Xovra does not handle that registration.",
   },
   {
     q: "What happens if someone replies STOP?",
@@ -318,7 +318,7 @@ export default function FollowUpSmsPage() {
               </h1>
 
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#4a4455]">
-                {"Xovra sends and receives two-way SMS through Telnyx, threads replies by phone number, and honors STOP requests. For email and WhatsApp it prepares drafts that open in your own apps."}
+                {"Xovra sends and receives two-way SMS through Xovra, threads replies by phone number, and honors STOP requests. For email and WhatsApp it prepares drafts that open in your own apps."}
               </p>
 
               <div className="flex w-full flex-wrap items-center gap-4 sm:w-auto">
@@ -703,7 +703,7 @@ export default function FollowUpSmsPage() {
                 {"Follow up the same day, without the busywork"}
               </h2>
               <p className="mb-10 max-w-2xl text-lg text-[#eaddff]">
-                {"Connect Telnyx, register for 10DLC, and let Xovra handle drafts, threading and opt-outs."}
+                {"Connect Xovra, register for 10DLC, and let Xovra handle drafts, threading and opt-outs."}
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
@@ -723,7 +723,7 @@ export default function FollowUpSmsPage() {
               </div>
               <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
                 <Info className="h-4 w-4 shrink-0" />
-                {"SMS requires 10DLC registration with Telnyx. Email and WhatsApp drafts open in your own apps."}
+                {"SMS requires 10DLC registration. Email and WhatsApp drafts open in your own apps."}
               </p>
             </div>
           </div>

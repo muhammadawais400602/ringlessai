@@ -152,13 +152,13 @@ const features = [
   {
     icon: Bot,
     title: "AI qualifier",
-    body: "Telnyx AI assistant makes first-touch calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
+    body: "Xovra AI assistant makes first-touch calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
     tag: "Pre-qualify at scale",
   },
   {
     icon: Phone,
     title: "Manual browser dialer",
-    body: "Your callers work from a Telnyx WebRTC softphone with keyboard shortcuts. One lead at a time, outcomes logged to the sheet.",
+    body: "Your callers work from a Xovra softphone with keyboard shortcuts. One lead at a time, outcomes logged to the sheet.",
     tag: "C / H / 1-6",
   },
   {
@@ -281,12 +281,12 @@ const pricing = [
   {
     label: "AI qualifier calls",
     price: "$0.25 / min",
-    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+    body: "The Xovra AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
   },
   {
     label: "SMS",
     price: "$0.03 / message",
-    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+    body: "Two-way texting through Xovra, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
   },
 ];
 

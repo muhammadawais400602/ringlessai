@@ -48,7 +48,7 @@ const heroBadges = [
 const panel = {
   title: "The Xovra workflow",
   subtitle: "Five steps from search to follow-up",
-  footnote: "Xovra is built on Telnyx for voice, SMS and AI, with Claude or Gemini for live help.",
+  footnote: "Xovra is built for voice, SMS and AI, with Claude or Gemini for live help.",
   icon: Layers,
 };
 
@@ -61,7 +61,7 @@ const panelRows = [
   {
     icon: Phone,
     label: "2. Call",
-    value: "Browser dialer or Telnyx AI qualifier",
+    value: "Browser dialer or Xovra AI qualifier",
   },
   {
     icon: Sparkles,
@@ -79,12 +79,12 @@ const glance = [
   {
     icon: Phone,
     title: "Manual dialer",
-    desc: "A Telnyx WebRTC softphone in the browser. Calls are placed one at a time by a person.",
+    desc: "A Xovra softphone in the browser. Calls are placed one at a time by a person.",
   },
   {
     icon: Bot,
     title: "AI qualifier",
-    desc: "A Telnyx AI assistant that discloses it is an AI and returns a lead score.",
+    desc: "A Xovra AI assistant that discloses it is an AI and returns a lead score.",
   },
   {
     icon: ShieldCheck,
@@ -102,7 +102,7 @@ const capabilities = [
   {
     icon: Bot,
     title: "AI Qualifier Calls",
-    desc: "A Telnyx AI assistant places qualifier calls, discloses it is an AI, and returns score, interest and next action.",
+    desc: "A Xovra AI assistant places qualifier calls, discloses it is an AI, and returns score, interest and next action.",
     href: "/features/ai-calling",
     tag: "AI",
   },
@@ -123,7 +123,7 @@ const capabilities = [
   {
     icon: MessageSquare,
     title: "Follow-Up & SMS",
-    desc: "Two-way Telnyx SMS, opt-out detection, and email or WhatsApp drafts through mailto: and wa.me.",
+    desc: "Two-way Xovra SMS, opt-out detection, and email or WhatsApp drafts through mailto: and wa.me.",
     href: "/features/omnichannel",
     tag: "SMS",
   },
@@ -179,9 +179,9 @@ const dives = [
     icon: Phone,
     panelTitle: "Two calling modes",
     panelLines: [
-      "manual: Telnyx WebRTC softphone in the browser",
+      "manual: Xovra softphone in the browser",
       "operator rings first, then the lead is dialed",
-      "AI: Telnyx assistant, AI disclosed in sentence one",
+      "AI: Xovra assistant, AI disclosed in sentence one",
     ],
     points: [
       { icon: Keyboard, title: "Keyboard shortcuts", desc: "C to call, H to hang up, and 1 to 6 for outcomes." },
@@ -227,8 +227,8 @@ const dives = [
 ];
 
 const isList = [
-  "A browser dialer on Telnyx WebRTC for manual, one-at-a-time calls",
-  "A Telnyx AI assistant that qualifies leads and discloses it is an AI",
+  "A browser dialer on Xovra WebRTC for manual, one-at-a-time calls",
+  "A Xovra AI assistant that qualifies leads and discloses it is an AI",
   "Google Maps lead sourcing with website, ads and social enrichment",
   "Live objection help from Claude or Gemini, generated fresh each time",
   "Two-way SMS with opt-out detection, and email or WhatsApp draft links",
@@ -258,11 +258,11 @@ const faqs = [
   },
   {
     q: "What do I need to bring?",
-    a: "A Telnyx account for voice, SMS and AI, plus Google Sheets for lead data. SMS in the US needs 10DLC registration with Telnyx.",
+    a: "An Xovra account for voice, SMS and AI, plus Google Sheets for lead data. SMS in the US needs 10DLC registration.",
   },
   {
     q: "Which integrations exist?",
-    a: "Telnyx, Google Sheets, Claude or Gemini, and CSV export in a HubSpot-compatible format. There is no native CRM sync, Zapier or Slack.",
+    a: "Google Sheets, Claude or Gemini, and CSV export in a HubSpot-compatible format. There is no native CRM sync, Zapier or Slack.",
   },
   {
     q: "How is it priced?",
@@ -739,7 +739,7 @@ export default function FeaturesPage() {
               </div>
               <p className="mt-6 flex items-center gap-2 text-[13px] text-[#eaddff]/90">
                 <Info className="h-4 w-4 shrink-0" />
-                {"Built on Telnyx. SMS requires 10DLC registration, completed with Telnyx."}
+                {"Built on Xovra. SMS requires 10DLC registration, completed by you."}
               </p>
             </div>
           </div>

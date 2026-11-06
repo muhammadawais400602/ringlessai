@@ -115,7 +115,7 @@ const painPoints = [
     icon: Headphones,
     title: "You do not have phones, headsets, or a phone system",
     body: "Setting up a business phone system for a one-person outbound push is overkill.",
-    fix: "The browser dialer is a Telnyx WebRTC softphone. Open the page, press C to call and H to hang up, and press 1 to 6 to log the outcome. No hardware to buy.",
+    fix: "The browser dialer is a Xovra softphone. Open the page, press C to call and H to hang up, and press 1 to 6 to log the outcome. No hardware to buy.",
   },
   {
     icon: Clock,
@@ -147,7 +147,7 @@ const features = [
   {
     icon: Phone,
     title: "Browser dialer",
-    body: "A Telnyx WebRTC softphone that runs in the browser. Manual, one lead at a time, with outcomes written to your Google Sheet.",
+    body: "A Xovra softphone that runs in the browser. Manual, one lead at a time, with outcomes written to your Google Sheet.",
     tag: "No hardware",
   },
   {
@@ -159,7 +159,7 @@ const features = [
   {
     icon: Bot,
     title: "AI qualifier",
-    body: "A Telnyx AI assistant calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
+    body: "A Xovra AI assistant calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
     tag: "First-touch calls",
   },
   {
@@ -171,7 +171,7 @@ const features = [
   {
     icon: MessageSquare,
     title: "Two-way SMS",
-    body: "Text leads through Telnyx and read their replies. Opt-out detection is built in. You register your own 10DLC brand and campaign.",
+    body: "Text leads through Xovra and read their replies. Opt-out detection is built in. You register your own 10DLC brand and campaign.",
     tag: "$0.03 / SMS",
   },
   {
@@ -282,12 +282,12 @@ const pricing = [
   {
     label: "AI qualifier calls",
     price: "$0.25 / min",
-    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+    body: "The Xovra AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
   },
   {
     label: "SMS",
     price: "$0.03 / message",
-    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+    body: "Two-way texting through Xovra, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
   },
 ];
 
@@ -303,7 +303,7 @@ const limits = [
 const faqs = [
   {
     q: "Do I need a phone or a headset?",
-    a: "No. The dialer is a Telnyx WebRTC softphone that runs in your browser. A computer with a microphone and speakers or a headset you already own is enough.",
+    a: "No. The dialer is a Xovra softphone that runs in your browser. A computer with a microphone and speakers or a headset you already own is enough.",
   },
   {
     q: "Can the AI close deals for me?",

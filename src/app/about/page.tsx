@@ -87,12 +87,12 @@ const capabilities = [
   {
     icon: Headphones,
     title: "Browser softphone",
-    body: "A WebRTC softphone over Telnyx for manual, one-at-a-time calling. No desk phone or separate dialer app.",
+    body: "A WebRTC softphone over Xovra for manual, one-at-a-time calling. No desk phone or separate dialer app.",
   },
   {
     icon: Bot,
     title: "AI qualifier calls",
-    body: "A Telnyx AI assistant can place qualifier calls. It says it is an AI in the first sentence of every call.",
+    body: "A Xovra AI assistant can place qualifier calls. It says it is an AI in the first sentence of every call.",
   },
   {
     icon: Brain,
@@ -172,8 +172,8 @@ const statusItems = [
   },
   {
     label: "Telephony",
-    value: "Telnyx",
-    note: "Voice, SMS, and AI assistants run on Telnyx.",
+    value: "Xovra",
+    note: "Voice, SMS, and AI assistants run on Xovra.",
   },
 ];
 

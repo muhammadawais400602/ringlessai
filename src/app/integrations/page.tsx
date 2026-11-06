@@ -34,12 +34,12 @@ type Integration = {
 
 const integrations: Integration[] = [
   {
-    id: "telnyx",
-    name: "Telnyx",
-    role: "Telephony backbone",
+    id: "telephony",
+    name: "Xovra Telephony",
+    role: "Voice and SMS backbone",
     icon: PhoneCall,
     summary:
-      "Telnyx powers everything that touches a phone: browser calls, AI calls, and text messages.",
+      "Xovra powers everything that touches a phone: browser calls, AI calls, and text messages.",
     does: [
       "Browser WebRTC softphone for manual calling",
       "AI assistant for qualifier calls",
@@ -47,7 +47,7 @@ const integrations: Integration[] = [
       "Phone numbers per organization, with number pools and health monitoring",
     ],
     notes:
-      "You need a Telnyx account and numbers. For US text messaging you must complete 10DLC registration with Telnyx yourself.",
+      "You need an Xovra account and numbers. For US text messaging you must complete 10DLC registration yourself.",
     anchor: "Required for calling and texting",
   },
   {
@@ -125,8 +125,8 @@ const howItFits = [
   {
     step: "2",
     icon: PhoneCall,
-    title: "Telnyx carries the call",
-    body: "Calls and texts run through Telnyx, either from your browser or through the AI assistant.",
+    title: "Xovra carries the call",
+    body: "Calls and texts run through Xovra, either from your browser or through the AI assistant.",
   },
   {
     step: "3",
@@ -171,7 +171,7 @@ const faqItems = [
   },
   {
     q: "Can I use my own telephony provider?",
-    a: "Xovra is built on Telnyx for voice, SMS, and AI assistants. There is no option to swap in a different carrier.",
+    a: "Xovra is built for voice, SMS, and AI assistants. There is no option to swap in a different carrier.",
   },
   {
     q: "Which AI model should I pick, Claude or Gemini?",
@@ -204,7 +204,7 @@ export default function IntegrationsPage() {
           <span className="block text-[#630ed4]">honestly described.</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-[#4a4455] leading-relaxed">
-          Xovra connects to Telnyx, Google Sheets, Claude, Gemini, and a
+          Xovra connects to Google Sheets, Claude, Gemini, and a
           HubSpot-compatible CSV export. That is the full list today.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
@@ -414,10 +414,10 @@ export default function IntegrationsPage() {
         <div className="bg-[#630ed4] text-white rounded-3xl px-8 py-14 text-center">
           <MessageSquare className="w-10 h-10 mx-auto text-[#d2bbff]" />
           <h2 className="mt-4 text-3xl md:text-4xl font-bold">
-            Connect Telnyx and start calling
+            Connect Xovra and start calling
           </h2>
           <p className="mt-3 max-w-xl mx-auto text-[#eaddff]">
-            Bring your Telnyx account, point Xovra at your leads, and make
+            Bring your Xovra account, point Xovra at your leads, and make
             your first call from the browser.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">

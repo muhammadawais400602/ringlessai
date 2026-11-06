@@ -69,7 +69,7 @@ const features = [
       "AI qualifier calls state that the caller is an AI in the first sentence.",
     points: [
       "Disclosure is part of the opening, not buried later",
-      "Applies to calls placed by the Telnyx AI assistant",
+      "Applies to calls placed by the Xovra AI assistant",
       "Supports the transparency expected under TCPA guidance on artificial voices",
     ],
   },
@@ -137,7 +137,7 @@ const tenDlc = [
   },
   {
     title: "Who does it",
-    body: "You do. Registration is done directly with Telnyx under your own brand and campaign. Xovra does not handle it and has no registration wizard.",
+    body: "You do. Registration is done directly under your own brand and campaign. Xovra does not handle it and has no registration wizard.",
   },
   {
     title: "When you need it",
@@ -159,7 +159,7 @@ const responsibilities = [
   { who: "You", items: [
     "Have a lawful basis and any required consent to contact each person",
     "Scrub your lists against Do Not Call registries",
-    "Register your brand and campaign for 10DLC with Telnyx",
+    "Register your brand and campaign for 10DLC with Xovra",
     "Write truthful scripts and set sensible window and cap values",
     "Get your own legal advice for your situation",
   ]},
@@ -197,7 +197,7 @@ const faqs = [
   },
   {
     q: "Is 10DLC registration included?",
-    a: "No. You register with Telnyx yourself. Xovra has no registration wizard and does not manage your campaign status.",
+    a: "No. You register for 10DLC yourself. Xovra has no registration wizard and does not manage your campaign status.",
   },
   {
     q: "Do AI calls say they are AI?",
@@ -362,7 +362,7 @@ export default function CompliancePage() {
               Text messaging
             </span>
             <h2 className="mt-2 text-3xl md:text-4xl font-bold">
-              10DLC: required, and handled by you at Telnyx
+              10DLC: required, and handled by you through Xovra
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

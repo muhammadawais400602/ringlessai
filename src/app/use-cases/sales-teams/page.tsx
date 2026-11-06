@@ -158,13 +158,13 @@ const features = [
   {
     icon: Keyboard,
     title: "Keyboard-first dialer",
-    body: "Telnyx WebRTC softphone with C to call, H to hang up, and 1 to 6 for outcomes, written to the Google Sheet.",
+    body: "Xovra softphone with C to call, H to hang up, and 1 to 6 for outcomes, written to the Google Sheet.",
     tag: "Fast manual calling",
   },
   {
     icon: Bot,
     title: "AI qualifier mode",
-    body: "A Telnyx AI assistant makes first-touch calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
+    body: "A Xovra AI assistant makes first-touch calls with per-lead context, discloses it is an AI, and returns score, interest, qualified, and next action.",
     tag: "Pre-screening",
   },
   {
@@ -176,7 +176,7 @@ const features = [
   {
     icon: MessageSquare,
     title: "Two-way SMS",
-    body: "Follow up by text through Telnyx, read replies, and rely on opt-out detection. Customers register 10DLC.",
+    body: "Follow up by text through Xovra, read replies, and rely on opt-out detection. Customers register 10DLC.",
     tag: "$0.03 / SMS",
   },
   {
@@ -281,12 +281,12 @@ const pricing = [
   {
     label: "AI qualifier calls",
     price: "$0.25 / min",
-    body: "The Telnyx-powered AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
+    body: "The Xovra AI assistant calls the lead, discloses it is an AI, and records a score, interest level, and next action.",
   },
   {
     label: "SMS",
     price: "$0.03 / message",
-    body: "Two-way texting through Telnyx, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
+    body: "Two-way texting through Xovra, including follow-ups after connected AI calls. Opt-outs are detected automatically.",
   },
 ];
 

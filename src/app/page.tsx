@@ -43,7 +43,7 @@ const features = [
     icon: Phone,
     title: "Browser-Based Softphone",
     description:
-      "A WebRTC dialer powered by Telnyx. Call from your browser with keyboard shortcuts — C to call, H to hang up, 1–6 to log outcomes.",
+      "A WebRTC dialer powered by Xovra. Call from your browser with keyboard shortcuts — C to call, H to hang up, 1–6 to log outcomes.",
     href: "/features/ai-calling",
     linkText: "See the dialer",
   },
@@ -51,7 +51,7 @@ const features = [
     icon: Bot,
     title: "AI Qualifier Calls",
     description:
-      "A Telnyx AI assistant calls your leads, discloses it is an AI in the first sentence, asks qualifying questions, and returns a scored result.",
+      "A Xovra AI assistant calls your leads, discloses it is an AI in the first sentence, asks qualifying questions, and returns a scored result.",
     href: "/features/ai-calling",
     linkText: "See AI calling",
   },
@@ -67,7 +67,7 @@ const features = [
     icon: MessageSquare,
     title: "Two-Way SMS",
     description:
-      "Send and receive texts over Telnyx, threaded by phone number. Opt-out keywords are handled automatically for compliance.",
+      "Send and receive texts over Xovra, threaded by phone number. Opt-out keywords are handled automatically for compliance.",
     href: "/features/omnichannel",
     linkText: "See SMS",
   },
@@ -101,7 +101,7 @@ const steps = [
     icon: PhoneCall,
     title: "Call or Deploy AI",
     description:
-      "Dial manually from the WebRTC softphone, or let a Telnyx AI assistant make the qualifier call and report back with a score and next action.",
+      "Dial manually from the WebRTC softphone, or let a Xovra AI assistant make the qualifier call and report back with a score and next action.",
   },
   {
     number: "04",
@@ -419,7 +419,7 @@ export default function Home() {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
               <div>
                 <span className="text-xs text-[#0b1c30] block font-bold">
-                  Telnyx WebRTC
+                  Xovra WebRTC
                 </span>
                 <span className="text-[11px] text-[#4a4455] font-mono">
                   Browser softphone connected
@@ -506,7 +506,7 @@ export default function Home() {
                 AI Qualifier
               </span>
               <span className="text-sm text-[#4a4455]">
-                Deploy a Telnyx AI assistant to qualify leads while you focus on
+                Deploy a Xovra AI assistant to qualify leads while you focus on
                 closing.
               </span>
             </div>
@@ -677,7 +677,7 @@ export default function Home() {
                 Let an AI Assistant Make the First Call
               </h2>
               <p className="text-lg text-[#eaf1ff]/80 mb-6 leading-relaxed">
-                A Telnyx AI assistant calls on your behalf, asks your qualifying
+                A Xovra AI assistant calls on your behalf, asks your qualifying
                 questions, and hands you a scored result. You spend your time on
                 the leads worth a real conversation.
               </p>

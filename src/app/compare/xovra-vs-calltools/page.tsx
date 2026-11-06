@@ -152,7 +152,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Dialing",
     feature: "Manual one-at-a-time calling",
-    xovra: "Yes, browser WebRTC softphone via Telnyx",
+    xovra: "Yes, browser WebRTC softphone via Xovra",
     dialStatus: "yes",
     rival: "Supported",
     rivalStatus: "yes",
@@ -168,7 +168,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "AI",
     feature: "AI qualifier calls",
-    xovra: "Yes, Telnyx AI assistant that discloses it is AI",
+    xovra: "Yes, Xovra AI assistant that discloses it is AI",
     dialStatus: "yes",
     rival: "Confirm with vendor",
     rivalStatus: "na",
@@ -248,7 +248,7 @@ const comparisonRows: TableRow[] = [
   {
     category: "Messaging",
     feature: "Two-way SMS",
-    xovra: "Yes, via Telnyx",
+    xovra: "Yes, via Xovra",
     dialStatus: "yes",
     rival: "Confirm current options",
     rivalStatus: "na",
@@ -358,7 +358,7 @@ const differences = [
     rival:
       "Contact center platforms typically involve configuration of queues, dispositions, users, telephony and compliance rules. Expect an implementation effort proportional to the product's depth.",
     xovra:
-      "Xovra is browser-based and runs on Telnyx. Create an organization, invite teammates with roles, set up a number pool and a campaign. It is a smaller surface, which is also why it does less.",
+      "Xovra is browser-based and runs on Xovra. Create an organization, invite teammates with roles, set up a number pool and a campaign. It is a smaller surface, which is also why it does less.",
   },
   {
     num: "04",
@@ -412,7 +412,7 @@ const workflowSteps = {
     {
       tag: "Numbers",
       title: "Set up a number pool",
-      body: "Use Telnyx numbers in a pool with health monitoring, so you can see when a number is in trouble.",
+      body: "Use Xovra numbers in a pool with health monitoring, so you can see when a number is in trouble.",
     },
     {
       tag: "Source",
@@ -427,7 +427,7 @@ const workflowSteps = {
     {
       tag: "Campaign",
       title: "Choose manual or AI mode",
-      body: "Set your calling window, attempt cap and suppression list. AI mode uses a Telnyx AI assistant that discloses it is AI.",
+      body: "Set your calling window, attempt cap and suppression list. AI mode uses a Xovra AI assistant that discloses it is AI.",
     },
     {
       tag: "Call",
@@ -452,19 +452,19 @@ const xovraRates = [
     label: "Manual calling",
     price: "$0.02",
     unit: "per minute",
-    body: "Browser softphone calls placed one at a time over Telnyx, with the lead's enrichment data on screen.",
+    body: "Browser softphone calls placed one at a time over Xovra, with the lead's enrichment data on screen.",
   },
   {
     label: "AI qualifier calls",
     price: "$0.25",
     unit: "per minute",
-    body: "Telnyx AI assistant calls that disclose they are AI and qualify the lead against your script.",
+    body: "Xovra AI assistant calls that disclose they are AI and qualify the lead against your script.",
   },
   {
     label: "SMS",
     price: "$0.03",
     unit: "per message",
-    body: "Two-way SMS over Telnyx for follow-up and replies, inside the same lead record.",
+    body: "Two-way SMS over Xovra for follow-up and replies, inside the same lead record.",
   },
 ];
 
@@ -634,12 +634,12 @@ const xovraPillars = [
   {
     icon: Phone,
     title: "Browser WebRTC softphone",
-    body: "Manual one-at-a-time calling in the browser through Telnyx. No hardware, no install.",
+    body: "Manual one-at-a-time calling in the browser through Xovra. No hardware, no install.",
   },
   {
     icon: Sparkles,
     title: "AI qualifier and live rebuttals",
-    body: "A Telnyx AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
+    body: "A Xovra AI assistant that discloses it is AI, plus Claude/Gemini rebuttal suggestions during live calls.",
   },
   {
     icon: ShieldCheck,
