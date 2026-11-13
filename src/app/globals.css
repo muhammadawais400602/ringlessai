@@ -183,3 +183,18 @@ body {
     animation: none !important;
   }
 }
+
+/* ── /v2 (Xovra rebuild) utilities ──────────────────────────── */
+@keyframes xovra-pulse-slow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.06); }
+}
+.animate-pulse-slow   { animation: xovra-pulse-slow 7s ease-in-out infinite; }
+.animate-pulse-slower { animation: xovra-pulse-slow 11s ease-in-out infinite; }
+
+.xovra-root {
+  color-scheme: dark;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+.xovra-root ::selection { background: rgba(165, 180, 252, 0.3); color: #fff; }
