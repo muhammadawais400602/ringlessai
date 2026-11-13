@@ -207,3 +207,92 @@ body:has(.xovra-root) > footer { display: none !important; }
 body:has(.xovra-root) > main { flex: 1 1 auto; padding: 0 !important; margin: 0 !important; }
 body:has(.xovra-root) { background: #ffffff; margin: 0; padding: 0; }
 html:has(.xovra-root) { background: #ffffff; }
+
+/* ─────────── Xovra dark mode ─────────── */
+.xovra-root[data-theme="dark"] {
+  color-scheme: dark;
+  background-color: #0a0d16 !important;
+  color: #ecebf2 !important;
+  --xv-border: rgba(255,255,255,0.08);
+  --xv-surface-elev: #121626;
+  --xv-text: #ecebf2;
+}
+body:has(.xovra-root[data-theme="dark"]),
+html:has(.xovra-root[data-theme="dark"]) { background: #0a0d16 !important; }
+
+/* Surfaces */
+.xovra-root[data-theme="dark"] .bg-white { background-color: #121626 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#f6f4ef\] { background-color: #0f1320 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#faf9f6\] { background-color: #161a2a !important; }
+.xovra-root[data-theme="dark"] .bg-white\/80 { background-color: rgba(18,22,38,0.82) !important; }
+.xovra-root[data-theme="dark"] .bg-white\/90 { background-color: rgba(18,22,38,0.88) !important; }
+.xovra-root[data-theme="dark"] .bg-white\/95 { background-color: rgba(18,22,38,0.92) !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#0b0b0f\] { background-color: #ffffff !important; color: #0b0b0f !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#0b0b0f\]:hover { background-color: #e8e8ee !important; }
+.xovra-root[data-theme="dark"] .hover\:bg-black:hover { background-color: #ffffff !important; }
+
+/* Pastel feature-card backgrounds → dark tints */
+.xovra-root[data-theme="dark"] .bg-\[\#f0efff\] { background-color: #161a30 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#eaf6ef\] { background-color: #0f2020 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#ffecee\] { background-color: #231418 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#fff2e8\] { background-color: #251a12 !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#eef6ff\] { background-color: #0f1a2a !important; }
+.xovra-root[data-theme="dark"] .bg-\[\#faf1ff\] { background-color: #1c1530 !important; }
+.xovra-root[data-theme="dark"] .bg-rose-50 { background-color: rgba(244,63,94,0.08) !important; }
+.xovra-root[data-theme="dark"] .bg-emerald-50 { background-color: rgba(16,185,129,0.1) !important; }
+
+/* Text */
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\] { color: #ecebf2 !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/85 { color: rgba(236,235,242,0.85) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/80 { color: rgba(236,235,242,0.82) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/75 { color: rgba(236,235,242,0.78) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/70 { color: rgba(236,235,242,0.72) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/65 { color: rgba(236,235,242,0.66) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/60 { color: rgba(236,235,242,0.6) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/55 { color: rgba(236,235,242,0.55) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/50 { color: rgba(236,235,242,0.48) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/45 { color: rgba(236,235,242,0.44) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/40 { color: rgba(236,235,242,0.4) !important; }
+.xovra-root[data-theme="dark"] .text-\[\#0b0b0f\]\/35 { color: rgba(236,235,242,0.3) !important; }
+.xovra-root[data-theme="dark"] .text-black { color: #ecebf2 !important; }
+
+/* Borders */
+.xovra-root[data-theme="dark"] .border-black\/5 { border-color: rgba(255,255,255,0.06) !important; }
+.xovra-root[data-theme="dark"] .border-black\/10 { border-color: rgba(255,255,255,0.1) !important; }
+.xovra-root[data-theme="dark"] .border-\[\#0b0b0f\]\/10 { border-color: rgba(255,255,255,0.1) !important; }
+.xovra-root[data-theme="dark"] .border-\[\#0b0b0f\]\/15 { border-color: rgba(255,255,255,0.15) !important; }
+.xovra-root[data-theme="dark"] .border-black\/\[0\.06\] { border-color: rgba(255,255,255,0.08) !important; }
+.xovra-root[data-theme="dark"] .hover\:border-black\/40:hover,
+.xovra-root[data-theme="dark"] .hover\:border-\[\#0b0b0f\]\/40:hover { border-color: rgba(255,255,255,0.4) !important; }
+.xovra-root[data-theme="dark"] .border-\[\#0b0b0f\] { border-color: #ffffff !important; }
+
+/* Hover surfaces */
+.xovra-root[data-theme="dark"] .hover\:bg-\[\#f6f4ef\]:hover { background-color: #161a2a !important; }
+.xovra-root[data-theme="dark"] .hover\:bg-\[\#faf9f6\]:hover { background-color: #181d2e !important; }
+.xovra-root[data-theme="dark"] .hover\:bg-white:hover { background-color: #171b2c !important; }
+.xovra-root[data-theme="dark"] .hover\:bg-\[\#0b0b0f\]:hover { background-color: #e8e8ee !important; color: #0b0b0f !important; }
+
+/* Inputs */
+.xovra-root[data-theme="dark"] input,
+.xovra-root[data-theme="dark"] textarea,
+.xovra-root[data-theme="dark"] select,
+.xovra-root[data-theme="dark"] kbd { color: #ecebf2 !important; }
+.xovra-root[data-theme="dark"] input::placeholder,
+.xovra-root[data-theme="dark"] textarea::placeholder { color: rgba(236,235,242,0.4) !important; }
+
+/* Soft gradient overlays — lower opacity in dark */
+.xovra-root[data-theme="dark"] .from-\[\#e9ecff\],
+.xovra-root[data-theme="dark"] .via-\[\#f5edff\],
+.xovra-root[data-theme="dark"] .to-\[\#fde4f3\],
+.xovra-root[data-theme="dark"] .from-\[\#eef0ff\],
+.xovra-root[data-theme="dark"] .via-\[\#f5edff\],
+.xovra-root[data-theme="dark"] .to-\[\#ffeef7\],
+.xovra-root[data-theme="dark"] .to-\[\#fef3ec\] { opacity: 0.35; }
+
+/* Shadow softening so cards don't look like cut-outs */
+.xovra-root[data-theme="dark"] [class*="shadow-"] { box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important; }
+.xovra-root[data-theme="dark"] .shadow-sm { box-shadow: 0 1px 4px rgba(0,0,0,0.5) !important; }
+.xovra-root[data-theme="dark"] .shadow { box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important; }
+
+/* Transition smoothness */
+.xovra-root, .xovra-root * { transition-property: background-color, border-color, color, box-shadow; transition-duration: 220ms; }

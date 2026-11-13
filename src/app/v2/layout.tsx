@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
 import "../globals.css";
+import { XovraThemeProvider } from "./_components/XovraTheme";
 
 const serif = Instrument_Serif({
   weight: "400",
@@ -25,8 +26,9 @@ export default function V2Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={`xovra-root ${serif.variable} ${sans.variable} bg-white text-[#0b0b0f] antialiased min-h-screen`}
+      suppressHydrationWarning
     >
-      {children}
+      <XovraThemeProvider>{children}</XovraThemeProvider>
     </div>
   );
 }

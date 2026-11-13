@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { ThemeToggle } from "./XovraTheme";
 import {
   Menu,
   X,
@@ -135,7 +136,8 @@ export default function Nav() {
             </NavLink>
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2.5">
+            <ThemeToggle />
             <Link
               href="/v2/contact"
               className="text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] px-2 py-2"
