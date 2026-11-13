@@ -3,13 +3,14 @@ import Hero from "./_components/Hero";
 import {
   LogoStrip,
   Features,
-  Pipeline,
-  Angles,
-  AISpotlight,
+  TechStack,
+  TeamSection,
+  ImprovementLoop,
   Testimonials,
-  UseCases,
-  Compliance,
+  PlatformList,
+  Security,
   ClosingCTA,
+  FAQ,
   Footer,
 } from "./_components/Sections";
 
@@ -20,13 +21,14 @@ export default function V2Home() {
       <Hero />
       <LogoStrip />
       <Features />
-      <Pipeline />
-      <Angles />
-      <AISpotlight />
+      <TechStack />
+      <TeamSection />
+      <ImprovementLoop />
       <Testimonials />
-      <UseCases />
-      <Compliance />
+      <PlatformList />
+      <Security />
       <ClosingCTA />
+      <FAQ />
       <Footer />
     </main>
   );
