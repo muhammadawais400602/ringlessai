@@ -94,15 +94,15 @@ export default function Nav() {
         )}
       </AnimatePresence>
 
-      {/* Main nav */}
+      {/* Main nav — floating pill */}
       <motion.nav
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpen(null)}
-        className="sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-black/[0.06]"
+        className="sticky top-3 sm:top-4 z-40 mx-3 sm:mx-6 lg:mx-10 mt-3 sm:mt-4"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 py-3.5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-5 lg:px-8 py-2.5 rounded-full bg-white/90 backdrop-blur-xl border border-black/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
           <Link href="#" className="flex items-center gap-2">
             <Logo />
             <span className="font-semibold tracking-tight text-[18px] text-[#0b0b0f]">
