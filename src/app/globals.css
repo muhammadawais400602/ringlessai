@@ -193,8 +193,9 @@ body {
 .animate-pulse-slower { animation: xovra-pulse-slow 11s ease-in-out infinite; }
 
 .xovra-root {
-  color-scheme: dark;
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+  font-family: var(--xv-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   font-feature-settings: "ss01", "cv11";
 }
-.xovra-root ::selection { background: rgba(165, 180, 252, 0.3); color: #fff; }
+.xovra-root ::selection { background: rgba(99, 102, 241, 0.2); color: #0b0b0f; }
+.xv-serif { font-family: var(--xv-serif), "Times New Roman", Georgia, serif; font-weight: 400; letter-spacing: -0.02em; }

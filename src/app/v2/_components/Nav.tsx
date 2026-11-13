@@ -21,6 +21,7 @@ import {
   Code2,
   LineChart,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 
 const megaMenus = {
@@ -60,35 +61,53 @@ const menuKeys = Object.keys(megaMenus) as MenuKey[];
 export default function Nav() {
   const [open, setOpen] = useState<MenuKey | null>(null);
   const [mobile, setMobile] = useState(false);
+  const [bannerShown, setBannerShown] = useState(true);
 
   return (
     <div className="relative z-50">
-      {/* Announcement bar */}
-      <motion.div
+      {/* Blue announcement bar */}
+      <AnimatePresence>
+        {bannerShown && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="relative overflow-hidden bg-[#4f5bf0] text-white"
+          >
+            <div className="flex items-center justify-center py-2.5 px-6 text-[13px]">
+              <span>Xovra helped agencies book 12,400+ demos last quarter.</span>
+              <a
+                href="#"
+                className="ml-3 font-semibold underline underline-offset-2 inline-flex items-center gap-1 hover:opacity-90"
+              >
+                Read our story <ArrowRight size={12} />
+              </a>
+            </div>
+            <button
+              aria-label="Dismiss"
+              onClick={() => setBannerShown(false)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/80 hover:text-white"
+            >
+              <X size={15} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main nav */}
+      <motion.nav
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-center py-2 px-4 text-[12px] text-white/70 bg-black/40 backdrop-blur border-b border-white/5"
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-        <span>Xovra helped agencies book 12,400+ demos last quarter.</span>
-        <a href="#" className="ml-2 text-white hover:underline inline-flex items-center gap-1">
-          Read our story <ArrowRight size={11} />
-        </a>
-      </motion.div>
-
-      {/* Nav */}
-      <motion.nav
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
         onMouseLeave={() => setOpen(null)}
-        className="relative"
+        className="relative bg-white"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-5 lg:px-8 py-4">
           <Link href="#" className="flex items-center gap-2">
             <Logo />
-            <span className="font-semibold tracking-tight text-[16px]">Xovra</span>
+            <span className="font-semibold tracking-tight text-[18px] text-[#0b0b0f]">
+              Xovra
+            </span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -96,42 +115,49 @@ export default function Nav() {
               <button
                 key={k}
                 onMouseEnter={() => setOpen(k)}
-                className="px-3 py-2 text-[13.5px] text-white/75 hover:text-white rounded-md transition"
+                className="group px-3.5 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition inline-flex items-center gap-1"
               >
                 {k}
+                <ChevronDown
+                  size={13}
+                  className="opacity-60 transition group-hover:translate-y-0.5"
+                />
               </button>
             ))}
             <a
               href="#pricing"
-              className="px-3 py-2 text-[13.5px] text-white/75 hover:text-white rounded-md transition"
+              className="px-3.5 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition"
               onMouseEnter={() => setOpen(null)}
             >
               Pricing
             </a>
           </div>
 
-          <div className="hidden lg:flex items-center gap-2">
-            <a href="#" className="text-[13.5px] text-white/80 hover:text-white px-3 py-2">
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="#"
+              className="text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] px-2 py-2"
+            >
               Login
             </a>
             <a
               href="#demo"
-              className="text-[13.5px] text-white/85 hover:text-white px-4 py-2 rounded-full border border-white/10 hover:border-white/25 transition"
+              className="text-[14px] text-[#0b0b0f] px-4 py-2 rounded-full border border-[#0b0b0f]/15 hover:border-[#0b0b0f]/40 bg-white transition"
             >
-              Book a Demo
+              Contact sales
             </a>
             <a
               href="#early-access"
-              className="group relative text-[13.5px] font-medium px-4 py-2 rounded-full text-black bg-white hover:bg-white/90 transition inline-flex items-center gap-1"
+              className="group text-[14px] font-medium px-4 py-2 rounded-full text-white bg-[#0b0b0f] hover:bg-black transition inline-flex items-center gap-1.5"
             >
-              Get Early Access
+              Try for free
               <ArrowRight size={13} className="transition group-hover:translate-x-0.5" />
             </a>
           </div>
 
           <button
             onClick={() => setMobile(!mobile)}
-            className="lg:hidden text-white"
+            className="lg:hidden text-black"
             aria-label="Menu"
           >
             {mobile ? <X size={22} /> : <Menu size={22} />}
@@ -145,23 +171,25 @@ export default function Nav() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.18 }}
               className="absolute left-0 right-0 top-full"
             >
-              <div className="max-w-5xl mx-auto mt-2 p-4 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl shadow-2xl">
+              <div className="max-w-5xl mx-auto mt-1 p-4 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   {megaMenus[open].map((item) => (
                     <a
                       key={item.label}
                       href="#"
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.04] transition"
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#f6f4ef] transition"
                     >
-                      <div className="w-9 h-9 rounded-lg border border-white/10 bg-white/[0.03] flex items-center justify-center group-hover:bg-white/[0.08] transition">
-                        <item.icon size={16} className="text-white/85" />
+                      <div className="w-9 h-9 rounded-lg border border-[#0b0b0f]/10 bg-[#f6f4ef] flex items-center justify-center group-hover:bg-white transition">
+                        <item.icon size={16} className="text-[#0b0b0f]/80" />
                       </div>
                       <div>
-                        <div className="text-[13.5px] font-medium text-white">{item.label}</div>
-                        <div className="text-[11.5px] text-white/50">{item.sub}</div>
+                        <div className="text-[13.5px] font-medium text-[#0b0b0f]">
+                          {item.label}
+                        </div>
+                        <div className="text-[11.5px] text-[#0b0b0f]/55">{item.sub}</div>
                       </div>
                     </a>
                   ))}
@@ -178,27 +206,30 @@ export default function Nav() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden overflow-hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl"
+              className="lg:hidden overflow-hidden mx-4 mb-3 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow"
             >
               <div className="p-4 flex flex-col gap-1">
                 {[...menuKeys, "Pricing"].map((k) => (
                   <a
                     key={k}
                     href="#"
-                    className="px-3 py-2.5 text-sm text-white/85 rounded-lg hover:bg-white/5"
+                    className="px-3 py-2.5 text-sm text-[#0b0b0f]/85 rounded-lg hover:bg-[#f6f4ef]"
                   >
                     {k}
                   </a>
                 ))}
-                <div className="flex gap-2 pt-3 mt-2 border-t border-white/10">
-                  <a href="#" className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-white/5">
+                <div className="flex gap-2 pt-3 mt-2 border-t border-[#0b0b0f]/10">
+                  <a
+                    href="#"
+                    className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-[#f6f4ef]"
+                  >
                     Login
                   </a>
                   <a
                     href="#early-access"
-                    className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-white text-black font-medium"
+                    className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-[#0b0b0f] text-white font-medium"
                   >
-                    Get Early Access
+                    Try for free
                   </a>
                 </div>
               </div>
@@ -215,9 +246,9 @@ function Logo() {
     <motion.div
       whileHover={{ rotate: 15, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
-      className="relative w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.6)]"
+      className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-[0_6px_18px_rgba(99,102,241,0.35)]"
     >
-      <span className="text-black font-black text-[13px]">X</span>
+      <span className="text-white font-black text-[14px]">X</span>
     </motion.div>
   );
 }

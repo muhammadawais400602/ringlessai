@@ -14,11 +14,7 @@ import {
   LineChart,
   ArrowRight,
   CheckCircle2,
-  Globe,
   Sparkles,
-  Headphones,
-  Users,
-  Briefcase,
   Mic,
   PhoneCall,
   Keyboard,
@@ -56,14 +52,14 @@ export function LogoStrip() {
     "Oakridge",
   ];
   return (
-    <section className="py-16 px-4 border-y border-white/5 bg-black/30">
+    <section className="py-16 px-5 border-y border-black/5 bg-[#f6f4ef]">
       <motion.p
         {...fadeUp}
-        className="text-center text-[11.5px] uppercase tracking-[0.22em] text-white/45"
+        className="text-center text-[11.5px] uppercase tracking-[0.22em] text-[#0b0b0f]/50 font-medium"
       >
         In production at 300+ agencies and sales teams
       </motion.p>
-      <div className="mt-8 max-w-6xl mx-auto overflow-hidden">
+      <div className="mt-8 max-w-6xl mx-auto overflow-hidden mask-fade">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 32, ease: "linear", repeat: Infinity }}
@@ -72,7 +68,7 @@ export function LogoStrip() {
           {[...names, ...names, ...names].map((n, i) => (
             <span
               key={i}
-              className="text-[22px] font-semibold tracking-tight text-white/35 hover:text-white/70 transition"
+              className="text-[24px] font-semibold tracking-tight text-[#0b0b0f]/35 hover:text-[#0b0b0f]/70 transition"
             >
               {n}
             </span>
@@ -83,69 +79,68 @@ export function LogoStrip() {
   );
 }
 
-/* ============ FEATURE GRID (Retell "Contact center complexity, handled") ============ */
+/* ============ FEATURE GRID ============ */
 export function Features() {
   return (
-    <section id="features" className="py-28 px-4 relative">
+    <section id="features" className="py-32 px-5 relative bg-white">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           Platform
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           Outbound complexity,
           <br />
-          <span className="text-white/45">handled.</span>
+          <span className="italic text-[#0b0b0f]/50">handled.</span>
         </h2>
-        <p className="mt-6 text-white/55 text-[16px]">
+        <p className="mt-6 text-[#0b0b0f]/60 text-[16px] max-w-xl mx-auto">
           Any dialer can place a call. Xovra enriches, scores, pitches, logs, and
           reports — all in one workspace.
         </p>
       </motion.div>
 
-      {/* Top row: 2 big cards */}
+      {/* 4 big cards */}
       <div className="mt-16 max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
         <BigCard
           title="Google Maps Lead Scraping"
           body="Enter a niche and city. Xovra pulls business listings and enriches each with a website audit, Google Ads check, and social media scan — before you dial."
-          accent="from-cyan-500/25 via-cyan-500/5 to-transparent"
+          accent="bg-[#f0efff]"
           visual={<ScraperVisual />}
         />
         <BigCard
           title="Browser-Based Softphone"
           body="A WebRTC dialer powered by Telnyx. Call from the browser with keyboard shortcuts — C to call, H to hang up, 1–6 to log outcomes."
-          accent="from-indigo-500/25 via-indigo-500/5 to-transparent"
+          accent="bg-[#fff2e8]"
           visual={<DialerVisual />}
         />
       </div>
 
-      {/* Middle: 2 big cards */}
       <div className="mt-5 max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
         <BigCard
           title="AI Qualifier Calls"
           body="A Telnyx AI assistant calls your leads, discloses it is AI in the first sentence, asks qualifying questions, and returns a lead score."
-          accent="from-fuchsia-500/25 via-fuchsia-500/5 to-transparent"
+          accent="bg-[#eaf6ef]"
           visual={<QualifierVisual />}
         />
         <BigCard
           title="Live AI Rebuttals"
           body="Claude drafts objection handling mid-call, using what Xovra already knows — website issues, ad spend, social signals."
-          accent="from-amber-500/25 via-amber-500/5 to-transparent"
+          accent="bg-[#ffecee]"
           visual={<RebuttalVisual />}
         />
       </div>
 
-      {/* Memory wide card */}
+      {/* Wide memory card */}
       <div className="mt-5 max-w-6xl mx-auto">
         <BigCard
           wide
           title="A memory of every lead, every call, every outcome"
           body="Xovra remembers each conversation. The next rep picks up right where the last call ended — same pitch angle, same objections handled, same next step."
-          accent="from-emerald-500/20 via-cyan-500/10 to-transparent"
+          accent="bg-[#eef6ff]"
           visual={<MemoryVisual />}
         />
       </div>
 
-      {/* Bottom: 5-tile row */}
+      {/* 5 tiles */}
       <div className="mt-5 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
           { icon: MessageSquare, label: "Two-Way SMS" },
@@ -161,10 +156,10 @@ export function Features() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.06 }}
             whileHover={{ y: -3 }}
-            className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center hover:bg-white/[0.04] hover:border-white/20 transition"
+            className="rounded-2xl bg-[#f6f4ef] border border-black/5 px-4 py-5 text-center hover:bg-white hover:border-black/10 hover:shadow-sm transition"
           >
-            <t.icon size={18} className="mx-auto text-white/70" />
-            <div className="mt-2.5 text-[12.5px] font-medium text-white/85">
+            <t.icon size={18} className="mx-auto text-[#0b0b0f]/75" />
+            <div className="mt-2.5 text-[13px] font-medium text-[#0b0b0f]">
               {t.label}
             </div>
           </motion.div>
@@ -194,23 +189,20 @@ function BigCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6 }}
       whileHover={{ y: -4 }}
-      className="group relative rounded-2xl border border-white/10 bg-[#0c0c14] overflow-hidden transition-all hover:border-white/20"
+      className={`group relative rounded-2xl overflow-hidden ${accent} border border-black/5 transition hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)]`}
     >
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${accent} opacity-80 group-hover:opacity-100 transition`}
-      />
       <div
         className={`relative p-7 ${wide ? "md:grid md:grid-cols-[1fr_1.4fr] md:gap-8 md:items-center" : ""}`}
       >
         <div>
-          <h3 className="text-[22px] font-semibold tracking-tight leading-tight max-w-md">
+          <h3 className="xv-serif text-[30px] leading-tight tracking-[-0.02em] text-[#0b0b0f] max-w-md">
             {title}
           </h3>
-          <p className="mt-3 text-[14px] text-white/55 leading-relaxed max-w-md">
+          <p className="mt-4 text-[14.5px] text-[#0b0b0f]/60 leading-relaxed max-w-md">
             {body}
           </p>
         </div>
-        <div className={`${wide ? "mt-6 md:mt-0" : "mt-7"} relative h-[180px]`}>
+        <div className={`${wide ? "mt-6 md:mt-0" : "mt-7"} relative h-[190px]`}>
           {visual}
         </div>
       </div>
@@ -218,7 +210,7 @@ function BigCard({
   );
 }
 
-/* ---------- Mock visuals (SVG/CSS, no external images) ---------- */
+/* ---------- Mock visuals ---------- */
 function ScraperVisual() {
   const pins = [
     { x: "20%", y: "30%" },
@@ -228,21 +220,19 @@ function ScraperVisual() {
     { x: "62%", y: "78%" },
   ];
   return (
-    <div className="relative w-full h-full rounded-xl border border-white/10 bg-gradient-to-br from-[#0a0f1a] to-[#070a12] overflow-hidden">
-      {/* Grid */}
+    <div className="relative w-full h-full rounded-xl bg-white border border-black/5 overflow-hidden shadow-sm">
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-50"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(34,211,238,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(34,211,238,0.3) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(79,91,240,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(79,91,240,0.08) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
         }}
       />
-      {/* Scan line */}
       <motion.div
         animate={{ y: ["0%", "100%"] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-300 to-transparent shadow-[0_0_12px_rgba(34,211,238,0.9)]"
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#4f5bf0] to-transparent"
       />
       {pins.map((p, i) => (
         <motion.div
@@ -256,11 +246,15 @@ function ScraperVisual() {
         >
           <div className="relative">
             <motion.div
-              animate={{ scale: [1, 2, 1], opacity: [0.6, 0, 0.6] }}
+              animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
               transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-              className="absolute inset-0 rounded-full bg-cyan-400/40"
+              className="absolute inset-0 rounded-full bg-[#4f5bf0]/40"
             />
-            <MapPin size={14} className="relative text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.9)]" />
+            <MapPin
+              size={14}
+              className="relative text-[#4f5bf0]"
+              fill="currentColor"
+            />
           </div>
         </motion.div>
       ))}
@@ -270,13 +264,13 @@ function ScraperVisual() {
 
 function DialerVisual() {
   return (
-    <div className="relative w-full h-full rounded-xl border border-white/10 bg-gradient-to-br from-[#0e0a1a] to-[#070711] p-4 flex flex-col justify-between overflow-hidden">
+    <div className="relative w-full h-full rounded-xl bg-white border border-black/5 p-4 flex flex-col justify-between overflow-hidden shadow-sm">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5 text-[10px] text-emerald-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="flex items-center gap-1.5 text-[10.5px] text-emerald-600">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           On call · 02:14
         </div>
-        <div className="text-[10px] text-white/40">+1 (555) 013-4489</div>
+        <div className="text-[10.5px] text-[#0b0b0f]/50">+1 (555) 013-4489</div>
       </div>
       <div className="flex items-end gap-0.5 h-10">
         {Array.from({ length: 36 }).map((_, i) => (
@@ -289,7 +283,7 @@ function DialerVisual() {
               delay: i * 0.03,
               ease: "easeInOut",
             }}
-            className="flex-1 rounded-full bg-gradient-to-t from-indigo-500 to-fuchsia-400"
+            className="flex-1 rounded-full bg-gradient-to-t from-[#4f5bf0] to-[#a855f7]"
           />
         ))}
       </div>
@@ -298,22 +292,27 @@ function DialerVisual() {
           {["C", "H", "1-6"].map((k) => (
             <kbd
               key={k}
-              className="px-1.5 py-0.5 rounded bg-white/[0.05] text-[9.5px] text-white/75 border border-white/10"
+              className="px-1.5 py-0.5 rounded bg-[#f6f4ef] text-[9.5px] text-[#0b0b0f]/70 border border-black/10"
             >
               {k}
             </kbd>
           ))}
         </div>
         <div className="flex gap-1.5">
-          <div className="w-7 h-7 rounded-full bg-rose-500/90 flex items-center justify-center">
-            <Phone size={11} className="rotate-[135deg]" />
+          <div className="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center">
+            <Phone size={11} className="rotate-[135deg] text-white" />
           </div>
           <motion.div
-            animate={{ boxShadow: ["0 0 0 0 rgba(16,185,129,0.6)", "0 0 0 10px rgba(16,185,129,0)"] }}
+            animate={{
+              boxShadow: [
+                "0 0 0 0 rgba(16,185,129,0.4)",
+                "0 0 0 10px rgba(16,185,129,0)",
+              ],
+            }}
             transition={{ duration: 1.6, repeat: Infinity }}
             className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center"
           >
-            <Phone size={11} />
+            <Phone size={11} className="text-white" />
           </motion.div>
         </div>
       </div>
@@ -323,27 +322,27 @@ function DialerVisual() {
 
 function QualifierVisual() {
   return (
-    <div className="relative w-full h-full rounded-xl border border-white/10 bg-gradient-to-br from-[#140919] to-[#070711] p-4 overflow-hidden">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative w-24 h-24 flex items-center justify-center">
+    <div className="relative w-full h-full rounded-xl bg-white border border-black/5 p-4 overflow-hidden shadow-sm">
+      <div className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2">
+        <div className="relative w-16 h-16 flex items-center justify-center">
           <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.9, 0.5] }}
+            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.8, 0.4] }}
             transition={{ duration: 2.4, repeat: Infinity }}
-            className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500 via-pink-500 to-rose-500 blur-xl"
+            className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 blur-lg opacity-60"
           />
-          <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center">
-            <Bot size={20} />
+          <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
+            <Bot size={16} className="text-white" />
           </div>
         </div>
       </div>
-      <div className="relative flex flex-col gap-1.5">
-        <div className="self-start text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-bl-none bg-white/[0.05] border border-white/10 max-w-[65%]">
+      <div className="relative flex flex-col gap-1.5 pt-10">
+        <div className="self-start text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-bl-none bg-[#f6f4ef] border border-black/5 max-w-[70%] text-[#0b0b0f]/80">
           Hi — I&apos;m an AI calling on behalf of Xovra.
         </div>
-        <div className="self-end text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-br-none bg-fuchsia-500/20 border border-fuchsia-400/20 max-w-[55%]">
+        <div className="self-end text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-br-none bg-emerald-500/15 border border-emerald-500/20 max-w-[55%] text-[#0b0b0f]/85">
           Wait, you&apos;re an AI?
         </div>
-        <div className="self-start text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-bl-none bg-white/[0.05] border border-white/10 max-w-[70%]">
+        <div className="self-start text-[10.5px] px-2.5 py-1.5 rounded-lg rounded-bl-none bg-[#f6f4ef] border border-black/5 max-w-[70%] text-[#0b0b0f]/80">
           Yes — quick question about your website…
         </div>
       </div>
@@ -353,21 +352,23 @@ function QualifierVisual() {
 
 function RebuttalVisual() {
   return (
-    <div className="relative w-full h-full rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1206] to-[#070711] p-4 overflow-hidden flex flex-col justify-center gap-2">
-      <div className="flex items-center justify-between text-[10px]">
-        <div className="flex items-center gap-1 text-amber-200">
+    <div className="relative w-full h-full rounded-xl bg-white border border-black/5 p-4 overflow-hidden flex flex-col justify-center gap-2 shadow-sm">
+      <div className="flex items-center justify-between text-[10.5px]">
+        <div className="flex items-center gap-1 text-rose-600">
           <Zap size={10} /> Rebuttal drafting
         </div>
-        <span className="text-white/40">0.4s</span>
+        <span className="text-[#0b0b0f]/40">0.4s</span>
       </div>
-      <div className="rounded-lg p-2.5 bg-black/40 border border-amber-400/20 font-mono text-[10.5px] text-amber-100 leading-relaxed">
-        <span className="text-amber-300/80">// context: WEAK_SITE, no HTTPS</span>
+      <div className="rounded-lg p-2.5 bg-rose-50 border border-rose-200 text-[10.5px] text-[#0b0b0f]/80 leading-relaxed">
+        <span className="text-rose-500 font-mono">
+          // context: WEAK_SITE, no HTTPS
+        </span>
         <br />
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.2 }}
         >
           &quot;68% of plumbing searches happen on phones. Your site isn&apos;t
           mobile-friendly — worth 5 minutes?&quot;
@@ -377,7 +378,7 @@ function RebuttalVisual() {
         {["Claude", "Gemini"].map((p) => (
           <span
             key={p}
-            className="text-[9.5px] px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-white/70"
+            className="text-[9.5px] px-2 py-0.5 rounded-full bg-[#f6f4ef] border border-black/10 text-[#0b0b0f]/70"
           >
             {p}
           </span>
@@ -389,13 +390,25 @@ function RebuttalVisual() {
 
 function MemoryVisual() {
   const rows = [
-    { time: "Mon 10:12", who: "Rep · Alex", note: "Connected · interested in mobile audit" },
-    { time: "Wed 14:03", who: "AI Qualifier", note: "Follow-up SMS sent · email captured" },
-    { time: "Fri 09:41", who: "Rep · Jamie", note: "Demo booked · angle: WEAK_SITE" },
+    {
+      time: "Mon 10:12",
+      who: "Rep · Alex",
+      note: "Connected · interested in mobile audit",
+    },
+    {
+      time: "Wed 14:03",
+      who: "AI Qualifier",
+      note: "Follow-up SMS sent · email captured",
+    },
+    {
+      time: "Fri 09:41",
+      who: "Rep · Jamie",
+      note: "Demo booked · angle: WEAK_SITE",
+    },
   ];
   return (
-    <div className="relative w-full h-full rounded-xl border border-white/10 bg-gradient-to-br from-[#05120d] to-[#070711] p-3 overflow-hidden">
-      <div className="absolute left-5 top-5 bottom-5 w-px bg-gradient-to-b from-emerald-400/60 via-cyan-400/40 to-transparent" />
+    <div className="relative w-full h-full rounded-xl bg-white border border-black/5 p-3 overflow-hidden shadow-sm">
+      <div className="absolute left-5 top-5 bottom-5 w-px bg-gradient-to-b from-[#4f5bf0]/60 via-[#4f5bf0]/30 to-transparent" />
       <div className="relative space-y-2 pl-8">
         {rows.map((r, i) => (
           <motion.div
@@ -404,12 +417,12 @@ function MemoryVisual() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.12 }}
-            className="relative rounded-lg bg-white/[0.03] border border-white/5 p-2.5"
+            className="relative rounded-lg bg-[#f6f4ef] border border-black/5 p-2.5"
           >
-            <div className="absolute -left-[22px] top-3 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-            <div className="text-[10px] text-white/40">{r.time}</div>
-            <div className="text-[11px] text-white font-medium">{r.who}</div>
-            <div className="text-[10.5px] text-white/60">{r.note}</div>
+            <div className="absolute -left-[22px] top-3 w-2.5 h-2.5 rounded-full bg-[#4f5bf0] shadow-[0_0_8px_rgba(79,91,240,0.5)]" />
+            <div className="text-[10px] text-[#0b0b0f]/45">{r.time}</div>
+            <div className="text-[11.5px] text-[#0b0b0f] font-medium">{r.who}</div>
+            <div className="text-[10.5px] text-[#0b0b0f]/60">{r.note}</div>
           </motion.div>
         ))}
       </div>
@@ -417,7 +430,7 @@ function MemoryVisual() {
   );
 }
 
-/* ============ TECH STACK (Retell "Developed by Retell Labs") ============ */
+/* ============ TECH STACK ============ */
 export function TechStack() {
   const stages = [
     {
@@ -425,46 +438,43 @@ export function TechStack() {
       title: "Perception",
       body: "Scrape Google Maps, audit sites, detect ads, scan socials — in real time.",
       icon: Search,
-      color: "from-cyan-400 to-blue-500",
+      color: "from-cyan-500 to-blue-600",
     },
     {
       step: "02",
       title: "Reasoning",
       body: "Score every lead, pick a pitch angle, draft rebuttals mid-call with Claude or Gemini.",
       icon: Brain,
-      color: "from-indigo-400 to-fuchsia-500",
+      color: "from-indigo-500 to-fuchsia-600",
     },
     {
       step: "03",
       title: "Response",
       body: "Dial via WebRTC, send SMS, log the outcome to a sheet. All in under a second.",
       icon: Waves,
-      color: "from-fuchsia-400 to-rose-500",
+      color: "from-fuchsia-500 to-rose-600",
     },
   ];
 
   return (
-    <section className="py-32 px-4 relative overflow-hidden">
-      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-indigo-600/10 blur-[160px] -z-10" />
-
+    <section className="py-32 px-5 relative bg-[#f6f4ef]">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-fuchsia-300/80">
+        <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           <Sparkles size={12} /> Built by Xovra Labs
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           The intelligence behind
           <br />
-          <span className="text-white/45">every conversation.</span>
+          <span className="italic text-[#0b0b0f]/50">every conversation.</span>
         </h2>
-        <p className="mt-6 text-white/55">
+        <p className="mt-6 text-[#0b0b0f]/60 max-w-xl mx-auto">
           A three-stage pipeline that turns a Maps search into a logged outcome —{" "}
-          <span className="text-white">in under two minutes.</span>
+          <span className="text-[#0b0b0f] font-medium">in under two minutes.</span>
         </p>
       </motion.div>
 
       <div className="mt-20 max-w-6xl mx-auto grid md:grid-cols-3 gap-5 relative">
-        {/* connecting line */}
-        <div className="hidden md:block absolute top-16 left-[12%] right-[12%] h-px bg-gradient-to-r from-cyan-500/0 via-indigo-500/60 to-fuchsia-500/0" />
+        <div className="hidden md:block absolute top-16 left-[12%] right-[12%] h-px bg-gradient-to-r from-cyan-500/0 via-[#4f5bf0]/40 to-fuchsia-500/0" />
         {stages.map((s, i) => (
           <motion.div
             key={s.step}
@@ -472,25 +482,24 @@ export function TechStack() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.12 }}
-            className="relative rounded-2xl border border-white/10 bg-[#0c0c14] p-7 overflow-hidden"
+            className="relative rounded-2xl bg-white border border-black/5 p-7 overflow-hidden shadow-sm hover:shadow-md transition"
           >
-            <div
-              className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${s.color} opacity-15 blur-3xl`}
-            />
-            <div className="relative">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/40">
-                  {s.step}
-                </span>
-                <div
-                  className={`w-9 h-9 rounded-lg bg-gradient-to-br ${s.color} flex items-center justify-center shadow-lg`}
-                >
-                  <s.icon size={16} className="text-black" />
-                </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#0b0b0f]/40 font-semibold">
+                {s.step}
+              </span>
+              <div
+                className={`w-10 h-10 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center shadow-md`}
+              >
+                <s.icon size={18} className="text-white" />
               </div>
-              <h3 className="mt-6 text-xl font-semibold">{s.title}</h3>
-              <p className="mt-2.5 text-sm text-white/55 leading-relaxed">{s.body}</p>
             </div>
+            <h3 className="xv-serif mt-6 text-[26px] leading-tight tracking-[-0.02em]">
+              {s.title}
+            </h3>
+            <p className="mt-3 text-[14px] text-[#0b0b0f]/60 leading-relaxed">
+              {s.body}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -498,35 +507,33 @@ export function TechStack() {
       {/* Latency stat */}
       <motion.div
         {...fadeUp}
-        className="mt-10 max-w-5xl mx-auto rounded-2xl border border-white/10 bg-black/40 px-6 py-5 flex flex-wrap items-center justify-between gap-4"
+        className="mt-8 max-w-5xl mx-auto rounded-2xl bg-white border border-black/5 shadow-sm px-6 py-5 flex flex-wrap items-center justify-between gap-4"
       >
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-            <Zap size={16} className="text-black" />
+          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-md">
+            <Zap size={16} className="text-white" />
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-[0.18em] text-white/40">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-[#0b0b0f]/45 font-semibold">
               End-to-end latency
             </div>
-            <div className="text-2xl font-semibold">
-              <span className="bg-gradient-to-r from-cyan-300 to-fuchsia-300 bg-clip-text text-transparent">
-                &lt; 1.9s
-              </span>{" "}
-              per rebuttal
+            <div className="xv-serif text-[32px] leading-none tracking-[-0.02em]">
+              <span className="italic">&lt; 1.9s</span>{" "}
+              <span className="text-[#0b0b0f]/50 text-[20px]">per rebuttal</span>
             </div>
           </div>
         </div>
-        <div className="flex gap-6 text-xs text-white/55">
+        <div className="flex gap-7 text-[13px] text-[#0b0b0f]/60">
           <div>
-            <div className="text-white text-xl font-semibold">&lt; 2min</div>
-            Maps → first dial
+            <div className="text-[#0b0b0f] text-xl font-semibold">&lt;2min</div>
+            Maps → dial
           </div>
           <div>
-            <div className="text-white text-xl font-semibold">1 key</div>
+            <div className="text-[#0b0b0f] text-xl font-semibold">1 key</div>
             per outcome
           </div>
           <div>
-            <div className="text-white text-xl font-semibold">24/7</div>
+            <div className="text-[#0b0b0f] text-xl font-semibold">24/7</div>
             AI qualifier
           </div>
         </div>
@@ -535,27 +542,40 @@ export function TechStack() {
   );
 }
 
-/* ============ TEAM / CX ENGINEERS (Retell "CX Engineers") ============ */
+/* ============ TEAM / OPERATORS ============ */
 export function TeamSection() {
-  const avatars = ["JA", "MR", "KT", "LP", "SN", "DW", "YF"];
+  const avatars = [
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=140&q=80",
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=140&q=80",
+  ];
   return (
-    <section className="py-28 px-4 relative overflow-hidden">
+    <section className="py-32 px-5 relative bg-white">
       <div className="max-w-5xl mx-auto text-center">
         <motion.span
           {...fadeUp}
-          className="inline-block text-[11px] uppercase tracking-[0.22em] text-amber-300/80"
+          className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold"
         >
           Dialer Operators
         </motion.span>
         <motion.h2
           {...fadeUp}
-          className="mt-4 text-4xl sm:text-5xl font-semibold tracking-[-0.03em] leading-[1]"
+          className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[70px] leading-[0.98] tracking-[-0.03em]"
         >
           Don&apos;t just buy a dialer.
           <br />
-          <span className="text-white/45">Build a team around it.</span>
+          <span className="italic text-[#0b0b0f]/50">
+            Build a team around it.
+          </span>
         </motion.h2>
-        <motion.p {...fadeUp} className="mt-6 text-white/55 max-w-xl mx-auto">
+        <motion.p
+          {...fadeUp}
+          className="mt-6 text-[#0b0b0f]/60 max-w-xl mx-auto text-[16px]"
+        >
           Xovra gives your reps the context, the angle, and the next action — so
           every dial sounds researched, not scripted.
         </motion.p>
@@ -569,17 +589,14 @@ export function TeamSection() {
         >
           {avatars.map((a, i) => (
             <motion.div
-              key={a}
+              key={i}
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, type: "spring" }}
-              className="w-12 h-12 rounded-full border-2 border-[#07070c] bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center text-[11px] font-bold shadow-xl"
-              style={{
-                backgroundImage: `linear-gradient(135deg, hsl(${i * 48}, 70%, 55%), hsl(${i * 48 + 60}, 70%, 45%))`,
-              }}
+              className="w-14 h-14 rounded-full border-2 border-white overflow-hidden shadow-lg"
             >
-              {a}
+              <img src={a} alt="" className="w-full h-full object-cover" />
             </motion.div>
           ))}
         </motion.div>
@@ -590,13 +607,13 @@ export function TeamSection() {
         >
           <a
             href="#early-access"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black font-medium text-sm hover:shadow-[0_8px_40px_rgba(255,255,255,0.25)] transition"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#0b0b0f] text-white font-medium text-sm hover:bg-black transition"
           >
-            Get Early Access <ArrowRight size={14} />
+            Try for free <ArrowRight size={14} />
           </a>
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-sm transition"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-[#0b0b0f]/15 bg-white hover:border-[#0b0b0f]/40 text-sm text-[#0b0b0f] transition"
           >
             Talk to an outbound architect
           </a>
@@ -606,7 +623,7 @@ export function TeamSection() {
   );
 }
 
-/* ============ IMPROVEMENT LOOP (Retell "CX improvement loop") ============ */
+/* ============ IMPROVEMENT LOOP ============ */
 export function ImprovementLoop() {
   const stages = [
     { label: "Scrape", desc: "Pull niche + city", icon: MapPin, angle: 0 },
@@ -615,49 +632,49 @@ export function ImprovementLoop() {
     { label: "Log", desc: "Outcome → Sheet", icon: FileSpreadsheet, angle: 270 },
   ];
   return (
-    <section className="py-32 px-4 relative overflow-hidden">
+    <section className="py-32 px-5 relative bg-[#f6f4ef]">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-emerald-300/80">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           The Xovra loop
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           Every outcome
           <br />
-          <span className="text-white/45">improves the next call.</span>
+          <span className="italic text-[#0b0b0f]/50">
+            improves the next call.
+          </span>
         </h2>
       </motion.div>
 
-      <div className="mt-20 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div className="mt-20 max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
         {/* Ring */}
         <div className="relative w-full aspect-square max-w-[460px] mx-auto">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 rounded-full border border-white/10"
+            className="absolute inset-0 rounded-full"
             style={{
               background:
-                "conic-gradient(from 0deg, rgba(34,211,238,0.3), rgba(168,85,247,0.3), rgba(236,72,153,0.3), rgba(34,211,238,0.3))",
+                "conic-gradient(from 0deg, rgba(79,91,240,0.5), rgba(168,85,247,0.5), rgba(236,72,153,0.5), rgba(34,211,238,0.5), rgba(79,91,240,0.5))",
               WebkitMask:
                 "radial-gradient(circle, transparent 54%, black 55%, black 60%, transparent 61%)",
               mask: "radial-gradient(circle, transparent 54%, black 55%, black 60%, transparent 61%)",
             }}
           />
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-          <div className="absolute inset-[18%] rounded-full border border-white/10" />
-          <div className="absolute inset-[36%] rounded-full border border-dashed border-white/10" />
+          <div className="absolute inset-0 rounded-full border border-black/10" />
+          <div className="absolute inset-[18%] rounded-full border border-black/10" />
+          <div className="absolute inset-[36%] rounded-full border border-dashed border-black/10" />
 
-          {/* Center orb */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <motion.div
               animate={{ scale: [1, 1.08, 1] }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="relative w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 shadow-[0_0_60px_rgba(99,102,241,0.6)] flex items-center justify-center"
+              className="relative w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 shadow-[0_15px_50px_rgba(99,102,241,0.4)] flex items-center justify-center"
             >
-              <span className="text-black font-black text-2xl">X</span>
+              <span className="xv-serif text-white text-4xl italic">X</span>
             </motion.div>
           </div>
 
-          {/* Stage nodes */}
           {stages.map((s, i) => {
             const rad = (s.angle * Math.PI) / 180;
             const r = 46;
@@ -674,14 +691,16 @@ export function ImprovementLoop() {
                 className="absolute -translate-x-1/2 -translate-y-1/2"
               >
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className="w-14 h-14 rounded-full border border-white/15 bg-black/60 backdrop-blur flex items-center justify-center shadow-xl">
-                    <s.icon size={18} className="text-white/90" />
+                  <div className="w-14 h-14 rounded-full border border-black/10 bg-white flex items-center justify-center shadow-md">
+                    <s.icon size={18} className="text-[#0b0b0f]/85" />
                   </div>
                   <div className="text-center">
-                    <div className="text-[13px] font-semibold text-white">
+                    <div className="text-[13px] font-semibold text-[#0b0b0f]">
                       {s.label}
                     </div>
-                    <div className="text-[10.5px] text-white/50">{s.desc}</div>
+                    <div className="text-[10.5px] text-[#0b0b0f]/50">
+                      {s.desc}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -691,35 +710,34 @@ export function ImprovementLoop() {
 
         {/* Right: build chat + flow */}
         <div className="space-y-4">
-          {/* Chat mockup */}
           <motion.div
             {...fadeUp}
-            className="rounded-2xl border border-white/10 bg-[#0c0c14] p-5"
+            className="rounded-2xl bg-white border border-black/5 shadow-sm p-5"
           >
             <div className="flex items-center gap-2 mb-3">
               <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-400 to-fuchsia-500" />
-              <span className="text-[12px] font-medium">Build with Xovra</span>
+              <span className="text-[13px] font-medium">Build with Xovra</span>
             </div>
-            <div className="space-y-2 text-[12px]">
-              <div className="rounded-lg px-3 py-2 bg-white/[0.04] border border-white/10 text-white/80">
+            <div className="space-y-2 text-[13px]">
+              <div className="rounded-lg px-3 py-2 bg-[#f6f4ef] border border-black/5 text-[#0b0b0f]/80">
                 Add a pitch angle for leads with no mobile site.
               </div>
-              <div className="rounded-lg px-3 py-2 bg-indigo-500/10 border border-indigo-400/20 text-indigo-100">
-                Added angle <span className="font-mono text-indigo-300">WEAK_SITE</span>.
+              <div className="rounded-lg px-3 py-2 bg-[#4f5bf0]/10 border border-[#4f5bf0]/20 text-[#0b0b0f]/85">
+                Added angle{" "}
+                <span className="font-mono text-[#4f5bf0]">WEAK_SITE</span>.
                 Rebuttals updated for 847 leads.
               </div>
             </div>
           </motion.div>
 
-          {/* Flow diagram */}
           <motion.div
             {...fadeUp}
-            className="rounded-2xl border border-white/10 bg-[#0c0c14] p-5"
+            className="rounded-2xl bg-white border border-black/5 shadow-sm p-5"
           >
-            <div className="text-[11px] uppercase tracking-[0.18em] text-white/40 mb-4">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-[#0b0b0f]/45 font-semibold mb-4">
               Conversation flow
             </div>
-            <div className="flex flex-col gap-2 text-[12px]">
+            <div className="flex flex-col gap-2 text-[13px]">
               <FlowNode label="Lead picks up" good />
               <FlowArrow />
               <FlowNode label="AI discloses + qualifies" />
@@ -751,18 +769,18 @@ function FlowNode({
   small?: boolean;
 }) {
   const toneMap = {
-    emerald: "border-emerald-400/30 bg-emerald-500/10 text-emerald-100",
-    amber: "border-amber-400/30 bg-amber-500/10 text-amber-100",
-    rose: "border-rose-400/30 bg-rose-500/10 text-rose-100",
+    emerald: "border-emerald-500/30 bg-emerald-50 text-emerald-900",
+    amber: "border-amber-500/30 bg-amber-50 text-amber-900",
+    rose: "border-rose-500/30 bg-rose-50 text-rose-900",
   };
   const cls = tone
     ? toneMap[tone]
     : good
-      ? "border-cyan-400/30 bg-cyan-500/10 text-cyan-100"
-      : "border-white/10 bg-white/[0.04] text-white/85";
+      ? "border-[#4f5bf0]/25 bg-[#4f5bf0]/10 text-[#0b0b0f]"
+      : "border-black/10 bg-[#f6f4ef] text-[#0b0b0f]";
   return (
     <div
-      className={`rounded-lg border px-3 ${small ? "py-1.5 text-[10.5px]" : "py-2"} text-center ${cls}`}
+      className={`rounded-lg border px-3 ${small ? "py-1.5 text-[11px]" : "py-2"} text-center ${cls}`}
     >
       {label}
     </div>
@@ -770,8 +788,8 @@ function FlowNode({
 }
 function FlowArrow() {
   return (
-    <div className="mx-auto h-5 w-px bg-gradient-to-b from-white/30 to-transparent relative">
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 border-x-4 border-t-4 border-x-transparent border-t-white/30" />
+    <div className="mx-auto h-5 w-px bg-gradient-to-b from-black/30 to-transparent relative">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 border-x-4 border-t-4 border-x-transparent border-t-black/30" />
     </div>
   );
 }
@@ -821,15 +839,15 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-32 px-4 relative">
+    <section className="py-32 px-5 relative bg-white">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           Real talk
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           Real talk,
           <br />
-          <span className="text-white/45">real impact.</span>
+          <span className="italic text-[#0b0b0f]/50">real impact.</span>
         </h2>
       </motion.div>
 
@@ -842,23 +860,23 @@ export function Testimonials() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
             whileHover={{ y: -4 }}
-            className="rounded-2xl border border-white/10 bg-[#0c0c14] p-6 flex flex-col"
+            className="rounded-2xl bg-[#f6f4ef] border border-black/5 p-6 flex flex-col hover:bg-white hover:shadow-md transition"
           >
-            <div className="flex items-center gap-2 text-amber-300">
+            <div className="flex items-center gap-1 text-amber-500">
               {Array.from({ length: 5 }).map((_, j) => (
                 <Star key={j} size={13} fill="currentColor" />
               ))}
             </div>
-            <p className="mt-5 text-white/85 text-[15px] leading-relaxed">
+            <p className="mt-5 text-[#0b0b0f] text-[15.5px] leading-relaxed">
               &ldquo;{t.quote}&rdquo;
             </p>
-            <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center text-[11px] font-bold">
+            <div className="mt-6 pt-5 border-t border-black/10 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white text-[11px] font-bold">
                 {t.initials}
               </div>
               <div>
-                <div className="text-[13px] font-medium">{t.author}</div>
-                <div className="text-[11px] text-white/50">
+                <div className="text-[13.5px] font-medium">{t.author}</div>
+                <div className="text-[11.5px] text-[#0b0b0f]/55">
                   {t.role} · {t.org}
                 </div>
               </div>
@@ -867,12 +885,12 @@ export function Testimonials() {
               {t.stats.map((s) => (
                 <div
                   key={s.v}
-                  className="rounded-lg bg-white/[0.03] border border-white/5 p-2.5 text-center"
+                  className="rounded-lg bg-white border border-black/5 p-2.5 text-center"
                 >
-                  <div className="text-base font-semibold bg-gradient-to-r from-cyan-300 to-fuchsia-300 bg-clip-text text-transparent">
+                  <div className="xv-serif text-[22px] italic leading-none text-[#0b0b0f]">
                     {s.k}
                   </div>
-                  <div className="mt-0.5 text-[9.5px] text-white/50 leading-tight">
+                  <div className="mt-1 text-[9.5px] text-[#0b0b0f]/55 leading-tight">
                     {s.v}
                   </div>
                 </div>
@@ -885,7 +903,7 @@ export function Testimonials() {
   );
 }
 
-/* ============ PLATFORM LIST (Retell "The complete contact center") ============ */
+/* ============ PLATFORM LIST ============ */
 export function PlatformList() {
   const items = [
     {
@@ -911,15 +929,15 @@ export function PlatformList() {
   ];
 
   return (
-    <section className="py-28 px-4">
+    <section className="py-32 px-5 bg-[#f6f4ef]">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-indigo-300/80">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           The complete stack
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           The complete outbound,
           <br />
-          <span className="text-white/45">built around AI.</span>
+          <span className="italic text-[#0b0b0f]/50">built around AI.</span>
         </h2>
       </motion.div>
 
@@ -934,24 +952,25 @@ export function PlatformList() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ x: 4 }}
-              className="group flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04] transition"
+              className="group flex items-center gap-4 p-4 rounded-xl bg-white border border-black/5 hover:shadow-md transition"
             >
-              <div className="w-10 h-10 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center">
-                <it.icon size={16} className="text-white/85" />
+              <div className="w-10 h-10 rounded-lg bg-[#f6f4ef] border border-black/5 flex items-center justify-center">
+                <it.icon size={16} className="text-[#0b0b0f]/85" />
               </div>
               <div className="flex-1">
-                <div className="text-[14px] font-semibold">{it.title}</div>
-                <div className="text-[12.5px] text-white/55">{it.body}</div>
+                <div className="text-[14.5px] font-semibold text-[#0b0b0f]">
+                  {it.title}
+                </div>
+                <div className="text-[12.5px] text-[#0b0b0f]/55">{it.body}</div>
               </div>
               <ArrowRight
-                size={14}
-                className="text-white/40 group-hover:text-white group-hover:translate-x-1 transition"
+                size={15}
+                className="text-[#0b0b0f]/35 group-hover:text-[#0b0b0f] group-hover:translate-x-1 transition"
               />
             </motion.a>
           ))}
         </div>
 
-        {/* Big dialer screenshot */}
         <DialerScreenshot />
       </div>
     </section>
@@ -967,35 +986,40 @@ function DialerScreenshot() {
       transition={{ duration: 0.8 }}
       className="relative"
     >
-      <div className="absolute -inset-6 bg-gradient-to-br from-cyan-500/10 via-indigo-500/20 to-fuchsia-500/10 blur-3xl -z-10" />
-      <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.01] backdrop-blur-xl overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-black/30 text-[11px]">
+      <div className="rounded-2xl bg-white border border-black/10 overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)]">
+        <div className="flex items-center justify-between px-5 py-3 border-b border-black/5 bg-[#f6f4ef] text-[11px]">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
           </div>
-          <span className="text-white/60">xovra.ai/dialer</span>
-          <span className="text-emerald-300">● live</span>
+          <span className="text-[#0b0b0f]/50">xovra.ai/dialer</span>
+          <span className="text-emerald-600">● live</span>
         </div>
 
         <div className="grid grid-cols-[1fr_1.4fr]">
-          {/* Lead list */}
-          <div className="border-r border-white/5 p-3 space-y-1.5 bg-black/30">
+          <div className="border-r border-black/5 p-3 space-y-1.5 bg-[#faf9f6]">
             {[
-              { n: "Riverside Plumbing", t: "WEAK_SITE", c: "from-amber-400 to-orange-500", active: true },
-              { n: "North Shore Realty", t: "RUNS_ADS", c: "from-emerald-400 to-teal-500" },
-              { n: "Bluefield Insurance", t: "STRONG_SITE", c: "from-cyan-400 to-blue-500" },
-              { n: "Mesa Dental Group", t: "NO_SITE", c: "from-rose-400 to-red-500" },
-              { n: "Pier 9 Seafood", t: "WEAK_SITE", c: "from-amber-400 to-orange-500" },
+              {
+                n: "Riverside Plumbing",
+                t: "WEAK_SITE",
+                c: "bg-amber-500",
+                active: true,
+              },
+              { n: "North Shore Realty", t: "RUNS_ADS", c: "bg-emerald-500" },
+              { n: "Bluefield Insurance", t: "STRONG_SITE", c: "bg-cyan-500" },
+              { n: "Mesa Dental Group", t: "NO_SITE", c: "bg-rose-500" },
+              { n: "Pier 9 Seafood", t: "WEAK_SITE", c: "bg-amber-500" },
             ].map((l) => (
               <div
                 key={l.n}
-                className={`flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg ${l.active ? "bg-white/10 border border-white/10" : "hover:bg-white/5"}`}
+                className={`flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg ${l.active ? "bg-white border border-black/10 shadow-sm" : "hover:bg-white/60"}`}
               >
-                <span className="text-[11px] text-white/85 truncate">{l.n}</span>
+                <span className="text-[11px] text-[#0b0b0f]/85 truncate">
+                  {l.n}
+                </span>
                 <span
-                  className={`text-[8.5px] font-bold px-1.5 py-0.5 rounded-full text-black bg-gradient-to-r ${l.c}`}
+                  className={`text-[8.5px] font-bold px-1.5 py-0.5 rounded-full text-white ${l.c}`}
                 >
                   {l.t}
                 </span>
@@ -1003,14 +1027,17 @@ function DialerScreenshot() {
             ))}
           </div>
 
-          {/* Call pane */}
           <div className="p-5 space-y-4">
             <div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-white/40">
+              <div className="text-[10px] uppercase tracking-[0.18em] text-[#0b0b0f]/40 font-semibold">
                 Active Call · 02:14
               </div>
-              <div className="mt-1 text-[15px] font-semibold">Riverside Plumbing Co.</div>
-              <div className="text-[11px] text-white/55">+1 (512) 555-0183</div>
+              <div className="mt-1 text-[16px] font-semibold text-[#0b0b0f]">
+                Riverside Plumbing Co.
+              </div>
+              <div className="text-[11px] text-[#0b0b0f]/55">
+                +1 (512) 555-0183
+              </div>
             </div>
             <div className="flex items-end gap-0.5 h-10">
               {Array.from({ length: 40 }).map((_, i) => (
@@ -1023,28 +1050,32 @@ function DialerScreenshot() {
                     delay: i * 0.03,
                     ease: "easeInOut",
                   }}
-                  className="flex-1 rounded-full bg-gradient-to-t from-indigo-500 to-fuchsia-400"
+                  className="flex-1 rounded-full bg-gradient-to-t from-[#4f5bf0] to-[#a855f7]"
                 />
               ))}
             </div>
-            <div className="rounded-lg bg-indigo-500/10 border border-indigo-400/20 p-3">
-              <div className="flex items-center gap-1.5 text-[10px] text-indigo-200 mb-1">
+            <div className="rounded-lg bg-[#4f5bf0]/8 border border-[#4f5bf0]/20 p-3">
+              <div className="flex items-center gap-1.5 text-[10px] text-[#4f5bf0] font-semibold mb-1">
                 <Zap size={10} /> Claude rebuttal
               </div>
-              <p className="text-[11.5px] text-white/85">
+              <p className="text-[12px] text-[#0b0b0f]/85">
                 68% of plumbing searches happen on phones — worth 5 minutes?
               </p>
             </div>
             <div className="grid grid-cols-6 gap-1">
-              {["Int.", "Mock", "VM", "No ans", "No int.", "Bad #"].map((o, i) => (
-                <button
-                  key={o}
-                  className="text-[9.5px] py-1.5 rounded bg-white/[0.04] border border-white/10 hover:bg-white/10"
-                >
-                  <span className="block text-[8.5px] text-white/35">{i + 1}</span>
-                  {o}
-                </button>
-              ))}
+              {["Int.", "Mock", "VM", "No ans", "No int.", "Bad #"].map(
+                (o, i) => (
+                  <button
+                    key={o}
+                    className="text-[9.5px] py-1.5 rounded bg-[#f6f4ef] border border-black/5 hover:bg-white text-[#0b0b0f]/75"
+                  >
+                    <span className="block text-[8.5px] text-[#0b0b0f]/35">
+                      {i + 1}
+                    </span>
+                    {o}
+                  </button>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -1053,25 +1084,41 @@ function DialerScreenshot() {
   );
 }
 
-/* ============ SECURITY (Retell "meridian gradient" section) ============ */
+/* ============ SECURITY ============ */
 export function Security() {
   const tiles = [
-    { icon: ShieldCheck, title: "AI disclosure first", body: "Every AI call discloses it is an AI in the first sentence." },
-    { icon: Lock, title: "Suppression lists", body: "Numbers you blacklist never get dialed again — across the whole team." },
-    { icon: FileCheck, title: "Calling windows", body: "8 AM – 9 PM local time enforced by default, with per-contact caps." },
-    { icon: Server, title: "Audit trail", body: "Every call, outcome, and rebuttal is logged and exportable." },
+    {
+      icon: ShieldCheck,
+      title: "AI disclosure first",
+      body: "Every AI call discloses it is an AI in the first sentence.",
+    },
+    {
+      icon: Lock,
+      title: "Suppression lists",
+      body: "Numbers you blacklist never get dialed again — across the whole team.",
+    },
+    {
+      icon: FileCheck,
+      title: "Calling windows",
+      body: "8 AM – 9 PM local time enforced by default, with per-contact caps.",
+    },
+    {
+      icon: Server,
+      title: "Audit trail",
+      body: "Every call, outcome, and rebuttal is logged and exportable.",
+    },
   ];
   return (
-    <section className="py-32 px-4 relative overflow-hidden">
+    <section className="py-32 px-5 relative overflow-hidden bg-[#172131] text-white">
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34,211,238,0.18), transparent 60%), radial-gradient(ellipse 70% 50% at 50% 100%, rgba(168,85,247,0.2), transparent 60%), radial-gradient(ellipse 60% 40% at 50% 50%, rgba(236,72,153,0.1), transparent 60%)",
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34,211,238,0.18), transparent 60%), radial-gradient(ellipse 70% 50% at 50% 100%, rgba(168,85,247,0.25), transparent 60%), radial-gradient(ellipse 60% 40% at 50% 50%, rgba(236,72,153,0.1), transparent 60%)",
         }}
       />
       <div
-        className="absolute inset-0 -z-10 opacity-[0.05]"
+        className="absolute inset-0 pointer-events-none opacity-[0.06]"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px)",
@@ -1079,21 +1126,20 @@ export function Security() {
         }}
       />
 
-      <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
+      <motion.div {...fadeUp} className="relative max-w-3xl mx-auto text-center">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-cyan-300 font-semibold">
           Security & compliance
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           Enterprise-grade security
           <br />
-          <span className="text-white/45">& reliability.</span>
+          <span className="italic text-white/55">& reliability.</span>
         </h2>
       </motion.div>
 
-      {/* Compliance badges */}
       <motion.div
         {...fadeUp}
-        className="mt-12 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3"
+        className="relative mt-12 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3"
       >
         {["TCPA", "10DLC", "GDPR", "SOC 2"].map((b, i) => (
           <motion.div
@@ -1102,19 +1148,17 @@ export function Security() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, type: "spring" }}
-            className="relative rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur py-5 text-center"
+            className="relative rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur py-5 text-center"
           >
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/[0.06] to-transparent opacity-50" />
-            <div className="relative text-[11px] uppercase tracking-[0.18em] text-white/40">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-white/40 font-semibold">
               Aligned with
             </div>
-            <div className="relative mt-1 text-xl font-semibold tracking-tight">{b}</div>
+            <div className="mt-1 text-xl font-semibold tracking-tight">{b}</div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* 4 tiles */}
-      <div className="mt-6 max-w-5xl mx-auto grid sm:grid-cols-2 gap-3">
+      <div className="relative mt-6 max-w-5xl mx-auto grid sm:grid-cols-2 gap-3">
         {tiles.map((t, i) => (
           <motion.div
             key={t.title}
@@ -1123,13 +1167,15 @@ export function Security() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
             whileHover={{ y: -3 }}
-            className="rounded-xl border border-white/10 bg-black/40 backdrop-blur p-5"
+            className="rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur p-5"
           >
             <div className="flex items-center gap-2 mb-2 text-cyan-300">
               <t.icon size={16} />
-              <span className="text-[13.5px] font-semibold text-white">{t.title}</span>
+              <span className="text-[13.5px] font-semibold text-white">
+                {t.title}
+              </span>
             </div>
-            <p className="text-[12.5px] text-white/60 leading-relaxed">{t.body}</p>
+            <p className="text-[12.5px] text-white/65 leading-relaxed">{t.body}</p>
           </motion.div>
         ))}
       </div>
@@ -1140,33 +1186,37 @@ export function Security() {
 /* ============ CLOSING CTA ============ */
 export function ClosingCTA() {
   return (
-    <section id="early-access" className="py-32 px-4 relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[900px] h-[900px] rounded-full bg-gradient-to-br from-cyan-500/15 via-indigo-500/10 to-fuchsia-500/15 blur-[160px]" />
+    <section
+      id="early-access"
+      className="py-32 px-5 relative overflow-hidden bg-white"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[900px] h-[600px] rounded-full bg-gradient-to-br from-cyan-200/40 via-indigo-200/40 to-fuchsia-200/40 blur-[120px]" />
       </div>
-      <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <h2 className="text-5xl sm:text-7xl font-semibold tracking-[-0.035em] leading-[0.95]">
+      <motion.div
+        {...fadeUp}
+        className="relative max-w-3xl mx-auto text-center"
+      >
+        <h2 className="xv-serif text-5xl sm:text-7xl lg:text-[90px] leading-[0.95] tracking-[-0.035em]">
           Ready to start
           <br />
-          <span className="bg-gradient-to-r from-cyan-300 via-indigo-300 to-fuchsia-400 bg-clip-text text-transparent">
-            calling smarter?
-          </span>
+          <span className="italic text-[#0b0b0f]/60">calling smarter?</span>
         </h2>
-        <p className="mt-6 text-white/60">
+        <p className="mt-6 text-[#0b0b0f]/60">
           Usage-based pricing. No contracts. Cancel anytime.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:shadow-[0_8px_40px_rgba(255,255,255,0.3)] transition"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0b0b0f] text-white font-medium text-sm hover:bg-black transition"
           >
-            Get Early Access <ArrowRight size={14} />
+            Try for free <ArrowRight size={14} />
           </a>
           <a
             href="#demo"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-sm transition"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-[#0b0b0f]/15 bg-white hover:border-[#0b0b0f]/40 text-sm text-[#0b0b0f] transition"
           >
-            Book a Demo
+            Contact sales
           </a>
         </div>
       </motion.div>
@@ -1232,15 +1282,15 @@ export function FAQ() {
   const visible = showAll ? faqs : faqs.slice(0, 6);
 
   return (
-    <section className="py-32 px-4">
+    <section className="py-32 px-5 bg-[#f6f4ef]">
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-white/45">
+        <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-[#4f5bf0] font-semibold">
           FAQ
         </span>
-        <h2 className="mt-4 text-5xl sm:text-6xl font-semibold tracking-[-0.03em] leading-[0.98]">
+        <h2 className="xv-serif mt-5 text-5xl sm:text-6xl lg:text-[72px] leading-[0.98] tracking-[-0.03em]">
           Everything you want
           <br />
-          <span className="text-white/45">to ask first.</span>
+          <span className="italic text-[#0b0b0f]/50">to ask first.</span>
         </h2>
       </motion.div>
 
@@ -1254,14 +1304,16 @@ export function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.04 }}
-              className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden"
+              className="rounded-xl bg-white border border-black/5 overflow-hidden"
             >
               <button
                 onClick={() => setOpenIdx(open ? null : i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-white/[0.02] transition"
+                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-[#faf9f6] transition"
               >
-                <span className="text-[14.5px] font-medium">{f.q}</span>
-                <span className="shrink-0 text-white/60">
+                <span className="text-[14.5px] font-medium text-[#0b0b0f]">
+                  {f.q}
+                </span>
+                <span className="shrink-0 text-[#0b0b0f]/50">
                   {open ? <Minus size={16} /> : <Plus size={16} />}
                 </span>
               </button>
@@ -1274,7 +1326,7 @@ export function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-5 pb-5 text-[13.5px] text-white/65 leading-relaxed">
+                    <div className="px-5 pb-5 text-[13.5px] text-[#0b0b0f]/65 leading-relaxed">
                       {f.a}
                     </div>
                   </motion.div>
@@ -1289,7 +1341,7 @@ export function FAQ() {
         <div className="mt-6 text-center">
           <button
             onClick={() => setShowAll(true)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-sm transition"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#0b0b0f]/15 bg-white hover:border-[#0b0b0f]/40 text-sm transition"
           >
             Show more <ArrowRight size={14} />
           </button>
@@ -1302,23 +1354,23 @@ export function FAQ() {
 /* ============ FOOTER ============ */
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/5 bg-black/60 px-4 pt-20 pb-10 overflow-hidden">
-      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 -top-20 w-[700px] h-[200px] rounded-full bg-indigo-600/10 blur-[120px]" />
-
+    <footer className="relative border-t border-black/5 bg-white px-5 pt-20 pb-10 overflow-hidden">
       <div className="relative max-w-6xl mx-auto grid md:grid-cols-6 gap-10">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.6)]">
-              <span className="text-black font-black text-[13px]">X</span>
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-[0_6px_18px_rgba(99,102,241,0.35)]">
+              <span className="text-white font-black text-[13px]">X</span>
             </div>
-            <span className="font-semibold tracking-tight">Xovra</span>
+            <span className="font-semibold tracking-tight text-[#0b0b0f]">
+              Xovra
+            </span>
           </div>
-          <p className="mt-4 text-sm text-white/55 max-w-xs leading-relaxed">
+          <p className="mt-4 text-sm text-[#0b0b0f]/60 max-w-xs leading-relaxed">
             AI-powered outbound calling for revenue teams that refuse to lose.
           </p>
 
           <div className="mt-6">
-            <div className="text-[11px] uppercase tracking-[0.18em] text-white/40">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-[#0b0b0f]/45 font-semibold">
               Stay in the loop
             </div>
             <form
@@ -1328,22 +1380,29 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="you@company.com"
-                className="flex-1 px-3 py-2 text-sm rounded-lg bg-white/[0.04] border border-white/10 focus:border-white/30 outline-none placeholder:text-white/30"
+                className="flex-1 px-3 py-2 text-sm rounded-lg bg-[#f6f4ef] border border-black/10 focus:border-black/40 outline-none placeholder:text-[#0b0b0f]/35 text-[#0b0b0f]"
               />
-              <button className="px-3 py-2 rounded-lg bg-white text-black text-sm font-medium">
+              <button className="px-3 py-2 rounded-lg bg-[#0b0b0f] text-white text-sm font-medium">
                 Subscribe
               </button>
             </form>
           </div>
-          <div className="mt-6 flex items-center gap-2 text-xs text-white/50">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="mt-6 flex items-center gap-2 text-xs text-[#0b0b0f]/55">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             All systems operational
           </div>
         </div>
 
         <FooterCol
           title="Product"
-          links={["Lead Scraping", "Softphone", "AI Qualifier", "Rebuttals", "SMS", "Compliance"]}
+          links={[
+            "Lead Scraping",
+            "Softphone",
+            "AI Qualifier",
+            "Rebuttals",
+            "SMS",
+            "Compliance",
+          ]}
         />
         <FooterCol
           title="Solutions"
@@ -1357,7 +1416,13 @@ export function Footer() {
         />
         <FooterCol
           title="Resources"
-          links={["Documentation", "Changelog", "Customer Stories", "Pricing", "Status"]}
+          links={[
+            "Documentation",
+            "Changelog",
+            "Customer Stories",
+            "Pricing",
+            "Status",
+          ]}
         />
         <FooterCol
           title="Company"
@@ -1365,9 +1430,9 @@ export function Footer() {
         />
       </div>
 
-      <div className="relative mt-16 pt-6 border-t border-white/5 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3 text-xs text-white/40">
+      <div className="relative mt-16 pt-6 border-t border-black/5 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3 text-xs text-[#0b0b0f]/50">
         <span>© 2026 Xovra. All rights reserved.</span>
-        <span className="text-white/60">
+        <span className="text-[#0b0b0f]/70 xv-serif italic">
           Find Leads. Call Them. Close Deals.
         </span>
       </div>
@@ -1378,13 +1443,15 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: string[] }) {
   return (
     <div>
-      <h4 className="text-[11px] uppercase tracking-[0.18em] text-white/40">{title}</h4>
+      <h4 className="text-[11px] uppercase tracking-[0.18em] text-[#0b0b0f]/45 font-semibold">
+        {title}
+      </h4>
       <ul className="mt-4 space-y-2.5">
         {links.map((l) => (
           <li key={l}>
             <a
               href="#"
-              className="text-sm text-white/70 hover:text-white transition"
+              className="text-sm text-[#0b0b0f]/70 hover:text-[#0b0b0f] transition"
             >
               {l}
             </a>
