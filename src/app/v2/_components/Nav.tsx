@@ -100,9 +100,9 @@ export default function Nav() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpen(null)}
-        className="relative bg-white"
+        className="sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-black/[0.06]"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-5 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 py-3.5">
           <Link href="#" className="flex items-center gap-2">
             <Logo />
             <span className="font-semibold tracking-tight text-[18px] text-[#0b0b0f]">
@@ -144,7 +144,7 @@ export default function Nav() {
               href="#demo"
               className="text-[14px] text-[#0b0b0f] px-4 py-2 rounded-full border border-[#0b0b0f]/15 hover:border-[#0b0b0f]/40 bg-white transition"
             >
-              Contact sales
+              Book a demo
             </a>
             <a
               href="#early-access"
