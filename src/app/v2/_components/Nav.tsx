@@ -25,33 +25,32 @@ import {
 } from "lucide-react";
 
 const megaMenus = {
-  Product: [
-    { icon: MapPin, label: "Lead Scraping", sub: "Google Maps + enrichment" },
-    { icon: Phone, label: "Browser Softphone", sub: "WebRTC via Telnyx" },
-    { icon: Bot, label: "AI Qualifier", sub: "24/7 outbound AI" },
-    { icon: Zap, label: "Live Rebuttals", sub: "Claude mid-call" },
-    { icon: MessageSquare, label: "Two-Way SMS", sub: "Threaded by number" },
-    { icon: ShieldCheck, label: "Compliance", sub: "Windows, caps, disclosure" },
+  Features: [
+    { icon: MapPin, label: "Lead Scraping", sub: "Google Maps + enrichment", href: "/v2/features" },
+    { icon: Phone, label: "Browser Softphone", sub: "WebRTC via Telnyx", href: "/v2/features" },
+    { icon: Bot, label: "AI Qualifier", sub: "24/7 outbound AI", href: "/v2/features" },
+    { icon: Zap, label: "Live Rebuttals", sub: "Claude mid-call", href: "/v2/features" },
+    { icon: MessageSquare, label: "Two-Way SMS", sub: "Threaded by number", href: "/v2/features" },
+    { icon: ShieldCheck, label: "Compliance", sub: "Windows, caps, disclosure", href: "/v2/features" },
   ],
-  Solutions: [
-    { icon: Building2, label: "Small Business", sub: "One operator, one sheet" },
-    { icon: Users, label: "Sales Teams", sub: "Shared pipeline + shortcuts" },
-    { icon: Briefcase, label: "Lead Gen Agencies", sub: "Sell outbound as a service" },
-    { icon: Headphones, label: "Insurance", sub: "Qualifier + AI disclosure" },
-    { icon: MapPin, label: "Real Estate", sub: "Geographic niches at scale" },
-    { icon: LineChart, label: "SDR Teams", sub: "Dial, log, export" },
+  "Use Cases": [
+    { icon: Building2, label: "Small Business", sub: "One operator, one sheet", href: "/v2/use-cases/small-business" },
+    { icon: Users, label: "Sales Teams", sub: "Shared pipeline + shortcuts", href: "/v2/use-cases/sales-teams" },
+    { icon: Briefcase, label: "Lead Gen Agencies", sub: "Sell outbound as a service", href: "/v2/use-cases/lead-gen-agencies" },
+    { icon: Headphones, label: "Insurance", sub: "Qualifier + AI disclosure", href: "/v2/use-cases/insurance" },
+    { icon: MapPin, label: "Real Estate", sub: "Geographic niches at scale", href: "/v2/use-cases/real-estate" },
   ],
-  Developers: [
-    { icon: Code2, label: "API Reference", sub: "REST + webhooks" },
-    { icon: Zap, label: "AI Rebuttal API", sub: "Claude & Gemini" },
-    { icon: Phone, label: "Telnyx Integration", sub: "WebRTC bring-your-own" },
-    { icon: MessageSquare, label: "Webhooks", sub: "Outcomes & SMS" },
+  Compare: [
+    { icon: LineChart, label: "vs Drop Cowboy", sub: "Ringless voicemail vs live dialer", href: "/v2/compare/drop-cowboy" },
+    { icon: LineChart, label: "vs Mojo Dialer", sub: "Legacy multi-line vs browser", href: "/v2/compare/mojo-dialer" },
+    { icon: LineChart, label: "vs CallTools", sub: "Call center vs AI-first", href: "/v2/compare/calltools" },
+    { icon: LineChart, label: "vs Slybroadcast", sub: "RVM vs 2-way outbound", href: "/v2/compare/slybroadcast" },
   ],
-  Resources: [
-    { icon: BookOpen, label: "Documentation", sub: "Start here" },
-    { icon: Sparkles, label: "Changelog", sub: "Weekly ships" },
-    { icon: Users, label: "Customer Stories", sub: "Agency teardowns" },
-    { icon: LineChart, label: "Pitch Angle Guide", sub: "How we score leads" },
+  Company: [
+    { icon: BookOpen, label: "About", sub: "Mission + how we build", href: "/v2/about" },
+    { icon: MessageSquare, label: "Contact", sub: "Sales, support, press", href: "/v2/contact" },
+    { icon: Sparkles, label: "Demo", sub: "Live walkthrough", href: "/v2/demo" },
+    { icon: Code2, label: "Documentation", sub: "Start here", href: "#" },
   ],
 } as const;
 
@@ -103,7 +102,7 @@ export default function Nav() {
         className="sticky top-3 sm:top-4 z-40 mx-3 sm:mx-6 lg:mx-10 mt-3 sm:mt-4"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-5 lg:px-8 py-2.5 rounded-full bg-white/90 backdrop-blur-xl border border-black/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
-          <Link href="#" className="flex items-center gap-2">
+          <Link href="/v2" className="flex items-center gap-2">
             <Logo />
             <span className="font-semibold tracking-tight text-[18px] text-[#0b0b0f]">
               Xovra
@@ -124,35 +123,35 @@ export default function Nav() {
                 />
               </button>
             ))}
-            <a
-              href="#pricing"
+            <Link
+              href="/v2/pricing"
               className="px-3.5 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition"
               onMouseEnter={() => setOpen(null)}
             >
               Pricing
-            </a>
+            </Link>
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="#"
+            <Link
+              href="/v2/contact"
               className="text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] px-2 py-2"
             >
               Login
-            </a>
-            <a
-              href="#demo"
+            </Link>
+            <Link
+              href="/v2/demo"
               className="text-[14px] text-[#0b0b0f] px-4 py-2 rounded-full border border-[#0b0b0f]/15 hover:border-[#0b0b0f]/40 bg-white transition"
             >
               Book a demo
-            </a>
-            <a
-              href="#early-access"
+            </Link>
+            <Link
+              href="/v2/pricing"
               className="group text-[14px] font-medium px-4 py-2 rounded-full text-white bg-[#0b0b0f] hover:bg-black transition inline-flex items-center gap-1.5"
             >
               Try for free
               <ArrowRight size={13} className="transition group-hover:translate-x-0.5" />
-            </a>
+            </Link>
           </div>
 
           <button
@@ -177,9 +176,9 @@ export default function Nav() {
               <div className="max-w-5xl mx-auto mt-1 p-4 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   {megaMenus[open].map((item) => (
-                    <a
+                    <Link
                       key={item.label}
-                      href="#"
+                      href={item.href}
                       className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#f6f4ef] transition"
                     >
                       <div className="w-9 h-9 rounded-lg border border-[#0b0b0f]/10 bg-[#f6f4ef] flex items-center justify-center group-hover:bg-white transition">
@@ -191,7 +190,7 @@ export default function Nav() {
                         </div>
                         <div className="text-[11.5px] text-[#0b0b0f]/55">{item.sub}</div>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
