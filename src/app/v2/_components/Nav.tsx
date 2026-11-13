@@ -25,20 +25,12 @@ import {
 } from "lucide-react";
 
 const megaMenus = {
-  Features: [
-    { icon: MapPin, label: "Lead Scraping", sub: "Google Maps + enrichment", href: "/v2/features" },
-    { icon: Phone, label: "Browser Softphone", sub: "WebRTC via Telnyx", href: "/v2/features" },
-    { icon: Bot, label: "AI Qualifier", sub: "24/7 outbound AI", href: "/v2/features" },
-    { icon: Zap, label: "Live Rebuttals", sub: "Claude mid-call", href: "/v2/features" },
-    { icon: MessageSquare, label: "Two-Way SMS", sub: "Threaded by number", href: "/v2/features" },
-    { icon: ShieldCheck, label: "Compliance", sub: "Windows, caps, disclosure", href: "/v2/features" },
-  ],
   "Use Cases": [
-    { icon: Building2, label: "Small Business", sub: "One operator, one sheet", href: "/v2/use-cases/small-business" },
-    { icon: Users, label: "Sales Teams", sub: "Shared pipeline + shortcuts", href: "/v2/use-cases/sales-teams" },
+    { icon: Building2, label: "Small Business", sub: "Local outbound without the noise", href: "/v2/use-cases/small-business" },
+    { icon: Users, label: "Sales Teams", sub: "Shared sheets, shared suppression", href: "/v2/use-cases/sales-teams" },
     { icon: Briefcase, label: "Lead Gen Agencies", sub: "Sell outbound as a service", href: "/v2/use-cases/lead-gen-agencies" },
-    { icon: Headphones, label: "Insurance", sub: "Qualifier + AI disclosure", href: "/v2/use-cases/insurance" },
     { icon: MapPin, label: "Real Estate", sub: "Geographic niches at scale", href: "/v2/use-cases/real-estate" },
+    { icon: Headphones, label: "Insurance Agents & IMOs", sub: "Qualifier + AI disclosure", href: "/v2/use-cases/insurance" },
   ],
   Compare: [
     { icon: LineChart, label: "vs Drop Cowboy", sub: "Ringless voicemail vs live dialer", href: "/v2/compare/drop-cowboy" },
@@ -46,13 +38,15 @@ const megaMenus = {
     { icon: LineChart, label: "vs CallTools", sub: "Call center vs AI-first", href: "/v2/compare/calltools" },
     { icon: LineChart, label: "vs Slybroadcast", sub: "RVM vs 2-way outbound", href: "/v2/compare/slybroadcast" },
   ],
-  Company: [
-    { icon: BookOpen, label: "About", sub: "Mission + how we build", href: "/v2/about" },
-    { icon: MessageSquare, label: "Contact", sub: "Sales, support, press", href: "/v2/contact" },
-    { icon: Sparkles, label: "Demo", sub: "Live walkthrough", href: "/v2/demo" },
-    { icon: Code2, label: "Documentation", sub: "Start here", href: "#" },
-  ],
 } as const;
+
+const simpleLinks = [
+  { label: "Home", href: "/v2" },
+  { label: "Features", href: "/v2/features" },
+  { label: "Pricing", href: "/v2/pricing" },
+  { label: "About", href: "/v2/about" },
+  { label: "Contact Us", href: "/v2/contact" },
+] as const;
 
 type MenuKey = keyof typeof megaMenus;
 const menuKeys = Object.keys(megaMenus) as MenuKey[];
@@ -109,27 +103,36 @@ export default function Nav() {
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
-            {menuKeys.map((k) => (
-              <button
-                key={k}
-                onMouseEnter={() => setOpen(k)}
-                className="group px-3.5 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition inline-flex items-center gap-1"
-              >
-                {k}
-                <ChevronDown
-                  size={13}
-                  className="opacity-60 transition group-hover:translate-y-0.5"
-                />
-              </button>
-            ))}
-            <Link
-              href="/v2/pricing"
-              className="px-3.5 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition"
-              onMouseEnter={() => setOpen(null)}
+          <div className="hidden lg:flex items-center gap-0.5">
+            <NavLink href="/v2" onHover={() => setOpen(null)}>
+              Home
+            </NavLink>
+            <NavLink href="/v2/features" onHover={() => setOpen(null)}>
+              Features
+            </NavLink>
+            <button
+              onMouseEnter={() => setOpen("Use Cases")}
+              className="group px-3 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition inline-flex items-center gap-1"
             >
+              Use Cases
+              <ChevronDown size={13} className="opacity-60 transition group-hover:translate-y-0.5" />
+            </button>
+            <button
+              onMouseEnter={() => setOpen("Compare")}
+              className="group px-3 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition inline-flex items-center gap-1"
+            >
+              Compare
+              <ChevronDown size={13} className="opacity-60 transition group-hover:translate-y-0.5" />
+            </button>
+            <NavLink href="/v2/pricing" onHover={() => setOpen(null)}>
               Pricing
-            </Link>
+            </NavLink>
+            <NavLink href="/v2/about" onHover={() => setOpen(null)}>
+              About
+            </NavLink>
+            <NavLink href="/v2/contact" onHover={() => setOpen(null)}>
+              Contact Us
+            </NavLink>
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
@@ -140,16 +143,10 @@ export default function Nav() {
               Login
             </Link>
             <Link
-              href="/v2/demo"
-              className="text-[14px] text-[#0b0b0f] px-4 py-2 rounded-full border border-[#0b0b0f]/15 hover:border-[#0b0b0f]/40 bg-white transition"
-            >
-              Book a demo
-            </Link>
-            <Link
               href="/v2/pricing"
               className="group text-[14px] font-medium px-4 py-2 rounded-full text-white bg-[#0b0b0f] hover:bg-black transition inline-flex items-center gap-1.5"
             >
-              Try for free
+              Start Free Trial
               <ArrowRight size={13} className="transition group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -208,28 +205,59 @@ export default function Nav() {
               className="lg:hidden overflow-hidden mx-4 mb-3 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow"
             >
               <div className="p-4 flex flex-col gap-1">
-                {[...menuKeys, "Pricing"].map((k) => (
-                  <a
-                    key={k}
-                    href="#"
+                {simpleLinks.map((l) => (
+                  <Link
+                    key={l.label}
+                    href={l.href}
+                    onClick={() => setMobile(false)}
                     className="px-3 py-2.5 text-sm text-[#0b0b0f]/85 rounded-lg hover:bg-[#f6f4ef]"
                   >
-                    {k}
-                  </a>
+                    {l.label}
+                  </Link>
                 ))}
+                <div className="pt-3 mt-1 border-t border-[#0b0b0f]/10 space-y-1">
+                  <div className="px-3 pt-1 text-[10.5px] uppercase tracking-[0.18em] text-[#0b0b0f]/40 font-semibold">
+                    Use Cases
+                  </div>
+                  {megaMenus["Use Cases"].map((it) => (
+                    <Link
+                      key={it.label}
+                      href={it.href}
+                      onClick={() => setMobile(false)}
+                      className="px-3 py-2 text-sm text-[#0b0b0f]/75 rounded-lg hover:bg-[#f6f4ef] block"
+                    >
+                      {it.label}
+                    </Link>
+                  ))}
+                  <div className="px-3 pt-2 text-[10.5px] uppercase tracking-[0.18em] text-[#0b0b0f]/40 font-semibold">
+                    Compare
+                  </div>
+                  {megaMenus.Compare.map((it) => (
+                    <Link
+                      key={it.label}
+                      href={it.href}
+                      onClick={() => setMobile(false)}
+                      className="px-3 py-2 text-sm text-[#0b0b0f]/75 rounded-lg hover:bg-[#f6f4ef] block"
+                    >
+                      {it.label}
+                    </Link>
+                  ))}
+                </div>
                 <div className="flex gap-2 pt-3 mt-2 border-t border-[#0b0b0f]/10">
-                  <a
-                    href="#"
+                  <Link
+                    href="/v2/contact"
+                    onClick={() => setMobile(false)}
                     className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-[#f6f4ef]"
                   >
                     Login
-                  </a>
-                  <a
-                    href="#early-access"
+                  </Link>
+                  <Link
+                    href="/v2/pricing"
+                    onClick={() => setMobile(false)}
                     className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-[#0b0b0f] text-white font-medium"
                   >
-                    Try for free
-                  </a>
+                    Start Free Trial
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -237,6 +265,26 @@ export default function Nav() {
         </AnimatePresence>
       </motion.nav>
     </>
+  );
+}
+
+function NavLink({
+  href,
+  onHover,
+  children,
+}: {
+  href: string;
+  onHover?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      onMouseEnter={onHover}
+      className="px-3 py-2 text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] rounded-md transition"
+    >
+      {children}
+    </Link>
   );
 }
 
