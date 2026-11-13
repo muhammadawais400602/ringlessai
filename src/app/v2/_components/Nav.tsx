@@ -64,7 +64,7 @@ export default function Nav() {
   const [bannerShown, setBannerShown] = useState(true);
 
   return (
-    <div className="relative z-50">
+    <>
       {/* Blue announcement bar */}
       <AnimatePresence>
         {bannerShown && (
@@ -237,7 +237,7 @@ export default function Nav() {
           )}
         </AnimatePresence>
       </motion.nav>
-    </div>
+    </>
   );
 }
 
