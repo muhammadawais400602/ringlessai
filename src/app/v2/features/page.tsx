@@ -905,35 +905,134 @@ function DoesDoesNot() {
 /* ============================ SUPPORTING ============================ */
 function Supporting() {
   const pieces = [
-    { label: "Campaigns", icon: Sparkles },
-    { label: "Call scripts", icon: FileSpreadsheet },
-    { label: "Suppression lists", icon: ShieldCheck },
-    { label: "Calling windows", icon: Clock },
-    { label: "Teams", icon: Users },
-    { label: "Number pools", icon: Phone },
+    {
+      label: "Campaigns",
+      icon: Sparkles,
+      color: "from-indigo-400 to-fuchsia-500",
+      iconAnim: { rotate: [0, 12, -8, 0], scale: [1, 1.15, 1] },
+      detail: "Grouped lists + scripts",
+    },
+    {
+      label: "Call scripts",
+      icon: FileSpreadsheet,
+      color: "from-sky-400 to-blue-500",
+      iconAnim: { y: [0, -3, 0] },
+      detail: "Placeholders + pitch angles",
+    },
+    {
+      label: "Suppression lists",
+      icon: ShieldCheck,
+      color: "from-emerald-400 to-teal-500",
+      iconAnim: { scale: [1, 1.12, 1] },
+      detail: "Append-only, team-wide",
+    },
+    {
+      label: "Calling windows",
+      icon: Clock,
+      color: "from-amber-400 to-orange-500",
+      iconAnim: { rotate: [0, 360] },
+      detail: "8 AM – 9 PM local",
+    },
+    {
+      label: "Teams",
+      icon: Users,
+      color: "from-rose-400 to-pink-500",
+      iconAnim: { x: [0, -1, 1, 0] },
+      detail: "Owner / admin / agent",
+    },
+    {
+      label: "Number pools",
+      icon: Phone,
+      color: "from-cyan-400 to-blue-500",
+      iconAnim: { rotate: [0, -15, 10, 0] },
+      detail: "Per-org, health-monitored",
+    },
   ];
   return (
-    <section className="py-28 px-5 bg-white">
+    <section className="py-28 px-5 bg-white relative overflow-hidden">
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-10 w-[700px] h-[400px] rounded-full bg-gradient-to-br from-[#eef0ff] via-[#f5edff] to-[#fef3ec] blur-3xl -z-10 opacity-70" />
+
       <motion.div {...fadeUp} className="max-w-3xl mx-auto text-center">
-        <h2 className="xv-serif text-4xl sm:text-5xl leading-[1] tracking-[-0.02em]">
+        <h2 className="xv-serif text-4xl sm:text-5xl lg:text-[64px] leading-[1] tracking-[-0.02em]">
           Supporting pieces.
         </h2>
+        <p className="mt-4 text-[14.5px] text-[#0b0b0f]/55">
+          The quiet work around every call.
+        </p>
       </motion.div>
-      <div className="mt-12 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+
+      <div className="mt-14 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {pieces.map((p, i) => (
           <motion.div
             key={p.label}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.05 }}
-            whileHover={{ y: -3 }}
-            className="rounded-2xl bg-[#f6f4ef] border border-black/5 py-5 text-center transition hover:bg-white hover:shadow-sm"
+            initial={{ opacity: 0, y: 24, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{
+              duration: 0.55,
+              delay: i * 0.08,
+              type: "spring",
+              stiffness: 180,
+            }}
+            whileHover={{ y: -8 }}
+            className="group relative rounded-2xl bg-white border border-black/[0.06] py-6 px-3 text-center overflow-hidden transition-shadow hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)]"
           >
-            <p.icon size={18} className="mx-auto text-[#0b0b0f]/70" />
-            <div className="mt-2.5 text-[13px] font-medium text-[#0b0b0f]">
+            {/* Colored glow on hover */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500`}
+            />
+            {/* Top accent bar — slides in */}
+            <motion.div
+              className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${p.color} origin-left`}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.08 + 0.3 }}
+            />
+
+            {/* Icon tile */}
+            <div className="relative mx-auto w-11 h-11 rounded-xl bg-white border border-black/5 shadow-sm flex items-center justify-center overflow-hidden">
+              {/* soft pulsing color halo behind icon */}
+              <motion.span
+                aria-hidden
+                animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.15, 1] }}
+                transition={{
+                  duration: 2.6,
+                  repeat: Infinity,
+                  delay: i * 0.25,
+                  ease: "easeInOut",
+                }}
+                className={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-40 blur-md transition`}
+              />
+              <motion.span
+                animate={p.iconAnim}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.3,
+                }}
+                className="relative"
+              >
+                <p.icon size={18} className="text-[#0b0b0f]/80" />
+              </motion.span>
+            </div>
+
+            <div className="relative mt-3 text-[13px] font-semibold text-[#0b0b0f]">
               {p.label}
             </div>
+            <div className="relative mt-1 text-[10.5px] text-[#0b0b0f]/50 leading-snug px-1">
+              {p.detail}
+            </div>
+
+            {/* Reveal arrow on hover */}
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              whileHover={{ opacity: 1, y: 0 }}
+              className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-[#0b0b0f] text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+            >
+              <ArrowRight size={11} />
+            </motion.div>
           </motion.div>
         ))}
       </div>
