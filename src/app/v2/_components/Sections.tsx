@@ -143,25 +143,110 @@ export function Features() {
       {/* 5 tiles */}
       <div className="mt-5 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
-          { icon: MessageSquare, label: "Two-Way SMS" },
-          { icon: FileSpreadsheet, label: "Sheet Sync" },
-          { icon: Keyboard, label: "Shortcuts" },
-          { icon: Hash, label: "6 Outcomes" },
-          { icon: ShieldCheck, label: "Compliance" },
+          {
+            icon: MessageSquare,
+            label: "Two-Way SMS",
+            detail: "Threaded by number",
+            color: "from-amber-400 to-orange-500",
+            iconAnim: { rotate: [0, -10, 10, 0] },
+          },
+          {
+            icon: FileSpreadsheet,
+            label: "Sheet Sync",
+            detail: "Live to Google Sheets",
+            color: "from-emerald-400 to-teal-500",
+            iconAnim: { y: [0, -3, 0] },
+          },
+          {
+            icon: Keyboard,
+            label: "Shortcuts",
+            detail: "C · H · 1–6",
+            color: "from-indigo-400 to-fuchsia-500",
+            iconAnim: { scale: [1, 1.12, 1] },
+          },
+          {
+            icon: Hash,
+            label: "6 Outcomes",
+            detail: "One keystroke each",
+            color: "from-rose-400 to-pink-500",
+            iconAnim: { rotate: [0, 360] },
+          },
+          {
+            icon: ShieldCheck,
+            label: "Compliance",
+            detail: "Windows + caps",
+            color: "from-cyan-400 to-blue-500",
+            iconAnim: { scale: [1, 1.08, 1] },
+          },
         ].map((t, i) => (
           <motion.div
             key={t.label}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.06 }}
-            whileHover={{ y: -3 }}
-            className="rounded-2xl bg-[#f6f4ef] border border-black/5 px-4 py-5 text-center hover:bg-white hover:border-black/10 hover:shadow-sm transition"
+            initial={{ opacity: 0, y: 24, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{
+              duration: 0.55,
+              delay: i * 0.08,
+              type: "spring",
+              stiffness: 180,
+            }}
+            whileHover={{ y: -8 }}
+            className="group relative rounded-2xl bg-[#f6f4ef] border border-black/[0.06] px-3 py-6 text-center overflow-hidden transition-shadow hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)]"
           >
-            <t.icon size={18} className="mx-auto text-[#0b0b0f]/75" />
-            <div className="mt-2.5 text-[13px] font-medium text-[#0b0b0f]">
+            {/* Soft colored wash on hover */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${t.color} opacity-0 group-hover:opacity-[0.09] transition-opacity duration-500`}
+            />
+            {/* Top accent bar wipes in */}
+            <motion.div
+              className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${t.color} origin-left`}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.08 + 0.3 }}
+            />
+            {/* Icon tile */}
+            <div className="relative mx-auto w-11 h-11 rounded-xl bg-white border border-black/5 shadow-sm flex items-center justify-center overflow-hidden">
+              <motion.span
+                aria-hidden
+                animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.15, 1] }}
+                transition={{
+                  duration: 2.6,
+                  repeat: Infinity,
+                  delay: i * 0.25,
+                  ease: "easeInOut",
+                }}
+                className={`absolute inset-0 bg-gradient-to-br ${t.color} opacity-0 group-hover:opacity-40 blur-md transition`}
+              />
+              <motion.span
+                animate={t.iconAnim}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.3,
+                }}
+                className="relative"
+              >
+                <t.icon size={18} className="text-[#0b0b0f]/80" />
+              </motion.span>
+            </div>
+
+            <div className="relative mt-3 text-[13px] font-semibold text-[#0b0b0f]">
               {t.label}
             </div>
+            <div className="relative mt-1 text-[10.5px] text-[#0b0b0f]/50 leading-snug px-1">
+              {t.detail}
+            </div>
+
+            {/* Hover arrow pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              whileHover={{ opacity: 1, y: 0 }}
+              className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-[#0b0b0f] text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+            >
+              <ArrowRight size={11} />
+            </motion.div>
           </motion.div>
         ))}
       </div>
