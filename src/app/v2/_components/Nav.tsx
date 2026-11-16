@@ -139,7 +139,7 @@ export default function Nav() {
           <div className="hidden lg:flex items-center gap-2.5">
             <ThemeToggle />
             <Link
-              href="/v2/contact"
+              href="/v2/login"
               className="text-[14px] text-[#0b0b0f]/85 hover:text-[#0b0b0f] px-2 py-2"
             >
               Login
@@ -293,7 +293,7 @@ export default function Nav() {
                 </div>
                 <div className="flex gap-2 pt-3 mt-2 border-t border-[#0b0b0f]/10">
                   <Link
-                    href="/v2/contact"
+                    href="/v2/login"
                     onClick={() => setMobile(false)}
                     className="flex-1 text-center px-3 py-2.5 text-sm rounded-lg bg-[#f6f4ef]"
                   >
