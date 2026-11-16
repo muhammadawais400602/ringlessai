@@ -1481,51 +1481,63 @@ export function Footer() {
         <FooterCol
           title="Product"
           links={[
-            "Lead Scraping",
-            "Softphone",
-            "AI Qualifier",
-            "Rebuttals",
-            "SMS",
-            "Compliance",
+            { label: "Features", href: "/v2/features" },
+            { label: "Pricing", href: "/v2/pricing" },
+            { label: "Integrations", href: "/v2/integrations" },
+            { label: "Compliance", href: "/v2/compliance" },
           ]}
         />
         <FooterCol
-          title="Solutions"
+          title="Use Cases"
           links={[
-            "Small Business",
-            "Sales Teams",
-            "Lead Gen Agencies",
-            "Real Estate",
-            "Insurance",
+            { label: "Small Business", href: "/v2/use-cases/small-business" },
+            { label: "Sales Teams", href: "/v2/use-cases/sales-teams" },
+            { label: "Lead Gen Agencies", href: "/v2/use-cases/lead-gen-agencies" },
+            { label: "Real Estate", href: "/v2/use-cases/real-estate" },
+            { label: "Insurance Agents", href: "/v2/use-cases/insurance" },
           ]}
         />
         <FooterCol
-          title="Resources"
+          title="Compare"
           links={[
-            "Documentation",
-            "Changelog",
-            "Customer Stories",
-            "Pricing",
-            "Status",
+            { label: "vs Drop Cowboy", href: "/v2/compare/drop-cowboy" },
+            { label: "vs Mojo Dialer", href: "/v2/compare/mojo-dialer" },
+            { label: "vs CallTools", href: "/v2/compare/calltools" },
+            { label: "vs Slybroadcast", href: "/v2/compare/slybroadcast" },
           ]}
         />
         <FooterCol
           title="Company"
-          links={["About", "Contact", "Demo", "Privacy", "Terms"]}
+          links={[
+            { label: "About", href: "/v2/about" },
+            { label: "Contact", href: "/v2/contact" },
+            { label: "Demo", href: "/v2/demo" },
+          ]}
         />
       </div>
 
-      <div className="relative mt-16 pt-6 border-t border-black/5 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3 text-xs text-[#0b0b0f]/50">
+      <div className="relative mt-16 pt-6 border-t border-black/5 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-x-6 gap-y-3 text-xs text-[#0b0b0f]/50">
         <span>© 2026 Xovra. All rights reserved.</span>
-        <span className="text-[#0b0b0f]/70 xv-serif italic">
-          Find Leads. Call Them. Close Deals.
-        </span>
+        <div className="flex items-center gap-5">
+          <a href="#" className="hover:text-[#0b0b0f] transition">
+            Privacy Policy
+          </a>
+          <a href="#" className="hover:text-[#0b0b0f] transition">
+            Terms of Service
+          </a>
+        </div>
       </div>
     </footer>
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+function FooterCol({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
   return (
     <div>
       <h4 className="text-[11px] uppercase tracking-[0.18em] text-[#0b0b0f]/45 font-semibold">
@@ -1533,12 +1545,12 @@ function FooterCol({ title, links }: { title: string; links: string[] }) {
       </h4>
       <ul className="mt-4 space-y-2.5">
         {links.map((l) => (
-          <li key={l}>
+          <li key={l.label}>
             <a
-              href="#"
+              href={l.href}
               className="text-sm text-[#0b0b0f]/70 hover:text-[#0b0b0f] transition"
             >
-              {l}
+              {l.label}
             </a>
           </li>
         ))}
