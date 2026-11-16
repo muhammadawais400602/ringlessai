@@ -169,27 +169,73 @@ export default function Nav() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              transition={{ duration: 0.22 }}
               className="absolute left-0 right-0 top-full"
             >
-              <div className="max-w-5xl mx-auto mt-1 p-4 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+              <div className="relative max-w-5xl mx-auto mt-1 p-4 rounded-2xl border border-[#0b0b0f]/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden">
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  style={{ transformOrigin: "left" }}
+                  className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-500 to-fuchsia-500"
+                />
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                  {megaMenus[open].map((item) => (
-                    <Link
+                  {megaMenus[open].map((item, i) => (
+                    <motion.div
                       key={item.label}
-                      href={item.href}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#f6f4ef] transition"
+                      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        delay: 0.05 + i * 0.045,
+                        type: "spring",
+                        stiffness: 240,
+                        damping: 22,
+                      }}
                     >
-                      <div className="w-9 h-9 rounded-lg border border-[#0b0b0f]/10 bg-[#f6f4ef] flex items-center justify-center group-hover:bg-white transition">
-                        <item.icon size={16} className="text-[#0b0b0f]/80" />
-                      </div>
-                      <div>
-                        <div className="text-[13.5px] font-medium text-[#0b0b0f]">
-                          {item.label}
+                      <Link
+                        href={item.href}
+                        className="group relative flex items-start gap-3 p-3 rounded-xl hover:bg-[#f6f4ef] transition overflow-hidden"
+                      >
+                        <motion.span
+                          aria-hidden
+                          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-200/0 via-indigo-200/0 to-fuchsia-200/0 group-hover:from-cyan-200/40 group-hover:via-indigo-200/30 group-hover:to-fuchsia-200/40 transition duration-500"
+                        />
+                        <div className="relative w-9 h-9 rounded-lg border border-[#0b0b0f]/10 bg-[#f6f4ef] flex items-center justify-center overflow-hidden">
+                          <motion.span
+                            aria-hidden
+                            className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition duration-300"
+                          />
+                          <motion.span
+                            whileHover={{ rotate: 12, scale: 1.08 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            className="relative"
+                          >
+                            <item.icon
+                              size={16}
+                              className="text-[#0b0b0f]/80 group-hover:text-white transition duration-300"
+                            />
+                          </motion.span>
                         </div>
-                        <div className="text-[11.5px] text-[#0b0b0f]/55">{item.sub}</div>
-                      </div>
-                    </Link>
+                        <div className="relative flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[13.5px] font-medium text-[#0b0b0f]">
+                              {item.label}
+                            </span>
+                            <motion.span
+                              initial={{ x: -4, opacity: 0 }}
+                              whileInView={{ x: 0, opacity: 0 }}
+                              className="text-[#4f5bf0] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition"
+                            >
+                              →
+                            </motion.span>
+                          </div>
+                          <div className="text-[11.5px] text-[#0b0b0f]/55">
+                            {item.sub}
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
                   ))}
                 </div>
               </div>
