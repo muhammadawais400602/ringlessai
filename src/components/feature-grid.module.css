@@ -1,0 +1,68 @@
+.card {
+  position: relative;
+  padding: 2rem 2rem 2rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, #120a1c 0%, #0a060f 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(236, 106, 251, 0.25);
+  box-shadow: 0 20px 60px rgba(236, 106, 251, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.graphicWrap {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  margin-bottom: 1.6rem;
+  border-radius: 0.9rem;
+  background: radial-gradient(ellipse at 50% 100%, rgba(139, 47, 248, 0.18) 0%, transparent 60%);
+}
+.graphic {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- animations ---------- */
+@keyframes dashFlow { to { stroke-dashoffset: -24; } }
+.dashFlow { stroke-dasharray: 6 6; animation: dashFlow 1.4s linear infinite; }
+
+@keyframes ping { 0%,100% { opacity: 1; r: 3 } 50% { opacity: .4; r: 5 } }
+.ping { animation: ping 1.6s ease-in-out infinite; }
+.ping2 { animation: ping 1.6s ease-in-out infinite .8s; }
+
+@keyframes barSlide { 0%,100% { transform: translateX(0); opacity:1 } 50% { transform: translateX(14px); opacity:.5 } }
+.bar { transform-origin: center; animation: barSlide 2.4s ease-in-out infinite; }
+
+@keyframes pulseScale { 0%,100% { transform: scale(1); opacity:1 } 50% { transform: scale(1.08); opacity:.85 } }
+.pulse { transform-origin: 60px 55px; animation: pulseScale 1.8s ease-in-out infinite; }
+.pulse2 { transform-origin: 160px 55px; animation: pulseScale 1.8s ease-in-out infinite .9s; }
+
+@keyframes streak { 0% { stroke-dashoffset: 180; } 70%,100% { stroke-dashoffset: 0; } }
+.streak { stroke-dasharray: 180; stroke-dashoffset: 180; animation: streak 1.8s ease-out infinite; }
+
+@keyframes boltFlash { 0%,45% { filter: drop-shadow(0 0 0 rgba(236,106,251,0)); transform: scale(1); } 60% { filter: drop-shadow(0 0 10px rgba(236,106,251,.9)); transform: scale(1.1); } 100% { filter: drop-shadow(0 0 0 rgba(236,106,251,0)); transform: scale(1); } }
+.bolt { transform-origin: 178px 55px; animation: boltFlash 1.8s ease-in-out infinite; }
+
+@keyframes slotFill { 0%,20% { opacity: 0; } 40%,70% { opacity: 1; } 90%,100% { opacity: 0; } }
+.slot { animation: slotFill 3s ease-in-out infinite; }
+
+@keyframes barsGrow { 0% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } 100% { transform: scaleY(0.4); } }
+.bars rect { transform-origin: bottom; animation: barsGrow 2s ease-in-out infinite; }
+.bars rect:nth-child(2) { animation-delay: .2s; }
+.bars rect:nth-child(3) { animation-delay: .4s; }
+.bars rect:nth-child(4) { animation-delay: .6s; }
+
+@keyframes lineDraw { 0% { stroke-dashoffset: 300; } 60%,100% { stroke-dashoffset: 0; } }
+.line { stroke-dasharray: 300; stroke-dashoffset: 300; animation: lineDraw 2.4s ease-out infinite; }
+
+@keyframes rotor { to { transform: rotate(360deg); } }
+.rotor { transform-origin: center; }
+.ring { animation: rotor 6s linear infinite; transform-origin: center; }
+
+@keyframes phoneCycle { 0%,30% { opacity: 1; } 50% { opacity: .2; } 70%,100% { opacity: 1; } }
+.phone { animation: phoneCycle 2.4s ease-in-out infinite; }

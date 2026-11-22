@@ -1,4 +1,5 @@
 import ConveyorScene from "@/components/ConveyorScene";
+import FeatureGrid from "@/components/FeatureGrid";
 import IntegrationStrip from "@/components/IntegrationStrip";
 import Navbar from "@/components/Navbar";
 
@@ -63,6 +64,7 @@ export default function Home() {
       </section>
 
       <IntegrationStrip />
+      <FeatureGrid />
     </main>
   );
 }
