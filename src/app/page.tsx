@@ -1,7 +1,14 @@
+import CaseStudies from "@/components/CaseStudies";
 import ConveyorScene from "@/components/ConveyorScene";
+import FAQ from "@/components/FAQ";
 import FeatureGrid from "@/components/FeatureGrid";
+import FinalCTA from "@/components/FinalCTA";
+import Footer from "@/components/Footer";
+import ImpactStats from "@/components/ImpactStats";
 import IntegrationStrip from "@/components/IntegrationStrip";
 import Navbar from "@/components/Navbar";
+import PathSteps from "@/components/PathSteps";
+import WhyChoose from "@/components/WhyChoose";
 
 export default function Home() {
   return (
@@ -75,6 +82,13 @@ export default function Home() {
 
       <IntegrationStrip />
       <FeatureGrid />
+      <ImpactStats />
+      <PathSteps />
+      <WhyChoose />
+      <CaseStudies />
+      <FAQ />
+      <FinalCTA />
+      <Footer />
     </main>
   );
 }
