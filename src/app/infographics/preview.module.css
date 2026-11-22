@@ -1,0 +1,97 @@
+.card { border-radius: 1.25rem; padding: 1.25rem; background: #ffffff; border: 1px solid #ece6f5; }
+.graphicWrap { width: 100%; height: 180px; border-radius: .9rem; background: linear-gradient(180deg,#faf7ff,#fff); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.g { width: 100%; height: 100%; }
+.label { margin-top: .9rem; font-size: .85rem; color: #6a607c; font-weight: 500; }
+
+/* ----- animations ----- */
+@keyframes flow { to { stroke-dashoffset: -32; } }
+.flow { stroke-dasharray: 8 8; animation: flow 1.6s linear infinite; }
+
+@keyframes ping { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(1.5); } }
+.ping { transform-origin: center; animation: ping 1.4s ease-in-out infinite; transform-box: fill-box; }
+.ping2 { transform-origin: center; animation: ping 1.4s ease-in-out infinite .7s; transform-box: fill-box; }
+
+@keyframes ringPulse { 0%,100% { opacity: 0; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.2); } }
+.ringPulse { transform-origin: center; transform-box: fill-box; animation: ringPulse 2s ease-in-out infinite; }
+.pinRing { transform-origin: center; transform-box: fill-box; animation: ringPulse 2s ease-in-out infinite; }
+
+@keyframes laserA { 0%{stroke-dasharray:0 100;} 40%{stroke-dasharray:100 0;} 60%{stroke-dasharray:100 0;} 100%{stroke-dasharray:0 100;} }
+.laserA { animation: laserA 2.2s ease-in-out infinite; }
+
+@keyframes swipe { 0%,100% { transform: translateX(-20px); opacity:.4 } 50% { transform: translateX(20px); opacity:1 } }
+.swipe { animation: swipe 2.4s ease-in-out infinite; }
+
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.pulse { transform-box: fill-box; transform-origin: center; animation: pulse 1.6s ease-in-out infinite; }
+.pulse2 { transform-box: fill-box; transform-origin: center; animation: pulse 1.6s ease-in-out infinite .8s; }
+
+@keyframes beatDraw { 0%{stroke-dashoffset:600;} 60%,100%{stroke-dashoffset:0;} }
+.beatDraw { stroke-dasharray: 600; animation: beatDraw 2.6s ease-out infinite; }
+@keyframes walker { 0%{offset-distance:0%} 100%{offset-distance:100%} }
+.walker { animation: ping 1s infinite; }
+
+@keyframes seq { 0%,25% { opacity: .3; transform: scale(.9); } 40%,60% { opacity: 1; transform: scale(1); } 75%,100% { opacity: .3; transform: scale(.9); } }
+.seq0 { transform-box: fill-box; transform-origin: center; animation: seq 2.4s infinite; }
+.seq1 { transform-box: fill-box; transform-origin: center; animation: seq 2.4s infinite .4s; }
+.seq2 { transform-box: fill-box; transform-origin: center; animation: seq 2.4s infinite .8s; }
+.seq3 { transform-box: fill-box; transform-origin: center; animation: seq 2.4s infinite 1.2s; }
+
+@keyframes streak { 0% { stroke-dasharray: 0 220; } 70%,100% { stroke-dasharray: 220 0; } }
+.streak { animation: streak 1.8s ease-out infinite; }
+
+@keyframes bolt { 0%,45% { filter: drop-shadow(0 0 0 rgba(236,106,251,0)); } 60% { filter: drop-shadow(0 0 10px rgba(236,106,251,.9)); } 100% { filter: drop-shadow(0 0 0 rgba(236,106,251,0)); } }
+.bolt { animation: bolt 1.8s ease-in-out infinite; }
+
+@keyframes countdown { 0%{stroke-dashoffset:0} 100%{stroke-dashoffset:226} }
+.countdown { animation: countdown 3s linear infinite; }
+@keyframes counter { 0%,100%{opacity:1}50%{opacity:.6} }
+.counter { animation: counter 1s ease-in-out infinite; }
+
+@keyframes rocketTrail { 0% { stroke-dasharray: 0 240; } 70%,100% { stroke-dasharray: 240 0; } }
+.rocketTrail { animation: rocketTrail 2.4s ease-out infinite; }
+@keyframes rocket { 0% { transform: translate(-130px,90px); opacity:0; } 20% { opacity:1; } 100% { transform: translate(0,0); opacity:1; } }
+.rocket { transform-box: fill-box; animation: rocket 2.4s ease-out infinite; }
+
+@keyframes slot { 0%,30%{opacity:0} 50%,80%{opacity:1} 95%,100%{opacity:0} }
+.slot { animation: slot 3s ease-in-out infinite; }
+
+@keyframes bookSlide { 0%,30% { transform: translateY(-14px); opacity: 0; } 50%,100% { transform: translateY(0); opacity: 1; } }
+.bookSlide { transform-box: fill-box; animation: bookSlide 2.4s ease-out infinite; }
+
+@keyframes hourHand { to { transform: rotate(360deg); } }
+.hourHand { transform-origin: 70px 65px; animation: hourHand 6s linear infinite; }
+.minHand { transform-origin: 70px 65px; animation: hourHand 1s linear infinite; }
+
+@keyframes barsGrow { 0%,100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+.bars rect { transform-origin: bottom; animation: barsGrow 2s ease-in-out infinite; }
+.bars rect:nth-child(2) { animation-delay: .2s; }
+.bars rect:nth-child(3) { animation-delay: .4s; }
+.bars rect:nth-child(4) { animation-delay: .6s; }
+
+@keyframes line { 0% { stroke-dashoffset: 300; } 60%,100% { stroke-dashoffset: 0; } }
+.line { stroke-dasharray: 300; animation: line 2.4s ease-out infinite; }
+
+@keyframes donutFill { 0% { stroke-dashoffset: 238; } 60%,100% { stroke-dashoffset: 68; } }
+.donutFill { animation: donutFill 2.2s ease-out infinite; }
+@keyframes fill0 { 0%,20%{width:0} 60%,100%{width:17px} }
+@keyframes fill1 { 0%,30%{width:0} 70%,100%{width:27px} }
+@keyframes fill2 { 0%,40%{width:0} 80%,100%{width:12px} }
+.fill0 { animation: fill0 2.2s ease-out infinite; }
+.fill1 { animation: fill1 2.2s ease-out infinite; }
+.fill2 { animation: fill2 2.2s ease-out infinite; }
+
+@keyframes liveLine { 0% { stroke-dashoffset: 500; } 60%,100% { stroke-dashoffset: 0; } }
+.liveLine { stroke-dasharray: 500; animation: liveLine 3s ease-out infinite; }
+
+@keyframes rotor { to { transform: rotate(360deg); } }
+.rotor { transform-box: fill-box; transform-origin: center; }
+.ring { transform-box: fill-box; transform-origin: center; animation: rotor 6s linear infinite; }
+
+@keyframes phoneFlip { 0%,30% { opacity: 1; } 50% { opacity: .2; } 70%,100% { opacity: 1; } }
+.phoneFlip { animation: phoneFlip 2.4s ease-in-out infinite; }
+
+@keyframes roll { 0%,20% { transform: translateY(0); } 50%,70% { transform: translateY(-22px); } 100% { transform: translateY(-44px); } }
+.roll { animation: roll 3s cubic-bezier(.3,.7,.3,1) infinite; }
+
+@keyframes pickOne { 0%,25% { stroke-dasharray: 0 200; } 55%,100% { stroke-dasharray: 200 0; } }
+.pickOne { animation: pickOne 2.4s ease-out infinite; }
