@@ -6,13 +6,11 @@ export default function Home() {
     <main className="relative min-h-screen bg-black text-white overflow-hidden">
       <Navbar />
 
-      {/* Full-screen animated background */}
-      <div className="fixed inset-0 z-0">
+      {/* Full-width animated background, anchored to the bottom */}
+      <div className="fixed inset-x-0 bottom-0 top-[30vh] md:top-[38vh] z-0 overflow-hidden">
         <ConveyorScene />
-        {/* Dark overlays so overlay copy stays readable */}
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/90 to-transparent" />
-        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-black/70 to-transparent" />
+        {/* Soft fades so overlay copy stays readable */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none" />
       </div>
 
       {/* Hero content */}
