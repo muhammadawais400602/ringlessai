@@ -56,9 +56,8 @@ export default function Home() {
           <ConveyorScene />
           {/* long smooth top fade so the headline block blends into the scene */}
           <div className="absolute inset-x-0 top-0 h-[55%] bg-[linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_18%,rgba(0,0,0,0.6)_38%,rgba(0,0,0,0.25)_65%,rgba(0,0,0,0)_100%)] pointer-events-none" />
-          {/* side vignette to soften the neon track fade-outs at the viewport edges */}
-          <div className="absolute inset-y-0 right-0 w-[22%] bg-[linear-gradient(to_left,#000_0%,rgba(0,0,0,0)_100%)] pointer-events-none" />
-          <div className="absolute inset-y-0 left-0 w-[22%] bg-[linear-gradient(to_right,#000_0%,rgba(0,0,0,0)_100%)] pointer-events-none" />
+          {/* rounded radial vignette so the scene edges feather into black instead of looking like flat bands */}
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_75%_90%_at_50%_55%,transparent_0%,transparent_45%,rgba(0,0,0,0.35)_70%,rgba(0,0,0,0.75)_88%,#000_100%)]" />
           {/* Partnered-with bar over the right side of the scene */}
           <div className="absolute right-6 md:right-14 lg:right-20 bottom-8 text-right z-10">
             <p className="text-sm font-semibold text-white mb-4">Partnered with:</p>
