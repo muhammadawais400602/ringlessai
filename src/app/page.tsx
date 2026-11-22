@@ -54,8 +54,11 @@ export default function Home() {
         {/* Bottom block: animation (part of the same hero section, scrolls with the page) */}
         <div className="relative w-full aspect-[16/9] md:aspect-[21/9] -mt-24 md:-mt-48 lg:-mt-64">
           <ConveyorScene />
-          {/* soft top fade so headline block blends into the scene */}
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none" />
+          {/* long smooth top fade so the headline block blends into the scene */}
+          <div className="absolute inset-x-0 top-0 h-[55%] bg-[linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_18%,rgba(0,0,0,0.6)_38%,rgba(0,0,0,0.25)_65%,rgba(0,0,0,0)_100%)] pointer-events-none" />
+          {/* side vignette to soften the neon track fade-outs at the viewport edges */}
+          <div className="absolute inset-y-0 right-0 w-[22%] bg-[linear-gradient(to_left,#000_0%,rgba(0,0,0,0)_100%)] pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[22%] bg-[linear-gradient(to_right,#000_0%,rgba(0,0,0,0)_100%)] pointer-events-none" />
           {/* Partnered-with bar over the right side of the scene */}
           <div className="absolute right-6 md:right-14 lg:right-20 bottom-8 text-right z-10">
             <p className="text-sm font-semibold text-white mb-4">Partnered with:</p>
