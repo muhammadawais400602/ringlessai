@@ -1,26 +1,27 @@
 .card {
   position: relative;
-  padding: 2rem 2rem 2rem;
-  border-radius: 1.5rem;
-  background: linear-gradient(180deg, #120a1c 0%, #0a060f 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 2.25rem 2rem;
+  border-radius: 1.75rem;
+  background: #ffffff;
+  border: 1px solid #ece6f5;
+  box-shadow: 0 1px 2px rgba(20, 10, 40, 0.04);
   overflow: hidden;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(236, 106, 251, 0.25);
-  box-shadow: 0 20px 60px rgba(236, 106, 251, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-color: rgba(139, 47, 248, 0.3);
+  box-shadow: 0 24px 60px rgba(139, 47, 248, 0.12);
 }
 
 .graphicWrap {
   position: relative;
   width: 100%;
-  height: 130px;
-  margin-bottom: 1.6rem;
-  border-radius: 0.9rem;
-  background: radial-gradient(ellipse at 50% 100%, rgba(139, 47, 248, 0.18) 0%, transparent 60%);
+  height: 160px;
+  margin-bottom: 1.8rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #faf7ff 0%, #ffffff 100%);
+  overflow: hidden;
 }
 .graphic {
   width: 100%;
