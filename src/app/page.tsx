@@ -1,4 +1,5 @@
 import ConveyorScene from "@/components/ConveyorScene";
+import FeatureGrid from "@/components/FeatureGrid";
 import IntegrationStrip from "@/components/IntegrationStrip";
 import Navbar from "@/components/Navbar";
 
@@ -59,24 +60,11 @@ export default function Home() {
           <div className="absolute inset-x-0 top-0 h-[55%] bg-[linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_18%,rgba(0,0,0,0.6)_38%,rgba(0,0,0,0.25)_65%,rgba(0,0,0,0)_100%)] pointer-events-none" />
           {/* rounded radial vignette so the scene edges feather into black instead of looking like flat bands */}
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_75%_90%_at_50%_55%,transparent_0%,transparent_45%,rgba(0,0,0,0.35)_70%,rgba(0,0,0,0.75)_88%,#000_100%)]" />
-          {/* Partnered-with bar over the right side of the scene */}
-          <div className="absolute right-6 md:right-14 lg:right-20 bottom-8 text-right z-10">
-            <p className="text-sm font-semibold text-white mb-4">Partnered with:</p>
-            <div className="flex items-center gap-8 text-white/80">
-              <div className="flex flex-col items-center">
-                <span className="text-xl font-bold tracking-tight flex items-center gap-1">
-                  <span className="text-[#76b900]">◆</span>
-                  NVIDIA<span className="text-xs align-top">®</span>
-                </span>
-                <span className="text-[10px] tracking-[0.25em] text-white/60 mt-0.5">INCEPTION PROGRAM</span>
-              </div>
-              <span className="text-xl font-semibold">ElevenLabs</span>
-            </div>
-          </div>
         </div>
       </section>
 
       <IntegrationStrip />
+      <FeatureGrid />
     </main>
   );
 }
