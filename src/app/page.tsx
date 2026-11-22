@@ -35,18 +35,28 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Right column: feature chips stacked */}
-            <div className="flex flex-col items-start lg:items-end gap-4 lg:pt-10">
-              <div className="feature-chip">
-                <span className="text-[#ec6afb]">✦</span>
+            {/* Right column: feature chips, staggered left/right */}
+            <div className="flex flex-col gap-7 lg:gap-8 lg:pt-6 lg:pl-4">
+              <div className="feature-chip self-start">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2 L13.5 8.5 L20 10 L13.5 11.5 L12 18 L10.5 11.5 L4 10 L10.5 8.5 Z" fill="#c187fb" />
+                  <path d="M18 3 L18.7 5.3 L21 6 L18.7 6.7 L18 9 L17.3 6.7 L15 6 L17.3 5.3 Z" fill="#c187fb" />
+                  <path d="M5 15 L5.6 16.8 L7.4 17.4 L5.6 18 L5 19.8 L4.4 18 L2.6 17.4 L4.4 16.8 Z" fill="#c187fb" />
+                </svg>
                 <span>Your smart scheduling assistant</span>
               </div>
-              <div className="feature-chip">
-                <span className="text-[#ec6afb]">✓</span>
+              <div className="feature-chip self-end lg:mr-0 lg:ml-24">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c187fb" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 12 L10 18 L20 6" />
+                </svg>
                 <span>Qualified appointment only</span>
               </div>
-              <div className="feature-chip">
-                <span>🚀</span>
+              <div className="feature-chip self-start">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14.5 2.5 C17 4 19 6 20.5 8.5 C19 11 17 13 14.5 14.5 L12 17 L7 12 L9.5 9.5 C11 7 13 5 15 3.5 Z" fill="#c187fb" />
+                  <path d="M6 14 L4 20 L10 18" fill="#8b2ff8" />
+                  <circle cx="15" cy="9" r="1.4" fill="#fff" />
+                </svg>
                 <span>Increases efficiency by 80%</span>
               </div>
             </div>
