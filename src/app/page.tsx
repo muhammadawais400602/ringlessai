@@ -1,4 +1,5 @@
 import ConveyorScene from "@/components/ConveyorScene";
+import IntegrationStrip from "@/components/IntegrationStrip";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
@@ -74,6 +75,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <IntegrationStrip />
     </main>
   );
 }
