@@ -1,0 +1,149 @@
+/* Conveyor scene — HTML & CSS only. Adapted into a scoped module. */
+.wrap { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; container-type: size; }
+.wrap *{margin:0;padding:0;box-sizing:border-box}
+
+.stage{position:absolute;left:50%;top:50%;width:192em;height:108em;margin:-54em 0 0 -96em;
+  font-size:min(calc(100cqw / 192),calc(100cqh / 108));overflow:hidden;
+  background:var(--ink);
+  --ink:#000;
+  --neon:#ec6afb;
+  --spill:#3a0c6a;
+  --glow:#e23ce4;
+  --belt:#2a102e;
+  --rail-hi:#4e2c45;
+  --rail-lo:#1c071a;
+  --floor:#3f2746;
+  --floor-2:#291124;
+  --glass:#dccaee;
+  --glass-deep:#b298d6;
+  --screen:#2c1e4c;
+  --check:#cf6fe4;
+  --portal:#252836;
+  --light:#e6e5e8;
+  --figure:#d6cbe0;
+  --step:1.5833s;
+  --loop:calc(var(--step) * 4);
+}
+
+.cam{position:absolute;left:0;top:15.36em;width:192em;height:85em;perspective:241.069em;perspective-origin:96em 42.5em}
+.cam i,.cam b,.cam s{display:block;position:absolute;font-style:normal;text-decoration:none}
+
+.floor{left:0;top:-15.36em;width:192em;height:108em;
+  background:
+    radial-gradient(circle 3em at 97.5em 84.8em,color-mix(in srgb,var(--neon) 20%,transparent),transparent),
+    radial-gradient(circle 2.2em at 127.5em 45.6em,color-mix(in srgb,var(--neon) 20%,transparent),transparent),
+    radial-gradient(circle 2em at 166em 43.8em,color-mix(in srgb,var(--neon) 14%,transparent),transparent),
+    radial-gradient(circle 2.2em at 44.8em 106.8em,color-mix(in srgb,var(--neon) 10%,transparent),transparent),
+    radial-gradient(ellipse 108.4em 38.5em at 70.0em 59.2em,var(--floor-2) 0%,color-mix(in srgb,var(--floor-2) 93%,transparent) 20%,color-mix(in srgb,var(--floor-2) 74%,transparent) 40%,color-mix(in srgb,var(--floor-2) 48%,transparent) 60%,color-mix(in srgb,var(--floor-2) 20%,transparent) 80%,color-mix(in srgb,var(--floor-2) 0%,transparent) 100%),
+    radial-gradient(ellipse 107.1em 72.2em at 110.0em 71.8em,var(--floor) 0%,color-mix(in srgb,var(--floor) 93%,transparent) 20%,color-mix(in srgb,var(--floor) 74%,transparent) 40%,color-mix(in srgb,var(--floor) 48%,transparent) 60%,color-mix(in srgb,var(--floor) 20%,transparent) 80%,color-mix(in srgb,var(--floor) 0%,transparent) 100%);
+  -webkit-mask:linear-gradient(90deg,transparent 24em,#000 62em);mask:linear-gradient(90deg,transparent 24em,#000 62em)}
+.ink{background:var(--ink)}
+
+.pl{position:absolute;left:96em;top:42.5em;width:0;height:0;transform:rotateX(63.062deg)}
+.pl.a{transform:rotateX(63.062deg) translateZ(-3.2em)}
+.pl.c{transform:rotateX(63.062deg) translateZ(2em)}
+.pl.cr,.pl.fg{transform-style:preserve-3d}
+.pl>i,.grp>i{transform-origin:0 0}
+.clip{overflow:hidden}
+.dash{border-radius:.5em;background:color-mix(in srgb,var(--neon) 35%,#fff);
+  box-shadow:0 0 .5em .15em color-mix(in srgb,var(--neon) 90%,transparent),0 .5em 1.6em .5em color-mix(in srgb,var(--glow) 60%,transparent)}
+
+@keyframes cv_run{0%{transform:translate(-6.046em,-54.018em)}25%{transform:translate(-1.614em,-15.089em)}34.683%,100%{transform:translate(0,0)}}
+@keyframes cv_turn{0%,34.683%{transform:rotate(0deg)}79.156%,100%{transform:rotate(96.106deg)}}
+@keyframes cv_exit{0%,79.156%{transform:translate(0,0)}100%{transform:translate(-32.667em,0)}}
+@keyframes cv_face{0%,25%{transform:rotateX(-90deg) rotateY(-2.50deg) scale3d(1,1,1)}48.782%{transform:rotateX(-90deg) rotateY(7.50deg) scale3d(0.95,0.95,0.95)}75%{transform:rotateX(-90deg) rotateY(10.00deg) scale3d(0.97,0.97,0.97)}79.156%,100%{transform:rotateX(-90deg) rotateY(21.00deg) scale3d(0.97,0.97,0.97)}}
+@keyframes cv_born{0%,11.05%{opacity:0}15.26%{opacity:1}55%{opacity:1;filter:brightness(1)}75%{filter:brightness(.68)}100%{opacity:1;filter:brightness(.5)}}
+@keyframes cv_lid{0%,13.68%{opacity:0}16.05%{opacity:1}55%{opacity:1;filter:brightness(1)}75%{filter:brightness(.64)}100%{opacity:1;filter:brightness(.48)}}
+@keyframes cv_dim{0%,12.89%{background-color:color-mix(in srgb,var(--screen) 6%,#fff)}18.16%{background-color:color-mix(in srgb,var(--screen) 40%,var(--glass))}25%{background-color:color-mix(in srgb,var(--screen) 68%,var(--glass))}33.42%,100%{background-color:var(--screen)}}
+@keyframes cv_pool{0%,11.05%{opacity:0}25%,58%{opacity:1}78%{opacity:.8}100%{opacity:.45}}
+@keyframes cv_walk{0%{transform:translate(128.728em,-18.924em)}100%{transform:translate(-42.909em,6.308em)}}
+@keyframes cv_side{0%,65.53%{opacity:0}73.42%,100%{opacity:1}}
+@keyframes cv_scan{0%{transform:translateY(0);opacity:0}2%{opacity:1}39%{transform:translateY(16.8em);opacity:1}45%,100%{transform:translateY(18.6em);opacity:0}}
+.out,.orb,.run{position:absolute;width:0;height:0;transform-style:preserve-3d;animation:var(--loop) linear infinite}
+.out{animation-name:cv_exit}
+.orb{animation-name:cv_turn}
+.run{animation-name:cv_run}
+
+.portal{position:absolute;left:71em;top:2.7em;width:28.9em;height:27.8em;transform:skewY(3deg);transform-origin:0 100%}
+.portal .side{left:1em;top:.5em;right:0;bottom:0;border-radius:4.2em 3.9em 0 0;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--portal) 72%,#b8a8cc) 0,color-mix(in srgb,var(--portal) 48%,#b8a8cc) 22%,color-mix(in srgb,var(--portal) 46%,#b8a8cc) 60%,color-mix(in srgb,var(--portal) 60%,#b8a8cc) 100%)}
+.portal .frame{left:0;top:0;right:.6em;bottom:0;border-radius:4.4em 4.1em 0 0;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--portal) 88%,#000) 0,var(--portal) 12%,color-mix(in srgb,var(--portal) 86%,#0c1238) 34%,color-mix(in srgb,var(--portal) 80%,#0c1238) 52%,color-mix(in srgb,var(--portal) 94%,#8088b0) 76%,color-mix(in srgb,var(--portal) 84%,#8088b0) 90%,color-mix(in srgb,var(--portal) 80%,#8088b0) 100%);
+  box-shadow:inset 0 1.25em .25em -.15em color-mix(in srgb,var(--portal) 78%,#9a9ac4),inset .12em 0 0 rgba(90,90,120,.35)}
+.portal .door{left:4.7em;top:5.5em;width:18.8em;bottom:-.1em;border-radius:3em 3em 0 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 55% 62%,rgba(255,255,255,.6),rgba(255,255,255,0) 100%),
+    linear-gradient(180deg,color-mix(in srgb,var(--light) 72%,#68666e) 0,color-mix(in srgb,var(--light) 86%,#68666e) 16%,color-mix(in srgb,var(--light) 96%,#68666e) 40%,var(--light) 75%,color-mix(in srgb,var(--light) 88%,#f6dcff) 100%);
+  box-shadow:inset .75em .3em .5em -.25em rgba(70,66,84,.85),inset -.2em 0 .3em -.1em rgba(90,86,104,.5),0 0 2.5em .2em rgba(255,255,255,.22),0 0 7em 1em rgba(255,255,255,.08)}
+.portal .scan{left:-1.3em;right:-1.3em;top:.4em;height:.34em;border-radius:.2em;background:#fff;
+  box-shadow:0 0 .6em .14em rgba(255,255,255,.95),0 0 2.4em .8em rgba(255,255,255,.55),0 0 5em 1.2em rgba(255,255,255,.2),0 -.55em 0 -.1em rgba(255,255,255,.5);
+  animation:cv_scan var(--step) linear infinite;animation-delay:calc(var(--step) * -.7368)}
+
+.walk{position:absolute;width:0;height:0;transform-style:preserve-3d;animation:cv_walk var(--loop) linear infinite}
+@keyframes cv_fig{0%{opacity:0;filter:blur(.35em)}22%{opacity:.3;filter:blur(.3em)}34%{opacity:.6;filter:blur(.1em)}48%{opacity:.9;filter:blur(0)}62%,100%{opacity:1;filter:blur(0)}}
+.fig{position:absolute;left:-4.5em;top:-17.2em;width:9em;height:17.2em;transform-origin:50% 100%;animation:cv_fig var(--loop) linear infinite}
+.fig .base{left:-4.6em;top:14.1em;width:17em;height:5.6em;
+  background:radial-gradient(ellipse closest-side,color-mix(in srgb,var(--glow) 58%,transparent) 0,color-mix(in srgb,var(--glow) 24%,transparent) 45%,transparent 100%)}
+.fig .head{left:1.2em;top:0;width:7.5em;height:7.5em;border-radius:50%;
+  background:
+    radial-gradient(circle at 40% 30%,rgba(255,255,255,.5) 0,rgba(255,255,255,0) 20%),
+    radial-gradient(circle at 50% 46%,color-mix(in srgb,var(--figure) 42%,#2a1a44) 0,color-mix(in srgb,var(--figure) 50%,#2a1a44) 38%,color-mix(in srgb,var(--figure) 78%,#2a1a44) 70%,color-mix(in srgb,var(--figure) 80%,#fff) 90%,color-mix(in srgb,var(--figure) 62%,#fff) 100%)}
+.fig .body{left:.1em;top:8.1em;width:8.8em;height:9.2em;transform:rotate(-14deg);border-radius:50% 50% 46% 54%/66% 62% 38% 34%;
+  background:
+    radial-gradient(ellipse 34% 30% at 46% 30%,rgba(255,255,255,.4) 0,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 80% 70% at 52% 78%,color-mix(in srgb,var(--figure) 55%,#fff) 0,var(--figure) 42%,color-mix(in srgb,var(--figure) 74%,#2a1a44) 78%,color-mix(in srgb,var(--figure) 58%,#2a1a44) 100%)}
+
+.pool{left:-26em;top:-23em;width:52em;height:52em;border-radius:50%;animation:cv_pool var(--loop) linear infinite;
+  background:radial-gradient(circle,color-mix(in srgb,var(--glow) 78%,transparent) 0,color-mix(in srgb,var(--glow) 52%,transparent) 9%,color-mix(in srgb,var(--glow) 18%,transparent) 17%,color-mix(in srgb,var(--glow) 6%,transparent) 26%,color-mix(in srgb,var(--glow) 2%,transparent) 60%,transparent 100%)}
+
+.crate{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;animation:cv_face var(--loop) linear infinite}
+.f{border-radius:1.1em;border:.12em solid color-mix(in srgb,var(--glass-deep) 80%,transparent);animation:cv_born var(--loop) linear infinite;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--glass) 34%,transparent) 0,color-mix(in srgb,var(--glass-deep) 24%,transparent) 55%,color-mix(in srgb,var(--glass) 52%,transparent) 100%);
+  box-shadow:inset 0 0 0 .09em rgba(255,255,255,.3),inset 0 0 1.4em rgba(255,255,255,.14)}
+.f.fr,.f.bk{left:-7.25em;top:-10.5em;width:14.5em;height:10.5em}
+.f.fr{transform:translateZ(2.8em);
+  box-shadow:inset 0 0 0 .09em rgba(255,255,255,.34),inset 0 -.5em .45em -.1em rgba(255,255,255,.6),inset -.35em 0 .4em -.1em rgba(255,255,255,.5),inset 0 0 1.4em rgba(255,255,255,.16)}
+.f.bk{transform:translateZ(-2.8em);background:color-mix(in srgb,var(--glass-deep) 14%,transparent);border-color:rgba(255,255,255,.12);box-shadow:none}
+.f.rt,.f.lf{left:-2.8em;top:-10.5em;width:5.6em;height:10.5em}
+.f.rt{transform:translateX(7.25em) rotateY(90deg);
+  background:linear-gradient(90deg,rgba(255,255,255,.62) 0,color-mix(in srgb,var(--glass) 58%,transparent) 22%,color-mix(in srgb,var(--glass-deep) 50%,transparent) 60%,color-mix(in srgb,var(--glass) 60%,transparent) 100%)}
+.f.lf{transform:translateX(-7.25em) rotateY(-90deg);background:color-mix(in srgb,var(--glass-deep) 20%,transparent);border-color:rgba(255,255,255,.12);box-shadow:none}
+.f.tp{left:-7.25em;top:-2.8em;width:14.5em;height:5.6em;transform:translateY(-10.5em) rotateX(90deg);background:color-mix(in srgb,var(--glass) 28%,transparent)}
+.scr{animation:cv_dim var(--loop) linear infinite}
+.f.fr .scr{left:.95em;right:.9em;top:1.1em;bottom:2.1em;border-radius:.95em;
+  background-color:var(--screen);
+  background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.035) 0 .12em,rgba(255,255,255,0) .12em .32em),linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.12));
+  box-shadow:inset 0 0 .7em rgba(10,4,20,.4),0 .08em 0 rgba(255,255,255,.3)}
+.f.fr s{height:.7em;border-radius:.4em;transform-origin:.35em 50%;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--check) 50%,#fff) 0,var(--check) 40%,color-mix(in srgb,var(--check) 72%,#4a1080) 100%);
+  box-shadow:0 0 .7em color-mix(in srgb,var(--check) 80%,transparent),0 .12em .1em rgba(60,10,80,.5)}
+.f.fr s{height:.75em}
+.f.fr .k1{left:3.52em;top:3.27em;width:3.19em;transform:rotate(42.5deg)}
+.f.fr .k2{left:5.32em;top:4.92em;width:6.02em;transform:rotate(-43deg)}
+.f.rt .p{left:.5em;right:.5em;top:.9em;bottom:3.3em;border-radius:.4em;background:color-mix(in srgb,var(--screen) 80%,#000)}
+.p{animation:cv_side var(--loop) linear infinite}
+.f.rt .p::before{content:"";position:absolute;left:0;right:0;top:calc(100% + .35em);height:2.5em;background:repeating-linear-gradient(96deg,rgba(255,255,255,.34) 0 .16em,rgba(60,30,100,.3) .16em .46em)}
+.f.rt .p::after{content:"";position:absolute;left:41%;width:18%;top:26%;bottom:20%;border-radius:.3em;background:linear-gradient(180deg,color-mix(in srgb,var(--check) 50%,#fff),var(--check))}
+.l{border-radius:.7em;border:.1em solid rgba(255,255,255,.3);background:linear-gradient(180deg,color-mix(in srgb,var(--glass) 52%,transparent),color-mix(in srgb,var(--glass-deep) 46%,transparent));animation:cv_lid var(--loop) linear infinite}
+.l.lfr,.l.lbk{left:-7.35em;top:-13.3em;width:14.7em;height:2.8em}
+.l.lfr{transform:translateZ(2.3em);border-radius:1.3em 1.3em .8em .8em;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--glass) 58%,transparent) 0,color-mix(in srgb,var(--glass-deep) 46%,transparent) 34%,color-mix(in srgb,var(--glass-deep) 52%,transparent) 58%,rgba(255,255,255,.86) 78%,rgba(255,255,255,.7) 88%,color-mix(in srgb,var(--glass-deep) 60%,transparent) 100%)}
+.l.lbk{transform:translateZ(-2.3em);background:color-mix(in srgb,var(--glass-deep) 26%,transparent);border-color:rgba(255,255,255,.1)}
+.l.lrt{left:-2.3em;top:-13.3em;width:4.6em;height:2.8em;transform:translateX(7.35em) rotateY(90deg);border-radius:1.1em 1.1em .6em .6em;
+  background:linear-gradient(90deg,rgba(255,255,255,.88),color-mix(in srgb,var(--glass) 76%,transparent) 45%,color-mix(in srgb,var(--glass-deep) 70%,transparent))}
+.l.ltp{left:-7.35em;top:-2.3em;width:14.7em;height:4.6em;transform:translateY(-13.3em) rotateX(90deg);border-radius:1.3em;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--glass-deep) 42%,transparent) 0,color-mix(in srgb,var(--glass-deep) 50%,transparent) 55%,color-mix(in srgb,var(--glass) 66%,transparent) 100%)}
+.l.pg{width:.95em;height:4.8em;top:-2.4em;transform:translateY(-13.8em) rotateX(90deg);border-radius:.45em;border:0;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--glass-deep) 70%,#2a1a44),var(--glass) 45%,var(--glass-deep))}
+.l.pl2{width:.95em;height:1em;top:-13.85em;transform:translateZ(2.4em);border-radius:.3em .3em .1em .1em;border:0;
+  background:linear-gradient(180deg,var(--glass-deep),color-mix(in srgb,var(--glass-deep) 40%,#2a1a44))}
+.pa{left:-3.4em}.pb{left:2.45em}
+
+.g0{animation-delay:calc(var(--step) * -3.7684)}
+.g1{animation-delay:calc(var(--step) * -.7684)}
+.g2{animation-delay:calc(var(--step) * -1.7684)}
+.g3{animation-delay:calc(var(--step) * -2.7684)}
+.d0{animation-delay:0s}
+.d1{animation-delay:calc(var(--step) * -1)}
+.d2{animation-delay:calc(var(--step) * -2)}
+.d3{animation-delay:calc(var(--step) * -3)}
