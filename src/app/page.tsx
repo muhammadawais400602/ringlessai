@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         {/* Bottom block: animation (part of the same hero section, scrolls with the page) */}
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
+        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] -mt-24 md:-mt-48 lg:-mt-64">
           <ConveyorScene />
           {/* soft top fade so headline block blends into the scene */}
           <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none" />
