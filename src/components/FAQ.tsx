@@ -4,28 +4,32 @@ import { useState } from "react";
 
 const faqs = [
   {
-    q: "How fast can we launch our first calling campaign?",
-    a: "Most teams go live within 48 hours. Connect your CRM, pick a voice and script template for your vertical, and we handle number provisioning, warmup, and compliance mapping for you.",
+    q: "Is scraping Google Maps actually allowed?",
+    a: "It violates Google's Terms of Service. The data on the result pages is public, but the automated method of access isn't sanctioned. We're explicit about this in the README, in the repo, and here. You run Xovra on your own responsibility — the same way you'd run any other scraping tool.",
   },
   {
-    q: "Won't AI calling create more buyer remorse for my closers?",
-    a: "The opposite. Xovra AI only passes live-transfers once budget, timeline, and decision-maker status are confirmed. Your closers spend time on prospects who already want to talk.",
+    q: "Where do the emails come from if Maps doesn't publish them?",
+    a: "Not Maps. After the Maps scrape, Xovra visits each business's own website and extracts contacts from the HTML. Nothing is purchased from a broker, nothing is guessed. If the site doesn't publish an email, that record ships without one rather than a fabricated address.",
   },
   {
-    q: "How do live transfers actually work in practice?",
-    a: "When a prospect is qualified and eager to talk, Xovra identifies the best-fit available rep based on your routing rules (skills, territory, product line). The call transfers seamlessly with full context visible to your rep before they pick up — prospect name, pain points, budget, and qualification logs. No clumsy handoffs.",
+    q: "Do I need a Google account, API key or Cloud project?",
+    a: "No. Xovra uses Playwright to drive a headless Chromium browser directly. Install it, run the CLI with a niche and a city, get a CSV in /out. Google Sheets export is optional — that one does need a service-account JSON, but only if you want it.",
   },
   {
-    q: "How do you prevent numbers from getting spam-flagged?",
-    a: "We provision local DIDs, rotate pools automatically, monitor connect rates per number, and retire any line approaching telecom spam thresholds before it hurts your deliverability.",
+    q: "How do the three ad-intent sources differ?",
+    a: "On-site tags are the cheapest: we read the HTML Xovra already downloads. Transparency Center confirms live creative count from Google's own public page. Live SERP captures who's bidding right now on your keyword in your city — the strongest signal, but Google blocks it fast without a residential proxy.",
   },
   {
-    q: "What about TCPA and DNC regulatory compliance?",
-    a: "Xovra checks every number against federal and state DNC lists, honors opt-outs in real time, and logs consent trails per call. All calls record with TCPA-grade retention policies.",
+    q: "What's the difference between the CSV and the Google Sheet?",
+    a: "The CSV matches HubSpot's 14-column import schema; score, pitch angle and ad-intent metadata live in Notes. The Google Sheet uses raw field names (phone, pitch_angle, score...) because dialers read sheets by field name. Pick whichever matches your downstream workflow.",
   },
   {
-    q: "Can we use this for inbound calls as well as outbound?",
-    a: "Yes. The same voice core answers inbound inquiries with full context from your CRM, routes hot prospects to closers instantly, and books meetings for the rest — nights and weekends included.",
+    q: "Can I run many niches and cities at once?",
+    a: "Yes. --batch jobs.yaml accepts any number of niche + city pairs and runs them serially with shared enrichment caching. Point it at a YAML on Sunday night, wake up Monday with a week of lists.",
+  },
+  {
+    q: "How does Xovra handle TCPA, DNC and compliance?",
+    a: "Xovra outputs leads. What you do with them is on you. We recommend running the output through a DNC scrubber (Gryphon, RealPhoneValidation, or your dialer's built-in check) before any outbound call, and documenting consent per your jurisdiction's rules.",
   },
 ];
 
@@ -43,7 +47,7 @@ export default function FAQ() {
             Frequently Asked <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Questions</span>
           </h2>
           <p className="text-[#5a5466]">
-            Everything you need to know about implementing autonomous voice AI in your sales workflow.
+            Honest answers to the questions buyers always ask first.
           </p>
         </div>
 

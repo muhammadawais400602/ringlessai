@@ -34,7 +34,7 @@ export default function Footer() {
               <span className="font-semibold text-xl tracking-wide text-[#15101e]">XOVRA AI</span>
             </a>
             <p className="text-sm text-[#5a5466] leading-relaxed">
-              Frontier artificial intelligence infrastructure engineered for enterprise velocity cloud outbound workflows, built from the ground up.
+              A Google Maps lead engine for agencies, SDR teams and solo operators. Niche + city in. Scored, enriched, CRM-ready list out.
             </p>
           </div>
 

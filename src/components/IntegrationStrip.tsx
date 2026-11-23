@@ -45,13 +45,12 @@ const items = [
     ),
   },
   {
-    name: "Twilio SIP",
+    name: "Google Sheets",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 11 a12 12 0 0 1 20 0" />
-        <path d="M5 14 a8 8 0 0 1 14 0" />
-        <path d="M8 17 a4 4 0 0 1 8 0" />
-        <circle cx="12" cy="20" r="1.5" fill="currentColor" />
+        <path d="M6 2 h8 l4 4 v14 a2 2 0 0 1 -2 2 H6 a2 2 0 0 1 -2 -2 V4 a2 2 0 0 1 2 -2 Z" />
+        <path d="M14 2 V6 H18" />
+        <path d="M7 12 H17 M7 15 H17 M7 18 H17 M10 10 V20 M14 10 V20" />
       </svg>
     ),
   },
@@ -64,10 +63,10 @@ export default function IntegrationStrip() {
         <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
           <div className="min-w-[280px]">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-2">
-              Integration Ecosystem
+              Exports Natively Into
             </p>
             <h3 className="text-xl md:text-2xl font-semibold text-[#15101e]">
-              Partnered with high-growth stacks
+              The CRMs and sheets your team already uses
             </h3>
           </div>
 
