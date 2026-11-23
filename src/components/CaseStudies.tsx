@@ -32,7 +32,7 @@ const cases = [
       { k: "31%", v: "close uplift" },
     ],
     quote:
-      "The scoring model matters more than we expected. Dropping sub-50 records made every rep's day usable — connect rates jumped and burn dropped the same week.",
+      "The scoring model matters more than we expected. Dropping sub-50 records made every rep's day usable again. Connect rates jumped and burn dropped the same week.",
     name: "Lead-gen call center · APAC",
   },
 ];
@@ -48,7 +48,7 @@ export default function CaseStudies() {
           Teams Already Running <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra Lists</span>
         </h2>
         <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
-          Results from early access deployments, Q3&ndash;Q4 2026. Logos withheld pending contracted case-study rights.
+          Results from early access deployments, Q3 to Q4 2026. Logos withheld pending contracted case-study rights.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 mb-10">

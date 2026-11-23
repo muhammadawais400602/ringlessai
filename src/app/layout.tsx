@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Xovra — Google Maps Lead Scraper & Enrichment for Agencies",
+  title: "Xovra | Google Maps Lead Scraper & Enrichment for Agencies",
   description:
     "Build fresh prospect lists from Google Maps. Enriched with verified emails, tech stack, social presence and three Google Ads intent signals. CRM-ready CSV or Google Sheet in minutes.",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "google maps business extractor",
   ],
   openGraph: {
-    title: "Xovra — Google Maps Lead Scraper & Enrichment",
+    title: "Xovra | Google Maps Lead Scraper & Enrichment",
     description:
       "Niche + city in. Scored, enriched, CRM-ready list out. Three independent Google Ads intent signals prove the lead has budget before you dial.",
     type: "website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xovra — Google Maps Lead Scraper & Enrichment",
+    title: "Xovra | Google Maps Lead Scraper & Enrichment",
     description:
       "Build fresh prospect lists from Google Maps. Enriched contacts, ad-intent signals, CRM-ready export.",
   },

@@ -29,7 +29,7 @@ export default function Home() {
                 Xovra scrapes Google Maps for every business in your niche and
                 city, enriches each one with contact data from its own website,
                 scores it by live Google Ads intent, and drops the result into
-                your CRM or Google Sheet &mdash; ready to dial by morning.
+                your CRM or Google Sheet, ready to dial by morning.
               </p>
 
               <a href="https://github.com/ahmadvision345/mapleads" className="cta-primary">
@@ -65,7 +65,7 @@ export default function Home() {
                   <path d="M6 14 L4 20 L10 18" fill="#8b2ff8" />
                   <circle cx="15" cy="9" r="1.4" fill="#fff" />
                 </svg>
-                <span>Every lead scored 0&ndash;100</span>
+                <span>Every lead scored 0 to 100</span>
               </div>
             </div>
           </div>

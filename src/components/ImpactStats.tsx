@@ -1,7 +1,7 @@
 const stats = [
   {
     value: "70%+",
-    label: "Of Google Maps results carry a reachable website — so email enrichment actually works",
+    label: "Of Google Maps results carry a reachable website, so email enrichment actually works",
   },
   {
     value: "3×",

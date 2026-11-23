@@ -344,14 +344,14 @@ const cards = [
   },
   {
     kind: "analytics",
-    title: "Lead Scoring (0–100)",
+    title: "Lead Scoring (0 to 100)",
     body: "Every record gets a defensible fit score from web presence, ad signals, social presence and review signals. Filter with --min-score 50 and stop paying for dials on dead rows.",
     cta: "Scoring model",
   },
   {
     kind: "dids",
     title: "Social Presence Signals",
-    body: "instagram_url, instagram_followers, facebook_url, tiktok_url, has_social — extracted from each business's homepage. Perfect opener data for cold-call personalization or DM outreach.",
+    body: "instagram_url, instagram_followers, facebook_url, tiktok_url, has_social, all extracted from each business's homepage. Perfect opener data for cold-call personalization or DM outreach.",
     cta: "Social fields reference",
   },
 ];
@@ -368,7 +368,7 @@ export default function FeatureGrid() {
             From Google Maps to a Scored List
           </h2>
           <p className="text-lg md:text-xl text-[#5a5068] max-w-2xl mx-auto leading-relaxed">
-            Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list &mdash; with proof the lead has budget before you dial.
+            Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list, with proof the lead has budget before you dial.
           </p>
         </div>
 
