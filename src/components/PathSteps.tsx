@@ -1,28 +1,28 @@
 const steps = [
   {
     n: "01",
-    title: "Connect Tools",
-    body: "Connect Xovra AI to your CRM. Use GoHighLevel for quickest fit — or syncs natively with HubSpot, Salesforce and Close.",
+    title: "Pick Niche + City",
+    body: "Choose a vertical and a market. Solo neighborhoods or continent-scale batches via a YAML jobs file — both run the same way.",
   },
   {
     n: "02",
-    title: "Define Prospect",
-    body: "Set your qualification rubric — budget, decision maker status, timeline. Xovra AI filters out the tire kickers on the fly.",
+    title: "Scrape Google Maps",
+    body: "A Playwright-driven headless browser pulls every matching listing — name, phone, address, rating, review count, website URL.",
   },
   {
     n: "03",
-    title: "Build Script",
-    body: "Pick natural neural voices and customize your conversational blueprint — tone, objections, dynamic re-routing, cost-per-reach reset.",
+    title: "Enrich & Detect",
+    body: "Each website is parsed for email, tech stack and social URLs. Three independent ad-intent sources layer on top: tags, ATC, live SERP.",
   },
   {
     n: "04",
-    title: "Launch & Qualify",
-    body: "Our AI handles cold dials, warm leads and work-the-list. Qualified leads get patched immediately to available closers.",
+    title: "Score & Filter",
+    body: "Every row gets a 0–100 fit score. Filter with --min-score. Keep only advertisers with --require-ads. Drop anything without signal.",
   },
   {
     n: "05",
-    title: "Scale Revenue",
-    body: "Review sentiment metrics, analyze drop-off moments, A/B test cold openers, and double down on your most profitable audiences.",
+    title: "Export to CRM",
+    body: "HubSpot-ready CSV in /out, or a Google Sheet your dialer already watches. Lifecycle stage and contact owner set automatically.",
   },
 ];
 
@@ -33,14 +33,14 @@ export default function PathSteps() {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14 md:mb-16">
           <div>
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-              Execution Pathway
+              How It Works
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] max-w-2xl">
-              Your Path from Leads to Live Conversations
+              Niche + City In. Scored CSV Out.
             </h2>
           </div>
           <p className="text-[#5a5466] max-w-md">
-            Convert leads from your CRM, lists, or paid ads into qualified prospects eager to engage with your sales team or book appointments instantly.
+            One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting — end to end.
           </p>
         </div>
 

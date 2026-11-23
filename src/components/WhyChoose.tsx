@@ -14,83 +14,86 @@ const Icon = ({ children }: { children: React.ReactNode }) => (
 
 const items: Item[] = [
   {
-    tag: "Simplicity",
-    title: "Outbound-First Platform",
-    body: "When a lead qualifies, with live routing, then use the same voice AI core to handle inbound queries with identical context.",
-    foot: "One system for every voice motion.",
+    tag: "Freshness",
+    title: "Not a Database. A Scraper.",
+    body: "Every list is built live, the day you run it. No stale 2022 records, no duplicate burn with the vendor's other customers, no decayed phone numbers.",
+    foot: "Zero overlap with Apollo / ZoomInfo buyers.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 16.92V20a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 2 4.18 2 2 0 0 1 4 2h3.09a2 2 0 0 1 2 1.72 13 13 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.36-1.36a2 2 0 0 1 2.11-.45 13 13 0 0 0 2.81.7 2 2 0 0 1 1.72 2z" />
+          <path d="M21 12a9 9 0 1 1-3-6.7" />
+          <polyline points="21 3 21 9 15 9" />
         </svg>
       </Icon>
     ),
   },
   {
-    tag: "Speed",
-    title: "Contextual Live Transfers",
-    body: "When a lead qualifies, AI-based routing hands them to your top sales closer with instantaneous screen pop context.",
-    foot: "Zero handoff friction. 40%+ more closes.",
-    icon: (
-      <Icon>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="13 17 18 12 13 7" />
-          <polyline points="6 17 11 12 6 7" />
-        </svg>
-      </Icon>
-    ),
-  },
-  {
-    tag: "Deployment",
-    title: "Self-Managing Numbers",
-    body: "Xovra AI automatically provisions local DIDs and rotates outbound lines to circumvent 'Spam Likely' telecom labels.",
-    foot: "Protects domain and connect rates proactively.",
-    icon: (
-      <Icon>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="5" y="2" width="14" height="20" rx="2" />
-          <line x1="12" y1="18" x2="12.01" y2="18" />
-        </svg>
-      </Icon>
-    ),
-  },
-  {
-    tag: "Leverage",
-    title: "Scale Without Headcount",
-    body: "Handle weekend peaks and thousands of parallel touches with AI capacity equivalent to a 50-person SDR team, zero onboarding effort.",
-    foot: "4x pipeline output at current operating costs.",
-    icon: (
-      <Icon>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 3v18h18" />
-          <path d="M7 15l4-4 4 4 5-6" />
-        </svg>
-      </Icon>
-    ),
-  },
-  {
-    tag: "Speed",
-    title: "Deploy in 48 Hours",
-    body: "Go live quickly with turnkey vertical blueprints, then branch out to fresh marketing channels without enterprise red tape.",
-    foot: "Immediate time-to-value, zero dev required.",
-    icon: (
-      <Icon>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-      </Icon>
-    ),
-  },
-  {
-    tag: "Visibility",
-    title: "Revenue-Grade Analytics",
-    body: "Examine true acquisition cost per validated meeting, attribution channels, and close velocity with deterministic attribution.",
-    foot: "Total focus on booked revenue, not vanity calls.",
+    tag: "Intent",
+    title: "Advertisers Close 4× Better.",
+    body: "Businesses already paying for Google Ads have budget approved and a CPL number they already watch. Xovra proves it from three independent sources before you spend a dial.",
+    foot: "Target buyers, not window-shoppers.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="12" cy="12" r="1" fill="currentColor" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    tag: "Depth",
+    title: "Beyond the Google Maps Row.",
+    body: "We visit each business's own website for the data Maps itself doesn't expose: email, tech stack, Instagram, Facebook, TikTok, follower counts, review signal.",
+    foot: "The full picture, not a phone number.",
+    icon: (
+      <Icon>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 12h4l3-9 4 18 3-9h4" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    tag: "Honesty",
+    title: "No Hidden ToS Risk.",
+    body: "Scraping Google Maps violates Google's Terms of Service. We say so in the README, the FAQ, and here. You operate with full awareness — no buried disclosure, no silent takedown risk.",
+    foot: "Documented, not whitewashed.",
+    icon: (
+      <Icon>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2 L20 6 V12 C20 17 16 21 12 22 C8 21 4 17 4 12 V6 Z" />
+          <polyline points="9 12 11 14 15 10" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    tag: "Portability",
+    title: "CSV, Sheets, or Pipe It.",
+    body: "Open formats only. 14-column HubSpot-shaped CSV, or a Google Sheet field-mapped so any dialer can watch it. No proprietary export, no vendor lock-in.",
+    foot: "Your data, your workflow, your dialer.",
+    icon: (
+      <Icon>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 3 H5 a2 2 0 0 0-2 2 v14 a2 2 0 0 0 2 2 h14 a2 2 0 0 0 2-2 V10" />
+          <polyline points="17 3 21 3 21 7" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    tag: "Cost",
+    title: "No Per-Lead Markup.",
+    body: "Pay for the engine, not the row. Re-run the same niche + city every week. Scale from one city to a continent without a bill that scales with you.",
+    foot: "Fixed-cost outbound sourcing.",
+    icon: (
+      <Icon>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5 H9.5 a3.5 3.5 0 0 0 0 7 h5 a3.5 3.5 0 0 1 0 7 H6" />
         </svg>
       </Icon>
     ),
@@ -103,13 +106,13 @@ export default function WhyChoose() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
         <div className="text-center mb-14 md:mb-16">
           <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            Strategic Advantages
+            Why Agencies Pick Xovra
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Why Top Teams Choose <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra AI</span>
+            Six Reasons to Stop Buying <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Dead Lists</span>
           </h2>
           <p className="text-[#5a5466] max-w-2xl mx-auto">
-            Traditional cold calling and legacy outbound software are dead. Here&apos;s how our architecture wins.
+            Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh &mdash; from signals those databases can&apos;t see.
           </p>
         </div>
 

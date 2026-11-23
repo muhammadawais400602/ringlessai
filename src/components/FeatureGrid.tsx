@@ -318,12 +318,42 @@ function Infographic({ kind }: { kind: string }) {
 }
 
 const cards = [
-  { kind: "routing", title: "Smart Routing", body: "Qualified prospects route to the right rep in real time with full context — so top closers handle the hottest leads fast.", cta: "Explore routing logic" },
-  { kind: "cadence", title: "Multi-Touch Cadence", body: "Route warm leads to live calendars in seconds, confirming time, intent, and details without cumbersome back-and-forth emails.", cta: "Cadence architecture" },
-  { kind: "speed", title: "Speed to Lead (<60s)", body: "Contact new leads within 60 seconds and prioritize inventory automatically — work the pipeline faster than any human SDR floor.", cta: "Latency statistics" },
-  { kind: "booking", title: "Auto Booking", body: "If no rep is available, Xovra books directly on your calendar with timezone checks and instant invites — no missed opportunities.", cta: "Calendar sync" },
-  { kind: "analytics", title: "Revenue Analytics", body: "Track CPL, pickup rates by segment, convo-to-meeting conversion, and pipeline created: see what drives revenue in real time.", cta: "View reporting telemetry" },
-  { kind: "dids", title: "Self-Managing Local DIDs", body: "Auto-buy local numbers, rotate DIDs to avoid carrier spam flags, and retire risky numbers early — protecting connect rates.", cta: "Carrier protection info" },
+  {
+    kind: "routing",
+    title: "Niche + City Targeting",
+    body: "Give Xovra a vertical and a market. It scrapes every matching Google Maps listing, then follows each business to its own website for deeper enrichment. No API key, no quota, no Google Cloud project.",
+    cta: "How targeting works",
+  },
+  {
+    kind: "cadence",
+    title: "Multi-Source Enrichment",
+    body: "Each lead is enriched from the business's own site: email, phone, tech stack, Instagram, Facebook, TikTok, follower counts, review counts. The full picture, never guessed, never purchased.",
+    cta: "What's in each record",
+  },
+  {
+    kind: "speed",
+    title: "Ad-Intent Detection",
+    body: "Three layered signals prove a business is actively buying leads: on-site Google Ads tags, Ads Transparency Center creatives, and live SERP capture. Advertisers close 4× better than cold Maps rows.",
+    cta: "The three signals",
+  },
+  {
+    kind: "booking",
+    title: "CRM-Ready Export",
+    body: "Two shapes, on purpose. HubSpot-formatted CSV with the standard 14 columns, or a Google Sheet your dialer reads by field name. Pitch angle, score and notes included in both.",
+    cta: "CSV + Sheet schemas",
+  },
+  {
+    kind: "analytics",
+    title: "Lead Scoring (0–100)",
+    body: "Every record gets a defensible fit score from web presence, ad signals, social presence and review signals. Filter with --min-score 50 and stop paying for dials on dead rows.",
+    cta: "Scoring model",
+  },
+  {
+    kind: "dids",
+    title: "Social Presence Signals",
+    body: "instagram_url, instagram_followers, facebook_url, tiktok_url, has_social — extracted from each business's homepage. Perfect opener data for cold-call personalization or DM outreach.",
+    cta: "Social fields reference",
+  },
 ];
 
 export default function FeatureGrid() {
@@ -334,8 +364,11 @@ export default function FeatureGrid() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#f3e9ff] text-[#5b1fa7] text-[11px] font-semibold tracking-[0.18em] uppercase mb-8">
             Main Features
           </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
+            From Google Maps to a Scored List
+          </h2>
           <p className="text-lg md:text-xl text-[#5a5068] max-w-2xl mx-auto leading-relaxed">
-            Five AI-driven tools that qualify leads, book meetings, and scale revenue — on autopilot.
+            Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list &mdash; with proof the lead has budget before you dial.
           </p>
         </div>
 

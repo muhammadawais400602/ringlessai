@@ -26,21 +26,19 @@ export default function FinalCTA() {
 
           <div className="relative">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#c187fb] mb-5">
-              Instant Deployment
+              Open Source
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-5 leading-[1.05]">
-              Stop Losing Business.
-              <br />
-              Work Leads Harder, Faster,{" "}
-              <span className="bg-gradient-to-r from-[#ec6afb] to-[#c187fb] bg-clip-text text-transparent">Smarter.</span>
+              Start Building Your{" "}
+              <span className="bg-gradient-to-r from-[#ec6afb] to-[#c187fb] bg-clip-text text-transparent">List Tonight.</span>
             </h2>
             <p className="text-[#b8b0c8] max-w-xl mx-auto mb-10">
-              Launch your first campaign this week. See qualified conversations hitting your calendar in days, not months.
+              Clone the repo, pick a niche and a city, and have a scored CSV before you finish your coffee. No signup, no credit card, no API quota.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="#start" className="cta-primary">
-                <span>Start Growth</span>
+              <a href="https://github.com/ahmadvision345/mapleads" className="cta-primary">
+                <span>View on GitHub</span>
                 <span className="arrow">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -49,21 +47,21 @@ export default function FinalCTA() {
                 </span>
               </a>
               <a
-                href="#demo"
+                href="https://github.com/ahmadvision345/mapleads#readme"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-xl text-sm font-medium text-white hover:bg-white/[0.1] transition"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
+                  <path d="M14 2 H6 a2 2 0 0 0 -2 2 v16 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2 -2 V8 Z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="9" y1="13" x2="15" y2="13" />
+                  <line x1="9" y1="17" x2="15" y2="17" />
                 </svg>
-                Book Strategy Discovery Call
+                Read the README
               </a>
             </div>
 
             <p className="text-xs text-[#8a7fa3] mt-8">
-              No long-term contracts. Deployed as a managed service · 72-day performance guarantee
+              Open-source core on GitHub &middot; managed cloud tier in early access
             </p>
           </div>
         </div>

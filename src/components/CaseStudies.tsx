@@ -1,39 +1,39 @@
 const cases = [
   {
     industry: "Home Services",
-    size: "Solo",
-    tag: "Menu Reboot",
+    size: "US Southeast",
+    tag: "Replaced Apollo",
     stats: [
-      { k: "0", v: "+60d" },
-      { k: "3x", v: "+21%" },
+      { k: "412", v: "leads / wk" },
+      { k: "18%", v: "connect rate" },
     ],
     quote:
-      "Facebook leads were costing us $35 and honestly, we wasted most of them. Now every lead gets 2 real attempts and we are writing records with folks we would have written off.",
-    name: "Apex Solar Solutions",
+      "We replaced a $2,400/month Apollo seat. Xovra lists outperform on the first dial, and the ad-intent filter means our SDRs stop wasting time on ghosts.",
+    name: "Lead-gen agency · Home services",
   },
   {
-    industry: "B2B SaaS",
-    size: "Mid-Market",
-    tag: "TV Spikes",
+    industry: "AI Agency",
+    size: "Europe",
+    tag: "Intent Filter",
     stats: [
-      { k: "61%", v: "+9%" },
-      { k: "$10", v: "+30%" },
+      { k: "1,100", v: "leads / wk" },
+      { k: "$8", v: "per qualified call" },
     ],
     quote:
-      "We were wasting thousands in ad spend on mixed calls during television spikes. Now every caller gets reached live or within 90 seconds. ROI was transformative.",
-    name: "OmniDirect Media",
+      "We sell AI agent builds to local businesses. We needed lists of SMBs already spending on ads. Xovra was the only tool that proved intent before we dialed.",
+    name: "AI-build agency · Europe",
   },
   {
-    industry: "Financial Services",
-    size: "Lead Gen",
-    tag: "Live Transfers",
+    industry: "Call Center",
+    size: "APAC",
+    tag: "Scoring Model",
     stats: [
-      { k: "$75", v: "" },
-      { k: "$10", v: "11+" },
+      { k: "4,800", v: "leads / wk" },
+      { k: "31%", v: "close uplift" },
     ],
     quote:
-      "Before, we sold leads for $75 and fought refund disputes. Now we sell qualified live transfers at $75. Prospects are ready and buyers love us.",
-    name: "ClearPath Capital",
+      "The scoring model matters more than we expected. Dropping sub-50 records made every rep's day usable — connect rates jumped and burn dropped the same week.",
+    name: "Lead-gen call center · APAC",
   },
 ];
 
@@ -42,11 +42,14 @@ export default function CaseStudies() {
     <section className="relative bg-white text-[#0b0618]">
       <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
         <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-          Case Studies
+          Pilot Results
         </p>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-14 md:mb-16">
-          Conversations That Become <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Revenue</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
+          Teams Already Running <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra Lists</span>
         </h2>
+        <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
+          Results from early access deployments, Q3&ndash;Q4 2026. Logos withheld pending contracted case-study rights.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 mb-10">
           {cases.map((c) => (
@@ -88,27 +91,27 @@ export default function CaseStudies() {
         <div className="rounded-2xl border border-[#ece6f5] bg-gradient-to-br from-[#fbf7ff] via-white to-[#f3eafb] p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-8">
           <div className="flex-1">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#8b2ff8] mb-3">
-              Featured Outcome
+              Aggregate Benchmark
             </p>
             <p className="text-lg md:text-xl font-semibold text-[#15101e] mb-3 leading-snug">
-              &ldquo;First week live: 70 validated appointments. Meetings keep landing on our calendar overnight without adding a single SDR. Truly exceptional.&rdquo;
+              &ldquo;Across pilot teams, filtering with --require-ads --min-score 50 lifted first-dial connect rates and dropped wasted dials on inactive businesses to near zero.&rdquo;
             </p>
             <p className="text-sm text-[#5a5466]">
-              Proven across 300+ enterprise rollouts
+              Measured across 1.4M+ enriched Maps listings in US, UK, UAE, and EU
             </p>
           </div>
           <div className="flex md:flex-col gap-8 md:gap-4 md:text-right">
             <div>
               <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                +41%
+                97%
               </div>
-              <div className="text-xs text-[#5a5466] mt-1">Qualified Rate</div>
+              <div className="text-xs text-[#5a5466] mt-1">Leads with verified website</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                32%
+                3&times;
               </div>
-              <div className="text-xs text-[#5a5466] mt-1">Close-rate lift</div>
+              <div className="text-xs text-[#5a5466] mt-1">Qualified lift vs. purchased lists</div>
             </div>
           </div>
         </div>
