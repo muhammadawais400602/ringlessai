@@ -1,3 +1,4 @@
+import Reveal from "./Reveal";
 import styles from "./feature-grid.module.css";
 
 function Defs({ id }: { id: string }) {
@@ -363,34 +364,45 @@ const cards = [
 
 export default function FeatureGrid() {
   return (
-    <section className="relative bg-white text-[#15101e] py-24 md:py-32">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20">
+    <section className="relative bg-white text-[#15101e] py-24 md:py-32 overflow-hidden">
+      <div className="bg-blob bg-blob-pink w-[520px] h-[520px] -top-24 left-1/2 -translate-x-1/2 opacity-40" />
+      <div className="bg-grid" />
+
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20">
         <div className="text-center mb-16 md:mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#f3e9ff] text-[#5b1fa7] text-[11px] font-semibold tracking-[0.18em] uppercase mb-8">
-            Main Features
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            From Google Maps to a Scored List
-          </h2>
-          <p className="text-lg md:text-xl text-[#5a5068] max-w-2xl mx-auto leading-relaxed">
-            Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list, with proof the lead has budget before you dial.
-          </p>
+          <Reveal>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#f3e9ff] text-[#5b1fa7] text-[11px] font-semibold tracking-[0.18em] uppercase mb-8">
+              Main Features
+            </span>
+          </Reveal>
+          <Reveal delay={1}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
+              From Google Maps to a Scored List
+            </h2>
+          </Reveal>
+          <Reveal delay={2}>
+            <p className="text-lg md:text-xl text-[#5a5068] max-w-2xl mx-auto leading-relaxed">
+              Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list, with proof the lead has budget before you dial.
+            </p>
+          </Reveal>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {cards.map((c) => (
-            <article key={c.kind} className={styles.card}>
-              <div className={styles.graphicWrap}><Infographic kind={c.kind} /></div>
-              <h3 className="text-2xl font-semibold mb-3 tracking-tight text-[#15101e]">{c.title}</h3>
-              <p className="text-[15px] text-[#5a5068] leading-relaxed mb-8">{c.body}</p>
-              <a href="#" className="inline-flex items-center gap-2 text-[#8b2ff8] text-sm font-semibold hover:gap-3 transition-all">
-                {c.cta}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </article>
+          {cards.map((c, i) => (
+            <Reveal key={c.kind} delay={((i % 3) + 1) as 1 | 2 | 3}>
+              <article className={styles.card}>
+                <div className={styles.graphicWrap}><Infographic kind={c.kind} /></div>
+                <h3 className="text-2xl font-semibold mb-3 tracking-tight text-[#15101e]">{c.title}</h3>
+                <p className="text-[15px] text-[#5a5068] leading-relaxed mb-8">{c.body}</p>
+                <a href="#" className="inline-flex items-center gap-2 text-[#8b2ff8] text-sm font-semibold hover:gap-3 transition-all">
+                  {c.cta}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </article>
+            </Reveal>
           ))}
         </div>
       </div>

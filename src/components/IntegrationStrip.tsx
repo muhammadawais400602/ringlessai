@@ -54,30 +54,73 @@ const items = [
       </svg>
     ),
   },
+  {
+    name: "Pipedrive",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 3 h6 a5 5 0 0 1 0 10 h-4 V21 H7 V3 Z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Monday",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="6" cy="12" r="2.4" />
+        <circle cx="12" cy="12" r="2.4" />
+        <circle cx="18" cy="12" r="2.4" />
+      </svg>
+    ),
+  },
+  {
+    name: "Airtable",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 10 H21 M9 4 V20 M15 4 V20" />
+      </svg>
+    ),
+  },
+  {
+    name: "Notion",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="3" width="16" height="18" rx="2" />
+        <path d="M8 7 V17 M8 7 L16 17 V7" />
+      </svg>
+    ),
+  },
 ];
 
 export default function IntegrationStrip() {
-  return (
-    <section className="relative bg-white text-[#0b0618]">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-10 md:py-12">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-          <div className="min-w-[280px]">
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-2">
-              Exports Natively Into
-            </p>
-            <h3 className="text-xl md:text-2xl font-semibold text-[#15101e]">
-              The CRMs and sheets your team already uses
-            </h3>
-          </div>
+  const row = (
+    <>
+      {items.map((item, i) => (
+        <div key={`${item.name}-${i}`} className="flex items-center gap-2.5 text-[#15101e] shrink-0">
+          <span className="w-5 h-5 text-[#8b2ff8]">{item.icon}</span>
+          <span className="text-[15px] font-medium whitespace-nowrap">{item.name}</span>
+        </div>
+      ))}
+    </>
+  );
 
-          <div className="flex-1 flex flex-wrap items-center gap-x-10 gap-y-5 lg:justify-end">
-            {items.map((item) => (
-              <div key={item.name} className="flex items-center gap-2.5 text-[#15101e]">
-                <span className="w-5 h-5 text-[#8b2ff8]">{item.icon}</span>
-                <span className="text-[15px] font-medium">{item.name}</span>
-              </div>
-            ))}
-          </div>
+  return (
+    <section className="relative bg-white text-[#0b0618] overflow-hidden">
+      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 pt-10 md:pt-12 pb-2">
+        <div className="text-center mb-6">
+          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-2">
+            Exports Natively Into
+          </p>
+          <h3 className="text-xl md:text-2xl font-semibold text-[#15101e]">
+            The CRMs and sheets your team already uses
+          </h3>
+        </div>
+      </div>
+
+      <div className="marquee-mask py-8">
+        <div className="marquee-track">
+          {row}
+          {row}
         </div>
       </div>
     </section>
