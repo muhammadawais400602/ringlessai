@@ -32,6 +32,13 @@ function PremiumPlate({ id, children }: { id: string; children: React.ReactNode 
 
 /* ---------- 1. Niche + City Targeting ---------- */
 function Targeting() {
+  const pins = [
+    { x: 56, y: 82 },
+    { x: 102, y: 60 },
+    { x: 86, y: 122 },
+    { x: 158, y: 104 },
+    { x: 188, y: 68 },
+  ];
   return (
     <PremiumPlate id="tg">
       <g opacity="0.3">
@@ -46,23 +53,20 @@ function Targeting() {
         <rect x="18" y="12" width="120" height="22" rx="11" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
         <circle cx="30" cy="23" r="4" fill="none" stroke="#8b2ff8" strokeWidth="1.4" />
         <line x1="33" y1="26" x2="36" y2="29" stroke="#8b2ff8" strokeWidth="1.4" strokeLinecap="round" />
-        <text x="44" y="27" fontSize="9" fontWeight="600" fill="#5b1fa7" fontFamily="system-ui">dentists · Dubai</text>
+        <text x="44" y="27" fontSize="9" fontWeight="600" fill="#5b1fa7" fontFamily="system-ui">dentists &middot; Dubai</text>
       </g>
-      {[
-        { x: 56, y: 82 },
-        { x: 102, y: 60 },
-        { x: 86, y: 122 },
-        { x: 158, y: 104 },
-        { x: 188, y: 68 },
-      ].map((p, i) => (
+      {pins.map((p, i) => (
         <g key={i} transform={`translate(${p.x} ${p.y})`} className={styles[`pin${i}`]}>
           <path d="M0 -12 C 6 -12 10 -8 10 -2 C 10 6 0 16 0 16 C 0 16 -10 6 -10 -2 C -10 -8 -6 -12 0 -12 Z" fill="url(#grad-tg)" />
           <circle cx="0" cy="-2" r="3.2" fill="#ffffff" />
         </g>
       ))}
       <g transform="translate(126 88)">
-        <circle r="28" fill="url(#halo-tg)" className={styles.centerPulse} />
-        <circle r="18" fill="none" stroke="#ec6afb" strokeOpacity="0.5" className={styles.ringPulse} />
+        <circle r="28" fill="url(#halo-tg)" />
+        <circle r="18" fill="none" stroke="#ec6afb" strokeOpacity="0.5">
+          <animate attributeName="r" values="12;26;12" dur="2.4s" repeatCount="indefinite" />
+          <animate attributeName="stroke-opacity" values="0.7;0;0.7" dur="2.4s" repeatCount="indefinite" />
+        </circle>
         <path d="M0 -15 C 8 -15 13 -10 13 -2 C 13 8 0 22 0 22 C 0 22 -13 8 -13 -2 C -13 -10 -8 -15 0 -15 Z" fill="url(#grad-tg)" />
         <circle cx="0" cy="-3" r="4.5" fill="#ffffff" />
       </g>
@@ -72,8 +76,20 @@ function Targeting() {
 
 /* ---------- 2. Multi-Source Enrichment ---------- */
 function Enrichment() {
+  const chips = [
+    { x: 32, y: 40, k: "globe" },
+    { x: 208, y: 40, k: "mail" },
+    { x: 32, y: 120, k: "ig" },
+    { x: 208, y: 120, k: "fb" },
+  ];
   return (
     <PremiumPlate id="en">
+      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
+        <path d="M46 48 L80 62" />
+        <path d="M194 48 L160 62" />
+        <path d="M46 112 L80 98" />
+        <path d="M194 112 L160 98" />
+      </g>
       <g>
         <rect x="80" y="48" width="80" height="64" rx="9" fill="url(#grad-en)" opacity="0.14" />
         <rect x="80" y="48" width="80" height="64" rx="9" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
@@ -81,18 +97,13 @@ function Enrichment() {
         <rect x="108" y="62" width="44" height="3.5" rx="1.7" fill="#c6b1e5" />
         <rect x="108" y="68" width="30" height="2.8" rx="1.4" fill="#e3d2f3" />
         {[0, 1, 2].map((i) => (
-          <g key={i} className={styles[`enrich${i}`]}>
+          <g key={i}>
             <rect x="86" y={82 + i * 9} width="68" height="5" rx="2.5" fill="url(#grad-en)" opacity="0.14" />
-            <rect x="86" y={82 + i * 9} width={28 + i * 14} height="5" rx="2.5" fill="url(#grad-en)" />
+            <rect x="86" y={82 + i * 9} width={28 + i * 14} height="5" rx="2.5" fill="url(#grad-en)" className={styles[`enrich${i}`]} />
           </g>
         ))}
       </g>
-      {[
-        { x: 28, y: 36, k: "globe" },
-        { x: 212, y: 36, k: "mail" },
-        { x: 28, y: 122, k: "ig" },
-        { x: 212, y: 122, k: "fb" },
-      ].map((it, i) => (
+      {chips.map((it, i) => (
         <g key={i} transform={`translate(${it.x} ${it.y})`} className={styles[`chip${i}`]}>
           <circle r="16" fill="url(#halo-en)" />
           <circle r="12" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.4" />
@@ -121,25 +132,20 @@ function Enrichment() {
           )}
         </g>
       ))}
-      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
-        <path d="M44 44 L80 60" />
-        <path d="M196 44 L160 60" />
-        <path d="M44 114 L80 100" />
-        <path d="M196 114 L160 100" />
-      </g>
     </PremiumPlate>
   );
 }
 
 /* ---------- 3. Ad-Intent Detection ---------- */
 function AdIntent() {
+  const sources = [
+    { y: 40, label: "TAG" },
+    { y: 80, label: "ATC" },
+    { y: 120, label: "SERP" },
+  ];
   return (
     <PremiumPlate id="ai">
-      {[
-        { y: 40, label: "TAG" },
-        { y: 80, label: "ATC" },
-        { y: 120, label: "SERP" },
-      ].map((s, i) => (
+      {sources.map((s, i) => (
         <g key={i} transform={`translate(18 ${s.y})`} className={styles[`src${i}`]}>
           <rect x="0" y="-13" width="78" height="26" rx="13" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
           <circle cx="15" cy="0" r="8" fill="url(#grad-ai)" />
@@ -153,14 +159,16 @@ function AdIntent() {
         <path d="M100 120 Q148 100 172 80" />
       </g>
       <g transform="translate(198 80)">
-        <circle r="34" fill="url(#halo-ai)" />
+        <circle r="34" fill="url(#halo-ai)">
+          <animate attributeName="r" values="30;36;30" dur="2.4s" repeatCount="indefinite" />
+        </circle>
         <g filter="url(#glow-ai)">
           <circle r="24" fill="url(#grad-ai)" opacity="0.2" />
           <circle r="24" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
         </g>
         <path d="M-10 1 L-3 8 L11 -7" stroke="url(#grad-ai)" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       </g>
-      <g transform="translate(198 140)" className={styles.adBadge}>
+      <g transform="translate(198 136)">
         <rect x="-36" y="-9" width="72" height="18" rx="9" fill="url(#grad-ai)" />
         <text x="0" y="4" textAnchor="middle" fontSize="8" fontWeight="700" fill="#fff" fontFamily="system-ui">AD-INTENT</text>
       </g>
@@ -223,12 +231,21 @@ function Scoring() {
           strokeLinecap="round"
           strokeDasharray="226"
           strokeDashoffset="34"
-          className={styles.gaugeFill}
-        />
+        >
+          <animate attributeName="stroke-dashoffset" values="226;34;34" keyTimes="0;0.6;1" dur="2.8s" repeatCount="indefinite" />
+        </path>
         <text x="-72" y="18" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">0</text>
         <text x="0" y="-82" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">50</text>
         <text x="72" y="18" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">100</text>
-        <g className={styles.needle}>
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            values="-90;66;66"
+            keyTimes="0;0.6;1"
+            dur="2.8s"
+            repeatCount="indefinite"
+          />
           <line x1="0" y1="0" x2="0" y2="-56" stroke="#15101e" strokeWidth="2.4" strokeLinecap="round" />
           <circle r="6" fill="#15101e" />
           <circle r="2.8" fill="#ec6afb" />
@@ -248,6 +265,11 @@ function Scoring() {
 function Social() {
   return (
     <PremiumPlate id="so">
+      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
+        <path d="M74 44 L96 60" />
+        <path d="M166 44 L144 60" />
+        <path d="M120 120 V106" />
+      </g>
       <g>
         <rect x="80" y="58" width="80" height="48" rx="10" fill="url(#grad-so)" opacity="0.14" />
         <rect x="80" y="58" width="80" height="48" rx="10" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
@@ -260,7 +282,7 @@ function Social() {
         <rect x="-7" y="-7" width="14" height="14" rx="4" fill="none" stroke="#8b2ff8" strokeWidth="1.6" />
         <circle r="3.6" fill="none" stroke="#8b2ff8" strokeWidth="1.6" />
         <circle cx="4" cy="-4" r="1.1" fill="#8b2ff8" />
-        <g transform="translate(0 26)">
+        <g transform="translate(0 28)">
           <rect x="-18" y="-7" width="36" height="14" rx="7" fill="url(#grad-so)" />
           <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">12.4K</text>
         </g>
@@ -269,7 +291,7 @@ function Social() {
         <circle r="18" fill="url(#halo-so)" />
         <circle r="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
         <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill="#8b2ff8" fontFamily="system-ui">f</text>
-        <g transform="translate(0 26)">
+        <g transform="translate(0 28)">
           <rect x="-16" y="-7" width="32" height="14" rx="7" fill="url(#grad-so)" />
           <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">8.1K</text>
         </g>
@@ -279,15 +301,10 @@ function Social() {
         <circle r="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
         <path d="M-3 -6 V5 A5 5 0 1 1 -8 0" stroke="#8b2ff8" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M-3 -6 Q 2 -6 6 -2" stroke="#8b2ff8" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <g transform="translate(0 26)">
+        <g transform="translate(0 -24)">
           <rect x="-16" y="-7" width="32" height="14" rx="7" fill="url(#grad-so)" />
           <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">2.3K</text>
         </g>
-      </g>
-      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
-        <path d="M74 44 L96 60" />
-        <path d="M166 44 L144 60" />
-        <path d="M120 120 V106" />
       </g>
     </PremiumPlate>
   );

@@ -35,138 +35,67 @@
 
 .travel { filter: drop-shadow(0 0 6px rgba(236,106,251,0.6)); }
 
-/* ---- 1. Targeting: pins pop in sequentially; center pulses ---- */
-@keyframes pinPop {
-  0%, 15% { opacity: 0; transform: translateY(-6px) scale(0.6); }
-  30%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+/* Opacity-only pulse. Elements never fully disappear. */
+@keyframes softPulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
 }
+
+/* ---- 1. Targeting: pins pulse in sequence, always visible ---- */
 .pin0, .pin1, .pin2, .pin3, .pin4 {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: pinPop 3.6s ease-out infinite;
+  animation: softPulse 2.8s ease-in-out infinite;
 }
-.pin1 { animation-delay: .35s; }
-.pin2 { animation-delay: .7s; }
-.pin3 { animation-delay: 1.05s; }
-.pin4 { animation-delay: 1.4s; }
+.pin1 { animation-delay: 0.2s; }
+.pin2 { animation-delay: 0.4s; }
+.pin3 { animation-delay: 0.6s; }
+.pin4 { animation-delay: 0.8s; }
 
-@keyframes centerPulse {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-.centerPulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: centerPulse 2.2s ease-in-out infinite;
-}
-
-@keyframes ringPulse {
-  0% { opacity: 0.8; transform: scale(0.6); stroke-width: 2; }
-  100% { opacity: 0; transform: scale(2.2); stroke-width: 0.5; }
-}
-.ringPulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: ringPulse 2.4s ease-out infinite;
-}
-
-/* ---- 2. Enrichment: chips fly in; field bars fill ---- */
-@keyframes chipFly {
-  0%, 10% { opacity: 0; transform: scale(0.5); }
-  25%, 100% { opacity: 1; transform: scale(1); }
-}
+/* ---- 2. Enrichment: chips pulse sequentially; enrichment bars shimmer ---- */
 .chip0, .chip1, .chip2, .chip3 {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: chipFly 3s ease-out infinite;
+  animation: softPulse 2.6s ease-in-out infinite;
 }
-.chip1 { animation-delay: .25s; }
-.chip2 { animation-delay: .5s; }
-.chip3 { animation-delay: .75s; }
+.chip1 { animation-delay: 0.25s; }
+.chip2 { animation-delay: 0.5s; }
+.chip3 { animation-delay: 0.75s; }
 
-@keyframes enrichFill {
-  0%, 20% { transform: scaleX(0); }
-  50%, 100% { transform: scaleX(1); }
+@keyframes barShimmer {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
 }
 .enrich0, .enrich1, .enrich2 {
-  transform-box: fill-box;
-  transform-origin: left center;
-  animation: enrichFill 3s ease-out infinite;
+  animation: barShimmer 2.4s ease-in-out infinite;
 }
-.enrich0 { animation-delay: 1s; }
-.enrich1 { animation-delay: 1.25s; }
-.enrich2 { animation-delay: 1.5s; }
+.enrich1 { animation-delay: 0.3s; }
+.enrich2 { animation-delay: 0.6s; }
 
-/* ---- 3. Ad-Intent: source rows light up sequentially; badge pulses ---- */
-@keyframes srcIn {
-  0%, 10% { opacity: 0.25; transform: translateX(-6px); }
-  25%, 100% { opacity: 1; transform: translateX(0); }
-}
+/* ---- 3. Ad-Intent: source rows pulse sequentially ---- */
 .src0, .src1, .src2 {
-  transform-box: fill-box;
-  animation: srcIn 2.8s ease-out infinite;
+  animation: softPulse 2.4s ease-in-out infinite;
 }
-.src1 { animation-delay: .35s; }
-.src2 { animation-delay: .7s; }
+.src1 { animation-delay: 0.3s; }
+.src2 { animation-delay: 0.6s; }
 
-@keyframes adBadge {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-}
-.adBadge {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: adBadge 2.4s ease-in-out infinite;
-}
-
-/* ---- 4. Export: table rows fill sequentially ---- */
-@keyframes rowIn {
-  0%, 10% { opacity: 0.1; transform: translateX(-4px); }
-  30%, 100% { opacity: 1; transform: translateX(0); }
-}
+/* ---- 4. Export: table rows pulse sequentially ---- */
 .row0, .row1, .row2, .row3, .row4 {
-  transform-box: fill-box;
-  animation: rowIn 3s ease-out infinite;
+  animation: softPulse 2.4s ease-in-out infinite;
 }
-.row1 { animation-delay: .15s; }
-.row2 { animation-delay: .3s; }
-.row3 { animation-delay: .45s; }
-.row4 { animation-delay: .6s; }
+.row1 { animation-delay: 0.15s; }
+.row2 { animation-delay: 0.3s; }
+.row3 { animation-delay: 0.45s; }
+.row4 { animation-delay: 0.6s; }
 
-/* ---- 5. Scoring: gauge fills; needle rotates; qualified chip appears ---- */
-@keyframes gaugeFill {
-  0% { stroke-dashoffset: 226; }
-  70%, 100% { stroke-dashoffset: 34; }
-}
-.gaugeFill { animation: gaugeFill 2.4s ease-out infinite; }
-
-@keyframes needleSwing {
-  0% { transform: rotate(-90deg); }
-  70%, 100% { transform: rotate(67deg); }
-}
-.needle {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: needleSwing 2.4s ease-out infinite;
-}
-
-@keyframes qualIn {
-  0%, 55% { opacity: 0; transform: translateY(8px); }
-  75%, 100% { opacity: 1; transform: translateY(0); }
+/* ---- 5. Scoring: qualified chip gentle glow ---- */
+@keyframes chipGlow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(236,106,251,0)); }
+  50% { filter: drop-shadow(0 0 8px rgba(236,106,251,0.6)); }
 }
 .qualChip {
-  transform-box: fill-box;
-  animation: qualIn 2.4s ease-out infinite;
+  animation: chipGlow 2.4s ease-in-out infinite;
 }
 
-/* ---- 6. Social: icons bob sequentially ---- */
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
+/* ---- 6. Social: icons pulse sequentially ---- */
 .sp0, .sp1, .sp2 {
-  transform-box: fill-box;
-  animation: bob 2.6s ease-in-out infinite;
+  animation: softPulse 2.6s ease-in-out infinite;
 }
-.sp1 { animation-delay: .4s; }
-.sp2 { animation-delay: .8s; }
+.sp1 { animation-delay: 0.3s; }
+.sp2 { animation-delay: 0.6s; }
