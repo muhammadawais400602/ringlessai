@@ -1,3 +1,5 @@
+import Reveal from "./Reveal";
+
 const steps = [
   {
     n: "01",
@@ -28,34 +30,44 @@ const steps = [
 
 export default function PathSteps() {
   return (
-    <section className="relative bg-white text-[#0b0618]">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
+    <section className="relative bg-white text-[#0b0618] overflow-hidden">
+      <div className="bg-grid" />
+      <div className="bg-blob bg-blob-pink w-[480px] h-[480px] top-20 -right-32 opacity-45" />
+
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14 md:mb-16">
-          <div>
+          <Reveal>
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
               How It Works
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] max-w-2xl">
               Niche + City In. Scored CSV Out.
             </h2>
-          </div>
-          <p className="text-[#5a5466] max-w-md">
-            One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting end to end.
-          </p>
+          </Reveal>
+          <Reveal delay={2}>
+            <p className="text-[#5a5466] max-w-md">
+              One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting end to end.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {steps.map((s) => (
-            <div
-              key={s.n}
-              className="relative p-6 md:p-7 rounded-2xl border border-[#ece6f5] bg-[#fbf7ff] hover:bg-white hover:shadow-[0_24px_60px_rgba(139,47,248,0.1)] hover:border-[#e2d2f5] transition"
-            >
-              <div className="text-3xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent mb-5">
-                {s.n}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 relative">
+          {/* connector line between cards on desktop */}
+          <div className="hidden lg:block absolute top-16 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#e2d2f5] to-transparent pointer-events-none" />
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={(i + 1) as 1 | 2 | 3 | 4 | 5}>
+              <div className="group relative p-6 md:p-7 rounded-2xl border border-[#ece6f5] bg-white/90 backdrop-blur-sm hover:shadow-[0_24px_60px_rgba(139,47,248,0.12)] hover:border-[#c6a5ea] hover:-translate-y-1 transition-all duration-300 h-full">
+                <div className="relative mb-5">
+                  <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-[#ec6afb]/10 to-[#8b2ff8]/10 opacity-0 group-hover:opacity-100 blur-lg transition-opacity" />
+                  <div className="relative text-3xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
+                    {s.n}
+                  </div>
+                </div>
+                <h3 className="text-base font-semibold text-[#15101e] mb-3">{s.title}</h3>
+                <p className="text-sm text-[#5a5466] leading-relaxed">{s.body}</p>
+                <span className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
               </div>
-              <h3 className="text-base font-semibold text-[#15101e] mb-3">{s.title}</h3>
-              <p className="text-sm text-[#5a5466] leading-relaxed">{s.body}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

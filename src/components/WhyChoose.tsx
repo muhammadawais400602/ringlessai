@@ -100,45 +100,56 @@ const items: Item[] = [
   },
 ];
 
+import Reveal from "./Reveal";
+
 export default function WhyChoose() {
   return (
-    <section id="features" className="relative bg-white text-[#0b0618]">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
+    <section id="features" className="relative bg-white text-[#0b0618] overflow-hidden">
+      <div className="bg-blob bg-blob-purple w-[520px] h-[520px] top-10 -left-40 opacity-50" />
+      <div className="bg-blob bg-blob-pink w-[460px] h-[460px] bottom-10 -right-32 opacity-45" />
+
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
         <div className="text-center mb-14 md:mb-16">
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            Why Agencies Pick Xovra
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Six Reasons to Stop Buying <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Dead Lists</span>
-          </h2>
-          <p className="text-[#5a5466] max-w-2xl mx-auto">
-            Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh, from signals those databases can&apos;t see.
-          </p>
+          <Reveal>
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
+              Why Agencies Pick Xovra
+            </p>
+          </Reveal>
+          <Reveal delay={1}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
+              Six Reasons to Stop Buying <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Dead Lists</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={2}>
+            <p className="text-[#5a5466] max-w-2xl mx-auto">
+              Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh, from signals those databases can&apos;t see.
+            </p>
+          </Reveal>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {items.map((it) => (
-            <div
-              key={it.title}
-              className="relative p-7 md:p-8 rounded-2xl bg-[#0b0618] text-white border border-[#231538] overflow-hidden group"
-            >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 50% at 0% 0%, rgba(236,106,251,0.18) 0%, transparent 70%)",
-                }}
-              />
-              <div className="relative flex items-start justify-between mb-6">
-                {it.icon}
-                <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#c187fb] px-2.5 py-1 rounded-full border border-[#3a2160] bg-[#1a0b2e]">
-                  {it.tag}
-                </span>
+          {items.map((it, i) => (
+            <Reveal key={it.title} delay={((i % 3) + 1) as 1 | 2 | 3}>
+              <div className="relative p-7 md:p-8 rounded-2xl bg-[#0b0618] text-white border border-[#231538] overflow-hidden group hover:border-[#8b2ff8]/60 hover:-translate-y-1 transition-all duration-300 h-full">
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 60% 50% at 0% 0%, rgba(236,106,251,0.22) 0%, transparent 70%)",
+                  }}
+                />
+                <span className="absolute top-0 left-0 h-0.5 w-0 bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] group-hover:w-full transition-all duration-500" />
+                <div className="relative flex items-start justify-between mb-6">
+                  {it.icon}
+                  <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#c187fb] px-2.5 py-1 rounded-full border border-[#3a2160] bg-[#1a0b2e]">
+                    {it.tag}
+                  </span>
+                </div>
+                <h3 className="relative text-lg font-semibold mb-3">{it.title}</h3>
+                <p className="relative text-sm text-[#b8b0c8] leading-relaxed mb-5">{it.body}</p>
+                <p className="relative text-sm text-[#c187fb] font-medium">{it.foot}</p>
               </div>
-              <h3 className="relative text-lg font-semibold mb-3">{it.title}</h3>
-              <p className="relative text-sm text-[#b8b0c8] leading-relaxed mb-5">{it.body}</p>
-              <p className="relative text-sm text-[#c187fb] font-medium">{it.foot}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

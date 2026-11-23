@@ -37,8 +37,11 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="about-us" className="relative bg-white text-[#0b0618]">
-      <div className="max-w-[1100px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
+    <section id="about-us" className="relative bg-white text-[#0b0618] overflow-hidden">
+      <div className="bg-blob bg-blob-purple w-[460px] h-[460px] top-10 -left-40 opacity-40" />
+      <div className="bg-blob bg-blob-pink w-[420px] h-[420px] bottom-0 -right-32 opacity-40" />
+
+      <div className="relative max-w-[1100px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
         <div className="text-center mb-14 md:mb-16">
           <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
             FAQ
