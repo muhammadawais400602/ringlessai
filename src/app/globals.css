@@ -151,6 +151,9 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+@media (scripting: none) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ============ Soft background blob ============ */
 .bg-blob {
