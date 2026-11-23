@@ -58,7 +58,7 @@ const items: Item[] = [
   {
     tag: "Honesty",
     title: "No Hidden ToS Risk.",
-    body: "Scraping Google Maps violates Google's Terms of Service. We say so in the README, the FAQ, and here. You operate with full awareness — no buried disclosure, no silent takedown risk.",
+    body: "Scraping Google Maps violates Google's Terms of Service. We say so in the README, the FAQ, and here. You operate with full awareness. No buried disclosure, no silent takedown risk.",
     foot: "Documented, not whitewashed.",
     icon: (
       <Icon>
@@ -112,7 +112,7 @@ export default function WhyChoose() {
             Six Reasons to Stop Buying <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Dead Lists</span>
           </h2>
           <p className="text-[#5a5466] max-w-2xl mx-auto">
-            Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh &mdash; from signals those databases can&apos;t see.
+            Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh, from signals those databases can&apos;t see.
           </p>
         </div>
 

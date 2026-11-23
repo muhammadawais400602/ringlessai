@@ -1,4 +1,4 @@
-/* Conveyor scene — HTML & CSS only. Adapted into a scoped module. */
+/* Conveyor scene. HTML and CSS only. Adapted into a scoped module. */
 .wrap { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; container-type: size; }
 .wrap *{margin:0;padding:0;box-sizing:border-box}
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "Is scraping Google Maps actually allowed?",
-    a: "It violates Google's Terms of Service. The data on the result pages is public, but the automated method of access isn't sanctioned. We're explicit about this in the README, in the repo, and here. You run Xovra on your own responsibility — the same way you'd run any other scraping tool.",
+    a: "It violates Google's Terms of Service. The data on the result pages is public, but the automated method of access isn't sanctioned. We're explicit about this in the README, in the repo, and here. You run Xovra on your own responsibility, the same way you'd run any other scraping tool.",
   },
   {
     q: "Where do the emails come from if Maps doesn't publish them?",
@@ -13,11 +13,11 @@ const faqs = [
   },
   {
     q: "Do I need a Google account, API key or Cloud project?",
-    a: "No. Xovra uses Playwright to drive a headless Chromium browser directly. Install it, run the CLI with a niche and a city, get a CSV in /out. Google Sheets export is optional — that one does need a service-account JSON, but only if you want it.",
+    a: "No. Xovra uses Playwright to drive a headless Chromium browser directly. Install it, run the CLI with a niche and a city, get a CSV in /out. Google Sheets export is optional. That one does need a service-account JSON, but only if you want it.",
   },
   {
     q: "How do the three ad-intent sources differ?",
-    a: "On-site tags are the cheapest: we read the HTML Xovra already downloads. Transparency Center confirms live creative count from Google's own public page. Live SERP captures who's bidding right now on your keyword in your city — the strongest signal, but Google blocks it fast without a residential proxy.",
+    a: "On-site tags are the cheapest: we read the HTML Xovra already downloads. Transparency Center confirms live creative count from Google's own public page. Live SERP captures who's bidding right now on your keyword in your city. It's the strongest signal, but Google blocks it fast without a residential proxy.",
   },
   {
     q: "What's the difference between the CSV and the Google Sheet?",

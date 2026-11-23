@@ -2,12 +2,12 @@ const steps = [
   {
     n: "01",
     title: "Pick Niche + City",
-    body: "Choose a vertical and a market. Solo neighborhoods or continent-scale batches via a YAML jobs file — both run the same way.",
+    body: "Choose a vertical and a market. Solo neighborhoods or continent-scale batches via a YAML jobs file. Both run the same way.",
   },
   {
     n: "02",
     title: "Scrape Google Maps",
-    body: "A Playwright-driven headless browser pulls every matching listing — name, phone, address, rating, review count, website URL.",
+    body: "A Playwright-driven headless browser pulls every matching listing: name, phone, address, rating, review count, website URL.",
   },
   {
     n: "03",
@@ -17,7 +17,7 @@ const steps = [
   {
     n: "04",
     title: "Score & Filter",
-    body: "Every row gets a 0–100 fit score. Filter with --min-score. Keep only advertisers with --require-ads. Drop anything without signal.",
+    body: "Every row gets a 0 to 100 fit score. Filter with --min-score. Keep only advertisers with --require-ads. Drop anything without signal.",
   },
   {
     n: "05",
@@ -40,7 +40,7 @@ export default function PathSteps() {
             </h2>
           </div>
           <p className="text-[#5a5466] max-w-md">
-            One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting — end to end.
+            One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting end to end.
           </p>
         </div>
 
