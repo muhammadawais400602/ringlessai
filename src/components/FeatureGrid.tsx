@@ -1,16 +1,11 @@
 import styles from "./feature-grid.module.css";
 
-/* ---------- Shared premium defs: gradients, filters, soft layers ---------- */
 function Defs({ id }: { id: string }) {
   return (
     <defs>
       <linearGradient id={`grad-${id}`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#ec6afb" />
         <stop offset="1" stopColor="#8b2ff8" />
-      </linearGradient>
-      <linearGradient id={`soft-${id}`} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#f9efff" />
-        <stop offset="1" stopColor="#ffffff" />
       </linearGradient>
       <radialGradient id={`halo-${id}`} cx="0.5" cy="0.5" r="0.5">
         <stop offset="0" stopColor="#ec6afb" stopOpacity="0.4" />
@@ -29,277 +24,270 @@ function PremiumPlate({ id, children }: { id: string; children: React.ReactNode 
   return (
     <svg viewBox="0 0 240 160" className={styles.graphic} preserveAspectRatio="xMidYMid meet">
       <Defs id={id} />
-      {/* soft back halo */}
       <ellipse cx="120" cy="140" rx="110" ry="40" fill={`url(#halo-${id})`} />
       {children}
     </svg>
   );
 }
 
-/* ---------- Infographics ---------- */
-function Routing() {
+/* ---------- 1. Niche + City Targeting ---------- */
+function Targeting() {
   return (
-    <PremiumPlate id="rt">
-      {/* subtle grid */}
-      <g opacity="0.35">
-        <path d="M0 40 H240 M0 80 H240 M0 120 H240" stroke="#efe6fa" strokeWidth="1" />
-      </g>
-      {/* lead nodes on left */}
-      {[40, 80, 120].map((y, i) => (
-        <g key={i} className={styles[`lead${i}`]}>
-          <circle cx="24" cy={y} r="10" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.6" />
-          <circle cx="24" cy={y} r="4" fill="url(#grad-rt)" />
-        </g>
-      ))}
-      {/* dashed back routes */}
-      <path d="M38 40 Q80 40 90 80 H140" stroke="#e4d4f4" strokeWidth="1.5" strokeDasharray="4 5" fill="none" />
-      <path d="M38 80 H140" stroke="#e4d4f4" strokeWidth="1.5" strokeDasharray="4 5" fill="none" />
-      <path d="M38 120 Q80 120 90 80 H140" stroke="#e4d4f4" strokeWidth="1.5" strokeDasharray="4 5" fill="none" />
-      {/* solid chosen flow */}
-      <path d="M38 80 H140" stroke="url(#grad-rt)" strokeWidth="2.5" fill="none" className={styles.dashFlow} />
-      {/* travelling pulse */}
-      <circle r="5" fill="#ec6afb" className={styles.travel}>
-        <animateMotion dur="1.8s" repeatCount="indefinite" path="M38 80 H140" />
-      </circle>
-      {/* central hub */}
-      <g filter="url(#glow-rt)">
-        <circle cx="168" cy="80" r="26" fill="url(#grad-rt)" opacity="0.18" />
-        <circle cx="168" cy="80" r="22" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.6" />
-      </g>
-      <g transform="translate(168 80)" stroke="#8b2ff8" strokeWidth="1.6" fill="none" strokeLinecap="round">
-        <circle r="6" fill="url(#grad-rt)" stroke="none" />
-        <path d="M-10 0 h4 M10 0 h-4 M0 -10 v4 M0 10 v-4" />
-      </g>
-      {/* outbound to rep */}
-      <g className={styles.outbound}>
-        <path d="M190 80 H214" stroke="#8b2ff8" strokeWidth="1.5" strokeDasharray="3 4" fill="none" />
-        <rect x="214" y="68" width="24" height="24" rx="6" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
-        <circle cx="226" cy="76" r="3.5" fill="#ec6afb" />
-        <rect x="219" y="82" width="14" height="2.4" rx="1.2" fill="#d6c2ed" />
-        <rect x="219" y="86" width="10" height="2.4" rx="1.2" fill="#d6c2ed" />
-      </g>
-    </PremiumPlate>
-  );
-}
-
-function Cadence() {
-  return (
-    <PremiumPlate id="cd">
-      {/* timeline rail */}
-      <path d="M12 80 H228" stroke="#ece0f8" strokeWidth="2" strokeLinecap="round" />
-      <path d="M12 80 H228" stroke="url(#grad-cd)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="220" className={styles.railDraw} />
-      {/* ticks */}
-      {[40, 90, 140, 190].map((x, i) => (
-        <circle key={i} cx={x} cy="80" r="2.5" fill="#b795e0" />
-      ))}
-      {/* touchpoints */}
-      {[
-        { x: 42, kind: "call", d: 0 },
-        { x: 94, kind: "sms", d: 0.4 },
-        { x: 146, kind: "mail", d: 0.8 },
-        { x: 198, kind: "check", d: 1.2 },
-      ].map((t, i) => (
-        <g key={i} transform={`translate(${t.x} 80)`} className={styles[`seq${i}`]}>
-          <circle r="22" fill="url(#halo-cd)" />
-          <circle r="16" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
-          {t.kind === "call" && (
-            <path d="M-5 -5 l3 -2 l3 4 l-2 2 c1 3 3 5 6 6 l2 -2 l4 3 l-2 3 c-6 1 -13 -6 -14 -14 Z" fill="url(#grad-cd)" transform="translate(-2 -2)" />
-          )}
-          {t.kind === "sms" && (
-            <>
-              <path d="M-9 -5 h18 a2 2 0 0 1 2 2 v8 a2 2 0 0 1 -2 2 h-14 l-4 4 v-14 a2 2 0 0 1 2 -2 z" fill="url(#grad-cd)" />
-              <circle cx="-3" cy="2" r="1.3" fill="#fff" />
-              <circle cx="2" cy="2" r="1.3" fill="#fff" />
-              <circle cx="7" cy="2" r="1.3" fill="#fff" />
-            </>
-          )}
-          {t.kind === "mail" && (
-            <>
-              <rect x="-9" y="-6" width="18" height="12" rx="2" fill="url(#grad-cd)" />
-              <path d="M-9 -4 L0 3 L9 -4" stroke="#fff" strokeWidth="1.4" fill="none" />
-            </>
-          )}
-          {t.kind === "check" && (
-            <>
-              <circle r="16" fill="url(#grad-cd)" />
-              <path d="M-7 1 L-2 6 L7 -4" stroke="#fff" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            </>
-          )}
-        </g>
-      ))}
-      {/* pulse ring on head */}
-      <circle cx="198" cy="80" r="16" fill="none" stroke="#ec6afb" strokeOpacity="0.4" className={styles.headPulse} />
-    </PremiumPlate>
-  );
-}
-
-function Speed() {
-  return (
-    <PremiumPlate id="sp">
-      {/* motion streaks */}
-      <g opacity="0.7">
-        <path d="M0 50 H120" stroke="#f0e2ff" strokeWidth="2" strokeLinecap="round" />
-        <path d="M0 110 H140" stroke="#f0e2ff" strokeWidth="2" strokeLinecap="round" />
-      </g>
-      <path d="M-20 80 H160" stroke="url(#grad-sp)" strokeWidth="4" strokeLinecap="round" className={styles.streakLong} />
-      <path d="M-20 60 H100" stroke="url(#grad-sp)" strokeWidth="2.5" strokeLinecap="round" className={styles.streakShort} opacity="0.6" />
-      <path d="M-20 100 H80" stroke="url(#grad-sp)" strokeWidth="2.5" strokeLinecap="round" className={styles.streakShort2} opacity="0.5" />
-      {/* badge */}
-      <g filter="url(#glow-sp)">
-        <circle cx="186" cy="80" r="40" fill="url(#halo-sp)" />
-        <circle cx="186" cy="80" r="30" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.8" />
-      </g>
-      {/* bolt */}
-      <g className={styles.bolt}>
-        <path d="M190 58 L172 86 H186 L180 104 L202 72 H188 Z" fill="url(#grad-sp)" />
-        <path d="M190 58 L172 86 H186 L180 104 L202 72 H188 Z" fill="none" stroke="#fff" strokeOpacity="0.7" strokeWidth="0.6" />
-      </g>
-      {/* timer tag */}
-      <g transform="translate(186 128)">
-        <rect x="-26" y="-11" width="52" height="22" rx="11" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
-        <text x="0" y="4" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5b1fa7" fontFamily="monospace">&lt; 60s</text>
-      </g>
-    </PremiumPlate>
-  );
-}
-
-function Booking() {
-  return (
-    <PremiumPlate id="bk">
-      {/* calendar card */}
-      <g>
-        <rect x="52" y="22" width="136" height="110" rx="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.6" />
-        <rect x="52" y="22" width="136" height="24" rx="14" fill="url(#grad-bk)" opacity="0.14" />
-        <path d="M52 46 H188" stroke="#ead9f7" strokeWidth="1.2" />
-        {/* header dots */}
-        <circle cx="74" cy="34" r="3.5" fill="url(#grad-bk)" />
-        <circle cx="166" cy="34" r="3.5" fill="url(#grad-bk)" />
-        <rect x="90" y="30" width="60" height="8" rx="4" fill="#ead9f7" />
-      </g>
-      {/* week columns heading */}
-      {["M", "T", "W", "T", "F"].map((d, i) => (
-        <text key={i} x={70 + i * 24} y="60" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b2ff8">
-          {d}
-        </text>
-      ))}
-      {/* grid cells */}
-      {[0, 1, 2].map((r) =>
-        [0, 1, 2, 3, 4].map((c) => (
-          <rect
-            key={`${r}-${c}`}
-            x={62 + c * 24}
-            y={70 + r * 18}
-            width="18"
-            height="12"
-            rx="3"
-            fill="#faf5ff"
-            stroke="#f0e5fa"
-            strokeWidth="0.8"
-          />
-        )),
-      )}
-      {/* booked slot */}
-      <g className={styles.slot}>
-        <rect x="110" y="88" width="18" height="12" rx="3" fill="url(#grad-bk)" />
-        <path d="M114 94 L117 97 L124 90" stroke="#fff" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      </g>
-      {/* glowing invite card popping out */}
-      <g transform="translate(196 44)" className={styles.invite}>
-        <rect x="-4" y="-4" width="40" height="26" rx="7" fill="url(#grad-bk)" opacity="0.18" />
-        <rect x="-4" y="-4" width="40" height="26" rx="7" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
-        <text x="16" y="4" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#5b1fa7">BOOKED</text>
-        <text x="16" y="14" textAnchor="middle" fontSize="5.5" fill="#8b7aa0">Tue · 2:00 PM</text>
-      </g>
-    </PremiumPlate>
-  );
-}
-
-function Analytics() {
-  return (
-    <PremiumPlate id="an">
-      {/* axes */}
-      <g opacity="0.9">
-        <path d="M18 128 H230 M18 128 V22" stroke="#ead9f7" strokeWidth="1.2" />
-        {[128, 100, 72, 44].map((y, i) => (
-          <path key={i} d={`M18 ${y} H230`} stroke="#f3e7fb" strokeWidth="1" strokeDasharray="2 4" />
+    <PremiumPlate id="tg">
+      <g opacity="0.3">
+        {Array.from({ length: 7 }).map((_, i) => (
+          <line key={`v${i}`} x1={24 + i * 30} y1="30" x2={24 + i * 30} y2="150" stroke="#d6c2ed" strokeDasharray="2 4" strokeWidth="0.8" />
+        ))}
+        {Array.from({ length: 4 }).map((_, i) => (
+          <line key={`h${i}`} x1="24" y1={46 + i * 28} x2="216" y2={46 + i * 28} stroke="#d6c2ed" strokeDasharray="2 4" strokeWidth="0.8" />
         ))}
       </g>
-      {/* glossy bars */}
-      <g className={styles.bars}>
-        {[
-          { x: 34, h: 40, c: "#d7b4f6" },
-          { x: 70, h: 62, c: "#c391f0" },
-          { x: 106, h: 50, c: "#b172ea" },
-          { x: 142, h: 84, c: "#9b4ce3" },
-          { x: 178, h: 100, c: "#8b2ff8" },
-        ].map((b, i) => (
-          <g key={i}>
-            <rect x={b.x} y={128 - b.h} width="22" height={b.h} rx="5" fill={b.c} />
-            <rect x={b.x} y={128 - b.h} width="22" height="8" rx="4" fill="#ffffff" opacity="0.28" />
+      <g>
+        <rect x="18" y="12" width="120" height="22" rx="11" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
+        <circle cx="30" cy="23" r="4" fill="none" stroke="#8b2ff8" strokeWidth="1.4" />
+        <line x1="33" y1="26" x2="36" y2="29" stroke="#8b2ff8" strokeWidth="1.4" strokeLinecap="round" />
+        <text x="44" y="27" fontSize="9" fontWeight="600" fill="#5b1fa7" fontFamily="system-ui">dentists · Dubai</text>
+      </g>
+      {[
+        { x: 56, y: 82 },
+        { x: 102, y: 60 },
+        { x: 86, y: 122 },
+        { x: 158, y: 104 },
+        { x: 188, y: 68 },
+      ].map((p, i) => (
+        <g key={i} transform={`translate(${p.x} ${p.y})`} className={styles[`pin${i}`]}>
+          <path d="M0 -12 C 6 -12 10 -8 10 -2 C 10 6 0 16 0 16 C 0 16 -10 6 -10 -2 C -10 -8 -6 -12 0 -12 Z" fill="url(#grad-tg)" />
+          <circle cx="0" cy="-2" r="3.2" fill="#ffffff" />
+        </g>
+      ))}
+      <g transform="translate(126 88)">
+        <circle r="28" fill="url(#halo-tg)" className={styles.centerPulse} />
+        <circle r="18" fill="none" stroke="#ec6afb" strokeOpacity="0.5" className={styles.ringPulse} />
+        <path d="M0 -15 C 8 -15 13 -10 13 -2 C 13 8 0 22 0 22 C 0 22 -13 8 -13 -2 C -13 -10 -8 -15 0 -15 Z" fill="url(#grad-tg)" />
+        <circle cx="0" cy="-3" r="4.5" fill="#ffffff" />
+      </g>
+    </PremiumPlate>
+  );
+}
+
+/* ---------- 2. Multi-Source Enrichment ---------- */
+function Enrichment() {
+  return (
+    <PremiumPlate id="en">
+      <g>
+        <rect x="80" y="48" width="80" height="64" rx="9" fill="url(#grad-en)" opacity="0.14" />
+        <rect x="80" y="48" width="80" height="64" rx="9" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <circle cx="96" cy="66" r="6" fill="url(#grad-en)" />
+        <rect x="108" y="62" width="44" height="3.5" rx="1.7" fill="#c6b1e5" />
+        <rect x="108" y="68" width="30" height="2.8" rx="1.4" fill="#e3d2f3" />
+        {[0, 1, 2].map((i) => (
+          <g key={i} className={styles[`enrich${i}`]}>
+            <rect x="86" y={82 + i * 9} width="68" height="5" rx="2.5" fill="url(#grad-en)" opacity="0.14" />
+            <rect x="86" y={82 + i * 9} width={28 + i * 14} height="5" rx="2.5" fill="url(#grad-en)" />
           </g>
         ))}
       </g>
-      {/* trend area */}
-      <path
-        d="M34 108 Q70 76 106 90 T178 48 L214 36 L214 128 L34 128 Z"
-        fill="url(#grad-an)"
-        opacity="0.16"
-      />
-      {/* trend line with moving dot */}
-      <path
-        d="M34 108 Q70 76 106 90 T178 48 L214 36"
-        stroke="url(#grad-an)"
-        strokeWidth="2.6"
-        fill="none"
-        strokeLinecap="round"
-        className={styles.trend}
-      />
-      <circle r="5" fill="#ec6afb" className={styles.trendDot}>
-        <animateMotion dur="2.8s" repeatCount="indefinite" path="M34 108 Q70 76 106 90 T178 48 L214 36" />
-      </circle>
-      {/* floating metric */}
-      <g transform="translate(192 22)" className={styles.metric}>
-        <rect x="-2" y="-2" width="50" height="20" rx="10" fill="url(#grad-an)" opacity="0.18" />
-        <rect x="-2" y="-2" width="50" height="20" rx="10" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.2" />
-        <text x="22" y="12" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5b1fa7">+41%</text>
+      {[
+        { x: 28, y: 36, k: "globe" },
+        { x: 212, y: 36, k: "mail" },
+        { x: 28, y: 122, k: "ig" },
+        { x: 212, y: 122, k: "fb" },
+      ].map((it, i) => (
+        <g key={i} transform={`translate(${it.x} ${it.y})`} className={styles[`chip${i}`]}>
+          <circle r="16" fill="url(#halo-en)" />
+          <circle r="12" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.4" />
+          {it.k === "globe" && (
+            <g stroke="#8b2ff8" strokeWidth="1.2" fill="none">
+              <circle r="7" />
+              <ellipse rx="3.4" ry="7" />
+              <line x1="-7" x2="7" y1="0" y2="0" />
+            </g>
+          )}
+          {it.k === "mail" && (
+            <g>
+              <rect x="-7" y="-5" width="14" height="10" rx="1.6" fill="url(#grad-en)" />
+              <path d="M-7 -4 L0 2 L7 -4" stroke="#fff" strokeWidth="1.1" fill="none" />
+            </g>
+          )}
+          {it.k === "ig" && (
+            <g>
+              <rect x="-6" y="-6" width="12" height="12" rx="3" fill="none" stroke="#8b2ff8" strokeWidth="1.4" />
+              <circle r="3.2" fill="none" stroke="#8b2ff8" strokeWidth="1.4" />
+              <circle cx="3.6" cy="-3.6" r="1.1" fill="#8b2ff8" />
+            </g>
+          )}
+          {it.k === "fb" && (
+            <text x="0" y="5" textAnchor="middle" fontSize="14" fontWeight="800" fill="#8b2ff8" fontFamily="system-ui">f</text>
+          )}
+        </g>
+      ))}
+      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
+        <path d="M44 44 L80 60" />
+        <path d="M196 44 L160 60" />
+        <path d="M44 114 L80 100" />
+        <path d="M196 114 L160 100" />
       </g>
     </PremiumPlate>
   );
 }
 
-function Dids() {
+/* ---------- 3. Ad-Intent Detection ---------- */
+function AdIntent() {
   return (
-    <PremiumPlate id="di">
-      {/* orbit rings */}
-      <g transform="translate(120 85)">
-        <ellipse cx="0" cy="0" rx="90" ry="34" fill="none" stroke="#ead9f7" strokeWidth="1.2" strokeDasharray="4 6" />
-        <ellipse cx="0" cy="0" rx="90" ry="34" fill="none" stroke="url(#grad-di)" strokeWidth="2" strokeDasharray="60 260" strokeLinecap="round" className={styles.orbit} />
-      </g>
-      {/* orbiting phone dots */}
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i} className={styles[`orbitDot${i}`]}>
-          <circle cx="0" cy="0" r="5" fill="url(#grad-di)">
-            <animateMotion
-              dur="6s"
-              begin={`-${i * 1.5}s`}
-              repeatCount="indefinite"
-              path="M30 85 A90 34 0 1 0 210 85 A90 34 0 1 0 30 85"
-            />
-          </circle>
+    <PremiumPlate id="ai">
+      {[
+        { y: 40, label: "TAG" },
+        { y: 80, label: "ATC" },
+        { y: 120, label: "SERP" },
+      ].map((s, i) => (
+        <g key={i} transform={`translate(18 ${s.y})`} className={styles[`src${i}`]}>
+          <rect x="0" y="-13" width="78" height="26" rx="13" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.3" />
+          <circle cx="15" cy="0" r="8" fill="url(#grad-ai)" />
+          <path d="M10 0 L13.5 3.5 L19 -3" stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="48" y="4" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5b1fa7" fontFamily="system-ui">{s.label}</text>
         </g>
       ))}
-      {/* central phone card */}
-      <g>
-        <rect x="58" y="68" width="124" height="34" rx="10" fill="url(#grad-di)" opacity="0.18" />
-        <rect x="58" y="68" width="124" height="34" rx="10" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
-        <text x="120" y="90" textAnchor="middle" fontFamily="monospace" fontSize="14" fontWeight="700" fill="#5b1fa7" className={styles.phoneFlip}>
-          +1 415 · · ·
-        </text>
+      <g stroke="url(#grad-ai)" strokeWidth="1.8" fill="none" strokeDasharray="4 4" className={styles.dashFlow}>
+        <path d="M100 40 Q148 60 172 80" />
+        <path d="M100 80 H172" />
+        <path d="M100 120 Q148 100 172 80" />
       </g>
-      {/* shield badge */}
-      <g transform="translate(196 44)" className={styles.shield}>
-        <path d="M0 -10 L10 -6 V2 C10 8 5 12 0 14 C-5 12 -10 8 -10 2 V-6 Z" fill="url(#grad-di)" />
-        <path d="M-4 2 L-1 5 L5 -2" stroke="#fff" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <g transform="translate(198 80)">
+        <circle r="34" fill="url(#halo-ai)" />
+        <g filter="url(#glow-ai)">
+          <circle r="24" fill="url(#grad-ai)" opacity="0.2" />
+          <circle r="24" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        </g>
+        <path d="M-10 1 L-3 8 L11 -7" stroke="url(#grad-ai)" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <g transform="translate(198 140)" className={styles.adBadge}>
+        <rect x="-36" y="-9" width="72" height="18" rx="9" fill="url(#grad-ai)" />
+        <text x="0" y="4" textAnchor="middle" fontSize="8" fontWeight="700" fill="#fff" fontFamily="system-ui">AD-INTENT</text>
+      </g>
+    </PremiumPlate>
+  );
+}
+
+/* ---------- 4. CRM-Ready Export ---------- */
+function ExportCRM() {
+  return (
+    <PremiumPlate id="ex">
+      <g>
+        <rect x="18" y="28" width="90" height="104" rx="9" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.4" />
+        <rect x="18" y="28" width="90" height="18" rx="9" fill="url(#grad-ex)" opacity="0.18" />
+        <path d="M18 46 H108" stroke="#ead9f7" strokeWidth="1" />
+        <text x="32" y="41" fontSize="6.5" fontWeight="700" fill="#5b1fa7" fontFamily="system-ui">Name</text>
+        <text x="60" y="41" fontSize="6.5" fontWeight="700" fill="#5b1fa7" fontFamily="system-ui">Phone</text>
+        <text x="90" y="41" fontSize="6.5" fontWeight="700" fill="#5b1fa7" fontFamily="system-ui">Score</text>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <g key={i} className={styles[`row${i}`]}>
+            <rect x="22" y={54 + i * 14} width="24" height="4" rx="2" fill="#c7b2e8" />
+            <rect x="52" y={54 + i * 14} width="24" height="4" rx="2" fill="#dcc9ef" />
+            <rect x="82" y={52 + i * 14} width="20" height="8" rx="4" fill="url(#grad-ex)" />
+          </g>
+        ))}
+      </g>
+      <g>
+        <path d="M114 80 H158" stroke="url(#grad-ex)" strokeWidth="2.5" fill="none" className={styles.dashFlow} />
+        <path d="M153 74 L162 80 L153 86" stroke="url(#grad-ex)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <circle r="4" fill="#ec6afb" className={styles.travel}>
+          <animateMotion dur="2.2s" repeatCount="indefinite" path="M114 80 H158" />
+        </circle>
+      </g>
+      <g transform="translate(194 80)">
+        <circle r="34" fill="url(#halo-ex)" />
+        <circle r="26" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <circle r="18" fill="url(#grad-ex)" opacity="0.14" stroke="#8b2ff8" strokeWidth="1.1" strokeDasharray="2 4" />
+        <circle r="10" fill="url(#grad-ex)" />
+        <path d="M-3.5 1 L-0.5 4 L5 -3" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <g transform="translate(194 136)">
+        <rect x="-24" y="-9" width="48" height="18" rx="9" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.2" />
+        <text x="0" y="4" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#5b1fa7" fontFamily="system-ui">HubSpot</text>
+      </g>
+    </PremiumPlate>
+  );
+}
+
+/* ---------- 5. Lead Scoring (0 to 100) ---------- */
+function Scoring() {
+  return (
+    <PremiumPlate id="sc">
+      <g transform="translate(120 108)">
+        <path d="M-72 0 A 72 72 0 0 1 72 0" fill="none" stroke="#ead9f7" strokeWidth="14" strokeLinecap="round" />
+        <path
+          d="M-72 0 A 72 72 0 0 1 72 0"
+          fill="none"
+          stroke="url(#grad-sc)"
+          strokeWidth="14"
+          strokeLinecap="round"
+          strokeDasharray="226"
+          strokeDashoffset="34"
+          className={styles.gaugeFill}
+        />
+        <text x="-72" y="18" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">0</text>
+        <text x="0" y="-82" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">50</text>
+        <text x="72" y="18" textAnchor="middle" fontSize="8" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">100</text>
+        <g className={styles.needle}>
+          <line x1="0" y1="0" x2="0" y2="-56" stroke="#15101e" strokeWidth="2.4" strokeLinecap="round" />
+          <circle r="6" fill="#15101e" />
+          <circle r="2.8" fill="#ec6afb" />
+        </g>
+        <text y="-20" textAnchor="middle" fontSize="30" fontWeight="800" fill="url(#grad-sc)" fontFamily="system-ui">87</text>
+        <text y="-4" textAnchor="middle" fontSize="7" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">FIT SCORE</text>
+      </g>
+      <g transform="translate(120 150)" className={styles.qualChip}>
+        <rect x="-36" y="-9" width="72" height="18" rx="9" fill="url(#grad-sc)" />
+        <text x="0" y="4" textAnchor="middle" fontSize="8" fontWeight="700" fill="#fff" fontFamily="system-ui">QUALIFIED</text>
+      </g>
+    </PremiumPlate>
+  );
+}
+
+/* ---------- 6. Social Presence Signals ---------- */
+function Social() {
+  return (
+    <PremiumPlate id="so">
+      <g>
+        <rect x="80" y="58" width="80" height="48" rx="10" fill="url(#grad-so)" opacity="0.14" />
+        <rect x="80" y="58" width="80" height="48" rx="10" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <text x="120" y="78" textAnchor="middle" fontSize="11" fontWeight="700" fill="#15101e" fontFamily="system-ui">@acme_co</text>
+        <text x="120" y="92" textAnchor="middle" fontSize="7" fontWeight="600" fill="#8b7aa0" fontFamily="system-ui">22.8K followers</text>
+      </g>
+      <g transform="translate(58 30)" className={styles.sp0}>
+        <circle r="18" fill="url(#halo-so)" />
+        <circle r="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <rect x="-7" y="-7" width="14" height="14" rx="4" fill="none" stroke="#8b2ff8" strokeWidth="1.6" />
+        <circle r="3.6" fill="none" stroke="#8b2ff8" strokeWidth="1.6" />
+        <circle cx="4" cy="-4" r="1.1" fill="#8b2ff8" />
+        <g transform="translate(0 26)">
+          <rect x="-18" y="-7" width="36" height="14" rx="7" fill="url(#grad-so)" />
+          <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">12.4K</text>
+        </g>
+      </g>
+      <g transform="translate(182 30)" className={styles.sp1}>
+        <circle r="18" fill="url(#halo-so)" />
+        <circle r="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill="#8b2ff8" fontFamily="system-ui">f</text>
+        <g transform="translate(0 26)">
+          <rect x="-16" y="-7" width="32" height="14" rx="7" fill="url(#grad-so)" />
+          <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">8.1K</text>
+        </g>
+      </g>
+      <g transform="translate(120 138)" className={styles.sp2}>
+        <circle r="18" fill="url(#halo-so)" />
+        <circle r="14" fill="#ffffff" stroke="#8b2ff8" strokeWidth="1.5" />
+        <path d="M-3 -6 V5 A5 5 0 1 1 -8 0" stroke="#8b2ff8" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M-3 -6 Q 2 -6 6 -2" stroke="#8b2ff8" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <g transform="translate(0 26)">
+          <rect x="-16" y="-7" width="32" height="14" rx="7" fill="url(#grad-so)" />
+          <text x="0" y="3" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" fontFamily="system-ui">2.3K</text>
+        </g>
+      </g>
+      <g stroke="#d6c2ed" strokeWidth="1" strokeDasharray="3 3" fill="none">
+        <path d="M74 44 L96 60" />
+        <path d="M166 44 L144 60" />
+        <path d="M120 120 V106" />
       </g>
     </PremiumPlate>
   );
@@ -307,49 +295,49 @@ function Dids() {
 
 function Infographic({ kind }: { kind: string }) {
   switch (kind) {
-    case "routing": return <Routing />;
-    case "cadence": return <Cadence />;
-    case "speed": return <Speed />;
-    case "booking": return <Booking />;
-    case "analytics": return <Analytics />;
-    case "dids": return <Dids />;
+    case "targeting": return <Targeting />;
+    case "enrichment": return <Enrichment />;
+    case "adintent": return <AdIntent />;
+    case "exportcrm": return <ExportCRM />;
+    case "scoring": return <Scoring />;
+    case "social": return <Social />;
     default: return null;
   }
 }
 
 const cards = [
   {
-    kind: "routing",
+    kind: "targeting",
     title: "Niche + City Targeting",
     body: "Give Xovra a vertical and a market. It scrapes every matching Google Maps listing, then follows each business to its own website for deeper enrichment. No API key, no quota, no Google Cloud project.",
     cta: "How targeting works",
   },
   {
-    kind: "cadence",
+    kind: "enrichment",
     title: "Multi-Source Enrichment",
     body: "Each lead is enriched from the business's own site: email, phone, tech stack, Instagram, Facebook, TikTok, follower counts, review counts. The full picture, never guessed, never purchased.",
     cta: "What's in each record",
   },
   {
-    kind: "speed",
+    kind: "adintent",
     title: "Ad-Intent Detection",
     body: "Three layered signals prove a business is actively buying leads: on-site Google Ads tags, Ads Transparency Center creatives, and live SERP capture. Advertisers close 4× better than cold Maps rows.",
     cta: "The three signals",
   },
   {
-    kind: "booking",
+    kind: "exportcrm",
     title: "CRM-Ready Export",
     body: "Two shapes, on purpose. HubSpot-formatted CSV with the standard 14 columns, or a Google Sheet your dialer reads by field name. Pitch angle, score and notes included in both.",
     cta: "CSV + Sheet schemas",
   },
   {
-    kind: "analytics",
+    kind: "scoring",
     title: "Lead Scoring (0 to 100)",
     body: "Every record gets a defensible fit score from web presence, ad signals, social presence and review signals. Filter with --min-score 50 and stop paying for dials on dead rows.",
     cta: "Scoring model",
   },
   {
-    kind: "dids",
+    kind: "social",
     title: "Social Presence Signals",
     body: "instagram_url, instagram_followers, facebook_url, tiktok_url, has_social, all extracted from each business's homepage. Perfect opener data for cold-call personalization or DM outreach.",
     cta: "Social fields reference",
