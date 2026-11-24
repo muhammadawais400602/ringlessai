@@ -14,10 +14,10 @@ const Icon = ({ children }: { children: React.ReactNode }) => (
 
 const items: Item[] = [
   {
-    tag: "Freshness",
-    title: "Not a Database. A Scraper.",
-    body: "Every list is built live, the day you run it. No stale 2022 records, no duplicate burn with the vendor's other customers, no decayed phone numbers.",
-    foot: "Zero overlap with Apollo / ZoomInfo buyers.",
+    tag: "Speed",
+    title: "Dials in Under 60 Seconds.",
+    body: "Inbound leads get a live AI conversation before they finish typing. Outbound campaigns fire the moment a list drops. Human SDRs can't match the clock.",
+    foot: "Speed-to-lead that converts.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -28,10 +28,10 @@ const items: Item[] = [
     ),
   },
   {
-    tag: "Intent",
-    title: "Advertisers Close 4× Better.",
-    body: "Businesses already paying for Google Ads have budget approved and a CPL number they already watch. Xovra proves it from three independent sources before you spend a dial.",
-    foot: "Target buyers, not window-shoppers.",
+    tag: "Scale",
+    title: "Weekend Pipeline, No Weekend Staff.",
+    body: "Xovra dials nights, weekends, and holidays at full volume. While your human team sleeps, your AI SDR keeps warming the pipeline and booking meetings on their Monday calendar.",
+    foot: "24/7 coverage, zero overtime.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -43,10 +43,10 @@ const items: Item[] = [
     ),
   },
   {
-    tag: "Depth",
-    title: "Beyond the Google Maps Row.",
-    body: "We visit each business's own website for the data Maps itself doesn't expose: email, tech stack, Instagram, Facebook, TikTok, follower counts, review signal.",
-    foot: "The full picture, not a phone number.",
+    tag: "Quality",
+    title: "Qualified Before Transfer.",
+    body: "Three-dimensional qualification (budget, timeline, decision-maker) happens during the call. Only transfers reach your closers. They never pick up a cold row again.",
+    foot: "Closers only talk to closers-ready prospects.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -56,10 +56,10 @@ const items: Item[] = [
     ),
   },
   {
-    tag: "Honesty",
-    title: "No Hidden ToS Risk.",
-    body: "Scraping Google Maps violates Google's Terms of Service. We say so in the README, the FAQ, and here. You operate with full awareness. No buried disclosure, no silent takedown risk.",
-    foot: "Documented, not whitewashed.",
+    tag: "Perk",
+    title: "Fresh Leads, Built In.",
+    body: "Every campaign ships with a scored, enriched prospect list. No buying Apollo seats, no manual CSV sanding, no stale ZoomInfo pulls. Xovra sources from Google Maps and scores by live Google Ads intent.",
+    foot: "Dialer and lead list, one tool.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -70,10 +70,10 @@ const items: Item[] = [
     ),
   },
   {
-    tag: "Portability",
-    title: "CSV, Sheets, or Pipe It.",
-    body: "Open formats only. 14-column HubSpot-shaped CSV, or a Google Sheet field-mapped so any dialer can watch it. No proprietary export, no vendor lock-in.",
-    foot: "Your data, your workflow, your dialer.",
+    tag: "Compliance",
+    title: "DNC and TCPA, Done Right.",
+    body: "Every number is scrubbed against federal and state DNC lists before dial. TCPA consent is logged per call. STIR/SHAKEN attestation is configurable per outbound pool. Documented, not buried.",
+    foot: "Enterprise-grade, open posture.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -85,10 +85,10 @@ const items: Item[] = [
     ),
   },
   {
-    tag: "Cost",
-    title: "No Per-Lead Markup.",
-    body: "Pay for the engine, not the row. Re-run the same niche + city every week. Scale from one city to a continent without a bill that scales with you.",
-    foot: "Fixed-cost outbound sourcing.",
+    tag: "Economics",
+    title: "No Per-Dial Markup.",
+    body: "Pay for the engine, not the attempt. Run the same pipeline every week. Scale from one market to a continent without an SDR bill that scales with you.",
+    foot: "Fixed-cost outbound.",
     icon: (
       <Icon>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -112,17 +112,17 @@ export default function WhyChoose() {
         <div className="text-center mb-14 md:mb-16">
           <Reveal>
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-              Why Agencies Pick Xovra
+              Why Sales Teams Pick Xovra
             </p>
           </Reveal>
           <Reveal delay={1}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-              Six Reasons to Stop Buying <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Dead Lists</span>
+              Six Reasons Teams Switch to <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">AI Dialing</span>
             </h2>
           </Reveal>
           <Reveal delay={2}>
             <p className="text-[#5a5466] max-w-2xl mx-auto">
-              Apollo and ZoomInfo sell you data their last customer already burned through. Xovra builds yours fresh, from signals those databases can&apos;t see.
+              Traditional SDR floors are expensive, slow, and sleep eight hours a night. Here&apos;s how an AI dialer wins on every dimension that matters.
             </p>
           </Reveal>
         </div>

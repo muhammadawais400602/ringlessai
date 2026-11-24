@@ -325,40 +325,40 @@ function Infographic({ kind }: { kind: string }) {
 
 const cards = [
   {
-    kind: "targeting",
-    title: "Niche + City Targeting",
-    body: "Give Xovra a vertical and a market. It scrapes every matching Google Maps listing, then follows each business to its own website for deeper enrichment. No API key, no quota, no Google Cloud project.",
-    cta: "How targeting works",
+    kind: "adintent",
+    title: "AI Voice Agent",
+    body: "Natural neural voices hold multi-turn conversations, handle objections, and qualify prospects against your rubric in real time: budget, timeline, decision-maker status. Prospects stay engaged. Closers stay closing.",
+    cta: "Hear the voice",
   },
   {
     kind: "enrichment",
-    title: "Multi-Source Enrichment",
-    body: "Each lead is enriched from the business's own site: email, phone, tech stack, Instagram, Facebook, TikTok, follower counts, review counts. The full picture, never guessed, never purchased.",
-    cta: "What's in each record",
-  },
-  {
-    kind: "adintent",
-    title: "Ad-Intent Detection",
-    body: "Three layered signals prove a business is actively buying leads: on-site Google Ads tags, Ads Transparency Center creatives, and live SERP capture. Advertisers close 4× better than cold Maps rows.",
-    cta: "The three signals",
-  },
-  {
-    kind: "exportcrm",
-    title: "CRM-Ready Export",
-    body: "Two shapes, on purpose. HubSpot-formatted CSV with the standard 14 columns, or a Google Sheet your dialer reads by field name. Pitch angle, score and notes included in both.",
-    cta: "CSV + Sheet schemas",
+    title: "Live Call Transfers",
+    body: "When a prospect qualifies, Xovra routes the call to your best-fit rep with a context-rich screen pop before they pick up: name, pain points, qualification trail, pitch angle. No clumsy handoffs, no cold opens.",
+    cta: "How transfers work",
   },
   {
     kind: "scoring",
-    title: "Lead Scoring (0 to 100)",
-    body: "Every record gets a defensible fit score from web presence, ad signals, social presence and review signals. Filter with --min-score 50 and stop paying for dials on dead rows.",
-    cta: "Scoring model",
+    title: "Auto Appointment Booking",
+    body: "No rep available? Xovra books the meeting on your calendar instead, with timezone handling, dynamic availability, and instant invite delivery. Every qualified prospect becomes a calendar entry or a live transfer.",
+    cta: "Calendar logic",
+  },
+  {
+    kind: "targeting",
+    title: "Built-In Lead Sourcing",
+    body: "Every campaign ships with fresh leads. Xovra scrapes Google Maps for your niche and city, enriches each business from its own site, and scores by live Google Ads intent signals, before any number is dialed.",
+    cta: "Sourcing engine",
+  },
+  {
+    kind: "exportcrm",
+    title: "Two-Way CRM Sync",
+    body: "Qualified leads, call transcripts, outcomes and scheduled meetings flow directly into HubSpot, Close, GoHighLevel, Salesforce or your Google Sheet. Open formats, no vendor lock-in, no manual upload.",
+    cta: "Supported CRMs",
   },
   {
     kind: "social",
-    title: "Social Presence Signals",
-    body: "instagram_url, instagram_followers, facebook_url, tiktok_url, has_social, all extracted from each business's homepage. Perfect opener data for cold-call personalization or DM outreach.",
-    cta: "Social fields reference",
+    title: "24/7 Coverage",
+    body: "Xovra works nights, weekends and holidays while your human reps sleep. Inbound inquiries get sub-60-second responses. Outbound campaigns keep warming the pipeline around the clock.",
+    cta: "Availability stats",
   },
 ];
 
@@ -377,12 +377,12 @@ export default function FeatureGrid() {
           </Reveal>
           <Reveal delay={1}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-              From Google Maps to a Scored List
+              An AI Dialer That Sources Its Own Leads
             </h2>
           </Reveal>
           <Reveal delay={2}>
             <p className="text-lg md:text-xl text-[#5a5068] max-w-2xl mx-auto leading-relaxed">
-              Six engines that turn &ldquo;niche + city&rdquo; into a sales-ready prospect list, with proof the lead has budget before you dial.
+              Six engines that turn &ldquo;launch a campaign&rdquo; into qualified meetings on your calendar. No SDR headcount required.
             </p>
           </Reveal>
         </div>

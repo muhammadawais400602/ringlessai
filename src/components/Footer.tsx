@@ -34,7 +34,7 @@ export default function Footer() {
               <span className="font-semibold text-xl tracking-wide text-[#15101e]">XOVRA AI</span>
             </a>
             <p className="text-sm text-[#5a5466] leading-relaxed">
-              A Google Maps lead engine for agencies, SDR teams and solo operators. Niche + city in. Scored, enriched, CRM-ready list out.
+              AI outbound dialer with built-in Google Maps lead sourcing. For agencies, SDR teams and solo operators who want qualified meetings without an SDR floor.
             </p>
           </div>
 

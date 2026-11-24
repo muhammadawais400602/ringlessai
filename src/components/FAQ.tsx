@@ -4,32 +4,32 @@ import { useState } from "react";
 
 const faqs = [
   {
-    q: "Is scraping Google Maps actually allowed?",
-    a: "It violates Google's Terms of Service. The data on the result pages is public, but the automated method of access isn't sanctioned. We're explicit about this in the README, in the repo, and here. You run Xovra on your own responsibility, the same way you'd run any other scraping tool.",
+    q: "How fast can we launch our first AI dialing campaign?",
+    a: "Most teams go live within 48 hours. Connect your CRM, pick a voice and a script template for your vertical, and Xovra handles number provisioning, warmup, and DNC compliance mapping. No in-house AI team required.",
   },
   {
-    q: "Where do the emails come from if Maps doesn't publish them?",
-    a: "Not Maps. After the Maps scrape, Xovra visits each business's own website and extracts contacts from the HTML. Nothing is purchased from a broker, nothing is guessed. If the site doesn't publish an email, that record ships without one rather than a fabricated address.",
+    q: "Where do the leads come from?",
+    a: "Built in. Xovra scrapes Google Maps for your niche and city, enriches each business from its own website, and scores every lead by three independent Google Ads intent signals. You never pay for an external Apollo or ZoomInfo seat again. If you prefer to upload your own list, you can skip the sourcing step and dial your CSV directly.",
   },
   {
-    q: "Do I need a Google account, API key or Cloud project?",
-    a: "No. Xovra uses Playwright to drive a headless Chromium browser directly. Install it, run the CLI with a niche and a city, get a CSV in /out. Google Sheets export is optional. That one does need a service-account JSON, but only if you want it.",
+    q: "How does a live call transfer actually work?",
+    a: "When a prospect qualifies against your rubric, Xovra picks the best-fit rep from your routing rules and transfers the call with a context-rich screen pop: name, pain points, qualification trail, pitch angle. Your rep picks up a warm, pre-qualified conversation, not a cold handoff.",
   },
   {
-    q: "How do the three ad-intent sources differ?",
-    a: "On-site tags are the cheapest: we read the HTML Xovra already downloads. Transparency Center confirms live creative count from Google's own public page. Live SERP captures who's bidding right now on your keyword in your city. It's the strongest signal, but Google blocks it fast without a residential proxy.",
+    q: "Won't prospects hang up as soon as they realize it's an AI?",
+    a: "Our voices are natural and multi-turn. The AI handles objections, pauses, and dynamic follow-ups the way a trained SDR does. Most prospects don't recognize the AI until after they've agreed to a transfer or a meeting, and by then they're already engaged. We publish the technology plainly on the live call if asked.",
   },
   {
-    q: "What's the difference between the CSV and the Google Sheet?",
-    a: "The CSV matches HubSpot's 14-column import schema; score, pitch angle and ad-intent metadata live in Notes. The Google Sheet uses raw field names (phone, pitch_angle, score...) because dialers read sheets by field name. Pick whichever matches your downstream workflow.",
+    q: "What about TCPA, DNC, and STIR/SHAKEN compliance?",
+    a: "Every number is scrubbed against federal and state Do Not Call lists before dial. TCPA consent is logged per call. STIR/SHAKEN attestation is configurable per outbound pool. Call recordings follow your retention policy. Enterprise-grade posture, documented, not buried.",
   },
   {
-    q: "Can I run many niches and cities at once?",
-    a: "Yes. --batch jobs.yaml accepts any number of niche + city pairs and runs them serially with shared enrichment caching. Point it at a YAML on Sunday night, wake up Monday with a week of lists.",
+    q: "Can Xovra handle inbound calls too?",
+    a: "Yes. The same AI voice core answers inbound inquiries with full CRM context, routes hot prospects to live reps in under 60 seconds, and books meetings for the rest. Nights, weekends and holidays included.",
   },
   {
-    q: "How does Xovra handle TCPA, DNC and compliance?",
-    a: "Xovra outputs leads. What you do with them is on you. We recommend running the output through a DNC scrubber (Gryphon, RealPhoneValidation, or your dialer's built-in check) before any outbound call, and documenting consent per your jurisdiction's rules.",
+    q: "How does Xovra protect against spam-flagged numbers?",
+    a: "Xovra auto-provisions local DIDs, rotates outbound pools to avoid carrier spam thresholds, monitors connect rates per number, and retires any line that starts getting flagged before it hurts your deliverability.",
   },
 ];
 

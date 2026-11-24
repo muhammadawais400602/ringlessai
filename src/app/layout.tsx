@@ -8,33 +8,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Xovra | Google Maps Lead Scraper & Enrichment for Agencies",
+  title: "Xovra | AI Outbound Dialer with Built-In Lead Sourcing",
   description:
-    "Build fresh prospect lists from Google Maps. Enriched with verified emails, tech stack, social presence and three Google Ads intent signals. CRM-ready CSV or Google Sheet in minutes.",
+    "AI outbound dialer that qualifies prospects live, transfers hot leads to your closers in under 60 seconds, and books meetings on your calendar. Comes with fresh Google Maps leads sourced and scored automatically.",
   keywords: [
-    "google maps lead scraper",
-    "google maps lead generation",
-    "local business leads",
-    "find businesses running google ads",
-    "ads transparency center scraper",
-    "b2b lead enrichment tool",
-    "CRM-ready lead list",
-    "cold calling leads for agencies",
-    "SDR prospecting tool",
-    "google maps business extractor",
+    "ai outbound dialer",
+    "ai voice agent",
+    "ai cold calling",
+    "ai sdr",
+    "ai appointment setter",
+    "live transfer dialer",
+    "autonomous outbound calling",
+    "ai calling software",
+    "speed to lead",
+    "ai sales dialer",
+    "ai dialer with lead sourcing",
+    "24 7 outbound calling",
   ],
   openGraph: {
-    title: "Xovra | Google Maps Lead Scraper & Enrichment",
+    title: "Xovra | AI Outbound Dialer with Built-In Lead Sourcing",
     description:
-      "Niche + city in. Scored, enriched, CRM-ready list out. Three independent Google Ads intent signals prove the lead has budget before you dial.",
+      "An AI dialer that sources its own leads. Qualifies live, transfers to closers in under 60 seconds, and books the rest on your calendar. Nights and weekends included.",
     type: "website",
     siteName: "Xovra",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xovra | Google Maps Lead Scraper & Enrichment",
+    title: "Xovra | AI Outbound Dialer with Built-In Lead Sourcing",
     description:
-      "Build fresh prospect lists from Google Maps. Enriched contacts, ad-intent signals, CRM-ready export.",
+      "AI dialer that sources, qualifies, transfers, and books. No SDR floor required.",
   },
 };
 
