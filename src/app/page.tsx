@@ -48,23 +48,24 @@ export default function Home() {
             <div className="flex flex-col gap-7 lg:gap-8 lg:pt-6 lg:pl-4">
               <div className="feature-chip chip-a self-start">
                 <svg className="chip-icon-sparkles" width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 2 L13.5 8.5 L20 10 L13.5 11.5 L12 18 L10.5 11.5 L4 10 L10.5 8.5 Z" fill="#c187fb" />
-                  <path d="M18 3 L18.7 5.3 L21 6 L18.7 6.7 L18 9 L17.3 6.7 L15 6 L17.3 5.3 Z" fill="#c187fb" />
-                  <path d="M5 15 L5.6 16.8 L7.4 17.4 L5.6 18 L5 19.8 L4.4 18 L2.6 17.4 L4.4 16.8 Z" fill="#c187fb" />
+                  <path d="M5 4 h3 l2 5 l-2.5 1.5 a11 11 0 0 0 6 6 l1.5-2.5 l5 2 v3 a2 2 0 0 1-2 2 A17 17 0 0 1 3 6 a2 2 0 0 1 2-2 Z" fill="#c187fb" />
+                  <path d="M14 8 H21 M18 5 L21 8 L18 11" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </svg>
                 <span>Live transfer in under 60 seconds</span>
               </div>
               <div className="feature-chip chip-b self-end lg:mr-0 lg:ml-24">
-                <svg className="chip-icon-check" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#c187fb" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 12 L10 18 L20 6" />
+                <svg className="chip-icon-check" width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" fill="#c187fb" />
+                  <path d="M12 7 V12 L16 14" stroke="#fff" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="12" r="1.2" fill="#fff" />
                 </svg>
                 <span>24/7 dialing, nights &amp; weekends</span>
               </div>
               <div className="feature-chip chip-c self-start">
                 <svg className="chip-icon-score" width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M14.5 2.5 C17 4 19 6 20.5 8.5 C19 11 17 13 14.5 14.5 L12 17 L7 12 L9.5 9.5 C11 7 13 5 15 3.5 Z" fill="#c187fb" />
-                  <path d="M6 14 L4 20 L10 18" fill="#8b2ff8" />
-                  <circle cx="15" cy="9" r="1.4" fill="#fff" />
+                  <rect x="4" y="4" width="13" height="16" rx="2" fill="#c187fb" />
+                  <path d="M7 9 H14 M7 12 H14 M7 15 H12" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  <path d="M19 4 L19.8 6.5 L22.3 7.3 L19.8 8.1 L19 10.6 L18.2 8.1 L15.7 7.3 L18.2 6.5 Z" fill="#8b2ff8" />
                 </svg>
                 <span>Fresh leads sourced, scored, dialed</span>
               </div>
