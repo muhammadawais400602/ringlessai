@@ -26,19 +26,19 @@ export default function FinalCTA() {
 
           <div className="relative">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#c187fb] mb-5">
-              Open Source
+              Instant Deployment
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-5 leading-[1.05]">
-              Start Building Your{" "}
-              <span className="bg-gradient-to-r from-[#ec6afb] to-[#c187fb] bg-clip-text text-transparent">List Tonight.</span>
+              Let AI Run Your{" "}
+              <span className="bg-gradient-to-r from-[#ec6afb] to-[#c187fb] bg-clip-text text-transparent">Outbound This Week.</span>
             </h2>
             <p className="text-[#b8b0c8] max-w-xl mx-auto mb-10">
-              Clone the repo, pick a niche and a city, and have a scored CSV before you finish your coffee. No signup, no credit card, no API quota.
+              Set your rubric, point at a niche and a city, watch qualified meetings land on your calendar. Nights and weekends included. First campaign live in 48 hours.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="https://github.com/ahmadvision345/mapleads" className="cta-primary">
-                <span>View on GitHub</span>
+              <a href="#contact" className="cta-primary">
+                <span>Book a demo</span>
                 <span className="arrow">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -47,21 +47,18 @@ export default function FinalCTA() {
                 </span>
               </a>
               <a
-                href="https://github.com/ahmadvision345/mapleads#readme"
+                href="#features"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-xl text-sm font-medium text-white hover:bg-white/[0.1] transition"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2 H6 a2 2 0 0 0 -2 2 v16 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2 -2 V8 Z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="9" y1="13" x2="15" y2="13" />
-                  <line x1="9" y1="17" x2="15" y2="17" />
+                  <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Read the README
+                Hear a live transfer
               </a>
             </div>
 
             <p className="text-xs text-[#8a7fa3] mt-8">
-              Open-source core on GitHub &middot; managed cloud tier in early access
+              No long-term contracts &middot; fresh leads included &middot; DNC and TCPA compliant
             </p>
           </div>
         </div>

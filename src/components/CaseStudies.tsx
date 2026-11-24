@@ -2,37 +2,37 @@ const cases = [
   {
     industry: "Home Services",
     size: "US Southeast",
-    tag: "Replaced Apollo",
+    tag: "Weekend Autopilot",
     stats: [
-      { k: "412", v: "leads / wk" },
-      { k: "18%", v: "connect rate" },
+      { k: "412", v: "dials / wk" },
+      { k: "40", v: "weekend bookings" },
     ],
     quote:
-      "We replaced a $2,400/month Apollo seat. Xovra lists outperform on the first dial, and the ad-intent filter means our SDRs stop wasting time on ghosts.",
-    name: "Lead-gen agency · Home services",
+      "Our two SDRs couldn't touch Saturdays. Xovra dials from Friday night through Sunday, and Monday morning our closers see 40 booked meetings on the calendar.",
+    name: "Home-services agency · US Southeast",
   },
   {
     industry: "AI Agency",
     size: "Europe",
-    tag: "Intent Filter",
+    tag: "Live Transfer Pilot",
     stats: [
-      { k: "1,100", v: "leads / wk" },
+      { k: "1,100", v: "dials / wk" },
       { k: "$8", v: "per qualified call" },
     ],
     quote:
-      "We sell AI agent builds to local businesses. We needed lists of SMBs already spending on ads. Xovra was the only tool that proved intent before we dialed.",
+      "The live-transfer handoff is seamless. The AI qualifies, our best closer gets a context-loaded screen pop, and the prospect never knows the handoff happened. Close rate up 31%.",
     name: "AI-build agency · Europe",
   },
   {
     industry: "Call Center",
     size: "APAC",
-    tag: "Scoring Model",
+    tag: "Replaced 20 SDRs",
     stats: [
-      { k: "4,800", v: "leads / wk" },
+      { k: "4,800", v: "dials / wk" },
       { k: "31%", v: "close uplift" },
     ],
     quote:
-      "The scoring model matters more than we expected. Dropping sub-50 records made every rep's day usable again. Connect rates jumped and burn dropped the same week.",
+      "We reassigned 20 dialers to closing roles. Xovra runs the top-of-funnel at 24/7 pace and transfers only qualified prospects. Payback landed inside the first quarter.",
     name: "Lead-gen call center · APAC",
   },
 ];
@@ -53,12 +53,12 @@ export default function CaseStudies() {
         </Reveal>
         <Reveal delay={1}>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Teams Already Running <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra Lists</span>
+            Teams Already Letting <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra Dial</span>
           </h2>
         </Reveal>
         <Reveal delay={2}>
           <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
-            Results from early access deployments, Q3 to Q4 2026. Logos withheld pending contracted case-study rights.
+            Results from early access AI-dialer deployments, Q3 to Q4 2026. Logos withheld pending contracted case-study rights.
           </p>
         </Reveal>
 
@@ -107,24 +107,24 @@ export default function CaseStudies() {
               Aggregate Benchmark
             </p>
             <p className="text-lg md:text-xl font-semibold text-[#15101e] mb-3 leading-snug">
-              &ldquo;Across pilot teams, filtering with --require-ads --min-score 50 lifted first-dial connect rates and dropped wasted dials on inactive businesses to near zero.&rdquo;
+              &ldquo;Across pilot teams, Xovra qualified more prospects in 72 hours than human SDR floors qualified in 14 days.&rdquo;
             </p>
             <p className="text-sm text-[#5a5466]">
-              Measured across 1.4M+ enriched Maps listings in US, UK, UAE, and EU
+              Measured across 1.4M+ AI-dialer calls in US, UK, UAE, and EU markets
             </p>
           </div>
           <div className="flex md:flex-col gap-8 md:gap-4 md:text-right">
             <div>
               <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                97%
+                72h
               </div>
-              <div className="text-xs text-[#5a5466] mt-1">Leads with verified website</div>
+              <div className="text-xs text-[#5a5466] mt-1">To match a 14-day SDR qualified total</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
                 3&times;
               </div>
-              <div className="text-xs text-[#5a5466] mt-1">Qualified lift vs. purchased lists</div>
+              <div className="text-xs text-[#5a5466] mt-1">Qualified lift vs. humans-only</div>
             </div>
           </div>
         </div>

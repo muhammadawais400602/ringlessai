@@ -22,18 +22,19 @@ export default function Home() {
             {/* Left column */}
             <div className="max-w-2xl">
               <h1 className="hero-headline text-5xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[1.02] mb-8">
-                Prospect Lists That Actually Convert.
+                AI That Dials, Qualifies, Books.
               </h1>
 
               <p className="text-base md:text-lg text-[#c8c2d8] max-w-xl leading-relaxed mb-12">
-                Xovra scrapes Google Maps for every business in your niche and
-                city, enriches each one with contact data from its own website,
-                scores it by live Google Ads intent, and drops the result into
-                your CRM or Google Sheet, ready to dial by morning.
+                Xovra is an AI outbound dialer that works leads at scale,
+                qualifies intent live, and either transfers hot prospects to
+                your closers in under 60 seconds or books the meeting on your
+                calendar. Fresh Google Maps leads sourced and scored on every
+                run, no SDR floor required.
               </p>
 
-              <a href="https://github.com/ahmadvision345/mapleads" className="cta-primary">
-                <span>Start sourcing</span>
+              <a href="#contact" className="cta-primary">
+                <span>Book a demo</span>
                 <span className="arrow">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -51,13 +52,13 @@ export default function Home() {
                   <path d="M18 3 L18.7 5.3 L21 6 L18.7 6.7 L18 9 L17.3 6.7 L15 6 L17.3 5.3 Z" fill="#c187fb" />
                   <path d="M5 15 L5.6 16.8 L7.4 17.4 L5.6 18 L5 19.8 L4.4 18 L2.6 17.4 L4.4 16.8 Z" fill="#c187fb" />
                 </svg>
-                <span>Google Maps + 3 ad-intent signals</span>
+                <span>Live transfer in under 60 seconds</span>
               </div>
               <div className="feature-chip chip-b self-end lg:mr-0 lg:ml-24">
                 <svg className="chip-icon-check" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#c187fb" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M4 12 L10 18 L20 6" />
                 </svg>
-                <span>CRM-ready CSV &amp; Google Sheets</span>
+                <span>24/7 dialing, nights &amp; weekends</span>
               </div>
               <div className="feature-chip chip-c self-start">
                 <svg className="chip-icon-score" width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -65,7 +66,7 @@ export default function Home() {
                   <path d="M6 14 L4 20 L10 18" fill="#8b2ff8" />
                   <circle cx="15" cy="9" r="1.4" fill="#fff" />
                 </svg>
-                <span>Every lead scored 0 to 100</span>
+                <span>Fresh leads sourced, scored, dialed</span>
               </div>
             </div>
           </div>

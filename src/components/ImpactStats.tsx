@@ -2,24 +2,24 @@ import Reveal from "./Reveal";
 
 const stats = [
   {
-    value: "70%+",
-    label: "Of Google Maps results carry a reachable website, so email enrichment actually works",
-    hint: "Website reachability",
+    value: "< 60s",
+    label: "Live-transfer handoff time, from qualified prospect to rep on the line",
+    hint: "Transfer speed",
   },
   {
     value: "3×",
-    label: "Qualified-conversation lift vs. untargeted Apollo-style purchased lists",
-    hint: "Conversion lift",
+    label: "Qualified conversations lifted vs. a humans-only outbound SDR floor",
+    hint: "Qualified lift",
+  },
+  {
+    value: "24/7",
+    label: "Nights, weekends, holidays. Your AI dialer never stops warming pipeline",
+    hint: "Coverage",
   },
   {
     value: "0",
-    label: "API keys, Google Cloud projects or paid data tiers required to source",
-    hint: "Setup friction",
-  },
-  {
-    value: "< 2 min",
-    label: "From niche + city input to a scored CSV in your downloads folder",
-    hint: "Time to first list",
+    label: "SDR seats required to run a weekend campaign at full volume",
+    hint: "Headcount",
   },
 ];
 
@@ -37,12 +37,12 @@ export default function ImpactStats() {
         </Reveal>
         <Reveal delay={1}>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Why Scraped Lists <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Outperform</span>
+            Why Teams Replace Their <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">SDR Floor</span>
           </h2>
         </Reveal>
         <Reveal delay={2}>
           <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
-            Measured across pilot runs covering over 1.4 million Google Maps businesses enriched in US, UK, UAE and EU markets.
+            Measured across live AI-dialer campaigns dialing 1.4M+ enriched leads in US, UK, UAE and EU markets.
           </p>
         </Reveal>
 

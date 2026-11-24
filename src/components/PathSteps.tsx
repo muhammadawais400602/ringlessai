@@ -3,28 +3,28 @@ import Reveal from "./Reveal";
 const steps = [
   {
     n: "01",
-    title: "Pick Niche + City",
-    body: "Choose a vertical and a market. Solo neighborhoods or continent-scale batches via a YAML jobs file. Both run the same way.",
+    title: "Set Your Rubric",
+    body: "Define ICP, qualification questions, pitch script, and routing rules. Pick a voice. Xovra configures the rest in your tenant.",
   },
   {
     n: "02",
-    title: "Scrape Google Maps",
-    body: "A Playwright-driven headless browser pulls every matching listing: name, phone, address, rating, review count, website URL.",
+    title: "Leads Sourced",
+    body: "Xovra pulls fresh Google Maps leads for the niche and city, enriches each from its own website, and scores by live Google Ads intent.",
   },
   {
     n: "03",
-    title: "Enrich & Detect",
-    body: "Each website is parsed for email, tech stack and social URLs. Three independent ad-intent sources layer on top: tags, ATC, live SERP.",
+    title: "AI Dials & Qualifies",
+    body: "Natural voice agents open conversations, handle objections, and qualify prospects against your rubric. Nights and weekends included.",
   },
   {
     n: "04",
-    title: "Score & Filter",
-    body: "Every row gets a 0 to 100 fit score. Filter with --min-score. Keep only advertisers with --require-ads. Drop anything without signal.",
+    title: "Transfer or Book",
+    body: "Hot prospects get live-transferred to your rep with full context. Everyone else gets a meeting booked directly on your calendar.",
   },
   {
     n: "05",
-    title: "Export to CRM",
-    body: "HubSpot-ready CSV in /out, or a Google Sheet your dialer already watches. Lifecycle stage and contact owner set automatically.",
+    title: "CRM Sync",
+    body: "Call transcripts, qualification outcomes, and scheduled meetings sync to HubSpot, Close, GoHighLevel, Salesforce, or your Google Sheet.",
   },
 ];
 
@@ -41,12 +41,12 @@ export default function PathSteps() {
               How It Works
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] max-w-2xl">
-              Niche + City In. Scored CSV Out.
+              Your Path from Launch to Booked Meetings
             </h2>
           </Reveal>
           <Reveal delay={2}>
             <p className="text-[#5a5466] max-w-md">
-              One CLI command, one YAML batch file, or one Python import. Xovra does the scraping, the website visits, the ad-intent detection, the scoring, and the CRM formatting end to end.
+              Set your rubric once. Xovra sources, dials, qualifies, transfers hot prospects, and books the rest. You review the calendar.
             </p>
           </Reveal>
         </div>
