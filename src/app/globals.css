@@ -196,6 +196,16 @@ html, body {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
+/* ============ Theme preview wrappers ============ */
+/* hue-rotate shifts every color with a hue (purples, pinks, light tints,
+   backdrop glows) without touching whites, blacks, or near-neutral grays.
+   Each preview route wraps the homepage in one of these classes. */
+.theme-preview { position: relative; isolation: isolate; }
+.theme-blue { filter: hue-rotate(-85deg) saturate(1.08); }
+.theme-emerald { filter: hue-rotate(-145deg) saturate(1); }
+.theme-sunset { filter: hue-rotate(-245deg) saturate(1.15); }
+.theme-mono { filter: saturate(0.05) brightness(1.02); }
+
 /* ============ Soft background blob ============ */
 .bg-blob {
   position: absolute;
