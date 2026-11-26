@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowDown, ArrowUp, CornerUpRight } from "lucide-react";
+import Reveal from "./Reveal";
 
 const faqs = [
   {
@@ -33,60 +35,112 @@ const faqs = [
   },
 ];
 
+function Item({ i, open, onToggle }: { i: number; open: boolean; onToggle: (i: number) => void }) {
+  const f = faqs[i];
+  return (
+    <div
+      className={`rounded-[14px] border border-[#8b2ff8] transition-colors duration-300 ${
+        open ? "bg-white" : "bg-white/60 hover:bg-white"
+      }`}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => onToggle(i)}
+        className="flex w-full items-start justify-between gap-3 p-5 text-left"
+      >
+        <span className={`text-[15.5px] leading-[1.4] transition-colors duration-300 ${open ? "text-[#0a0a0a]" : "text-[#444]"}`}>
+          {f.q}
+        </span>
+        <span className="mt-0.5 shrink-0">
+          {open ? (
+            <ArrowUp size={17} strokeWidth={1.8} className="text-[#8b2ff8]" />
+          ) : (
+            <ArrowDown size={17} strokeWidth={1.8} className="text-[#444]" />
+          )}
+        </span>
+      </button>
+      <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5">
+            <p
+              className={`rounded-xl border border-[#e8e8e8] bg-[#f4f4f4] p-3.5 text-[13.5px] leading-[1.5] text-[#666] transition-opacity duration-300 ${
+                open ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {f.a}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Fixed column assignment so opening a card only moves cards in its own column
+function columns(count: number) {
+  const cols: number[][] = Array.from({ length: count }, () => []);
+  faqs.forEach((_, i) => cols[i % count].push(i));
+  return cols;
+}
+
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<Set<number>>(new Set([0, 2, 3, 5]));
+
+  const toggle = (i: number) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
+
+  const layout = (count: number, cls: string) => (
+    <div className={cls}>
+      {columns(count).map((col, c) => (
+        <div key={c} className="flex flex-1 flex-col gap-4">
+          {col.map((i) => (
+            <Item key={i} i={i} open={open.has(i)} onToggle={toggle} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 
   return (
-    <section id="about-us" className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="bg-blob bg-blob-purple w-[460px] h-[460px] top-10 -left-40 opacity-40" />
-      <div className="bg-blob bg-blob-pink w-[420px] h-[420px] bottom-0 -right-32 opacity-40" />
+    <section id="about-us" className="relative bg-[#f5f5f5] text-[#0a0a0a]">
+      <div className="mx-auto max-w-[1500px] px-6 md:px-14 lg:px-20 py-20 md:py-28">
+        <div className="mb-12 grid grid-cols-1 gap-y-6 md:mb-[72px] lg:grid-cols-[44.8%_1fr] lg:items-end">
+          <Reveal>
+            <span className="mb-3 inline-flex items-center gap-1.5 text-[17px] font-medium text-[#8b2ff8]">
+              FAQ
+              <CornerUpRight size={16} strokeWidth={2.2} />
+            </span>
+            <h2 className="text-[clamp(2.1rem,4.2vw,3.5rem)] font-medium leading-[1.06] tracking-[-0.04em]">
+              Frequently
+              <br />
+              Asked Questions
+            </h2>
+          </Reveal>
 
-      <div className="relative max-w-[1100px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
-        <div className="text-center mb-14 md:mb-16">
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            FAQ
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Frequently Asked <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Questions</span>
-          </h2>
-          <p className="text-[#5a5466]">
-            Honest answers to the questions buyers always ask first.
-          </p>
+          <Reveal delay={1}>
+            <div className="max-w-[560px] lg:pb-1">
+              <p className="text-[16px] leading-[1.55] text-[#111]">Honest answers to the questions buyers always ask first.</p>
+              <a
+                href="#contact"
+                className="mt-5 inline-flex items-center rounded-xl bg-[#7a1fd6] px-5 py-3 text-sm font-medium text-white shadow-[0_8px_22px_rgba(122,31,214,0.3)] transition-transform hover:-translate-y-0.5"
+              >
+                Book a demo
+              </a>
+            </div>
+          </Reveal>
         </div>
 
-        <div className="divide-y divide-[#ece6f5] border-y border-[#ece6f5]">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={i}>
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-6 py-6 text-left hover:text-[#8b2ff8] transition"
-                >
-                  <span className="text-base md:text-lg font-medium text-[#15101e]">{f.q}</span>
-                  <span
-                    className={`flex-shrink-0 w-7 h-7 rounded-full border border-[#e2d2f5] flex items-center justify-center text-[#8b2ff8] transition-transform ${isOpen ? "rotate-45" : ""}`}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                  </span>
-                </button>
-                <div
-                  className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-[15px] text-[#5a5466] leading-relaxed max-w-3xl pr-10">
-                      {f.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <Reveal delay={2}>
+          {layout(4, "hidden items-start gap-4 lg:flex")}
+          {layout(2, "hidden items-start gap-4 md:flex lg:hidden")}
+          {layout(1, "flex flex-col gap-4 md:hidden")}
+        </Reveal>
       </div>
     </section>
   );
