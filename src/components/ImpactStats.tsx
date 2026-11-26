@@ -1,67 +1,264 @@
-import Reveal from "./Reveal";
+"use client";
 
-const stats = [
-  {
-    value: "< 60s",
-    label: "Live-transfer handoff time, from qualified prospect to rep on the line",
-    hint: "Transfer speed",
-  },
+import { useEffect, useRef } from "react";
+import { PhoneCall, Sparkles } from "lucide-react";
+import Reveal from "./Reveal";
+import { Eyebrow } from "./ui";
+
+type Stat = {
+  value: string;
+  label: string;
+  tone: "brand" | "ink";
+  tint: string;
+  chips?: boolean;
+  // position + size in the 1440-wide design space, and parallax speed
+  x: number;
+  y: number;
+  w: number;
+  rate: number;
+};
+
+// Order = the four floating cards around the giant word
+const stats: Stat[] = [
   {
     value: "3×",
     label: "Qualified conversations lifted vs. a humans-only outbound SDR floor",
-    hint: "Qualified lift",
-  },
-  {
-    value: "24/7",
-    label: "Nights, weekends, holidays. Your AI dialer never stops warming pipeline",
-    hint: "Coverage",
+    tone: "brand",
+    tint: "linear-gradient(rgba(139,47,248,0), rgba(139,47,248,0.15)), var(--surface)",
+    chips: true,
+    x: 518,
+    y: 514,
+    w: 389,
+    rate: 0.48,
   },
   {
     value: "0",
     label: "SDR seats required to run a weekend campaign at full volume",
-    hint: "Headcount",
+    tone: "brand",
+    tint: "linear-gradient(rgba(139,47,248,0), rgba(139,47,248,0.06)), var(--surface)",
+    x: 64,
+    y: 132,
+    w: 236,
+    rate: 0.1,
+  },
+  {
+    value: "24/7",
+    label: "Nights, weekends, holidays. Your AI dialer never stops warming pipeline",
+    tone: "ink",
+    tint: "linear-gradient(#fff, rgba(139,47,248,0.06)), var(--surface)",
+    x: 1091,
+    y: 6,
+    w: 285,
+    rate: 0.24,
+  },
+  {
+    value: "< 60s",
+    label: "Live-transfer handoff time, from qualified prospect to rep on the line",
+    tone: "ink",
+    tint: "linear-gradient(#fff, rgba(139,47,248,0.06)), var(--surface)",
+    x: 927,
+    y: 513,
+    w: 285,
+    rate: 0.24,
   },
 ];
 
-export default function ImpactStats() {
-  return (
-    <section className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="bg-blob bg-blob-purple w-[520px] h-[520px] -top-40 -right-40" />
-      <div className="bg-blob bg-blob-pink w-[380px] h-[380px] bottom-0 -left-32 opacity-40" />
+const DESIGN_W = 1440;
+const DESIGN_H = 740;
 
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
-        <Reveal>
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            Benchmarks
-          </p>
-        </Reveal>
-        <Reveal delay={1}>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Why Teams Replace Their <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">SDR Floor</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={2}>
-          <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
+function StatCard({ s, fluid = false }: { s: Stat; fluid?: boolean }) {
+  return (
+    <div
+      className="flex h-full flex-col justify-between gap-4 rounded-[20px] border border-brand/10 p-6"
+      style={{ background: s.tint, width: fluid ? "100%" : undefined }}
+    >
+      <div className="flex items-center justify-between">
+        <span className={`text-[clamp(2.6rem,6vw,4rem)] font-medium leading-none tracking-[-0.03em] ${s.tone === "brand" ? "text-brand" : "text-ink"}`}>
+          {s.value}
+        </span>
+        {s.chips && (
+          <span className="flex items-center">
+            <span className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-brand/15 text-brand">
+              <PhoneCall size={24} strokeWidth={1.8} />
+            </span>
+            <span className="-ml-2 flex h-[60px] w-[60px] items-center justify-center rounded-full bg-brand text-white">
+              <Sparkles size={24} strokeWidth={1.8} />
+            </span>
+          </span>
+        )}
+      </div>
+      <p className="text-[16px] leading-[1.5] text-ink/70">{s.label}</p>
+    </div>
+  );
+}
+
+function Heading({ stacked = false }: { stacked?: boolean }) {
+  return (
+    <h2 className="relative text-center">
+      <span
+        className={
+          stacked
+            ? "mb-2 block text-[clamp(1.25rem,5vw,1.9rem)] font-medium tracking-[-0.02em] text-ink"
+            : "absolute z-10 whitespace-nowrap text-[30px] font-medium tracking-[-0.02em] text-ink"
+        }
+        style={stacked ? undefined : { left: "calc(50% + 176px)", top: "47px", fontSize: 26 }}
+      >
+        Why Teams Replace Their
+      </span>
+      <span
+        className="giant block font-normal leading-[1.05]"
+        style={{
+          fontSize: stacked ? "clamp(4.4rem,23vw,11rem)" : "250px",
+          letterSpacing: "-0.06em",
+          backgroundImage: "linear-gradient(var(--ink), color-mix(in srgb, var(--brand) 72%, #000) 78%)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+          paddingBottom: "0.08em",
+        }}
+      >
+        SDR Floor
+      </span>
+    </h2>
+  );
+}
+
+export default function ImpactStats() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const wrap = wrapRef.current;
+    const stage = stageRef.current;
+    if (!section || !wrap || !stage) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let scale = 1;
+    let target = 0;
+    let current = 0;
+    let raf = 0;
+    let last = 0;
+
+    const apply = () => {
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        el.style.transform = `translate3d(0, ${(-stats[i].rate * current) / scale}px, 0)`;
+      });
+    };
+
+    const measure = () => {
+      scale = Math.min(1.25, wrap.clientWidth / DESIGN_W);
+      stage.style.transform = `scale(${scale})`;
+      wrap.style.height = `${DESIGN_H * scale}px`;
+      stage.style.marginLeft = `${(wrap.clientWidth - DESIGN_W * scale) / 2}px`;
+      apply();
+    };
+
+    const computeTarget = () => {
+      const top = section.getBoundingClientRect().top;
+      return Math.max(0, Math.min(window.innerHeight * 0.15 - top, section.offsetHeight * 1.1));
+    };
+
+    const tick = (ts: number) => {
+      const dt = Math.min(0.05, (ts - last) / 1000);
+      last = ts;
+      const diff = target - current;
+      if (reduce || Math.abs(diff) < 0.3) {
+        current = target;
+        apply();
+        raf = 0;
+        return;
+      }
+      current += diff * (1 - Math.exp(-dt / 0.09));
+      apply();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const kick = () => {
+      target = computeTarget();
+      if (reduce) {
+        current = 0;
+        return;
+      }
+      if (!raf) {
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    measure();
+    target = current = reduce ? 0 : computeTarget();
+    apply();
+
+    const ro = new ResizeObserver(() => {
+      measure();
+      kick();
+    });
+    ro.observe(wrap);
+    window.addEventListener("scroll", kick, { passive: true });
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("scroll", kick);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <section id="benchmarks" ref={sectionRef} className="relative bg-white text-ink" style={{ overflowX: "clip" }}>
+      {/* Desktop: giant word with floating parallax cards */}
+      <div className="hidden pt-24 min-[1200px]:block md:pt-28">
+        <div ref={wrapRef} className="relative w-full">
+          <div ref={stageRef} className="absolute left-0 top-0 origin-top-left" style={{ width: DESIGN_W, height: DESIGN_H }}>
+            <div className="absolute left-0 right-0 flex flex-col items-center text-center" style={{ top: 160 }}>
+              <Reveal>
+                <Eyebrow>Benchmarks</Eyebrow>
+              </Reveal>
+              <Reveal delay={1}>
+                <p className="lead mt-3 max-w-[520px] !text-[15px]">
+                  Measured across live AI-dialer campaigns dialing 1.4M+ enriched leads in US, UK, UAE and EU markets.
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="absolute left-0 right-0" style={{ top: 262 }}>
+              <Reveal delay={1}>
+                <Heading />
+              </Reveal>
+            </div>
+
+            {stats.map((s, i) => (
+              <div
+                key={s.value}
+                ref={(el) => {
+                  cardRefs.current[i] = el;
+                }}
+                className="absolute will-change-transform"
+                style={{ left: s.x, top: s.y, width: s.w }}
+              >
+                <Reveal delay={Math.min(i + 2, 6) as 2 | 3 | 4 | 5 | 6}>
+                  <StatCard s={s} />
+                </Reveal>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Below 1200px: stacked heading and a card grid */}
+      <div className="section-shell min-[1200px]:hidden">
+        <div className="flex flex-col items-center text-center">
+          <Eyebrow className="mb-4">Benchmarks</Eyebrow>
+          <Heading stacked />
+          <p className="lead mt-4 max-w-[520px]">
             Measured across live AI-dialer campaigns dialing 1.4M+ enriched leads in US, UK, UAE and EU markets.
           </p>
-        </Reveal>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-          {stats.map((s, i) => (
-            <Reveal key={s.value} delay={(i + 1) as 1 | 2 | 3 | 4}>
-              <div className="group relative pt-6 border-t-2 border-[#ece6f5] hover:border-[#8b2ff8] transition-colors duration-300">
-                <span className="absolute -top-px left-0 h-0.5 w-0 bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] group-hover:w-full transition-all duration-500" />
-                <p className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#8b2ff8] mb-3">
-                  {s.hint}
-                </p>
-                <div className="text-5xl md:text-6xl font-semibold tracking-tight bg-gradient-to-br from-[#15101e] via-[#2a1545] to-[#8b2ff8] bg-clip-text text-transparent mb-4">
-                  {s.value}
-                </div>
-                <p className="text-sm md:text-[15px] text-[#5a5466] leading-relaxed">
-                  {s.label}
-                </p>
-              </div>
-            </Reveal>
+        </div>
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {stats.map((s) => (
+            <StatCard key={s.value} s={s} fluid />
           ))}
         </div>
       </div>

@@ -8,6 +8,25 @@
   --neon: #ec6afb;
   --glow: #e23ce4;
   --purple-deep: #3a0c6a;
+
+  /* Brand */
+  --brand: #8b2ff8;
+  /* Neutrals (light sections) */
+  --ink: #0a0a0a;
+  --body: #5c5c5c;
+  --subtle: #6f6f6f;
+  --surface: #f5f5f5;
+  --surface-2: #efefef;
+  --line: #e3e3e3;
+  /* Dark sections */
+  --night: #07040d;
+  --night-card: #0d0817;
+  --charcoal: #202020;
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 700ms;
 }
 
 @theme inline {
@@ -16,7 +35,25 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-neon: var(--neon);
+  --color-brand: var(--brand);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-subtle: var(--subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-night: var(--night);
+  --color-night-card: var(--night-card);
+  --color-charcoal: var(--charcoal);
   --font-sans: var(--font-geist-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 html, body {
@@ -24,6 +61,82 @@ html, body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ============ Shared design system ============ */
+@layer components {
+  .section-shell {
+    @apply mx-auto max-w-[1500px] px-6 py-20 md:px-14 md:py-28 lg:px-20;
+  }
+
+  /* One heading scale for every section title */
+  .h-section {
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+  .lead {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--body);
+  }
+
+  /* Brand-gradient emphasis used on the key phrase of a heading */
+  .accent-text {
+    background-image: linear-gradient(90deg, var(--neon), var(--brand));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--brand);
+  }
+  .eyebrow-dark { color: #c187fb; }
+
+  /* Buttons: pill + purple arrow chip, one shape everywhere */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.6rem 0.6rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn .arrow {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: var(--brand);
+    color: #fff;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .btn:hover .arrow { transform: translateX(2px); }
+  .btn-dark {
+    background: var(--ink);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(10, 10, 10, 0.18);
+  }
+  .btn-dark:hover { box-shadow: 0 14px 34px rgba(139, 47, 248, 0.3); }
+  .btn-light {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 60px rgba(236, 106, 251, 0.25);
+  }
+  .btn-light:hover { box-shadow: 0 0 80px rgba(236, 106, 251, 0.45); }
 }
 
 .hero-headline {
@@ -70,10 +183,10 @@ html, body {
   color: #000000;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
   box-shadow: 0 0 60px rgba(236, 106, 251, 0.25);
 }
-.cta-primary:hover { transform: translateY(-1px); box-shadow: 0 0 80px rgba(236, 106, 251, 0.45); }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 0 80px rgba(236, 106, 251, 0.45); }
 .cta-primary .arrow {
   width: 2rem; height: 2rem;
   display: inline-flex; align-items: center; justify-content: center;
@@ -176,7 +289,7 @@ html, body {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(.22,.9,.32,1), transform 0.7s cubic-bezier(.22,.9,.32,1);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
   will-change: opacity, transform;
 }
 .reveal.reveal-in {

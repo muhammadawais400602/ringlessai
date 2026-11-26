@@ -1,4 +1,6 @@
+import { Box } from "lucide-react";
 import Reveal from "./Reveal";
+import { CtaButton, Eyebrow } from "./ui";
 
 const steps = [
   {
@@ -30,45 +32,64 @@ const steps = [
 
 export default function PathSteps() {
   return (
-    <section className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="bg-grid" />
-      <div className="bg-blob bg-blob-pink w-[480px] h-[480px] top-20 -right-32 opacity-45" />
-
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14 md:mb-16">
+    <section id="how-it-works" className="relative bg-surface text-ink">
+      <div className="section-shell">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-x-16 gap-y-8 lg:items-end mb-12 md:mb-[72px]">
           <Reveal>
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-              How It Works
-            </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] max-w-2xl">
-              Your Path from Launch to Booked Meetings
+            <Eyebrow className="mb-3">How It Works</Eyebrow>
+            <h2 className="h-section">
+              Your Path from Launch
+              <br />
+              <span className="accent-text">to Booked Meetings</span>
             </h2>
           </Reveal>
-          <Reveal delay={2}>
-            <p className="text-[#5a5466] max-w-md">
-              Set your rubric once. Xovra sources, dials, qualifies, transfers hot prospects, and books the rest. You review the calendar.
-            </p>
+
+          <Reveal delay={1}>
+            <div className="max-w-[420px] lg:ml-auto lg:pb-1">
+              <p className="lead">
+                Set your rubric once. Xovra sources, dials, qualifies, transfers hot prospects, and books the rest. You review the calendar.
+              </p>
+              <CtaButton href="#contact" className="mt-5">
+                Book a demo
+              </CtaButton>
+            </div>
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 relative">
-          {/* connector line between cards on desktop */}
-          <div className="hidden lg:block absolute top-16 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#e2d2f5] to-transparent pointer-events-none" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {steps.map((s, i) => (
-            <Reveal key={s.n} delay={(i + 1) as 1 | 2 | 3 | 4 | 5}>
-              <div className="group relative p-6 md:p-7 rounded-2xl border border-[#ece6f5] bg-white/90 backdrop-blur-sm hover:shadow-[0_24px_60px_rgba(139,47,248,0.12)] hover:border-[#c6a5ea] hover:-translate-y-1 transition-all duration-300 h-full">
-                <div className="relative mb-5">
-                  <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-[#ec6afb]/10 to-[#8b2ff8]/10 opacity-0 group-hover:opacity-100 blur-lg transition-opacity" />
-                  <div className="relative text-3xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                    {s.n}
-                  </div>
+            <Reveal key={s.n} delay={Math.min(i + 1, 6) as 1 | 2 | 3 | 4 | 5 | 6}>
+              <article className="group relative h-[280px] md:h-[300px] overflow-hidden rounded-2xl bg-white p-6 flex flex-col justify-between transition-colors duration-[var(--dur-base)] hover:bg-charcoal">
+                <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-charcoal text-white transition-colors duration-300 group-hover:bg-white group-hover:text-ink">
+                  <Box size={19} color="currentColor" strokeWidth={2} />
                 </div>
-                <h3 className="text-base font-semibold text-[#15101e] mb-3">{s.title}</h3>
-                <p className="text-sm text-[#5a5466] leading-relaxed">{s.body}</p>
-                <span className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
-              </div>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-3 top-2 select-none text-[104px] md:text-[112px] leading-none font-medium tracking-[-0.05em] text-[#ececec] transition-colors duration-300 [-webkit-text-stroke:1.5px_#dcdcdc] group-hover:text-[#2b2b2b] group-hover:[-webkit-text-stroke-color:#3d3d3d]"
+                >
+                  {s.n}
+                </span>
+                <div className="relative">
+                  <h3 className="text-[22px] leading-tight font-medium tracking-[-0.02em] transition-colors duration-300 group-hover:text-white">{s.title}</h3>
+                  <p className="mt-2 text-[15px] leading-[1.45] text-body transition-colors duration-300 group-hover:text-white/70">{s.body}</p>
+                </div>
+              </article>
             </Reveal>
           ))}
+
+          <Reveal delay={6}>
+            <article className="relative h-[280px] md:h-[300px] overflow-hidden rounded-2xl bg-charcoal p-6 flex flex-col justify-between text-white">
+              <div>
+                <h3 className="text-[22px] leading-tight font-medium tracking-[-0.02em]">Let AI Run Your Outbound This Week.</h3>
+                <p className="mt-2 text-[15px] leading-[1.45] text-white/70">
+                  Set your rubric, point at a niche and a city, watch qualified meetings land on your calendar.
+                </p>
+              </div>
+              <CtaButton href="#contact" variant="light" className="w-full">
+                Book a demo
+              </CtaButton>
+            </article>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import CaseStudies from "@/components/CaseStudies";
 import ConveyorScene from "@/components/ConveyorScene";
 import FAQ from "@/components/FAQ";
-import FeatureGrid from "@/components/FeatureGrid";
+import FeatureScroller from "@/components/FeatureScroller";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import ImpactStats from "@/components/ImpactStats";
@@ -12,10 +12,10 @@ import WhyChoose from "@/components/WhyChoose";
 
 export default function Homepage() {
   return (
-    <main className="relative bg-black text-white overflow-hidden">
+    <main className="relative bg-black text-white overflow-x-clip">
       <Navbar />
 
-      <section className="relative">
+      <section className="relative overflow-hidden" data-nav-theme="dark">
         {/* Top block: headline, subheading, CTA, chips */}
         <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-32 md:pt-36 pb-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -84,7 +84,7 @@ export default function Homepage() {
       </section>
 
       <IntegrationStrip />
-      <FeatureGrid />
+      <FeatureScroller />
       <ImpactStats />
       <PathSteps />
       <WhyChoose />

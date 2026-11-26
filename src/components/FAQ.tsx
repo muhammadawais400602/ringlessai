@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import Reveal from "./Reveal";
+import { CtaButton, Eyebrow } from "./ui";
 
 const faqs = [
   {
@@ -37,55 +40,71 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="about-us" className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="bg-blob bg-blob-purple w-[460px] h-[460px] top-10 -left-40 opacity-40" />
-      <div className="bg-blob bg-blob-pink w-[420px] h-[420px] bottom-0 -right-32 opacity-40" />
-
-      <div className="relative max-w-[1100px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
-        <div className="text-center mb-14 md:mb-16">
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            FAQ
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Frequently Asked <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Questions</span>
+    <section id="about-us" className="relative bg-surface text-ink">
+      <div className="section-shell">
+        <Reveal>
+          <Eyebrow className="mb-4">FAQ</Eyebrow>
+          <h2 className="h-section border-l-[5px] border-brand pl-4 [border-radius:2px]">
+            Frequently Asked <span className="accent-text">Questions</span>
           </h2>
-          <p className="text-[#5a5466]">
-            Honest answers to the questions buyers always ask first.
-          </p>
-        </div>
+        </Reveal>
 
-        <div className="divide-y divide-[#ece6f5] border-y border-[#ece6f5]">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={i}>
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-6 py-6 text-left hover:text-[#8b2ff8] transition"
-                >
-                  <span className="text-base md:text-lg font-medium text-[#15101e]">{f.q}</span>
-                  <span
-                    className={`flex-shrink-0 w-7 h-7 rounded-full border border-[#e2d2f5] flex items-center justify-center text-[#8b2ff8] transition-transform ${isOpen ? "rotate-45" : ""}`}
+        <div className="mt-10 grid grid-cols-1 gap-10 md:mt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.5fr)] lg:gap-16">
+          <Reveal delay={1} className="lg:sticky lg:top-28 lg:self-start">
+            <p className="lead max-w-[420px]">Honest answers to the questions buyers always ask first.</p>
+            <CtaButton href="#contact" className="mt-6">
+              Book a demo
+            </CtaButton>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="flex flex-col gap-3">
+              {faqs.map((f, i) => {
+                const isOpen = open === i;
+                return (
+                  <div
+                    key={f.q}
+                    className={`rounded-2xl transition-[background-color,box-shadow] duration-[var(--dur-base)] ${
+                      isOpen ? "bg-white shadow-[0_12px_36px_rgba(10,10,10,0.06)]" : "bg-white/70 hover:bg-white"
+                    }`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                  </span>
-                </button>
-                <div
-                  className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-[15px] text-[#5a5466] leading-relaxed max-w-3xl pr-10">
-                      {f.a}
-                    </p>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="flex w-full items-center justify-between gap-4 px-5 py-[18px] text-left md:px-6"
+                    >
+                      <span className={`text-[16px] leading-[1.4] transition-colors duration-[var(--dur-base)] ${isOpen ? "text-ink" : "text-body"}`}>
+                        {f.q}
+                      </span>
+                      <span className="shrink-0">
+                        {isOpen ? (
+                          <ArrowUp size={18} strokeWidth={1.8} className="text-brand" />
+                        ) : (
+                          <ArrowDown size={18} strokeWidth={1.8} className="text-body" />
+                        )}
+                      </span>
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-[var(--dur-base)] ease-out ${
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p
+                          className={`px-5 pb-6 text-[15px] leading-[1.65] text-body transition-opacity duration-[var(--dur-base)] md:px-6 ${
+                            isOpen ? "opacity-100" : "opacity-0"
+                          }`}
+                        >
+                          {f.a}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
