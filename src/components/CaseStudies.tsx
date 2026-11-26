@@ -1,133 +1,139 @@
+import { CornerUpRight } from "lucide-react";
+import Reveal from "./Reveal";
+
 const cases = [
   {
-    industry: "Home Services",
-    size: "US Southeast",
-    tag: "Weekend Autopilot",
-    stats: [
-      { k: "412", v: "dials / wk" },
-      { k: "40", v: "weekend bookings" },
+    tag: "Home Services · US Southeast",
+    badge: "Weekend Autopilot",
+    metrics: [
+      { v: "412", l: "dials / wk" },
+      { v: "40", l: "weekend bookings" },
     ],
-    quote:
-      "Our two SDRs couldn't touch Saturdays. Xovra dials from Friday night through Sunday, and Monday morning our closers see 40 booked meetings on the calendar.",
-    name: "Home-services agency · US Southeast",
+    headline: "Our two SDRs couldn't touch Saturdays.",
+    body: "Xovra dials from Friday night through Sunday, and Monday morning our closers see 40 booked meetings on the calendar.",
+    by: "Home-services agency · US Southeast",
   },
   {
-    industry: "AI Agency",
-    size: "Europe",
-    tag: "Live Transfer Pilot",
-    stats: [
-      { k: "1,100", v: "dials / wk" },
-      { k: "$8", v: "per qualified call" },
+    tag: "AI Agency · Europe",
+    badge: "Live Transfer Pilot",
+    metrics: [
+      { v: "1,100", l: "dials / wk" },
+      { v: "$8", l: "per qualified call" },
     ],
-    quote:
-      "The live-transfer handoff is seamless. The AI qualifies, our best closer gets a context-loaded screen pop, and the prospect never knows the handoff happened. Close rate up 31%.",
-    name: "AI-build agency · Europe",
+    headline: "The live-transfer handoff is seamless.",
+    body: "The AI qualifies, our best closer gets a context-loaded screen pop, and the prospect never knows the handoff happened. Close rate up 31%.",
+    by: "AI-build agency · Europe",
   },
   {
-    industry: "Call Center",
-    size: "APAC",
-    tag: "Replaced 20 SDRs",
-    stats: [
-      { k: "4,800", v: "dials / wk" },
-      { k: "31%", v: "close uplift" },
+    tag: "Call Center · APAC",
+    badge: "Replaced 20 SDRs",
+    metrics: [
+      { v: "4,800", l: "dials / wk" },
+      { v: "31%", l: "close uplift" },
     ],
-    quote:
-      "We reassigned 20 dialers to closing roles. Xovra runs the top-of-funnel at 24/7 pace and transfers only qualified prospects. Payback landed inside the first quarter.",
-    name: "Lead-gen call center · APAC",
+    headline: "We reassigned 20 dialers to closing roles.",
+    body: "Xovra runs the top-of-funnel at 24/7 pace and transfers only qualified prospects. Payback landed inside the first quarter.",
+    by: "Lead-gen call center · APAC",
   },
 ];
 
-import Reveal from "./Reveal";
+const line = "#e3e3e3";
+
+function Chip({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="shrink-0 border border-[#e3e3e3] bg-white px-2 py-[3px] text-[14px] font-medium leading-none text-[#111]">
+      {children}
+    </span>
+  );
+}
 
 export default function CaseStudies() {
   return (
-    <section className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="bg-blob bg-blob-pink w-[460px] h-[460px] top-20 -right-32 opacity-45" />
-      <div className="bg-blob bg-blob-purple w-[420px] h-[420px] bottom-10 -left-28 opacity-45" />
+    <section id="pilot-results" className="relative bg-white text-[#0a0a0a]">
+      <div className="mx-auto max-w-[1500px] px-6 md:px-14 lg:px-20 pt-20 md:pt-24 pb-20 md:pb-28">
+        <div className="flex flex-col items-center text-center">
+          <Reveal>
+            <span className="inline-flex items-center gap-1.5 text-[17px] font-medium text-[#8b2ff8]">
+              Pilot Results
+              <CornerUpRight size={16} strokeWidth={2.2} />
+            </span>
+          </Reveal>
 
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-24 md:py-28">
-        <Reveal>
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-4">
-            Pilot Results
-          </p>
-        </Reveal>
-        <Reveal delay={1}>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[#15101e] mb-4">
-            Teams Already Letting <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">Xovra Dial</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={2}>
-          <p className="text-[#5a5466] max-w-2xl mb-14 md:mb-16">
-            Results from early access AI-dialer deployments, Q3 to Q4 2026. Logos withheld pending contracted case-study rights.
-          </p>
-        </Reveal>
+          <Reveal delay={1} className="w-full">
+            <h2 className="mt-2 w-full font-extrabold tracking-[-0.055em] leading-[0.94] text-[clamp(2.6rem,9.2vw,8.4rem)]">
+              {["Teams Already", "Letting Xovra Dial"].map((t) => (
+                <span
+                  key={t}
+                  className="block bg-gradient-to-b from-[#0d0d0d] from-25% to-[#0d0d0d]/0 bg-clip-text pb-[0.04em] text-transparent"
+                >
+                  {t}
+                </span>
+              ))}
+            </h2>
+          </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 mb-10">
-          {cases.map((c, i) => (
-            <Reveal key={c.name} delay={(i + 1) as 1 | 2 | 3}>
-            <div
-              className="group h-full p-7 md:p-8 rounded-2xl border border-[#ece6f5] bg-white/85 backdrop-blur-sm hover:border-[#c6a5ea] hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(139,47,248,0.12)] transition-all duration-300"
-            >
-              <div className="flex flex-wrap gap-2 mb-6">
-                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-[#5a5466] px-2.5 py-1 rounded-full bg-white border border-[#ece6f5]">
-                  {c.industry}
-                </span>
-                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-[#5a5466] px-2.5 py-1 rounded-full bg-white border border-[#ece6f5]">
-                  {c.size}
-                </span>
-                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-[#8b2ff8] px-2.5 py-1 rounded-full bg-[#f3eafb] border border-[#e2d2f5]">
-                  {c.tag}
-                </span>
-              </div>
+          <Reveal delay={2}>
+            <p className="mt-6 max-w-[500px] text-[16px] leading-[1.55] text-[#8b8b8b]">
+              <span className="text-[#111]">Results from early access AI-dialer deployments, Q3 to Q4 2026.</span> Logos withheld pending
+              contracted case-study rights.
+            </p>
+          </Reveal>
+        </div>
 
-              <div className="flex gap-6 mb-6">
-                {c.stats.map((s, i) => (
-                  <div key={i}>
-                    <div className="text-3xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                      {s.k}
-                    </div>
-                    <div className="text-xs text-[#5a5466] mt-1">{s.v}</div>
+        <Reveal delay={3}>
+          <div
+            className="mt-14 md:mt-[72px] grid grid-cols-1 md:grid-cols-3 gap-px border"
+            style={{ background: line, borderColor: line }}
+          >
+            {cases.map((c) => (
+              <article key={c.badge} className="flex min-h-[320px] flex-col justify-between bg-white p-5 md:p-[21px]">
+                <div>
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="pt-0.5 text-[13px] font-medium leading-snug text-[#666]">{c.tag}</span>
+                    <Chip>{c.badge}</Chip>
                   </div>
-                ))}
-              </div>
+                  <div className="mt-7 flex gap-10">
+                    {c.metrics.map((m) => (
+                      <div key={m.l}>
+                        <div className="text-[44px] leading-none font-semibold tracking-[-0.04em]">{m.v}</div>
+                        <div className="mt-1.5 text-[13px] text-[#777]">{m.l}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <h3 className="text-[17px] leading-snug font-semibold">{c.headline}</h3>
+                  <p className="mt-1.5 text-[15px] leading-[1.45] text-[#555]">{c.body}</p>
+                  <p className="mt-3 text-[13px] text-[#8b8b8b]">{c.by}</p>
+                </div>
+              </article>
+            ))}
 
-              <p className="text-sm text-[#2a2237] leading-relaxed mb-5">
-                &ldquo;{c.quote}&rdquo;
+            <article className="flex min-h-[280px] flex-col justify-between bg-white p-5 md:col-span-2 md:p-[21px]">
+              <div className="flex items-start justify-between gap-3">
+                <Chip>Aggregate Benchmark</Chip>
+              </div>
+              <h3 className="mt-8 max-w-[720px] text-[clamp(1.4rem,2.4vw,2.1rem)] leading-[1.18] font-medium tracking-[-0.03em]">
+                Across pilot teams, Xovra qualified more prospects in 72 hours than human SDR floors qualified in 14 days.
+              </h3>
+            </article>
+
+            <article className="flex min-h-[280px] flex-col justify-between bg-white p-5 md:p-[21px]">
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <div className="text-[52px] leading-none font-semibold tracking-[-0.04em]">72h</div>
+                  <div className="mt-2 text-[13px] leading-snug text-[#777]">To match a 14-day SDR qualified total</div>
+                </div>
+                <div>
+                  <div className="text-[52px] leading-none font-semibold tracking-[-0.04em]">3×</div>
+                  <div className="mt-2 text-[13px] leading-snug text-[#777]">Qualified lift vs. humans-only</div>
+                </div>
+              </div>
+              <p className="mt-8 text-[13px] leading-snug text-[#8b8b8b]">
+                Measured across 1.4M+ AI-dialer calls in US, UK, UAE, and EU markets
               </p>
-              <p className="text-sm font-semibold text-[#15101e]">{c.name}</p>
-            </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal>
-        <div className="rounded-2xl border border-[#ece6f5] bg-gradient-to-br from-[#fbf7ff] via-white to-[#f3eafb] p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-8">
-          <div className="flex-1">
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#8b2ff8] mb-3">
-              Aggregate Benchmark
-            </p>
-            <p className="text-lg md:text-xl font-semibold text-[#15101e] mb-3 leading-snug">
-              &ldquo;Across pilot teams, Xovra qualified more prospects in 72 hours than human SDR floors qualified in 14 days.&rdquo;
-            </p>
-            <p className="text-sm text-[#5a5466]">
-              Measured across 1.4M+ AI-dialer calls in US, UK, UAE, and EU markets
-            </p>
+            </article>
           </div>
-          <div className="flex md:flex-col gap-8 md:gap-4 md:text-right">
-            <div>
-              <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                72h
-              </div>
-              <div className="text-xs text-[#5a5466] mt-1">To match a 14-day SDR qualified total</div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-semibold bg-gradient-to-br from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">
-                3&times;
-              </div>
-              <div className="text-xs text-[#5a5466] mt-1">Qualified lift vs. humans-only</div>
-            </div>
-          </div>
-        </div>
         </Reveal>
       </div>
     </section>
