@@ -1,7 +1,6 @@
 import CaseStudies from "@/components/CaseStudies";
 import ConveyorScene from "@/components/ConveyorScene";
 import FAQ from "@/components/FAQ";
-import FeatureGrid from "@/components/FeatureGrid";
 import FeatureScroller from "@/components/FeatureScroller";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -86,7 +85,6 @@ export default function Homepage() {
 
       <IntegrationStrip />
       <FeatureScroller />
-      <FeatureGrid />
       <ImpactStats />
       <PathSteps />
       <WhyChoose />
