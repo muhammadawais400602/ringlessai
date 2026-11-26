@@ -1,69 +1,106 @@
-const cols = [
-  {
-    title: "Platform",
-    links: ["Features", "Pricing", "Integrations", "Changelog"],
-  },
-  {
-    title: "Company",
-    links: ["About", "Contact", "Careers", "Press"],
-  },
-  {
-    title: "Legal & Trust",
-    links: ["Privacy Policy", "Terms of Service", "Security", "Compliance"],
-  },
+import Reveal from "./Reveal";
+
+const platform = [
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#" },
+  { label: "Integrations", href: "#" },
+  { label: "Changelog", href: "#" },
 ];
+const company = [
+  { label: "About", href: "#about-us" },
+  { label: "Contact", href: "#contact" },
+  { label: "Careers", href: "#" },
+  { label: "Press", href: "#" },
+];
+const legal = ["Privacy Policy", "Terms of Service", "Security", "Compliance"];
+const bottomLinks = ["Status", "Documentation", "System Index"];
+
+function Pills({ title, links, dot = "#0a0a0a" }: { title: string; links: { label: string; href: string }[]; dot?: string }) {
+  return (
+    <div>
+      <p className="mb-4 flex items-center gap-1.5 text-[17px] font-semibold text-[#0a0a0a]">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ background: dot }} />
+        {title}
+      </p>
+      <div className="flex flex-wrap gap-2.5">
+        {links.map((l) => (
+          <a
+            key={l.label}
+            href={l.href}
+            className="rounded-full bg-[#efefef] px-4 py-2.5 text-[11px] font-medium uppercase leading-none tracking-[0.02em] text-[#111] transition-colors duration-200 hover:bg-[#8b2ff8] hover:text-white"
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="relative bg-white text-[#0b0618] border-t border-[#ece6f5]">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
-          <div className="lg:col-span-2 max-w-sm">
-            <a href="/" className="flex items-center gap-2.5 mb-5">
-              <span className="relative w-7 h-7 flex items-center justify-center">
-                <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
-                  <path d="M4 6 L16 26 L28 6 L22 6 L16 16 L10 6 Z" fill="url(#fx)" />
-                  <defs>
-                    <linearGradient id="fx" x1="4" y1="6" x2="28" y2="26" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#ec6afb" />
-                      <stop offset="1" stopColor="#8b2ff8" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
-              <span className="font-semibold text-xl tracking-wide text-[#15101e]">XOVRA AI</span>
-            </a>
-            <p className="text-sm text-[#5a5466] leading-relaxed">
-              AI outbound dialer with built-in Google Maps lead sourcing. For agencies, SDR teams and solo operators who want qualified meetings without an SDR floor.
+    <footer className="relative overflow-hidden bg-white text-[#0a0a0a]">
+      <div className="mx-auto max-w-[1500px] px-6 pt-16 md:px-14 md:pt-20 lg:px-20">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.1fr_1.5fr_0.7fr] lg:gap-16">
+          <div className="max-w-[360px]">
+            <p className="text-[clamp(1.35rem,2vw,1.7rem)] font-medium leading-[1.25] tracking-[-0.025em]">
+              AI outbound dialer with built-in Google Maps lead sourcing.
+            </p>
+            <p className="mt-4 text-[15px] leading-[1.55] text-[#6b6b6b]">
+              For agencies, SDR teams and solo operators who want qualified meetings without an SDR floor.
             </p>
           </div>
 
-          {cols.map((c) => (
-            <div key={c.title}>
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-5">
-                {c.title}
-              </p>
-              <ul className="space-y-3">
-                {c.links.map((l) => (
-                  <li key={l}>
-                    <a href="#" className="text-sm text-[#2a2237] hover:text-[#8b2ff8] transition">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="flex flex-col gap-8">
+            <Pills title="Platform" links={platform} />
+            <Pills title="Company" links={company} />
+          </div>
+
+          <div>
+            <p className="mb-4 flex items-center gap-1.5 text-[17px] font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#8b2ff8]" />
+              Legal &amp; Trust
+            </p>
+            <ul className="space-y-2.5">
+              {legal.map((l) => (
+                <li key={l}>
+                  <a href="#" className="text-[15px] text-[#6b6b6b] transition-colors hover:text-[#8b2ff8]">
+                    {l}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-[#ece6f5]">
-          <p className="text-xs text-[#6b6676]">
-            © {new Date().getFullYear()} Xovra AI. All organizational rights reserved.
-          </p>
-          <div className="flex items-center gap-5 text-xs text-[#6b6676]">
-            <a href="#" className="hover:text-[#8b2ff8] transition">Status</a>
-            <a href="#" className="hover:text-[#8b2ff8] transition">Documentation</a>
-            <a href="#" className="hover:text-[#8b2ff8] transition">System Index</a>
+        <Reveal>
+          <div
+            aria-hidden
+            className="mt-14 flex select-none items-center justify-center gap-[2.2vw] md:mt-20 lg:gap-6"
+          >
+            <svg viewBox="0 0 32 32" className="h-[14.5vw] w-[14.5vw] max-h-[225px] max-w-[225px] shrink-0" fill="none">
+              <defs>
+                <linearGradient id="ftMark" x1="0" y1="6" x2="0" y2="26" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#3b3b3b" />
+                  <stop offset="1" stopColor="#3b3b3b" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M2 4 L16 28 L30 4 L23 4 L16 16 L9 4 Z" fill="url(#ftMark)" />
+            </svg>
+            <span className="bg-gradient-to-b from-[#3b3b3b] from-10% to-[#3b3b3b]/0 bg-clip-text text-[clamp(4rem,19.5vw,18rem)] pr-[0.07em] font-extrabold leading-[0.9] tracking-[-0.05em] text-transparent">
+              XOVRA
+            </span>
+          </div>
+        </Reveal>
+
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-[#dcdcdc] py-6 sm:flex-row sm:items-center">
+          <p className="text-[14px] text-[#6b6b6b]">© {new Date().getFullYear()} Xovra AI. All organizational rights reserved.</p>
+          <div className="flex items-center gap-6 text-[14px] text-[#6b6b6b]">
+            {bottomLinks.map((l) => (
+              <a key={l} href="#" className="transition-colors hover:text-[#8b2ff8]">
+                {l}
+              </a>
+            ))}
           </div>
         </div>
       </div>
