@@ -36,106 +36,76 @@ const faqs = [
   },
 ];
 
-function Item({ i, open, onToggle }: { i: number; open: boolean; onToggle: (i: number) => void }) {
-  const f = faqs[i];
-  return (
-    <div
-      className={`rounded-[14px] border border-brand transition-colors duration-300 ${
-        open ? "bg-white" : "bg-white/60 hover:bg-white"
-      }`}
-    >
-      <button
-        type="button"
-        aria-expanded={open}
-        onClick={() => onToggle(i)}
-        className="flex w-full items-start justify-between gap-3 p-5 text-left"
-      >
-        <span className={`text-[15.5px] leading-[1.4] transition-colors duration-300 ${open ? "text-ink" : "text-body"}`}>
-          {f.q}
-        </span>
-        <span className="mt-0.5 shrink-0">
-          {open ? (
-            <ArrowUp size={17} strokeWidth={1.8} className="text-brand" />
-          ) : (
-            <ArrowDown size={17} strokeWidth={1.8} className="text-body" />
-          )}
-        </span>
-      </button>
-      <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-        <div className="overflow-hidden">
-          <div className="px-5 pb-5">
-            <p
-              className={`rounded-xl border border-line bg-surface p-3.5 text-[13.5px] leading-[1.5] text-body transition-opacity duration-300 ${
-                open ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {f.a}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Fixed column assignment so opening a card only moves cards in its own column
-function columns(count: number) {
-  const cols: number[][] = Array.from({ length: count }, () => []);
-  faqs.forEach((_, i) => cols[i % count].push(i));
-  return cols;
-}
-
 export default function FAQ() {
-  const [open, setOpen] = useState<Set<number>>(new Set([0, 2, 3, 5]));
-
-  const toggle = (i: number) =>
-    setOpen((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
-
-  const layout = (count: number, cls: string) => (
-    <div className={cls}>
-      {columns(count).map((col, c) => (
-        <div key={c} className="flex flex-1 flex-col gap-4">
-          {col.map((i) => (
-            <Item key={i} i={i} open={open.has(i)} onToggle={toggle} />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section id="about-us" className="relative bg-surface text-ink">
       <div className="section-shell">
-        <div className="mb-12 grid grid-cols-1 gap-y-6 md:mb-[72px] lg:grid-cols-[44.8%_1fr] lg:items-end">
-          <Reveal>
-            <Eyebrow className="mb-3">FAQ</Eyebrow>
-            <h2 className="h-section">
-              Frequently
-              <br />
-              Asked <span className="accent-text">Questions</span>
-            </h2>
+        <Reveal>
+          <Eyebrow className="mb-4">FAQ</Eyebrow>
+          <h2 className="h-section border-l-[5px] border-brand pl-4 [border-radius:2px]">
+            Frequently Asked <span className="accent-text">Questions</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-10 grid grid-cols-1 gap-10 md:mt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.5fr)] lg:gap-16">
+          <Reveal delay={1} className="lg:sticky lg:top-28 lg:self-start">
+            <p className="lead max-w-[420px]">Honest answers to the questions buyers always ask first.</p>
+            <CtaButton href="#contact" className="mt-6">
+              Book a demo
+            </CtaButton>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="max-w-[560px] lg:pb-1">
-              <p className="lead">Honest answers to the questions buyers always ask first.</p>
-              <CtaButton href="#contact" className="mt-5">
-                Book a demo
-              </CtaButton>
+            <div className="flex flex-col gap-3">
+              {faqs.map((f, i) => {
+                const isOpen = open === i;
+                return (
+                  <div
+                    key={f.q}
+                    className={`rounded-2xl transition-[background-color,box-shadow] duration-[var(--dur-base)] ${
+                      isOpen ? "bg-white shadow-[0_12px_36px_rgba(10,10,10,0.06)]" : "bg-white/70 hover:bg-white"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="flex w-full items-center justify-between gap-4 px-5 py-[18px] text-left md:px-6"
+                    >
+                      <span className={`text-[16px] leading-[1.4] transition-colors duration-[var(--dur-base)] ${isOpen ? "text-ink" : "text-body"}`}>
+                        {f.q}
+                      </span>
+                      <span className="shrink-0">
+                        {isOpen ? (
+                          <ArrowUp size={18} strokeWidth={1.8} className="text-brand" />
+                        ) : (
+                          <ArrowDown size={18} strokeWidth={1.8} className="text-body" />
+                        )}
+                      </span>
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-[var(--dur-base)] ease-out ${
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p
+                          className={`px-5 pb-6 text-[15px] leading-[1.65] text-body transition-opacity duration-[var(--dur-base)] md:px-6 ${
+                            isOpen ? "opacity-100" : "opacity-0"
+                          }`}
+                        >
+                          {f.a}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </Reveal>
         </div>
-
-        <Reveal delay={2}>
-          {layout(4, "hidden items-start gap-4 lg:flex")}
-          {layout(2, "hidden items-start gap-4 md:flex lg:hidden")}
-          {layout(1, "flex flex-col gap-4 md:hidden")}
-        </Reveal>
       </div>
     </section>
   );
