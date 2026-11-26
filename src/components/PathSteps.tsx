@@ -63,20 +63,19 @@ export default function PathSteps() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={Math.min(i + 1, 6) as 1 | 2 | 3 | 4 | 5 | 6}>
-              <article className="relative h-[280px] md:h-[300px] overflow-hidden rounded-2xl bg-white p-6 flex flex-col justify-between">
-                <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1c1c1c]">
-                  <Box size={19} color="#fff" strokeWidth={2} />
+              <article className="group relative h-[280px] md:h-[300px] overflow-hidden rounded-2xl bg-white p-6 flex flex-col justify-between transition-colors duration-300 hover:bg-[#202020]">
+                <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1c1c1c] text-white transition-colors duration-300 group-hover:bg-white group-hover:text-[#111]">
+                  <Box size={19} color="currentColor" strokeWidth={2} />
                 </div>
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute right-3 top-2 select-none text-[104px] md:text-[112px] leading-none font-medium tracking-[-0.05em] text-[#ececec]"
-                  style={{ WebkitTextStroke: "1.5px #dcdcdc" }}
+                  className="pointer-events-none absolute right-3 top-2 select-none text-[104px] md:text-[112px] leading-none font-medium tracking-[-0.05em] text-[#ececec] transition-colors duration-300 [-webkit-text-stroke:1.5px_#dcdcdc] group-hover:text-[#2b2b2b] group-hover:[-webkit-text-stroke-color:#3d3d3d]"
                 >
                   {s.n}
                 </span>
                 <div className="relative">
-                  <h3 className="text-[22px] leading-tight font-medium tracking-[-0.02em]">{s.title}</h3>
-                  <p className="mt-2 text-[15px] leading-[1.45] text-[#555]">{s.body}</p>
+                  <h3 className="text-[22px] leading-tight font-medium tracking-[-0.02em] transition-colors duration-300 group-hover:text-white">{s.title}</h3>
+                  <p className="mt-2 text-[15px] leading-[1.45] text-[#555] transition-colors duration-300 group-hover:text-[#b5b5b5]">{s.body}</p>
                 </div>
               </article>
             </Reveal>
