@@ -33,13 +33,35 @@ function Logo({ dark, gid }: { dark: boolean; gid: string }) {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(true);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    // The bar adapts to whichever section sits under it: sections tagged
+    // data-nav-theme="dark" get a dark bar, everything else a white one.
+    const probe = 40;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 24);
+      let dark = false;
+      document.querySelectorAll("[data-nav-theme='dark']").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= probe && r.bottom > probe) dark = true;
+      });
+      setOnDark(dark);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -59,14 +81,18 @@ export default function Navbar() {
     };
   }, [open]);
 
-  const dark = scrolled;
+  // dark text only on the white bar (scrolled over a light section)
+  const dark = scrolled && !onDark;
+  const barClass = !scrolled
+    ? "bg-transparent"
+    : onDark
+      ? "bg-night/75 shadow-[0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl"
+      : "bg-white/90 shadow-[0_1px_0_rgba(0,0,0,0.07)] backdrop-blur-xl";
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-          scrolled ? "bg-white/90 shadow-[0_1px_0_rgba(0,0,0,0.07)] backdrop-blur-xl" : "bg-transparent"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${barClass}`}
       >
         <div
           className={`mx-auto flex max-w-[1500px] items-center justify-between px-6 transition-[padding] duration-300 md:px-14 lg:px-20 ${

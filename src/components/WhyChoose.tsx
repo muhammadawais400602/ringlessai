@@ -259,7 +259,7 @@ function Card({ it, children }: { it: Item; children: React.ReactNode }) {
 
 export default function WhyChoose() {
   return (
-    <section id="why-xovra" className="relative overflow-hidden bg-night text-white">
+    <section id="why-xovra" data-nav-theme="dark" className="relative overflow-hidden bg-night text-white">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"

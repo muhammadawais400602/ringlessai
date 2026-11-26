@@ -15,7 +15,7 @@ export default function Homepage() {
     <main className="relative bg-black text-white overflow-x-clip">
       <Navbar />
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden" data-nav-theme="dark">
         {/* Top block: headline, subheading, CTA, chips */}
         <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-32 md:pt-36 pb-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
