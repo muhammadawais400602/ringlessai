@@ -1,3 +1,5 @@
+import { Eyebrow } from "./ui";
+
 const items = [
   {
     name: "GoHighLevel",
@@ -96,8 +98,8 @@ export default function IntegrationStrip() {
   const row = (
     <>
       {items.map((item, i) => (
-        <div key={`${item.name}-${i}`} className="flex items-center gap-2.5 text-[#15101e] shrink-0">
-          <span className="w-5 h-5 text-[#8b2ff8]">{item.icon}</span>
+        <div key={`${item.name}-${i}`} className="flex shrink-0 items-center gap-2.5 text-ink">
+          <span className="h-5 w-5 text-brand">{item.icon}</span>
           <span className="text-[15px] font-medium whitespace-nowrap">{item.name}</span>
         </div>
       ))}
@@ -105,13 +107,11 @@ export default function IntegrationStrip() {
   );
 
   return (
-    <section className="relative bg-white text-[#0b0618] overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-14 lg:px-20 pt-10 md:pt-12 pb-2">
-        <div className="text-center mb-6">
-          <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6b6676] mb-2">
-            Exports Natively Into
-          </p>
-          <h3 className="text-xl md:text-2xl font-semibold text-[#15101e]">
+    <section className="relative overflow-hidden bg-white text-ink">
+      <div className="mx-auto max-w-[1500px] px-6 pb-2 pt-10 md:px-14 md:pt-12 lg:px-20">
+        <div className="mb-6 flex flex-col items-center text-center">
+          <Eyebrow className="mb-2">Exports Natively Into</Eyebrow>
+          <h3 className="text-xl font-semibold tracking-[-0.03em] md:text-2xl">
             The CRMs and sheets your team already uses
           </h3>
         </div>

@@ -1,5 +1,5 @@
-import { CornerUpRight } from "lucide-react";
 import Reveal from "./Reveal";
+import { Eyebrow } from "./ui";
 
 const cases = [
   {
@@ -41,7 +41,7 @@ const line = "#e3e3e3";
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="shrink-0 border border-[#e3e3e3] bg-white px-2 py-[3px] text-[14px] font-medium leading-none text-[#111]">
+    <span className="shrink-0 border border-line bg-white px-2 py-[3px] text-[14px] font-medium leading-none text-ink">
       {children}
     </span>
   );
@@ -49,14 +49,11 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 export default function CaseStudies() {
   return (
-    <section id="pilot-results" className="relative bg-white text-[#0a0a0a]">
-      <div className="mx-auto max-w-[1500px] px-6 md:px-14 lg:px-20 pt-20 md:pt-24 pb-20 md:pb-28">
+    <section id="pilot-results" className="relative bg-white text-ink">
+      <div className="section-shell">
         <div className="flex flex-col items-center text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-1.5 text-[17px] font-medium text-[#8b2ff8]">
-              Pilot Results
-              <CornerUpRight size={16} strokeWidth={2.2} />
-            </span>
+            <Eyebrow>Pilot Results</Eyebrow>
           </Reveal>
 
           <Reveal delay={1} className="w-full">
@@ -64,7 +61,7 @@ export default function CaseStudies() {
               {["Teams Already", "Letting Xovra Dial"].map((t) => (
                 <span
                   key={t}
-                  className="block bg-gradient-to-b from-[#0d0d0d] from-25% to-[#0d0d0d]/0 bg-clip-text pb-[0.04em] text-transparent"
+                  className="block bg-gradient-to-b from-ink from-25% to-ink/0 bg-clip-text pb-[0.04em] text-transparent"
                 >
                   {t}
                 </span>
@@ -73,8 +70,8 @@ export default function CaseStudies() {
           </Reveal>
 
           <Reveal delay={2}>
-            <p className="mt-6 max-w-[500px] text-[16px] leading-[1.55] text-[#8b8b8b]">
-              <span className="text-[#111]">Results from early access AI-dialer deployments, Q3 to Q4 2026.</span> Logos withheld pending
+            <p className="lead mt-6 max-w-[500px]">
+              <span className="text-ink">Results from early access AI-dialer deployments, Q3 to Q4 2026.</span> Logos withheld pending
               contracted case-study rights.
             </p>
           </Reveal>
@@ -89,22 +86,22 @@ export default function CaseStudies() {
               <article key={c.badge} className="flex min-h-[320px] flex-col justify-between bg-white p-5 md:p-[21px]">
                 <div>
                   <div className="flex items-start justify-between gap-3">
-                    <span className="pt-0.5 text-[13px] font-medium leading-snug text-[#666]">{c.tag}</span>
+                    <span className="pt-0.5 text-[13px] font-medium leading-snug text-body">{c.tag}</span>
                     <Chip>{c.badge}</Chip>
                   </div>
                   <div className="mt-7 flex gap-10">
                     {c.metrics.map((m) => (
                       <div key={m.l}>
                         <div className="text-[44px] leading-none font-semibold tracking-[-0.04em]">{m.v}</div>
-                        <div className="mt-1.5 text-[13px] text-[#777]">{m.l}</div>
+                        <div className="mt-1.5 text-[13px] text-subtle">{m.l}</div>
                       </div>
                     ))}
                   </div>
                 </div>
                 <div className="mt-8">
                   <h3 className="text-[17px] leading-snug font-semibold">{c.headline}</h3>
-                  <p className="mt-1.5 text-[15px] leading-[1.45] text-[#555]">{c.body}</p>
-                  <p className="mt-3 text-[13px] text-[#8b8b8b]">{c.by}</p>
+                  <p className="mt-1.5 text-[15px] leading-[1.45] text-body">{c.body}</p>
+                  <p className="mt-3 text-[13px] text-subtle">{c.by}</p>
                 </div>
               </article>
             ))}
@@ -122,14 +119,14 @@ export default function CaseStudies() {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <div className="text-[52px] leading-none font-semibold tracking-[-0.04em]">72h</div>
-                  <div className="mt-2 text-[13px] leading-snug text-[#777]">To match a 14-day SDR qualified total</div>
+                  <div className="mt-2 text-[13px] leading-snug text-subtle">To match a 14-day SDR qualified total</div>
                 </div>
                 <div>
                   <div className="text-[52px] leading-none font-semibold tracking-[-0.04em]">3×</div>
-                  <div className="mt-2 text-[13px] leading-snug text-[#777]">Qualified lift vs. humans-only</div>
+                  <div className="mt-2 text-[13px] leading-snug text-subtle">Qualified lift vs. humans-only</div>
                 </div>
               </div>
-              <p className="mt-8 text-[13px] leading-snug text-[#8b8b8b]">
+              <p className="mt-8 text-[13px] leading-snug text-subtle">
                 Measured across 1.4M+ AI-dialer calls in US, UK, UAE, and EU markets
               </p>
             </article>

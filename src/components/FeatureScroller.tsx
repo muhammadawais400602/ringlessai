@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CornerUpRight } from "lucide-react";
+import { CtaButton, Eyebrow } from "./ui";
 
 const ART_W = 400;
 const ART_H = 440;
@@ -36,7 +36,7 @@ function VoiceArt() {
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="fs-ripple absolute -left-[85px] -top-[85px] w-[170px] h-[170px] rounded-full border-2 border-[#8b2ff8]/40"
+            className="fs-ripple absolute -left-[85px] -top-[85px] w-[170px] h-[170px] rounded-full border-2 border-brand/40"
             style={{ animationDelay: `${i * 0.9}s` }}
           />
         ))}
@@ -464,23 +464,20 @@ export default function FeatureScroller() {
       ref={sectionRef}
       id="features"
       aria-label="Main features"
-      className="relative bg-white text-[#0a0a0a]"
+      className="relative bg-white text-ink"
       style={{ height: `${100 + (N - 1) * STEP_VH}vh` }}
     >
       <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
         <div className="shrink-0 px-6 md:px-14 lg:px-20 pt-[84px] md:pt-[100px]">
           <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-x-16 gap-y-4 lg:items-end">
             <div>
-              <a href="#features" className="inline-flex items-center gap-1.5 text-[15px] font-medium text-[#8b2ff8] mb-3 md:mb-4">
-                Main Features
-                <CornerUpRight size={15} strokeWidth={2.2} />
-              </a>
+              <Eyebrow className="mb-3 md:mb-4">Main Features</Eyebrow>
               <div className="grid">
                 {FEATURES.map((f, i) => (
                   <h2
                     key={f.title}
                     aria-hidden={i !== active}
-                    className={`fs-swap [grid-area:1/1] text-[clamp(2rem,4.3vw,3.6rem)] leading-[1.06] font-medium tracking-[-0.035em] max-w-[640px] ${
+                    className={`fs-swap h-section [grid-area:1/1] max-w-[640px] ${
                       i === active ? "is-on" : ""
                     }`}
                   >
@@ -497,14 +494,10 @@ export default function FeatureScroller() {
                   aria-hidden={i !== active}
                   className={`fs-swap [grid-area:1/1] flex flex-col items-start gap-4 ${i === active ? "is-on" : ""}`}
                 >
-                  <p className="text-[14px] md:text-[15px] leading-[1.55] text-[#1a1a1a]">{f.desc}</p>
-                  <a
-                    href="#contact"
-                    tabIndex={i === active ? 0 : -1}
-                    className="inline-flex items-center rounded-xl bg-[#111] px-5 py-3 text-sm font-medium text-white shadow-[0_8px_22px_rgba(0,0,0,0.18)] transition-transform hover:-translate-y-0.5"
-                  >
+                  <p className="text-[15px] leading-[1.55] text-body">{f.desc}</p>
+                  <CtaButton href="#contact" tabIndex={i === active ? 0 : -1}>
                     {f.link}
-                  </a>
+                  </CtaButton>
                 </div>
               ))}
             </div>
@@ -526,7 +519,7 @@ export default function FeatureScroller() {
                   ref={(el) => {
                     topCapRefs.current[i] = el;
                   }}
-                  className="absolute left-1/2 bottom-full mb-[14px] w-[250px] -translate-x-1/2 text-center text-[15px] leading-snug text-[#1a1a1a]"
+                  className="absolute left-1/2 bottom-full mb-[14px] w-[250px] -translate-x-1/2 text-center text-[15px] leading-snug text-ink"
                   style={{ opacity: 0 }}
                 >
                   {f.caption}
@@ -552,7 +545,7 @@ export default function FeatureScroller() {
                   ref={(el) => {
                     botCapRefs.current[i] = el;
                   }}
-                  className="absolute right-0 top-full mt-[14px] w-full min-w-[230px] text-left text-[15px] leading-snug text-[#1a1a1a]"
+                  className="absolute right-0 top-full mt-[14px] w-full min-w-[230px] text-left text-[15px] leading-snug text-ink"
                   style={{ opacity: 0 }}
                 >
                   {f.caption}
@@ -565,9 +558,9 @@ export default function FeatureScroller() {
 
       <style>{`
         .fs-swap { opacity: 0; transform: translateY(14px); pointer-events: none;
-          transition: opacity .35s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+          transition: opacity var(--dur-base) ease, transform var(--dur-slow) var(--ease-out); }
         .fs-swap.is-on { opacity: 1; transform: none; pointer-events: auto;
-          transition: opacity .5s ease .12s, transform .6s cubic-bezier(.22,1,.36,1) .12s; }
+          transition: opacity var(--dur-slow) ease .12s, transform var(--dur-slow) var(--ease-out) .12s; }
         .fs-bar { transform-origin: center; animation: fsBar 1.1s ease-in-out infinite; }
         .fs-ripple { animation: fsRipple 2.7s ease-out infinite; }
         .fs-dash { animation: fsDash 1.2s linear infinite; }

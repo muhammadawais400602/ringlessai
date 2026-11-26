@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CornerUpRight } from "lucide-react";
+import { Eyebrow } from "./ui";
 
 const stats = [
   {
@@ -25,7 +25,7 @@ const stats = [
 // Fan geometry in a 1200 x 540 design space: each card is a rotated rectangle
 // anchored by its top-left corner; one shared circular mask carves the arc.
 const DESIGN_W = 1200;
-const DESIGN_H = 540;
+const DESIGN_H = 590;
 const CARD_W = 249;
 const CARD_H = 330;
 const ARC = { cx: 600, cy: 930, r: 740 };
@@ -39,15 +39,11 @@ const CARDS = [
 function Heading() {
   return (
     <>
-      <span className="inline-flex items-center gap-1.5 text-[17px] font-medium text-[#8b2ff8]">
-        Benchmarks
-        <CornerUpRight size={16} strokeWidth={2.2} />
-      </span>
-      <h2 className="mt-4 max-w-[560px] text-balance text-[clamp(2rem,3.6vw,2.9rem)] leading-[1.1] font-medium tracking-[-0.035em] text-[#0a0a0a]">
-        Why Teams Replace Their{" "}
-        <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">SDR Floor</span>
+      <Eyebrow>Benchmarks</Eyebrow>
+      <h2 className="h-section mt-4 max-w-[600px] text-balance">
+        Why Teams Replace Their <span className="accent-text">SDR Floor</span>
       </h2>
-      <p className="mt-5 max-w-[520px] text-[15px] leading-[1.6] text-[#555]">
+      <p className="lead mt-5 max-w-[520px]">
         Measured across live AI-dialer campaigns dialing 1.4M+ enriched leads in US, UK, UAE and EU markets.
       </p>
     </>
@@ -83,8 +79,8 @@ export default function ImpactStats() {
   }, []);
 
   return (
-    <section id="benchmarks" className="relative bg-white text-[#0a0a0a]">
-      <div className="mx-auto max-w-[1500px] px-6 md:px-14 lg:px-20 py-20 md:py-28">
+    <section id="benchmarks" className="relative bg-white text-ink">
+      <div className="section-shell">
         {/* Desktop / tablet: tilted arc */}
         <div ref={wrapRef} className="hidden md:block w-full" style={{ height: DESIGN_H * (scale || 1) }}>
           <div
@@ -106,7 +102,7 @@ export default function ImpactStats() {
               {CARDS.map((c, i) => (
                 <div
                   key={stats[i].value}
-                  className="absolute left-0 top-0 bg-[#f4f4f4] px-[27px] pt-[26px]"
+                  className="absolute left-0 top-0 bg-surface px-[27px] pt-[26px]"
                   style={{
                     width: CARD_W,
                     height: CARD_H,
@@ -115,11 +111,11 @@ export default function ImpactStats() {
                       ? `translate(${c.x}px, ${c.y}px) rotate(${c.rot}deg)`
                       : `translate(${c.x}px, ${c.y + 70}px) rotate(${c.rot * 0.25}deg)`,
                     opacity: shown ? 1 : 0,
-                    transition: `transform 1.1s cubic-bezier(.22,1,.36,1) ${i * 110}ms, opacity .8s ease ${i * 110}ms`,
+                    transition: `transform 1.1s var(--ease-out) ${i * 110}ms, opacity var(--dur-slow) var(--ease-out) ${i * 110}ms`,
                   }}
                 >
-                  <div className="text-[40px] leading-none font-medium tracking-[-0.03em] text-[#0a0a0a]">{stats[i].value}</div>
-                  <p className="mt-3 text-[14px] leading-[1.45] text-[#666]">{stats[i].label}</p>
+                  <div className="text-[40px] leading-none font-medium tracking-[-0.03em] text-ink">{stats[i].value}</div>
+                  <p className="mt-3 text-[14px] leading-[1.45] text-body">{stats[i].label}</p>
                 </div>
               ))}
             </div>
@@ -137,9 +133,9 @@ export default function ImpactStats() {
           </div>
           <div className="mt-10 grid grid-cols-2 gap-3">
             {stats.map((s) => (
-              <div key={s.value} className="rounded-2xl bg-[#f4f4f4] p-5">
+              <div key={s.value} className="rounded-2xl bg-surface p-5">
                 <div className="text-[32px] leading-none font-medium tracking-[-0.03em]">{s.value}</div>
-                <p className="mt-3 text-[13px] leading-[1.45] text-[#666]">{s.label}</p>
+                <p className="mt-3 text-[13px] leading-[1.45] text-body">{s.label}</p>
               </div>
             ))}
           </div>

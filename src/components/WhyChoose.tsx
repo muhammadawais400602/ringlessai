@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback } from "react";
-import { ArrowRight, Check, CornerUpRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Reveal from "./Reveal";
+import { Eyebrow } from "./ui";
 
 function SpeedViz() {
   return (
@@ -52,7 +53,7 @@ function ScaleViz() {
                 animationDelay: `${i * 0.15}s`,
               }}
             />
-            <span className={`text-[10px] font-semibold ${weekend ? "text-[#ec6afb]" : "text-white/40"}`}>{d}</span>
+            <span className={`text-[10px] font-semibold ${weekend ? "text-neon" : "text-white/40"}`}>{d}</span>
           </div>
         );
       })}
@@ -77,9 +78,9 @@ function QualityViz() {
         ))}
       </div>
       <div className="flex items-center gap-2">
-        <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#ec6afb]" />
-        <ArrowRight size={14} className="text-[#ec6afb]" />
-        <span className="rounded-full bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] px-3.5 py-1.5 text-[12px] font-semibold text-white shadow-[0_0_24px_rgba(236,106,251,0.45)]">
+        <span className="h-px w-10 bg-gradient-to-r from-transparent to-neon" />
+        <ArrowRight size={14} className="text-neon" />
+        <span className="rounded-full bg-gradient-to-r from-neon to-brand px-3.5 py-1.5 text-[12px] font-semibold text-white shadow-[0_0_24px_rgba(236,106,251,0.45)]">
           Closer
         </span>
       </div>
@@ -95,7 +96,7 @@ function PerkViz() {
         <div
           key={i}
           className={`wc-slide flex items-center gap-3 rounded-xl border px-3 py-2.5 ${
-            i === 0 ? "border-[#8b2ff8]/50 bg-[#8b2ff8]/15" : "border-white/[0.07] bg-white/[0.03]"
+            i === 0 ? "border-brand/50 bg-brand/15" : "border-white/[0.07] bg-white/[0.03]"
           }`}
           style={{ animationDelay: `${i * 0.25}s` }}
         >
@@ -103,7 +104,7 @@ function PerkViz() {
             <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
           </svg>
           <span className="h-1.5 flex-1 rounded-full bg-white/15" />
-          <span className="h-1.5 rounded-full bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8]" style={{ width: `${w * 0.4}px` }} />
+          <span className="h-1.5 rounded-full bg-gradient-to-r from-neon to-brand" style={{ width: `${w * 0.4}px` }} />
         </div>
       ))}
     </div>
@@ -165,7 +166,7 @@ function EconomicsViz() {
       </svg>
       <div className="mt-1 flex justify-between text-[11px] font-medium">
         <span className="text-white/45">Per-dial markup</span>
-        <span className="text-[#ec6afb]">Fixed cost</span>
+        <span className="text-neon">Fixed cost</span>
       </div>
     </div>
   );
@@ -241,7 +242,7 @@ function Card({ it, children }: { it: Item; children: React.ReactNode }) {
   return (
     <article
       onMouseMove={onMove}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0d0817]/80 p-6 md:p-7 backdrop-blur transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-[#8b2ff8]/60 ${it.span}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-night-card/80 p-6 md:p-7 backdrop-blur transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand/60 ${it.span}`}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -250,7 +251,7 @@ function Card({ it, children }: { it: Item; children: React.ReactNode }) {
             "radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(236,106,251,0.16), transparent 60%)",
         }}
       />
-      <span className="absolute left-0 top-0 h-px w-0 bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] transition-all duration-500 group-hover:w-full" />
+      <span className="absolute left-0 top-0 h-px w-0 bg-gradient-to-r from-neon to-brand transition-all duration-500 group-hover:w-full" />
       {children}
     </article>
   );
@@ -258,7 +259,7 @@ function Card({ it, children }: { it: Item; children: React.ReactNode }) {
 
 export default function WhyChoose() {
   return (
-    <section id="why-xovra" className="relative overflow-hidden bg-[#07040d] text-white">
+    <section id="why-xovra" className="relative overflow-hidden bg-night text-white">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -279,23 +280,18 @@ export default function WhyChoose() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1500px] px-6 py-20 md:px-14 md:py-28 lg:px-20">
+      <div className="section-shell relative">
         <div className="mx-auto mb-14 flex max-w-3xl flex-col items-center text-center md:mb-[72px]">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5 text-[13px] font-medium text-white/80 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#ec6afb] shadow-[0_0_10px_#ec6afb]" />
-              Why Sales Teams Pick Xovra
-              <CornerUpRight size={13} strokeWidth={2.2} className="text-[#ec6afb]" />
-            </span>
+            <Eyebrow dark>Why Sales Teams Pick Xovra</Eyebrow>
           </Reveal>
           <Reveal delay={1}>
-            <h2 className="mt-6 text-[clamp(2.2rem,5vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
-              Six Reasons Teams Switch to{" "}
-              <span className="bg-gradient-to-r from-[#ec6afb] to-[#8b2ff8] bg-clip-text text-transparent">AI Dialing</span>
+            <h2 className="h-section mt-4">
+              Six Reasons Teams Switch to <span className="accent-text">AI Dialing</span>
             </h2>
           </Reveal>
           <Reveal delay={2}>
-            <p className="mt-5 max-w-2xl text-[16px] leading-[1.6] text-white/60">
+            <p className="lead mt-5 max-w-2xl !text-white/60">
               Traditional SDR floors are expensive, slow, and sleep eight hours a night. Here&apos;s how an AI dialer wins on every dimension that matters.
             </p>
           </Reveal>
@@ -309,12 +305,12 @@ export default function WhyChoose() {
                   <it.Viz />
                 </div>
                 <div className="relative flex flex-1 flex-col">
-                  <span className="inline-block self-start rounded-full border border-[#8b2ff8]/40 bg-[#8b2ff8]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#d8a8ff]">
+                  <span className="inline-block self-start rounded-full border border-brand/40 bg-brand/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#d8a8ff]">
                     {it.tag}
                   </span>
                   <h3 className="mt-4 text-[21px] font-semibold leading-tight tracking-[-0.025em]">{it.title}</h3>
                   <p className="mt-3 text-[14.5px] leading-[1.6] text-white/60">{it.body}</p>
-                  <p className="mt-auto flex items-center gap-2 pt-5 text-[14px] font-medium text-[#ec6afb]">
+                  <p className="mt-auto flex items-center gap-2 pt-5 text-[14px] font-medium text-neon">
                     {it.foot}
                   </p>
                 </div>

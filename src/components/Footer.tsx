@@ -18,7 +18,7 @@ const bottomLinks = ["Status", "Documentation", "System Index"];
 function Pills({ title, links, dot = "#0a0a0a" }: { title: string; links: { label: string; href: string }[]; dot?: string }) {
   return (
     <div>
-      <p className="mb-4 flex items-center gap-1.5 text-[17px] font-semibold text-[#0a0a0a]">
+      <p className="mb-4 flex items-center gap-1.5 text-[17px] font-semibold text-ink">
         <span className="h-1.5 w-1.5 rounded-full" style={{ background: dot }} />
         {title}
       </p>
@@ -27,7 +27,7 @@ function Pills({ title, links, dot = "#0a0a0a" }: { title: string; links: { labe
           <a
             key={l.label}
             href={l.href}
-            className="rounded-full bg-[#efefef] px-4 py-2.5 text-[11px] font-medium uppercase leading-none tracking-[0.02em] text-[#111] transition-colors duration-200 hover:bg-[#8b2ff8] hover:text-white"
+            className="rounded-full bg-surface-2 px-4 py-2.5 text-[11px] font-medium uppercase leading-none tracking-[0.02em] text-ink transition-colors duration-200 hover:bg-brand hover:text-white"
           >
             {l.label}
           </a>
@@ -39,14 +39,14 @@ function Pills({ title, links, dot = "#0a0a0a" }: { title: string; links: { labe
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-white text-[#0a0a0a]">
+    <footer className="relative overflow-hidden bg-white text-ink">
       <div className="mx-auto max-w-[1500px] px-6 pt-16 md:px-14 md:pt-20 lg:px-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.1fr_1.5fr_0.7fr] lg:gap-16">
           <div className="max-w-[360px]">
             <p className="text-[clamp(1.35rem,2vw,1.7rem)] font-medium leading-[1.25] tracking-[-0.025em]">
               AI outbound dialer with built-in Google Maps lead sourcing.
             </p>
-            <p className="mt-4 text-[15px] leading-[1.55] text-[#6b6b6b]">
+            <p className="mt-4 text-[15px] leading-[1.55] text-body">
               For agencies, SDR teams and solo operators who want qualified meetings without an SDR floor.
             </p>
           </div>
@@ -58,13 +58,13 @@ export default function Footer() {
 
           <div>
             <p className="mb-4 flex items-center gap-1.5 text-[17px] font-semibold">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#8b2ff8]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
               Legal &amp; Trust
             </p>
             <ul className="space-y-2.5">
               {legal.map((l) => (
                 <li key={l}>
-                  <a href="#" className="text-[15px] text-[#6b6b6b] transition-colors hover:text-[#8b2ff8]">
+                  <a href="#" className="text-[15px] text-body transition-colors hover:text-brand">
                     {l}
                   </a>
                 </li>
@@ -93,11 +93,11 @@ export default function Footer() {
           </div>
         </Reveal>
 
-        <div className="flex flex-col items-start justify-between gap-4 border-t border-[#dcdcdc] py-6 sm:flex-row sm:items-center">
-          <p className="text-[14px] text-[#6b6b6b]">© {new Date().getFullYear()} Xovra AI. All organizational rights reserved.</p>
-          <div className="flex items-center gap-6 text-[14px] text-[#6b6b6b]">
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-line py-6 sm:flex-row sm:items-center">
+          <p className="text-[14px] text-body">© {new Date().getFullYear()} Xovra AI. All organizational rights reserved.</p>
+          <div className="flex items-center gap-6 text-[14px] text-body">
             {bottomLinks.map((l) => (
-              <a key={l} href="#" className="transition-colors hover:text-[#8b2ff8]">
+              <a key={l} href="#" className="transition-colors hover:text-brand">
                 {l}
               </a>
             ))}

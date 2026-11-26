@@ -24,7 +24,7 @@ function Logo({ dark, gid }: { dark: boolean; gid: string }) {
           </defs>
         </svg>
       </span>
-      <span className={`text-xl font-semibold tracking-wide transition-colors duration-300 ${dark ? "text-[#0a0a0a]" : "text-white"}`}>
+      <span className={`text-xl font-semibold tracking-wide transition-colors duration-300 ${dark ? "text-ink" : "text-white"}`}>
         XOVRA AI
       </span>
     </Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
                 key={l.label}
                 href={l.href}
                 className={`text-[15px] transition-colors duration-300 ${
-                  dark ? "text-[#222] hover:text-[#8b2ff8]" : "text-white/90 hover:text-white"
+                  dark ? "text-ink hover:text-brand" : "text-white/90 hover:text-white"
                 }`}
               >
                 {l.label}
@@ -94,7 +94,7 @@ export default function Navbar() {
               href="#contact"
               className={`hidden items-center rounded-full border px-6 py-3 text-sm font-medium transition-colors duration-300 sm:inline-flex ${
                 dark
-                  ? "border-transparent bg-[#efefef] text-[#111] hover:bg-[#e4e4e4]"
+                  ? "border-transparent bg-surface-2 text-ink hover:bg-line"
                   : "border-white/10 bg-white/[0.06] text-white backdrop-blur-xl hover:bg-white/[0.1]"
               }`}
             >
@@ -115,7 +115,7 @@ export default function Navbar() {
               aria-expanded={open}
               onClick={() => setOpen(true)}
               className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden ${
-                dark ? "text-[#111] hover:bg-black/5" : "text-white hover:bg-white/10"
+                dark ? "text-ink hover:bg-black/5" : "text-white hover:bg-white/10"
               }`}
             >
               <Menu size={26} strokeWidth={1.8} />
@@ -136,7 +136,7 @@ export default function Navbar() {
             type="button"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#111] transition-colors hover:bg-black/5"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-black/5"
           >
             <X size={26} strokeWidth={1.8} />
           </button>
@@ -149,7 +149,7 @@ export default function Navbar() {
               href={l.href}
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
-              className="text-[clamp(2.3rem,9vw,3.4rem)] font-semibold leading-[1.1] tracking-[-0.05em] text-[#0a0a0a] transition-[opacity,transform,color] duration-500 hover:text-[#8b2ff8]"
+              className="text-[clamp(2.3rem,9vw,3.4rem)] font-semibold leading-[1.1] tracking-[-0.05em] text-ink transition-[opacity,transform,color] duration-500 hover:text-brand"
               style={{
                 opacity: open ? 1 : 0,
                 transform: open ? "none" : "translateY(18px)",

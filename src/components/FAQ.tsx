@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDown, ArrowUp, CornerUpRight } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import Reveal from "./Reveal";
+import { CtaButton, Eyebrow } from "./ui";
 
 const faqs = [
   {
@@ -39,7 +40,7 @@ function Item({ i, open, onToggle }: { i: number; open: boolean; onToggle: (i: n
   const f = faqs[i];
   return (
     <div
-      className={`rounded-[14px] border border-[#8b2ff8] transition-colors duration-300 ${
+      className={`rounded-[14px] border border-brand transition-colors duration-300 ${
         open ? "bg-white" : "bg-white/60 hover:bg-white"
       }`}
     >
@@ -49,14 +50,14 @@ function Item({ i, open, onToggle }: { i: number; open: boolean; onToggle: (i: n
         onClick={() => onToggle(i)}
         className="flex w-full items-start justify-between gap-3 p-5 text-left"
       >
-        <span className={`text-[15.5px] leading-[1.4] transition-colors duration-300 ${open ? "text-[#0a0a0a]" : "text-[#444]"}`}>
+        <span className={`text-[15.5px] leading-[1.4] transition-colors duration-300 ${open ? "text-ink" : "text-body"}`}>
           {f.q}
         </span>
         <span className="mt-0.5 shrink-0">
           {open ? (
-            <ArrowUp size={17} strokeWidth={1.8} className="text-[#8b2ff8]" />
+            <ArrowUp size={17} strokeWidth={1.8} className="text-brand" />
           ) : (
-            <ArrowDown size={17} strokeWidth={1.8} className="text-[#444]" />
+            <ArrowDown size={17} strokeWidth={1.8} className="text-body" />
           )}
         </span>
       </button>
@@ -64,7 +65,7 @@ function Item({ i, open, onToggle }: { i: number; open: boolean; onToggle: (i: n
         <div className="overflow-hidden">
           <div className="px-5 pb-5">
             <p
-              className={`rounded-xl border border-[#e8e8e8] bg-[#f4f4f4] p-3.5 text-[13.5px] leading-[1.5] text-[#666] transition-opacity duration-300 ${
+              className={`rounded-xl border border-line bg-surface p-3.5 text-[13.5px] leading-[1.5] text-body transition-opacity duration-300 ${
                 open ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -108,30 +109,24 @@ export default function FAQ() {
   );
 
   return (
-    <section id="about-us" className="relative bg-[#f5f5f5] text-[#0a0a0a]">
-      <div className="mx-auto max-w-[1500px] px-6 md:px-14 lg:px-20 py-20 md:py-28">
+    <section id="about-us" className="relative bg-surface text-ink">
+      <div className="section-shell">
         <div className="mb-12 grid grid-cols-1 gap-y-6 md:mb-[72px] lg:grid-cols-[44.8%_1fr] lg:items-end">
           <Reveal>
-            <span className="mb-3 inline-flex items-center gap-1.5 text-[17px] font-medium text-[#8b2ff8]">
-              FAQ
-              <CornerUpRight size={16} strokeWidth={2.2} />
-            </span>
-            <h2 className="text-[clamp(2.1rem,4.2vw,3.5rem)] font-medium leading-[1.06] tracking-[-0.04em]">
+            <Eyebrow className="mb-3">FAQ</Eyebrow>
+            <h2 className="h-section">
               Frequently
               <br />
-              Asked Questions
+              Asked <span className="accent-text">Questions</span>
             </h2>
           </Reveal>
 
           <Reveal delay={1}>
             <div className="max-w-[560px] lg:pb-1">
-              <p className="text-[16px] leading-[1.55] text-[#111]">Honest answers to the questions buyers always ask first.</p>
-              <a
-                href="#contact"
-                className="mt-5 inline-flex items-center rounded-xl bg-[#7a1fd6] px-5 py-3 text-sm font-medium text-white shadow-[0_8px_22px_rgba(122,31,214,0.3)] transition-transform hover:-translate-y-0.5"
-              >
+              <p className="lead">Honest answers to the questions buyers always ask first.</p>
+              <CtaButton href="#contact" className="mt-5">
                 Book a demo
-              </a>
+              </CtaButton>
             </div>
           </Reveal>
         </div>
