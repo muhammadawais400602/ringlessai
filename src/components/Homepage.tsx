@@ -74,7 +74,7 @@ export default function Homepage() {
         </div>
 
         {/* Bottom block: animation (part of the same hero section, scrolls with the page) */}
-        <div className="relative w-full aspect-[4/3] md:aspect-[16/9] -mt-10 md:-mt-16 lg:-mt-24">
+        <div className="relative w-full aspect-[4/3] md:aspect-[16/9] -mt-28 md:-mt-44 lg:-mt-56">
           <ConveyorScene />
           {/* long smooth top fade so the headline block blends into the scene */}
           <div className="absolute inset-x-0 top-0 h-[55%] bg-[linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_18%,rgba(0,0,0,0.6)_38%,rgba(0,0,0,0.25)_65%,rgba(0,0,0,0)_100%)] pointer-events-none" />
