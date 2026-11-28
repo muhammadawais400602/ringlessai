@@ -126,7 +126,7 @@ export default function Navbar() {
             >
               Contact us
             </a>
-            <a href="#login" className="cta-primary py-2.5 pl-6 pr-2.5 text-sm">
+            <a href="https://dialer.xovra.ai/" className="cta-primary py-2.5 pl-6 pr-2.5 text-sm">
               <span>Login</span>
               <span className="arrow">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -186,7 +186,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#login"
+            href="https://dialer.xovra.ai/"
             tabIndex={open ? 0 : -1}
             onClick={() => setOpen(false)}
             className="cta-primary mt-4 py-3 pl-7 pr-3 text-base transition-[opacity,transform] duration-500"
