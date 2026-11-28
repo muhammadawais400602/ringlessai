@@ -6,9 +6,9 @@ import Reveal from "@/components/Reveal";
 import { Eyebrow, CtaButton } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "AI Dialer Pricing with Built-In Lead Sourcing | Xovra",
+  title: "AI Dialer Pricing | Xovra",
   description:
-    "Transparent per-minute pricing. $0.06/min for AI-handled calls, $0.002/min for raw dial. Free open-source lead sourcing. No per-seat pricing, no annual lock-in.",
+    "Transparent per-minute pricing. $0.06/min for AI-handled calls, $0.002/min for raw dial. No per-seat, no monthly minimum, no annual lock-in.",
   keywords: [
     "ai dialer pricing",
     "ai outbound dialer pricing",
@@ -18,14 +18,13 @@ export const metadata: Metadata = {
     "ai cold calling cost",
     "pay as you go ai dialer",
     "ai dialer no monthly fee",
-    "google maps lead scraper pricing",
     "apollo alternative pricing",
   ],
   alternates: { canonical: "/pricing" },
   openGraph: {
-    title: "AI Dialer Pricing with Built-In Lead Sourcing | Xovra",
+    title: "AI Dialer Pricing | Xovra",
     description:
-      "$0.06/min with AI. $0.002/min without. Free open-source lead sourcing. No seats, no annual lock-in.",
+      "$0.06/min with the AI voice agent. $0.002/min raw dial. No seats, no annual lock-in.",
     url: "/pricing",
     type: "website",
   },
@@ -34,23 +33,23 @@ export const metadata: Metadata = {
 const RATE_AI = "$0.06";
 const RATE_RAW = "$0.002";
 
-type FeatureRow = { label: string; os: string | boolean; payg: string | boolean; ent: string | boolean };
+type FeatureRow = { label: string; payg: string | boolean; ent: string | boolean };
 
 const comparison: FeatureRow[] = [
-  { label: "Google Maps lead sourcing", os: "Unlimited, self-run", payg: "Weekly scheduled pulls", ent: "Custom niche × city batching" },
-  { label: "Website enrichment (email, tech, social)", os: true, payg: true, ent: true },
-  { label: "Ad-intent scoring (tags / ATC / SERP)", os: true, payg: true, ent: "Custom scoring weights" },
-  { label: "0–100 lead fit score", os: true, payg: true, ent: true },
-  { label: "CSV + Google Sheet export", os: true, payg: true, ent: true },
-  { label: "CRM sync (HubSpot, Close, GoHighLevel, Salesforce)", os: false, payg: true, ent: "Two-way + custom fields" },
-  { label: "AI voice agent (outbound)", os: false, payg: `${RATE_AI}/min`, ent: "Volume rate" },
-  { label: "Raw outbound dial (bring your own voice)", os: false, payg: `${RATE_RAW}/min`, ent: "Volume rate" },
-  { label: "Live call transfers", os: false, payg: true, ent: true },
-  { label: "Auto appointment booking", os: false, payg: true, ent: true },
-  { label: "DNC + TCPA scrubbing", os: "Self-managed", payg: true, ent: "Built-in + audit logs" },
-  { label: "STIR/SHAKEN attestation", os: false, payg: true, ent: "Per-pool" },
-  { label: "Support", os: "GitHub issues", payg: "Email + shared Slack", ent: "Named CSM, 4h SLA" },
-  { label: "Contract", os: "None", payg: "No contract, usage-based", ent: "Annual" },
+  { label: "Google Maps lead sourcing", payg: "Weekly scheduled pulls", ent: "Custom niche × city batching" },
+  { label: "Website enrichment (email, tech, social)", payg: true, ent: true },
+  { label: "Ad-intent scoring (tags / ATC / SERP)", payg: true, ent: "Custom scoring weights" },
+  { label: "0–100 lead fit score", payg: true, ent: true },
+  { label: "CSV + Google Sheet export", payg: true, ent: true },
+  { label: "CRM sync (HubSpot, Close, GoHighLevel, Salesforce)", payg: true, ent: "Two-way + custom fields" },
+  { label: "AI voice agent (outbound)", payg: `${RATE_AI}/min`, ent: "Volume rate" },
+  { label: "Raw outbound dial (bring your own voice)", payg: `${RATE_RAW}/min`, ent: "Volume rate" },
+  { label: "Live call transfers", payg: true, ent: true },
+  { label: "Auto appointment booking", payg: true, ent: true },
+  { label: "DNC + TCPA scrubbing", payg: true, ent: "Built-in + audit logs" },
+  { label: "STIR/SHAKEN attestation", payg: true, ent: "Per-pool" },
+  { label: "Support", payg: "Email + shared Slack", ent: "Named CSM, 4h SLA" },
+  { label: "Contract", payg: "No contract, usage-based", ent: "Annual" },
 ];
 
 function Yes() {
@@ -75,8 +74,8 @@ const faqs = [
     a: `${RATE_AI}/min covers the AI voice agent, real-time LLM inference, text-to-speech, speech-to-text, qualification logic, and the call itself. ${RATE_RAW}/min is essentially telephony pass-through: we provision the number, route the call, scrub DNC, log the transcript, and sync to your CRM, but you (or your rep) talk. Big difference in infrastructure cost, big difference in price.`,
   },
   {
-    q: "Is there a free tier?",
-    a: "Yes. The open-source lead-sourcing engine is MIT-licensed and free forever. You get Google Maps scraping, website enrichment, ad-intent scoring, and CSV/Sheet export. Dialing isn't included — that's what Pay As You Go adds.",
+    q: "Is there a free trial?",
+    a: "New Pay As You Go accounts get credit to try the AI voice agent and the raw dialer on real campaigns before committing. Contact us if you need more than the standard trial allowance for a proof of concept.",
   },
   {
     q: "Do you charge per seat or per user?",
@@ -165,7 +164,6 @@ export default function PricingPage() {
     description: "AI outbound dialer with built-in Google Maps lead sourcing, per-minute usage-based pricing.",
     brand: { "@type": "Brand", name: "Xovra" },
     offers: [
-      { "@type": "Offer", name: "Open Source", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
       {
         "@type": "Offer",
         name: "AI-handled outbound (Pay As You Go)",
@@ -234,7 +232,7 @@ export default function PricingPage() {
               </Reveal>
               <Reveal delay={2}>
                 <p className="max-w-xl text-[17px] leading-relaxed text-white/70">
-                  Transparent per-minute pricing with no seats, no monthly minimum, and no annual contract until you want one. Fresh Google Maps leads sourced for free on the open-source tier, or managed inside Pay As You Go.
+                  Transparent per-minute pricing with no seats, no monthly minimum, and no annual contract until you want one. Fresh Google Maps leads and CRM sync are included in every tier.
                 </p>
               </Reveal>
               <Reveal delay={3}>
@@ -290,7 +288,7 @@ export default function PricingPage() {
             <span className="h-1 w-1 rounded-full bg-white/20" />
             <span>DNC + TCPA compliant</span>
             <span className="h-1 w-1 rounded-full bg-white/20" />
-            <span>Open-source lead sourcing included</span>
+            <span>Lead sourcing included</span>
           </div>
         </div>
       </section>
@@ -304,38 +302,18 @@ export default function PricingPage() {
             </Reveal>
             <Reveal delay={1}>
               <h2 className="h-section">
-                Three ways to use Xovra. <span className="accent-text">Pick what fits.</span>
+                Two ways to use Xovra. <span className="accent-text">Pick what fits.</span>
               </h2>
             </Reveal>
             <Reveal delay={2}>
               <p className="lead mt-4">
-                Every plan includes the Google Maps lead-sourcing engine. Pay As You Go and Enterprise add the managed dialer, live transfers, and auto booking.
+                Start usage-based on Pay As You Go, upgrade to Enterprise when you need volume rates and a named CSM. Lead sourcing, CRM sync, and DNC scrubbing are included in both.
               </p>
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 items-stretch gap-5 md:gap-6 lg:grid-cols-3">
+          <div className="mx-auto grid grid-cols-1 items-stretch gap-5 md:gap-6 lg:max-w-5xl lg:grid-cols-2">
             <Reveal delay={1}>
-              <PriceCard
-                tier="Open Source"
-                price="$0"
-                priceSub="forever, MIT"
-                blurb="The lead-sourcing engine, free for anyone who wants to self-host. Great for solo operators and teams who already have a dialer."
-                features={[
-                  "Unlimited Google Maps scraping by niche + city",
-                  "Website enrichment: email, tech, social, follower counts",
-                  "Ad-intent scoring from 3 independent sources",
-                  "0 to 100 lead fit score",
-                  "HubSpot-formatted CSV + Google Sheet export",
-                  "Batch mode via YAML",
-                  "Community support on GitHub issues",
-                ]}
-                ctaLabel="View on GitHub"
-                ctaHref="https://github.com/ahmadvision345/mapleads"
-              />
-            </Reveal>
-
-            <Reveal delay={2}>
               <PriceCard
                 tier="Pay As You Go"
                 featured
@@ -343,7 +321,7 @@ export default function PricingPage() {
                 priceSub={`or ${RATE_RAW}/min for raw dial`}
                 blurb="Managed cloud. No monthly base, no per-seat. You get sourcing + the AI dialer + CRM sync and pay only for minutes of connected talk time."
                 features={[
-                  "Everything in Open Source, fully managed",
+                  "Managed Google Maps lead sourcing with scheduled pulls",
                   "AI voice agent handles multi-turn qualification",
                   "Live call transfers with context screen pops",
                   "Auto appointment booking on your calendar",
@@ -357,7 +335,7 @@ export default function PricingPage() {
               />
             </Reveal>
 
-            <Reveal delay={3}>
+            <Reveal delay={2}>
               <PriceCard
                 tier="Enterprise"
                 price="Custom"
@@ -480,13 +458,12 @@ export default function PricingPage() {
 
           <Reveal>
             <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-              <table className="w-full min-w-[720px] border-collapse text-left">
+              <table className="w-full min-w-[640px] border-collapse text-left">
                 <thead>
                   <tr className="border-b border-line bg-surface">
-                    <th className="w-[36%] px-5 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-body">
+                    <th className="w-[46%] px-5 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-body">
                       Capability
                     </th>
-                    <th className="px-5 py-4 text-left text-[14px] font-semibold text-ink">Open Source</th>
                     <th className="bg-white/60 px-5 py-4 text-left text-[14px] font-semibold text-brand">
                       Pay As You Go
                     </th>
@@ -499,7 +476,6 @@ export default function PricingPage() {
                       <th scope="row" className="px-5 py-4 text-left text-[14px] font-medium text-ink">
                         {row.label}
                       </th>
-                      <td className="px-5 py-4">{cell(row.os)}</td>
                       <td className="bg-white/60 px-5 py-4">{cell(row.payg)}</td>
                       <td className="px-5 py-4">{cell(row.ent)}</td>
                     </tr>
@@ -651,7 +627,7 @@ export default function PricingPage() {
                 Clear answers on <span className="accent-text">billing.</span>
               </h2>
               <p className="lead mt-4">
-                Per-minute billing, open-source licensing, DNC posture, and everything you'd ask on an intro call.
+                Per-minute billing, trials, DNC posture, and everything you'd ask on an intro call.
               </p>
               <CtaButton href="#contact" className="mt-6">
                 Book an intro call
@@ -700,19 +676,19 @@ export default function PricingPage() {
               <div className="relative flex flex-col items-center">
                 <Eyebrow dark>Start today</Eyebrow>
                 <h2 className="h-section mt-4 max-w-3xl">
-                  Start free. <span className="accent-text">Scale per minute.</span>
+                  No seats. No contracts. <span className="accent-text">Just minutes.</span>
                 </h2>
                 <p className="lead mx-auto mt-5 max-w-xl !text-white/60">
-                  Clone the open-source core, dial your first campaign this week, upgrade to Pay As You Go when you want the AI voice agent to take the call.
+                  Launch your first campaign this week on Pay As You Go. Upgrade to Enterprise when you hit volume. Lead sourcing, CRM sync, and DNC scrubbing are included either way.
                 </p>
                 <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                  <CtaButton href="https://github.com/ahmadvision345/mapleads" variant="light">
-                    View on GitHub
+                  <CtaButton href="#plans" variant="light">
+                    Start dialing
                   </CtaButton>
-                  <CtaButton href="#plans">Start dialing</CtaButton>
+                  <CtaButton href="/contact">Talk to sales</CtaButton>
                 </div>
                 <p className="mt-8 text-xs text-white/45">
-                  MIT licensed · No per-seat pricing · No annual contract until Enterprise · DNC + TCPA compliant
+                  No per-seat pricing · No monthly minimum · No annual contract until Enterprise · DNC + TCPA compliant
                 </p>
               </div>
             </div>
