@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { label: "Features", href: "#features" },
+  { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
-  { label: "About Us", href: "#about-us" },
+  { label: "About", href: "/about" },
 ];
 
 function Logo({ dark, gid }: { dark: boolean; gid: string }) {
