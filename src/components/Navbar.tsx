@@ -117,7 +117,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
-              href="#contact"
+              href="/contact"
               className={`hidden items-center rounded-full border px-6 py-3 text-sm font-medium transition-colors duration-300 sm:inline-flex ${
                 dark
                   ? "border-transparent bg-surface-2 text-ink hover:bg-line"
@@ -169,7 +169,7 @@ export default function Navbar() {
         </div>
 
         <nav className="flex h-[calc(100%-84px)] flex-col items-center justify-center gap-5 pb-10">
-          {[...links, { label: "Contact Us", href: "#contact" }].map((l, i) => (
+          {[...links, { label: "Contact Us", href: "/contact" }].map((l, i) => (
             <a
               key={l.label}
               href={l.href}
